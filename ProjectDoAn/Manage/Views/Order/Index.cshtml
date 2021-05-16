@@ -1,12 +1,11 @@
 ﻿
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">
-            <h1>Sản phẩm</h1>
+            <h1>Đơn hàng</h1>
         </div>
         <div class="col-2  offset-4">
-            <button class="btn btn-success btn-block" onclick="window.location.href='/Product/AddProduct?Id'">Thêm</button>
+            <button class="btn btn-success btn-block" onclick="window.location.href='/Order/AddOrder?Id'">Thêm</button>
         </div>
     </div>
 
@@ -14,40 +13,25 @@
         <div class="card shadow">
             <div class="card-header">
                 <h6>
-                    Danh sách sản phẩm
+                    Danh sách đơn hàng
                 </h6>
             </div>
             <div class="card-body">
                 <form>
                     <div class="row">
                         <div class="col-3">
-                            <input type="text" class="form-control" placeholder="Nhập tên giày" title="Nhập tên giày" maxlength="255" name="keysearch" value="@ViewBag.keysearch" />
+                            <input type="text" class="form-control" placeholder="Nhập tên hoặc số điện thoại" title="Nhập tên hoặc số điện thoại" maxlength="255" name="keysearch" value="@ViewBag.keysearch" />
                         </div>
                         <div class="col-3">
-                            <select class="form-control" name="brandid">
-                                <option value="-1">Tất cả các hãng</option>
-                                @foreach (var item in ViewBag.Brand as List<LibData.Brand>)
-                                {
-                                    <option value="@item.Id" @(item.Id == ViewBag.brandid ? "selected" : "")>@item.Name</option>
-                                }
-                            </select>
+                            @Html.DropDownList("status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryHTML, "Key", "Value", ViewBag.status), new { @class = "form-control select2-no-search" })
                         </div>
-                        @*<div class="col-3">
-                                <select class="form-control" name="typeid">
-                                    <option value="-1">Tất cả các hãng</option>
-                                    @foreach (var item in ViewBag.Type as List<LibData.TypeSho>)
-                                    {
-                                        <option value="@item.Id" @(item.Id == ViewBag.typeid ? "selected" : "")>@item.Name</option>
-                                    }
-                                </select>
-                            </div>*@
                         <div class="col-2 offset-4">
                             <button class="btn btn-primary btn-block" type="submit">Tìm kiếm</button>
                         </div>
                     </div>
                 </form>
                 <div class="row mt-3">
-                    <div class="col-12" id="list-product">
+                    <div class="col-12" id="list-order">
 
                     </div>
                 </div>
@@ -78,9 +62,9 @@
     </div>
 </div>
 <script>
-    loadListProduct()
-    function loadListProduct() {
-        $("#list-product").load("/Product/ListProduct?keysearch=@ViewBag.keysearch&brandid=@ViewBag.brandid&typeid=@ViewBag.typeid")
+    loadListOrder()
+    function loadListOrder() {
+        $("#list-order").load("/Order/ListOrder?keysearch=@ViewBag.keysearch&status=@ViewBag.status")
     }
     //function AddProduct() {
     //    $("#content-form-lg").load("/Product/AddProduct?id", function (response) {

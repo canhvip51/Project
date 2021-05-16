@@ -1,1 +1,91 @@
 ﻿
+@{
+    Layout = null;
+}
+@model IEnumerable<LibData.Order>
+@using PagedList;
+@using PagedList.Mvc;
+<style>
+    a {
+        cursor: pointer !important;
+    }
+</style>
+<table class="table table-bordered table-responsive-sm  table-hover">
+    <thead>
+        <tr>
+            <th>Tên khách</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Trạng thái</th>
+            <th>Giảm giá</th>
+            <th>Tổng tiền</th>
+            <th>Ghi chú</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" class="text-center">
+                    <div class=" text-danger">
+                        Không có dữ liệu!
+                    </div>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @item.BuyerName
+        </td>
+        <td>
+            @item.Phone
+        </td>
+        <td>
+            @item.AddressTo
+        </td>
+        <td>
+            <span class="badge ">@LibData.Configuration.OrderConfig.StatusToDictionaryHTML[item.Status.Value]</span>
+        </td>
+        <td>
+            @item.Phone
+        </td>
+        <td>
+            @item.Code - @item.Discount
+        </td>
+        <td>
+            @item.Total
+        </td>
+        <td>
+            @item.Note
+        </td>
+        <td>
+            <div class="btn-group">
+                <a data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-fw fa-wrench"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" onclick="Detail(@item.Id)">Chi tiết đơn hàng</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+        }
+
+    </tbody>
+</table>
+<div class="col-md-12">
+    <div class="row float-right">
+        @*phân trang*@
+        @Html.PagedListPager((IPagedList)Model,
+        page => Url.Action("Index", new { page = page }),
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = "list-order",
+        })
+        )
+    </div>
+</div>

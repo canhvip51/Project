@@ -8,6 +8,40 @@ namespace LibData.Provider
 {
     public class UserProvider:ApplicationDbContexts
     {
+        public LibData.User Login(string userName, string password)
+        {
+            try
+            {
+                var userInfo = ApplicationDbContext.Users.Where(x => (x.Phone.Equals(userName) || x.UserName.Equals(userName)) && x.Status != (int)Configuration.UserConfig.Status.DEACTIVE && x.IsDelete != (int)Configuration.UserConfig.Status.ISDELETE).FirstOrDefault();
+                if (userInfo != null)
+                {
+                    string stringPwd = userInfo.Password;
+                    string passwordHash = Utilities.SecurityHelper.sha256Hash(userInfo.Password);
+                    if (password.Equals(stringPwd))
+                    {
+                        return userInfo;
+                    }
+                    else if (passwordHash.Equals(password))
+                    {
+                        userInfo.Password = password;
+                        ApplicationDbContext.SaveChanges();
+                        return userInfo;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public bool Insert(User model)
         {
             try

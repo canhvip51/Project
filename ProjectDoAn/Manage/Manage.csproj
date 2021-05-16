@@ -8684,6 +8684,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Login\bootstrap.min.css" />
+    <Content Include="Views\Login\signin.css" />
     <Content Include="Web.config" />
     <Content Include="Views\DanhMucSanPham\Index.cshtml" />
     <Content Include="Views\DanhMucSanPham\Create.cshtml" />
@@ -8711,6 +8713,7 @@
     <Compile Include="Controllers\ExtendController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\ImportUnitController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductImgController.cs" />
@@ -8721,6 +8724,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -8774,6 +8778,7 @@
     <Content Include="Views\Import\AddImport.cshtml" />
     <Content Include="Views\Extend\SelectSize.cshtml" />
     <Content Include="Views\Order\ListOrder.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -8804,7 +8809,6 @@
     <Folder Include="Images\Products\" />
     <Folder Include="Images\Slider\" />
     <Folder Include="Images\Upload\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Slide\" />
   </ItemGroup>
   <ItemGroup>
