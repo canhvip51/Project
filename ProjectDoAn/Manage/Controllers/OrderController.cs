@@ -33,7 +33,7 @@ namespace Manage.Controllers
             return View(pagedList);
         }
         [HttpGet]
-        public ActionResult AddImportUnit(int? id)
+        public ActionResult AddOrder(int? id)
         {
             LibData.ImportUnit importUnit = new LibData.ImportUnit();
             if (id.HasValue)
