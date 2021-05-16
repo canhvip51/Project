@@ -5,9 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Vbot.Web.Infrastructure;
 
 namespace Manage.Controllers
 {
+    [CustomAuthenticationFilter]
+
+    [CustomAuthorize("SuperAdmin")]
     public class BrandController : Controller
     {
         // GET: Brand

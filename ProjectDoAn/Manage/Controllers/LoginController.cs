@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Vbot.Web.Infrastructure;
 using Vbot.Web.Models;
 
 namespace Manage.Controllers
@@ -17,17 +19,17 @@ namespace Manage.Controllers
                 var user = Session["User"] as LibData.User;
                 if (user.Role == (int)LibData.Configuration.UserConfig.Role.SUPERADMIN)
                 {
-                    return Redirect("/admin/dashboard");
+                    return Redirect("/dashboard/index");
                 }
             }
             ViewBag.backURL = backURL;
             if (string.IsNullOrEmpty(backURL))
             {
-                ViewBag.backURL = "/admin/dashboard";
+                ViewBag.backURL = "/dashboard/index";
             }
             else if (backURL.Contains("LogOut"))
             {
-                ViewBag.backURL = "/admin/dashboard";
+                ViewBag.backURL = "/dashboard/index";
             }
 
             Response.AppendHeader("statusCode", "401");
@@ -57,7 +59,7 @@ namespace Manage.Controllers
                     //Session["KeyOpenFire"] = LibData.Utilities.SecurityHelper.Encrypt(str);
                     if (string.IsNullOrEmpty(backURL))
                     {
-                        return RedirectToAction("/admin/dashboard");
+                        return RedirectToAction("/dashboard/index");
                     }
                     else
                     {
@@ -81,5 +83,60 @@ namespace Manage.Controllers
             Session["User"] = null;
             return RedirectToAction("Index");
         }
+        [CustomAuthenticationFilter]
+        [CustomAuthorize("SuperAdmin")]
+        [HttpGet]
+        public ActionResult ChangePass()
+        {
+            
+            return View( new LibData.Model.ChangePass());
+        }
+        [CustomAuthenticationFilter]
+        [CustomAuthorize("SuperAdmin")]
+            [HttpPost]
+        public ActionResult ChangePass(LibData.Model.ChangePass model)
+        {
+            LibData.Provider.UserProvider userProvider = new LibData.Provider.UserProvider();
+            LibData.User user = Session["User"] as LibData.User;
+            if (LibData.Utilities.SecurityHelper.sha256Hash(model.oldPass) != user.Password.Trim())
+            {
+                ModelState.AddModelError("oldPass", "Mật khẩu cũ sai");
+                model.oldPass = "";
+            }
+            if (string.IsNullOrEmpty(model.oldPass))
+            {
+                ModelState.AddModelError("oldPass", "Mật khẩu cũ không được để trống");
+            }
+            if (!model.newPass.Equals(model.renewPass))
+            {
+                ModelState.AddModelError("newPass", "Mật khẩu mới và mât khẩu nhập lại không trùng");
+            }
+            if (string.IsNullOrEmpty(model.newPass))
+            {
+                ModelState.AddModelError("newPass", "Mật khẩu mới không được để trống");
+                if (string.IsNullOrEmpty(model.renewPass))
+                {
+                    ModelState.AddModelError("renewPass", "Mật khẩu nhập lại không được để trống");
+                }
+            }
+            if (!string.IsNullOrEmpty(model.newPass))
+            {
+                if (model.newPass.Length>=6)
+                {
+                    ModelState.AddModelError("newPass", "Mật khẩu mới phải ít nhất 6 ký tự");
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                user.Password = LibData.Utilities.SecurityHelper.sha256Hash(model.newPass);
+                if (userProvider.UpdatePassword(user))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
     }
 }

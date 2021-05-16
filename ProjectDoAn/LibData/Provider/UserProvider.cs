@@ -12,12 +12,12 @@ namespace LibData.Provider
         {
             try
             {
-                var userInfo = ApplicationDbContext.Users.Where(x => (x.Phone.Equals(userName) || x.UserName.Equals(userName)) && x.Status != (int)Configuration.UserConfig.Status.DEACTIVE && x.IsDelete != (int)Configuration.UserConfig.Status.ISDELETE).FirstOrDefault();
+                var userInfo = ApplicationDbContext.Users.Where(x => (x.Phone.Equals(userName) || x.UserName.Equals(userName)) && x.Status != (int)Configuration.UserConfig.Status.DEACTIVE && (x.IsDelete == 0 || x.IsDelete == null) && x.Role == (int)Configuration.UserConfig.Role.SUPERADMIN).FirstOrDefault();
                 if (userInfo != null)
                 {
-                    string stringPwd = userInfo.Password;
-                    string passwordHash = Utilities.SecurityHelper.sha256Hash(userInfo.Password);
-                    if (password.Equals(stringPwd))
+                    string stringPwd = userInfo.Password.Trim();
+                    string passwordHash = Utilities.SecurityHelper.sha256Hash(userInfo.Password.Trim());
+                    if (password==stringPwd)
                     {
                         return userInfo;
                     }
@@ -63,7 +63,6 @@ namespace LibData.Provider
             {
                 User user = GetById(model.Id);
                 user.UpdateDate = DateTime.Now;
-                user.Password = model.Password;
                 user.Phone = model.Phone;
                 user.Status = model.Status;
                 user.FullName = model.FullName;
@@ -71,6 +70,21 @@ namespace LibData.Provider
                 user.ProvinceId = model.ProvinceId;
                 user.WardId = model.WardId;
                 user.Email = model.Email;
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool UpdatePassword(User model)
+        {
+            try
+            {
+                User user = GetById(model.Id);
+                user.UpdateDate = DateTime.Now;
+                user.Password = model.Password;
                 ApplicationDbContext.SaveChanges();
                 return true;
             }

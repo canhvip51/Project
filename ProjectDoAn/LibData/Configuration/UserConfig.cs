@@ -20,5 +20,12 @@ namespace LibData.Configuration
             DEACTIVE = -1,
             ISDELETE = 1,
         }
+        public static Dictionary<int, string> StatusToDictionaryHTML = new Dictionary<int, string>()
+        {
+            {-1, "Tất cả" },
+            {(int)Role.SUPERADMIN, "SuperAdmin" },
+            {(int)Role.MANAGER, "Manager" },
+            {(int)Role.CUSTOMER, "Customer" },
+        };
     }
 }

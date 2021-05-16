@@ -4,9 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Vbot.Web.Infrastructure;
 
 namespace Manage.Controllers
 {
+    [CustomAuthenticationFilter]
+
+    [CustomAuthorize("SuperAdmin")]
     public class ExtendController : Controller
     {
         // GET: Extend

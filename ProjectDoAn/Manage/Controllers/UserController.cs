@@ -93,6 +93,7 @@ namespace Manage.Controllers
                 }
                 else
                 {
+                    model.Password = LibData.Utilities.SecurityHelper.sha256Hash(model.Password);
                     model.Role = (int)LibData.Configuration.UserConfig.Role.MANAGER;
                     if (userProvider.Insert(model))
                     {

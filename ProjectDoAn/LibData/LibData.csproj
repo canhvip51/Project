@@ -90,6 +90,7 @@
     <Compile Include="ImportUnit.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ChangePass.cs" />
     <Compile Include="Model\OrderDetailModel.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>Data.tt</DependentUpon>

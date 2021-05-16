@@ -30,9 +30,8 @@
     <div class="container-fluid" style="padding-top:10%">
         <div class="row ">
             <div class="col-md-4 col-12 offset-md-4">
-                <div class="card card-body">
-                    <form class="user login-card-from pt-3 pb-3" method="post">
-                        <i class="fas fa-laugh-wink" width="72"></i>
+                <div class="card card-body" style="padding-top:10%" >
+                    <form class="user login-card-from m-0" method="post">
                         <h1 class="h3 mb-3 fw-normal">Đăng nhập</h1>
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="backURL" value="@ViewBag.backURL" />
