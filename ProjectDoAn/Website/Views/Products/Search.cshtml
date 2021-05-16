@@ -1,0 +1,33 @@
+﻿@model List<LibData.SanPham>
+@{
+    System.Globalization.CultureInfo elGRs = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+}
+<div class="col-lg-9 content-right">
+    <ol class="breadcrumb">
+        <li><a href="/Home">Trang chủ</a></li>
+        <li><a href="@Url.Action("Category", "Products",new { id=""})">Sản phẩm</a></li>
+        <li>@ViewBag.Title</li>
+    </ol>
+    <h4>@ViewBag.Title</h4>
+    <div class="well well-sm" style="padding: 0;">
+        <div class="row top-classifieds">
+            @if (Model.Count == 0)
+            {
+                <p>Chưa có sản phẩm</p>
+            }
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                    <div class="thumbnail">
+                        <a href="@Url.Action("Detail", "Products",new { id=item.TenUrl})"><img src="http://123.30.181.81:6556/Images/Products/@item.TenFileImage" /></a>
+                        <div class="caption">
+                            <h5><a href="@Url.Action("Detail", "Products",new { id=item.TenUrl})">@item.TenSanPham</a></h5>
+                            <p class="price">@String.Format(elGRs, "{0:0,0}", Convert.ToDouble(item.GiaSanPham)) VNĐ</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

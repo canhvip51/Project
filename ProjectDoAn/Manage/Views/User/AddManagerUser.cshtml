@@ -1,0 +1,113 @@
+﻿@model LibData.User
+@{
+    Layout = null;
+}
+<form id="form-addmanager">
+    <div class="modal-header">
+        <h6 class="modal-title">Thông tin quản lý</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="hidden" name="Id" value="@Model.Id" id="Id" />
+        </div>
+        <div class="form-group">
+
+            <label>Tài khoản<span class="text-danger">*</span></label>
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+
+            <label>Họ tên</label>
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Phone</label>
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Mật khẩu<span class="text-danger">*</span></label>
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-4" id="province-slelect">
+                    <label>
+                        Tỉnh/Thành Phố<span class="text-danger">*</span>
+                    </label>
+                    <select class="form-control" name="ProvinceId" id="ProvinceId" onchange="SelectDistrict()">
+                        @foreach (var item in new Manage.Controllers.ExtendController().ListProvice(Model.ProvinceId))
+                        {
+
+                            <option value="@item.Id" @(Model.ProvinceId == item.Id ? "selected" : "")>@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-4" id="district-slelect">
+                </div>
+                <div class="col-4" id="ward-slelect">
+                </div>
+            </div>
+        </div>
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+        <div class="modal-footer">
+            <button type="button" onclick="sumbitManager()" class="btn btn-primary">Lưu</button>
+            <button type="button" data-dismiss="modal" class="btn btn-light">Đóng</button>
+        </div>
+    </div><!-- modal-body -->
+    <script>
+          SelectDistrict();
+    async function SelectDistrict() {
+        var province = $("#ProvinceId").val()
+        //var district = $("#DistrictId").val()
+        await $("#district-slelect").load("/Extend/SelectDistrict?id=" + province + "&selectedd=@Model.DistrictId")
+   
+    }
+   function SelectWard() {
+            var district = $("#DistrictId").val();
+        //var ward = $("#WardId").val()
+        $("#ward-slelect").load("/Extend/SelectWard?id=" + district + "&selectedw=@Model.WardId")
+          }
+    function sumbitManager() {
+        var notify = ""
+        if (@Model.Id== 0) {
+            notify = "Thêm quản lý thành công"
+
+        } else {
+            notify = "Sửa thông tin quản lý thành công"
+        }
+        var $form = $("#form-addmanager");
+        $.ajax({
+            type: "POST",
+            url: "/user/AddManagerUser",
+            data: $form.serialize(),
+            success: async function (data, status, xhr) {
+                var statusCode = xhr.getResponseHeader("statusCode");
+                if (statusCode == '401') {
+                    window.location.replace("/login");
+                }
+                if (xhr.status == 201) {
+                    loadListManagerUser()
+
+                    $("#modal-form-lg").modal("hide");
+                    Swal.fire({
+                        icon: 'success',
+                        title: notify,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                await $("#form-addmanager").html($(data).filter("#form-addmanager").html());
+                SelectDistrict()
+            },
+        });
+    }
+    </script>
+</form>
+   

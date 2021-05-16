@@ -1,0 +1,65 @@
+﻿@model LibData.TypeSho
+@{
+    Layout = null;
+}
+<form id="form-addtype">
+    <div class="modal-header">
+        <h6 class="modal-title">Thông tin kiểu</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="hidden" name="Id" value="@Model.Id" id="Id" />
+        </div>
+        <div class="form-group">
+
+            <label>Kiểu giày<span class="text-danger">*</span></label>
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+        <div class="modal-footer">
+            <button type="button" onclick="sumbitType()" class="btn btn-primary">Lưu</button>
+            <button type="button" data-dismiss="modal" class="btn btn-light">Đóng</button>
+        </div>
+    </div><!-- modal-body -->
+    <script>
+
+        function sumbitType() {
+        var notify = ""
+        if (@Model.Id== 0) {
+            notify = "Thêm kiểu giày thành công"
+
+        } else {
+            notify = "Sửa tên kiểu giày công"
+        }
+            var $form = $("#form-addtype");
+        $.ajax({
+            type: "POST",
+            url: "/TypeShoe/AddType",
+            data: $form.serialize(),
+            success: async function (data, status, xhr) {
+                var statusCode = xhr.getResponseHeader("statusCode");
+                if (statusCode == '401') {
+                    window.location.replace("/user/login");
+                }
+                if (xhr.status == 201) {
+                    loadListBrand()
+
+                    $("#modal-form-md").modal("hide");
+                    Swal.fire({
+                        icon: 'success',
+                        title: notify,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                await $("#form-addtype").html($(data).filter("#form-addtype").html());
+            },
+        });
+    }
+    </script>
+</form>

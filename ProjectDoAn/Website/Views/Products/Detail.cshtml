@@ -1,0 +1,128 @@
+﻿@model LibData.SanPham
+<div class="col-lg-9 content-right">
+    <ol class="breadcrumb">
+        <li><a href="/Home">Trang chủ</a></li>
+        <li><a href="@Url.Action("Category", "Products",new { id=""})">Sản phẩm</a></li>
+        <li>@ViewBag.Title</li>
+    </ol>
+    <h4>@ViewBag.Title</h4>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="carousel-detail-classified" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            @{ 
+                                int index = 0;
+                            }
+                            @foreach (var item in (ViewData["SanPhamImages"] as List<LibData.HinhAnhSanPham>).Take(1))
+                            {
+                                <li data-target="#carousel-detail-classified" data-slide-to="@index" class="active"></li>
+                                index++;
+                            }
+                            @foreach (var item in (ViewData["SanPhamImages"] as List<LibData.HinhAnhSanPham>).Skip(2))
+                            {
+                                <li data-target="#carousel-detail-classified" data-slide-to="@index"></li>
+                                index++;
+                            }
+                        </ol>
+                        <div class="carousel-inner">
+                           @foreach (var item in (ViewData["SanPhamImages"] as List<LibData.HinhAnhSanPham>).Take(1))
+                           {
+                                <div class="item active">
+                                    <img src="http://123.30.181.81:6556/Images/Products/@item.TenFile" class="img-responsive"  />
+                                </div>
+                            }
+                            @foreach (var item in (ViewData["SanPhamImages"] as List<LibData.HinhAnhSanPham>).Skip(2))
+                            {
+                                <div class="item">
+                                    <img src="http://123.30.181.81:6556/Images/Products/@item.TenFile" class="img-responsive" />
+                                </div>
+                            }
+                        </div>
+                        <a class="left carousel-control" href="#carousel-detail-classified" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-detail-classified" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row hidden-xs">
+                <div class="col-md-12">
+                    <div id="thumbs-detail-classified">
+                        <ul class="list-inline">
+                            @foreach (var item in (ViewData["SanPhamImages"] as List<LibData.HinhAnhSanPham>).Take(1))
+                            {
+                            <li data-target="#carousel-detail-classified" data-slide-to="0" class="active">
+                                <img src="http://123.30.181.81:6556/Images/Products/@item.TenFile" class="img-responsive" />
+                            </li>
+                               
+                            }
+                            @foreach (var item in (ViewData["SanPhamImages"] as List<LibData.HinhAnhSanPham>).Skip(2))
+                            {
+                                <li data-target="#carousel-detail-classified" data-slide-to="1">
+                                    <img src="http://123.30.181.81:6556/Images/Products/@item.TenFile" class="img-responsive" />
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            @Html.Raw(Model.Mota)
+            <div class="row">
+                <div class="col-md-12">
+                    @*<div style="padding: 5px; font-weight: bold;">Seller:</div>*@
+                    @*<div class="well">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 style="margin-bottom: 0;"><a href="#">Alexandra Doe</a></h4>
+                                <span title="Seller's rating: 4/5">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </span>
+                                <br /><br />
+                                <span class="glyphicon glyphicon-map-marker" title="Location"></span> Folsom Ave, San Francisco<br />
+                                <span class="glyphicon glyphicon-envelope" title="E-mail"></span> alexandra.doe@example.com<br />
+                                <span class="glyphicon glyphicon-phone-alt" title="Telephone"></span> +420 123 456 789<br />
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Raw(Model.HuongDanSudung)
+            @Html.Raw(Model.HuongDanBaoQuan)
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Send message to seller</h4>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="InputEmail">Email address</label>
+                            <input type="email" class="form-control" id="InputEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="InputText">Your text</label>
+                            <textarea class="form-control" id="InputText" name="message" placeholder="Type in your message" rows="5" style="margin-bottom:10px;"></textarea>
+                        </div>
+                        <button class="btn btn-info" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

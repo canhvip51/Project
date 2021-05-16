@@ -1,0 +1,99 @@
+﻿using PagedList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Manage.Controllers
+{
+    public class ProductController : Controller
+    {
+        // GET: Product
+        public ActionResult Index(string keysearch, int brandid=-1, int typeid = -1, int page = 1, int size = 10)
+        {
+            ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
+            ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
+            ViewBag.keysearch = keysearch;
+            ViewBag.page = page;
+            ViewBag.size = size;
+            ViewBag.brandid = brandid;
+            ViewBag.typeid = typeid;
+            return View();
+        }
+        public ActionResult ListProduct(string keysearch, int brandid = -1, int typeid = -1, int page = 1, int size = 10)
+        {
+            ViewBag.keysearch = keysearch;
+            ViewBag.page = page;
+            ViewBag.size = size;
+            ViewBag.brandid = brandid;
+            ViewBag.typeid = typeid;
+            int skip = (page - 1) * size;
+            LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
+            var list = productProvider.GetAllByKey(keysearch,brandid,typeid, skip, size);
+            var count = productProvider.CountAllByKey(keysearch, brandid, typeid);
+            StaticPagedList<LibData.Product> pagedList = new StaticPagedList<LibData.Product>(list, page, size, count);
+            return View(pagedList);
+        }
+        [HttpGet]
+        public ActionResult AddProduct(int? id)
+        {
+            //ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
+            ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
+            LibData.Product product = new LibData.Product();
+            product.Discount = 0;
+            product.Price = 0;
+            if (id.HasValue)
+            {
+                product = new LibData.Provider.ProductProvider().GetById(id.Value);
+            }
+            return View(product);
+        }
+        [HttpPost, ValidateInput(false)]
+        public ActionResult AddProduct(LibData.Product model)
+        {
+            //ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
+            ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
+            LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                ModelState.AddModelError("Name", "Tên giày không được để trống");
+            }
+            if (model.Price<50000)
+            {
+                ModelState.AddModelError("Price", "Giá không khả dụng");
+            }
+            if (model.Price == null)
+            {
+                ModelState.AddModelError("Price", "Giá không được để trống");
+            }
+            if (model.Discount < 0 || model.Discount>99)
+            {
+                ModelState.AddModelError("Discount", "Khuyễn mãi không khả dụng");
+            }
+            if (ModelState.IsValid)
+            {
+                if (model.BrandId < 0)
+                    model.BrandId = null;
+                if (model.Id > 0)
+                {
+                    if (productProvider.Update(model))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Created;
+                        return View(model);
+                    }
+                }
+                else
+                {
+                    if (productProvider.Insert(model))
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Created;
+                        return View(model);
+                    }
+                }
+            }
+            return View(model);
+        }
+    }
+}

@@ -1,0 +1,31 @@
+﻿@model List<LibData.SanPham>
+@{
+    ViewBag.Title = "Trang chủ";
+    System.Globalization.CultureInfo elGRs = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
+}
+<div class="col-lg-9 content-right">
+    <div class="hidden-xs hidden-sm">
+        <h4>Nổi bật</h4>
+        <div class="featured">
+            @foreach (var item in ViewData["Sliders"] as List<LibData.Slider>)
+            {
+                <a href="@item.TenUrl"><img src="http://123.30.181.81:6556/Images/Slider/@item.TenFile" /></a>
+            }
+        </div>
+    </div>
+    <h4>Sản phẩm mới</h4>
+    <div class="row selected-classifieds">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Detail", "Products",new { id=item.TenUrl})"><img src="http://123.30.181.81:6556/Images/Products/@item.TenFileImage" /></a>
+                    <div class="caption">
+                        <h5><a href="@Url.Action("Detail", "Products",new { id=item.TenUrl})">@item.TenSanPham</a></h5>
+                        <p class="price">@String.Format(elGRs, "{0:0,0}", Convert.ToDouble(item.GiaSanPham)) VNĐ</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

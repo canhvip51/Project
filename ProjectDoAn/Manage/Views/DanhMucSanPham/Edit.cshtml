@@ -1,0 +1,78 @@
+﻿@model LibData.DanhMucSanPham
+
+@{
+    ViewBag.Title = Model.TenDanhMuc;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var selectdanhmucsanphams = ViewData["DanhMucSanPhams"] as List<LibData.DanhMucSanPham>;
+    LibData.DanhMucSanPham selectdanhmucsanpham = new LibData.DanhMucSanPham()
+    {
+        Id = 0,
+        TenDanhMuc = "--Thuộc danh mục--"
+    };
+    selectdanhmucsanphams.Add(selectdanhmucsanpham);
+}
+
+<ol class="breadcrumb">
+    <li class="active">@Model.TenDanhMuc</li>
+</ol>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenDanhMuc,"Tên danh mục", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenDanhMuc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenDanhMuc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenUrl,"URL", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoTa,"Mô tả", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", @row = "4" })
+                @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdDanhMuc,"Thuộc danh mục", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdDanhMuc", new SelectList(selectdanhmucsanphams.OrderBy(m => m.Id), "Id", "TenDanhMuc", Model.IdDanhMuc), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdDanhMuc, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.IdDanhMuc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STT, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.STT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+        <p>@ViewBag.error</p>
+    </div>
+   
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

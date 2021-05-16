@@ -1,0 +1,361 @@
+﻿@model LibData.SanPham
+
+@{
+    ViewBag.Title =Model.TenSanPham;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var selectdanhmucsanphams = ViewData["DanhMucSanPhams"] as List<LibData.DanhMucSanPham>;
+    LibData.DanhMucSanPham selectdanhmucsanpham = new LibData.DanhMucSanPham()
+    {
+        Id = 0,
+        TenDanhMuc = "--Danh mục--"
+    };
+    selectdanhmucsanphams.Add(selectdanhmucsanpham);
+    var selectthuonghieus = ViewData["ThuongHieus"] as List<LibData.ThuongHieu>;
+    LibData.ThuongHieu selectthuonghieu = new LibData.ThuongHieu()
+    {
+        Id = 0,
+        TenThuongHieu = "--Thương hiệu--"
+    };
+    selectthuonghieus.Add(selectthuonghieu);
+}
+<link href="~/Content/jQuery.filer/css/jquery.filer.css" type="text/css" rel="stylesheet" />
+<link href="~/Content/jQuery.filer/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/jQuery.filer/js/jquery.filer.min.js?v=1.0.5"></script>
+<script type="text/javascript" src="~/Content/jQuery.filer/js/custom.js?v=1.0.5"></script>
+<!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+
+<!-- Include Editor style. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+<ol class="breadcrumb">
+    <li class="active">@Model.TenSanPham</li>
+</ol>
+@using (Html.BeginForm("Edit", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <input hidden name="key" value="@ViewBag.key" />
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-horizontal">
+      
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenSanPham,"Tên sản phảm", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdDanhMuc,"Danh mục", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdDanhMuc", new SelectList(selectdanhmucsanphams.OrderBy(m => m.Id), "Id", "TenDanhMuc"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdDanhMuc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdThuongHieu,"Thương hiệu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdThuongHieu", new SelectList(selectthuonghieus.OrderBy(m => m.Id), "Id", "TenThuongHieu"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdThuongHieu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mota,"Mô tả", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Mota, new { @class = "form-control", @row = "4" })
+                @Html.ValidationMessageFor(model => model.Mota, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GiaSanPham,"Giá sản phẩm", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GiaSanPham, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaSanPham, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChatLieu,"Chất liệu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ChatLieu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ChatLieu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HuongDanBaoQuan,"Hướng đẫn bảo quản", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.HuongDanBaoQuan, new { @class = "form-control", @row = "4" })
+                @Html.ValidationMessageFor(model => model.HuongDanBaoQuan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HuongDanSudung,"Hưỡng đẫn sử dụng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.HuongDanSudung, new { @class = "form-control", @row = "4" })
+                @Html.ValidationMessageFor(model => model.HuongDanSudung, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenUrl,"Tên URL", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenFileImage,"Hình ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("TenFileImage", "", new { @class = "", @type = "file" })
+                @Html.HiddenFor(model => model.TenFileImage)
+                @Html.ValidationMessageFor(model => model.TenFileImage, "", new { @class = "text-danger" })
+                <img src="#" style="display:none" id="imgshow" class="img-thumbnail" align="left">
+                <p>Hình ảnh</p>
+                <img src="@Manage.Controllers.SanPhamController._ImagesPath.Replace("~","")/@Model.TenFileImage" style="" id="imgshowcur" class="img-thumbnail" align="left">
+            </div>
+        </div>
+        
+        <div class="form-group">
+           
+            @Html.Label("filer_input2", "Hình ảnh chi tiết", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                    <div class="row" id="hinhanhsanpham">
+                        @foreach (var item in ViewData["HinhAnhSanPhams"] as List<LibData.HinhAnhSanPham>)
+                         {
+                            <div class="col-md-2">
+                                <div class="thumbnail">
+                                    <img src="@Manage.Controllers.SanPhamController._ImagesPath.Replace("~","")/@item.TenFile" style="" id="imgshowcur" align="left">
+                                    <div class="caption">
+                                        <a onclick="DeleteFile(@item.Id)">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                <p></p>
+                <input type="file" name="files[]" id="filer_input2" multiple="multiple">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+        @ViewBag.error
+    </div>
+}
+<script>
+    $("#TenFileImage").change(function () {
+        $('#imgshow').css('display', 'block');
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgshow').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+    $(document).ready(function () {
+        $("#filer_input2").filer({
+            limit: null,
+            maxSize: null,
+            extensions: null,
+            changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag&Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn blue">Browse Files</a></div></div>',
+            showThumbs: true,
+            theme: "dragdropbox",
+            templates: {
+                box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+                item: '<li class="jFiler-item">\
+                        <div class="jFiler-item-container">\
+                            <div class="jFiler-item-inner">\
+                                <div class="jFiler-item-thumb">\
+                                    <div class="jFiler-item-status"></div>\
+                                    <div class="jFiler-item-info">\
+                                        <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                        <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                    </div>\
+                                    {{fi-image}}\
+                                </div>\
+                                <div class="jFiler-item-assets jFiler-row">\
+                                    <ul class="list-inline pull-left">\
+                                        <li>{{fi-progressBar}}</li>\
+                                    </ul>\
+                                    <ul class="list-inline pull-right">\
+                                        <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                    </ul>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </li>',
+                itemAppend: '<li class="jFiler-item">\
+                            <div class="jFiler-item-container">\
+                                <div class="jFiler-item-inner">\
+                                    <div class="jFiler-item-thumb">\
+                                        <div class="jFiler-item-status"></div>\
+                                        <div class="jFiler-item-info">\
+                                            <span class="jFiler-item-title"><b title="{{fi-name}}">{{fi-name | limitTo: 25}}</b></span>\
+                                            <span class="jFiler-item-others">{{fi-size2}}</span>\
+                                        </div>\
+                                        {{fi-image}}\
+                                    </div>\
+                                    <div class="jFiler-item-assets jFiler-row">\
+                                        <ul class="list-inline pull-left">\
+                                            <li><span class="jFiler-item-others">{{fi-icon}}</span></li>\
+                                        </ul>\
+                                        <ul class="list-inline pull-right">\
+                                            <li><a class="icon-jfi-trash jFiler-item-trash-action"></a></li>\
+                                        </ul>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </li>',
+                progressBar: '<div class="bar"></div>',
+                itemAppendToEnd: false,
+                removeConfirmation: true,
+                _selectors: {
+                    list: '.jFiler-items-list',
+                    item: '.jFiler-item',
+                    progressBar: '.bar',
+                    remove: '.jFiler-item-trash-action'
+                }
+            },
+            dragDrop: {
+                dragEnter: null,
+                dragLeave: null,
+                drop: null,
+            },
+            uploadFile: {
+                url: "/SanPham/AddFileDrafts",
+                data: {"key":"@ViewBag.key"},
+                type: 'POST',
+                dataType: 'json',
+                enctype: 'multipart/form-data',
+                beforeSend: function () { },
+                success: function (data, el) {
+                    if (data.success) {
+
+                        var parent = el.find(".jFiler-jProgressBar").parent();
+                        el.find(".jFiler-jProgressBar").fadeOut("slow", function () {
+                            $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");
+                        });
+                        console.log(data.responseText);
+                    } else {
+                        // DoSomethingElse()
+                        var parent = el.find(".jFiler-jProgressBar").parent();
+                        el.find(".jFiler-jProgressBar").fadeOut("slow", function () {
+                            $("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");
+                        });
+                        console.log(data.responseText);
+                    }
+
+                },
+                error: function (el) {
+                    var parent = el.find(".jFiler-jProgressBar").parent();
+                    el.find(".jFiler-jProgressBar").fadeOut("slow", function () {
+                        $("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");
+                    });
+                },
+                statusCode: null,
+                onProgress: null,
+                onComplete: null
+            },
+            files: null,
+            addMore: false,
+            clipBoardPaste: true,
+            excludeName: null,
+            beforeRender: null,
+            afterRender: null,
+            beforeShow: null,
+            beforeSelect: null,
+            onSelect: null,
+            afterShow: null,
+            onRemove: function (itemEl, file, id, listEl, boxEl, newInputEl, inputEl) {
+                var file = file.name;
+                $.post('/SanPham/RemoveFileDrafts', { file: file, "key": "@ViewBag.key" });
+            },
+            onEmpty: null,
+            options: null,
+            captions: {
+                button: "Choose Files",
+                feedback: "Choose files To Upload",
+                feedback2: "files were chosen",
+                drop: "Drop file here to Upload",
+                removeConfirmation: "Are you sure you want to remove this file?",
+                errors: {
+                    filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
+                    filesType: "Only Images are allowed to be uploaded.",
+                    filesSize: "{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.",
+                    filesSizeAll: "Files you've choosed are too large! Please upload files up to {{fi-maxSize}} MB."
+                }
+            }
+        });
+
+    });
+    function DeleteFile(id) {
+        var r = confirm("Are you sure you want to remove this file?");
+        if (r == true) {
+            //$.isLoading({ text: "Loading" });
+            $.ajax({
+                type: "POST",
+                url: "/SanPham/DeleteImage",
+                context: document.body,
+                data: {
+                    "id": id + '',
+                },
+                dataType: "html",
+            }).success(function (data) {
+                //$.isLoading("hide");
+                $("#hinhanhsanpham").html($(data));
+            });
+        }
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+
+<!-- Include Editor JS files. -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/js/froala_editor.pkgd.min.js"></script>
+
+<!-- Initialize the editor. -->
+<script>
+    $(function () {
+        $('#Mota').froalaEditor({
+            imageUploadURL: '@Url.Action("FroalaUploadImage", "Home")',
+            imageParams: { postId: "123" },
+        })
+    });
+    $(function () {
+        $('#HuongDanSudung').froalaEditor({
+            imageUploadURL: '@Url.Action("FroalaUploadImage", "Home")',
+            imageParams: { postId: "123" },
+        })
+    });
+    $(function () {
+        $('#HuongDanBaoQuan').froalaEditor({
+            imageUploadURL: '@Url.Action("FroalaUploadImage", "Home")',
+            imageParams: { postId: "123" },
+        })
+    });
+</script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

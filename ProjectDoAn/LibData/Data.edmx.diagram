@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ed9054aa47d14f35bc6f49f1794437b1" Name="Diagram1" ZoomLevel="57">
+        <EntityTypeShape EntityType="SHOESSHOPModel.BanList" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Brand" Width="1.5" PointX="0.75" PointY="27.875" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Cart" Width="1.5" PointX="12.75" PointY="16.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Config" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.District" Width="1.5" PointX="3" PointY="8.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Import" Width="1.5" PointX="9.75" PointY="18.375" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.ImportUnit" Width="1.5" PointX="7.5" PointY="14.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Order" Width="1.5" PointX="12.75" PointY="11" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.OrderDetail" Width="1.5" PointX="15" PointY="12.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Product" Width="1.5" PointX="3" PointY="28.375" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.ProductImg" Width="1.5" PointX="5.25" PointY="29" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Province" Width="1.5" PointX="0.75" PointY="8.25" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Size" Width="1.5" PointX="5.25" PointY="24.875" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Slide" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.TypeSho" Width="1.5" PointX="0.75" PointY="30.625" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.User" Width="1.5" PointX="10.5" PointY="12.5" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Ward" Width="1.5" PointX="5.25" PointY="21.375" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Warehouse" Width="1.5" PointX="7.5" PointY="27.25" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Product_Brand" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Cart_User" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_District_Province" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_ImportUnit_District" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_User_District" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Ward_District" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Import_ImportUnit" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Import_Warehouse" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_ImportUnit_Province" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_ImportUnit_Ward" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Order_User" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_OrderDetail_Order" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Product_TypeShoes" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_ProductImg_Product" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Warehouse_ProductImg" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_User_Province" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_Warehouse_Size" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_User_Ward" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
