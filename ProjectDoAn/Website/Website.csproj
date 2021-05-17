@@ -133,8 +133,12 @@
     <Content Include="assets\css\Dark-NavBar-1.css" />
     <Content Include="assets\css\Dark-NavBar-2.css" />
     <Content Include="assets\css\Dark-NavBar.css" />
+    <Content Include="assets\css\Footer-Basic.css" />
     <Content Include="assets\css\MUSA_carousel-product-cart-slider-1.css" />
     <Content Include="assets\css\MUSA_carousel-product-cart-slider.css" />
+    <Content Include="assets\css\Navbar-Centered.css" />
+    <Content Include="assets\css\Navbar-Dropdown-List-Item.css" />
+    <Content Include="assets\css\navbar-dropdown-multiple-columns.css" />
     <Content Include="assets\css\Projects-Horizontal.css" />
     <Content Include="assets\css\Roboto.css" />
     <Content Include="assets\css\Shopping-Grid.css" />
@@ -143,6 +147,8 @@
     <Content Include="assets\css\styles.css" />
     <Content Include="assets\fonts\font-awesome.min.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\fonts\ionicons.min.css" />
+    <Content Include="assets\fonts\ionicons.svg" />
     <Content Include="assets\img\building.jpg" />
     <Content Include="assets\img\desk.jpg" />
     <Content Include="assets\img\loft.jpg" />
@@ -278,6 +284,9 @@
     <Content Include="assets\fonts\fontawesome-webfont.woff" />
     <Content Include="assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\fonts\ionicons.eot" />
+    <Content Include="assets\fonts\ionicons.ttf" />
+    <Content Include="assets\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -363,7 +372,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -411,6 +423,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Cart\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibData\LibData.csproj">

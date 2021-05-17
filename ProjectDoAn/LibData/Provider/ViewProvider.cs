@@ -8,59 +8,51 @@ namespace LibData.Provider
 {
    public class ViewProvider : ApplicationDbContexts
     {
-        public List<ProductImg> GetAllTopSale()
+        public List<Product> GetAllTopSale()
         {
             try
             {
-                return ApplicationDbContext.ProductImgs.Where(x =>x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.IsDelete == null || x.IsDelete == 0)
-                 && x.Product.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.Product.IsDelete == null && x.Product.IsDelete == 0)).OrderByDescending(x => x.Product.Sold).ToList();
+                return ApplicationDbContext.Products.Where(x =>x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
+                 && (x.IsDelete == null || x.IsDelete == 0)).OrderByDescending(x => x.Sold).ToList();
             }
             catch (Exception e)
             {
-                return new List<ProductImg>();
+                return new List<Product>();
             }
         }
-        public List<ProductImg> GetAllTopSale(int skip,int size)
+        public List<Product> GetAllTopSale(int skip,int size)
         {
             try
             {
-                return ApplicationDbContext.ProductImgs.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.IsDelete == null || x.IsDelete == 0)
-                 && x.Product.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.Product.IsDelete == null && x.Product.IsDelete == 0)).OrderByDescending(x => x.Product.Sold).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
+                 && (x.IsDelete == null || x.IsDelete == 0)).OrderByDescending(x => x.Sold).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
-                return new List<ProductImg>();
+                return new List<Product>();
             }
         }
-        public List<ProductImg> GetAllProductNew()
+        public List<Product> GetAllProductNew()
         {
             try
             {
-                return ApplicationDbContext.ProductImgs.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.IsDelete == null || x.IsDelete == 0)
-                 && x.Product.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.Product.IsDelete == null && x.Product.IsDelete == 0)).OrderByDescending(x => x.CreateDate).ToList();
+                return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
+                 && (x.IsDelete == null || x.IsDelete == 0)).OrderByDescending(x => x.CreateDate).ToList();
             }
             catch (Exception e)
             {
-                return new List<ProductImg>() ;
+                return new List<Product>() ;
             }
-        }public List<ProductImg> GetAllProductNew(int skip,int size)
+        }public List<Product> GetAllProductNew(int skip,int size)
         {
             try
             {
-                return ApplicationDbContext.ProductImgs.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.IsDelete == null || x.IsDelete == 0)
-                 && x.Product.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.Product.IsDelete == null|| x.Product.IsDelete == 0)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
+                 && (x.IsDelete == null || x.IsDelete == 0)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
-                return new List<ProductImg>() ;
+                return new List<Product>() ;
             }
         }
         public List<Product> GetAllProductDiscount()

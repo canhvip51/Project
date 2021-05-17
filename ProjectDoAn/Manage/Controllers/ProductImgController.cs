@@ -19,7 +19,7 @@ namespace Manage.Controllers
             ViewBag.size = size;
             return View();
         }
-        public ActionResult ListProductImg(int productid ,int page = 1, int size = 3)
+        public ActionResult ListProductImg(int productid ,int page = 1, int size = 5)
         {
             ViewBag.productid = productid;
             ViewBag.page = page;

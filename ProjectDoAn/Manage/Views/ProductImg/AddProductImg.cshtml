@@ -24,13 +24,13 @@
             <input type="file" name="Url" id="Url" class="Url" value="@Model.Url" />
             @if (!string.IsNullOrEmpty(Model.Url))
             {
-                <div style="width:160px;height:115px">
+                <div style="width:150px;height:150px">
                     <img src="~/Images/Products/@Model.Url" id="imgshow" class="img-thumbnail">
                 </div>
             }
             else
             {
-                <div style="width:160px;height:115px">
+                <div style="width:150px;height:150px">
                     <img src="" style="display:none" id="imgshow" class="img-thumbnail">
                 </div>
             }
@@ -45,12 +45,26 @@
         </div>
     </div><!-- modal-body -->
     <script>
+        if ($("#imgshow").height() > $("#imgshow").width()) {
+            $('#imgshow').attr('width', '100%');
+            $('#imgshow').attr('height', 'auto');
+        } else {
+            $('#imgshow').attr('height', '100%');
+            $('#imgshow').attr('width', 'auto');
+        }
         $("#Url").change(function () {
         $('#imgshow').css('display', 'block');
         if (this.files && this.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#imgshow').attr('src', e.target.result);
+                if ($("#imgshow").height() > $("#imgshow").width()) {
+                    $('#imgshow').attr('width', '100%');
+                    $('#imgshow').attr('height', 'auto');
+                } else {
+                    $('#imgshow').attr('height', '100%');
+                    $('#imgshow').attr('width', 'auto');
+                }
             }
             reader.readAsDataURL(this.files[0]);
         }

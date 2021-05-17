@@ -15,7 +15,7 @@ namespace Manage.Controllers
         {
             return View();
         }
-        public ActionResult ListWarehouse(int productImgid,int page = 1, int size = 9)
+        public ActionResult ListWarehouse(int productImgid,int page = 1, int size = 10)
         {
             ViewBag.page = page;
             ViewBag.size = size;

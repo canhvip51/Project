@@ -37,8 +37,8 @@
                 @if (!string.IsNullOrEmpty(@item.Url))
                 {
                     <td>
-                        <div style="width:160px;height:115px">
-                            <img src="~/Images/Products/@item.Url" id="" class="img-thumbnail">
+                        <div style="width:115px;height:115px">
+                            <img  src="~/Images/Products/@item.Url" id="listimg" class="img-thumbnail imgshow">
                         </div>
                     </td>
                 }
@@ -79,3 +79,12 @@
         )
     </div>
 </div>
+<script>
+    if ($(".imgshow").height() > $(".imgshow").width()) {
+        $('.imgshow').attr('width', '100%');
+        $('.imgshow').attr('height', 'auto');
+    } else {
+        $('.imgshow').attr('height', '100%');
+        $('.imgshow').attr('width', 'auto');
+    }
+</script>
