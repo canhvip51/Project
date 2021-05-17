@@ -20,5 +20,6 @@ namespace LibData
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> IsDelete { get; set; }
         public Nullable<int> Status { get; set; }
+        public int OrderNumber { get; set; }
     }
 }

@@ -16,10 +16,11 @@ namespace LibData
     {
         public int Id { get; set; }
         public Nullable<int> OrderId { get; set; }
-        public Nullable<int> ProductId { get; set; }
+        public Nullable<int> WarehouseId { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> Amount { get; set; }
     
         public virtual Order Order { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

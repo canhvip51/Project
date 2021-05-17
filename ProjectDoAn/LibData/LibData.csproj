@@ -66,6 +66,7 @@
     <Compile Include="Configuration\OrderConfig.cs" />
     <Compile Include="Configuration\ProductConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Configuration\ViewConfig.cs" />
     <Compile Include="Data.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +126,7 @@
     <Compile Include="Provider\SlideProvider.cs" />
     <Compile Include="Provider\TypeShoeProvider.cs" />
     <Compile Include="Provider\UserProvider.cs" />
+    <Compile Include="Provider\ViewProvider.cs" />
     <Compile Include="Provider\WarehouseProvider.cs" />
     <Compile Include="Province.cs">
       <DependentUpon>Data.tt</DependentUpon>

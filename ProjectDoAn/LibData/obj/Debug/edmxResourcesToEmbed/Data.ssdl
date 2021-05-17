@@ -23,6 +23,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="255" />
     <Property Name="IsDelete" Type="int" />
     <Property Name="CreateDate" Type="datetime" />
+    <Property Name="OriginName" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Cart">
     <Key>
@@ -110,7 +111,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OrderId" Type="int" />
-    <Property Name="ProductId" Type="int" />
+    <Property Name="WarehouseId" Type="int" />
     <Property Name="Price" Type="int" />
     <Property Name="Amount" Type="int" />
   </EntityType>
@@ -131,6 +132,8 @@
     <Property Name="Discount" Type="int" />
     <Property Name="Price" Type="int" />
     <Property Name="Type" Type="int" />
+    <Property Name="AvatarUrl" Type="nvarchar(max)" />
+    <Property Name="Sold" Type="int" />
   </EntityType>
   <EntityType Name="ProductImg">
     <Key>
@@ -172,6 +175,7 @@
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="IsDelete" Type="int" />
     <Property Name="Status" Type="int" />
+    <Property Name="OrderNumber" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -345,6 +349,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_OrderDetail_Warehouse">
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="WarehouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Product_Brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -507,6 +523,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
       <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Warehouse" Association="Self.FK_OrderDetail_Warehouse">
+      <End Role="Warehouse" EntitySet="Warehouse" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">

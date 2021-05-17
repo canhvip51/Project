@@ -32,6 +32,8 @@ namespace LibData
         public Nullable<int> Discount { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> Type { get; set; }
+        public string AvatarUrl { get; set; }
+        public Nullable<int> Sold { get; set; }
     
         public virtual Brand Brand { get; set; }
         public virtual TypeSho TypeSho { get; set; }

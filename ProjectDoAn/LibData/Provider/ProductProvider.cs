@@ -12,6 +12,7 @@ namespace LibData.Provider
         {
             try
             {
+                model.Sold = 0;
                 model.Status = 1;
                 model.CreateDate = DateTime.Now;
                 ApplicationDbContext.Products.Add(model);
@@ -28,15 +29,43 @@ namespace LibData.Provider
             try
             {
                 Product product = GetById(model.Id);
+                product.AvatarUrl = model.AvatarUrl;
                 product.Name = model.Name;
                 product.Describe = model.Describe;
                 //product.TypeShoeId = model.TypeShoeId;
                 product.Origin = model.Origin;
-                product.Status = model.Status;
                 product.BrandId = model.BrandId;
                 product.UpdateDate = DateTime.Now;
                 product.Discount = model.Discount;
                 product.Price = model.Price;
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool UpdateStatus(Product model)
+        {
+            try
+            {
+                Product product = GetById(model.Id);
+                product.Status = model.Status;
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool UpdateSold(Product model)
+        {
+            try
+            {
+                Product product = GetById(model.Id);
+                product.Sold = model.Sold;
                 ApplicationDbContext.SaveChanges();
                 return true;
             }

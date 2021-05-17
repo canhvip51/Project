@@ -13,7 +13,7 @@ namespace Website
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            HttpContext.Current.Application["DanhMucSanPham"] = new LibData.Provider.DanhMucSanPhamProvider().getAll();
+            //HttpContext.Current.Application["DanhMucSanPham"] = new LibData.Provider.DanhMucSanPhamProvider().getAll();
         }
     }
 }

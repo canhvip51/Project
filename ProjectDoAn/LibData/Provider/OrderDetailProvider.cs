@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibData.Provider
 {
-   public class OrderDetailProvider : ApplicationDbContexts
+    public class OrderDetailProvider : ApplicationDbContexts
     {
+      
     }
 }

@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +11,7 @@ namespace Manage.Controllers
 {
     public class ProductController : Controller
     {
+        public const string _ImagesPath = "~/Images/Products";
         // GET: Product
         public ActionResult Index(string keysearch, int brandid=-1, int typeid = -1, int page = 1, int size = 10)
         {
@@ -51,8 +53,9 @@ namespace Manage.Controllers
             return View(product);
         }
         [HttpPost, ValidateInput(false)]
-        public ActionResult AddProduct(LibData.Product model)
+        public ActionResult AddProduct(LibData.Product model, HttpPostedFileBase AvatarUrl)
         {
+
             //ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
             ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
             LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
@@ -72,12 +75,28 @@ namespace Manage.Controllers
             {
                 ModelState.AddModelError("Discount", "Khuyễn mãi không khả dụng");
             }
+            if (model.Id == 0 && AvatarUrl == null)
+            {
+                ModelState.AddModelError("AvatarUrl", "Thêm ảnh giày");
+            }
             if (ModelState.IsValid)
             {
+                if (AvatarUrl != null)
+                {
+                    string fileName = Guid.NewGuid() + Path.GetFileName(AvatarUrl.FileName);
+                    string path = Path.Combine(Server.MapPath(_ImagesPath), fileName);
+                    AvatarUrl.SaveAs(path);
+                    model.AvatarUrl = fileName;
+                }
                 if (model.BrandId < 0)
                     model.BrandId = null;
                 if (model.Id > 0)
                 {
+                    if (AvatarUrl == null)
+                    {
+                        var old = productProvider.GetById(model.Id);
+                        model.AvatarUrl = old.AvatarUrl;
+                    }
                     if (productProvider.Update(model))
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;

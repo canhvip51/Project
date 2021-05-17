@@ -73,9 +73,33 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Mô tả sản phẩm</label>
-                                            <textarea class="form-control" name="Describe" id="Describe" rows="4">@Model.Describe</textarea>
-                                            @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <label>Mô tả sản phẩm</label>
+                                                    <textarea class="form-control" name="Describe" id="Describe" rows="4">@Model.Describe</textarea>
+                                                    @Html.ValidationMessageFor(model => model.Describe, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label>Ảnh mẫu</label>
+                                                        <input type="file" name="AvatarUrl" id="AvatarUrl" class="AvatarUrl" value="@Model.AvatarUrl" />
+                                                        @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+                                                        {
+                                                            <div style="width:160px;height:115px">
+                                                                <img src="~/Images/Products/@Model.AvatarUrl" id="avatarimgshow" class="img-thumbnail">
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div style="width:160px;height:115px">
+                                                                <img src="" style="display:none" id="avatarimgshow" class="img-thumbnail">
+                                                            </div>
+                                                        }
+                                                        @Html.ValidationMessageFor(model => model.AvatarUrl, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -167,18 +191,31 @@
 </div>
 <script src="~/Scripts/froala_editor.pkgd.min.js"></script>
 <script>
+    $("#AvatarUrl").change(function () {
+        $('#avatarimgshow').css('display', 'block');
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#avatarimgshow').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
         function sumbitProduct() {
         var notify = ""
         if (@Model.Id== 0) {
             notify = "Thêm sản phẩm thành công"
         } else {
             notify = "Sửa thông tin sản phẩm thành công"
-        }
-            var $form = $("#form-addproduct");
+            }
+            var img = new FormData($("#form-addproduct")[0]);
+       /*     var $form = $("#form-addproduct");*/
         $.ajax({
             type: "POST",
             url: "/Product/AddProduct",
-            data: $form.serialize(),
+            data:img,
+            contentType: false,
+            processData: false,
             success: async function (data, status, xhr) {
                 var statusCode = xhr.getResponseHeader("statusCode");
                 if (statusCode == '401') {

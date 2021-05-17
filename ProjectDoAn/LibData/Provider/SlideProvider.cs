@@ -8,5 +8,16 @@ namespace LibData.Provider
 {
     public class SlideProvider : ApplicationDbContexts
     {
+        public List<Slide> GetAll()
+        {
+            try
+            {
+                return ApplicationDbContext.Slides.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 }

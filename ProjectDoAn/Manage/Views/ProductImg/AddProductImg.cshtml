@@ -24,9 +24,9 @@
             <input type="file" name="Url" id="Url" class="Url" value="@Model.Url" />
             @if (!string.IsNullOrEmpty(Model.Url))
             {
-        <div style="width:160px;height:115px">
-            <img src="~/Images/Products/@Model.Url" id="imgshow" class="img-thumbnail">
-        </div>
+                <div style="width:160px;height:115px">
+                    <img src="~/Images/Products/@Model.Url" id="imgshow" class="img-thumbnail">
+                </div>
             }
             else
             {
@@ -34,6 +34,7 @@
                     <img src="" style="display:none" id="imgshow" class="img-thumbnail">
                 </div>
             }
+            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
         </div>
 
 
@@ -63,7 +64,6 @@
             notify = "Sửa màu công"
             }
             var img = new FormData($("#form-addproductimg")[0]);
-            console.log(img)
         $.ajax({
             type: "POST",
             url: "/ProductImg/AddProductImg",

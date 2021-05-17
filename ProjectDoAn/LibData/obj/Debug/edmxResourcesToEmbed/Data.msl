@@ -20,6 +20,7 @@
     <EntitySetMapping Name="Brands">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Brand">
         <MappingFragment StoreEntitySet="Brand">
+          <ScalarProperty Name="OriginName" ColumnName="OriginName" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -118,7 +119,7 @@
         <MappingFragment StoreEntitySet="OrderDetail">
           <ScalarProperty Name="Amount" ColumnName="Amount" />
           <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
           <ScalarProperty Name="OrderId" ColumnName="OrderId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -127,6 +128,8 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Product">
         <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="Sold" ColumnName="Sold" />
+          <ScalarProperty Name="AvatarUrl" ColumnName="AvatarUrl" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Discount" ColumnName="Discount" />
@@ -179,6 +182,7 @@
     <EntitySetMapping Name="Slides">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Slide">
         <MappingFragment StoreEntitySet="Slide">
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

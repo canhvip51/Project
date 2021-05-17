@@ -17,6 +17,7 @@ namespace LibData
         public Warehouse()
         {
             this.Imports = new HashSet<Import>();
+            this.OrderDetails = new HashSet<OrderDetail>();
         }
     
         public int Id { get; set; }
@@ -30,6 +31,7 @@ namespace LibData
         public Nullable<int> Discount { get; set; }
     
         public virtual ICollection<Import> Imports { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ProductImg ProductImg { get; set; }
         public virtual Size Size { get; set; }
     }

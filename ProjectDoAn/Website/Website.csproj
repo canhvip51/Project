@@ -127,12 +127,58 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\bootstrap\css\bootstrap.min.css" />
+    <Content Include="assets\bootstrap\js\bootstrap.min.js" />
+    <Content Include="assets\css\Corporate-Footer-Clean.css" />
+    <Content Include="assets\css\Dark-NavBar-1.css" />
+    <Content Include="assets\css\Dark-NavBar-2.css" />
+    <Content Include="assets\css\Dark-NavBar.css" />
+    <Content Include="assets\css\MUSA_carousel-product-cart-slider-1.css" />
+    <Content Include="assets\css\MUSA_carousel-product-cart-slider.css" />
+    <Content Include="assets\css\Projects-Horizontal.css" />
+    <Content Include="assets\css\Roboto.css" />
+    <Content Include="assets\css\Shopping-Grid.css" />
+    <Content Include="assets\css\Simple-Slider.css" />
+    <Content Include="assets\css\sticky-dark-top-nav-with-dropdown.css" />
+    <Content Include="assets\css\styles.css" />
+    <Content Include="assets\fonts\font-awesome.min.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\img\building.jpg" />
+    <Content Include="assets\img\desk.jpg" />
+    <Content Include="assets\img\loft.jpg" />
+    <Content Include="assets\img\logo.png" />
+    <Content Include="assets\img\minibus.jpeg" />
+    <Content Include="assets\img\united-states-flag.png" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\Simple-Slider.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.rtl.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.min.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.rtl.css" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.rtl.min.css" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.bundle.js" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.esm.js" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.esm.min.js" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.js" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.min.js" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -205,6 +251,33 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.min.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.rtl.css.map" />
+    <Content Include="Content\Bootstrap5\css\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.bundle.js.map" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.esm.js.map" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.esm.min.js.map" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.js.map" />
+    <Content Include="Content\Bootstrap5\js\bootstrap.min.js.map" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -290,11 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AboutController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -307,7 +376,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
@@ -326,6 +394,13 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Home\ListProduct.cshtml" />
+    <Content Include="Views\Home\ListSlide.cshtml" />
+    <Content Include="Views\Home\ViewTopSale.cshtml" />
+    <Content Include="Views\Home\ViewProductNew.cshtml" />
+    <Content Include="Views\Home\ViewDiscount.cshtml" />
+    <Content Include="Views\Home\ViewMale.cshtml" />
+    <Content Include="Views\Home\ViewFemale.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

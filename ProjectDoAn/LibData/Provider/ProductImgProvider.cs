@@ -12,7 +12,8 @@ namespace LibData.Provider
         {
             try
             {
-                //model.CreateDate = DateTime.Now;
+                model.Status = 1;
+                model.CreateDate = DateTime.Now;
                 ApplicationDbContext.ProductImgs.Add(model);
                 ApplicationDbContext.SaveChanges();
                 return true;
@@ -37,7 +38,20 @@ namespace LibData.Provider
                 return false;
             }
         }
-       
+        public bool UpdateStatus(ProductImg model)
+        {
+            try
+            {
+                ProductImg productImg = GetById(model.Id);
+                productImg.Status = model.Status;
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         public ProductImg GetById(int id)
         {
             try
