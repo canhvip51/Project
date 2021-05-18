@@ -23,11 +23,31 @@
     <link rel="stylesheet" href="~/assets/css/Simple-Slider.css">
     <link rel="stylesheet" href="~/assets/css/sticky-dark-top-nav-with-dropdown.css">
     <link rel="stylesheet" href="~/assets/css/styles.css">
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
     <script src="~/assets/js/jquery.min.js"></script>
 </head>
 
 <body>
+    <style>
+        .hover-title:hover {
+            color: #78e08f !important;
+            cursor: pointer !important;
+        }
+        .pagination .active a {
+            background-color: #78e08f !important;
+            border-color: #78e08f !important;
+        }
+        .pagination a:hover {
+            color: #78e08f !important;
+        }
+        .pagination .active a:hover {
+            background-color: #78e08f !important;
+            border-color: #78e08f !important;
+            color: #fff !important;
+        }
+    </style>
     <div></div>
     <nav class="navbar navbar-light navbar-expand-md navigation-clean">
         <div class="container">
@@ -43,11 +63,11 @@
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle nav-link text-uppercase" aria-expanded="false" data-toggle="dropdown" style="font-family:'Source Sans Pro', sans-serif;" href="#">Features </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Standard Post</a>
-                            <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Audio Post</a>
-                            <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Video Post</a>
-                            <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Link Post</a>
-                            <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Quote Post</a>
+                            @foreach (var item in new Website.Controllers.HomeController().ListBrand())
+                            {
+                                <a class="dropdown-item text-uppercase" onclick="" style="font-family:'Source Sans Pro', sans-serif;" href="#">@item.Name</a>
+                            }
+
                         </div>
                     </li>
                     <li class="nav-item dropdown">

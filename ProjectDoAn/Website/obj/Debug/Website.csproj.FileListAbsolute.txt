@@ -153,8 +153,6 @@ C:\Users\ADMIN\Desktop\web\ProjectFireTool\Website\obj\Debug\Website.dll
 C:\Users\ADMIN\Desktop\web\ProjectFireTool\Website\obj\Debug\Website.pdb
 G:\DoAn\ProjectDoAn\Website\obj\Debug\Website.csprojAssemblyReference.cache
 G:\DoAn\ProjectDoAn\Website\obj\Debug\Website.csproj.CoreCompileInputs.cache
-G:\Project\ProjectDoAn\Website\obj\Debug\Website.csprojAssemblyReference.cache
-G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Website\bin\ApplicationInsights.config
 G:\Project\ProjectDoAn\Website\bin\roslyn\csc.exe
 G:\Project\ProjectDoAn\Website\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -207,6 +205,8 @@ G:\Project\ProjectDoAn\Website\bin\System.Web.Webpages.Razor.xml
 G:\Project\ProjectDoAn\Website\bin\System.Web.Helpers.xml
 G:\Project\ProjectDoAn\Website\bin\System.Web.Mvc.xml
 G:\Project\ProjectDoAn\Website\bin\EntityFramework.xml
+G:\Project\ProjectDoAn\Website\obj\Debug\Website.csprojAssemblyReference.cache
+G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CopyComplete
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.dll
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.pdb

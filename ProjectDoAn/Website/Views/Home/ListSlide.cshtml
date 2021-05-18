@@ -30,9 +30,7 @@
 
 <script>
     LoadList();
-    console.log(1);
     function LoadList() {
-        console.log(2);
     $("#discount").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.DISCOUNT")
     $("#topsell").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.TOPSALE")
     $("#newproduct").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.PRODUCTNEW")
