@@ -67,7 +67,7 @@ namespace Manage.Controllers
             {
                 ModelState.AddModelError("UserName", "Tên đăng nhập không được để trống");
             }
-            if (string.IsNullOrEmpty(model.Password))
+            if (string.IsNullOrEmpty(model.Password) && model.Id < 1)
             {
                 ModelState.AddModelError("Password", "Mật khẩu không được để trống");
             }
@@ -76,7 +76,7 @@ namespace Manage.Controllers
                 {
                     ModelState.AddModelError("Password", "Mật khẩu phải lớn hơn 6 ký tự");
                 }
-            if(userProvider.CheckExistUserName(model.UserName))
+            if(userProvider.CheckExistUserName(model.UserName) && model.Id < 1)
             {
                 ModelState.AddModelError("UserName", "Tên đăng nhập đã tồn tại");
             }
@@ -93,7 +93,7 @@ namespace Manage.Controllers
                 }
                 else
                 {
-                    model.Password = LibData.Utilities.SecurityHelper.sha256Hash(model.Password);
+                    model.Password = LibData.Utilities.SecurityHelper.sha256Hash(model.Password).Trim();
                     model.Role = (int)LibData.Configuration.UserConfig.Role.MANAGER;
                     if (userProvider.Insert(model))
                     {

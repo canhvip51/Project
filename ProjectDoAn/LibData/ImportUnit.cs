@@ -20,9 +20,6 @@ namespace LibData
         }
     
         public int Id { get; set; }
-        public Nullable<int> ProvinceId { get; set; }
-        public Nullable<int> DistrictId { get; set; }
-        public Nullable<int> WardId { get; set; }
         public string Address { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> IsDelete { get; set; }
@@ -30,9 +27,6 @@ namespace LibData
         public string Phone { get; set; }
         public string Name { get; set; }
     
-        public virtual District District { get; set; }
         public virtual ICollection<Import> Imports { get; set; }
-        public virtual Province Province { get; set; }
-        public virtual Ward Ward { get; set; }
     }
 }

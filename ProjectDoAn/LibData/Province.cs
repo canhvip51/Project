@@ -14,19 +14,8 @@ namespace LibData
     
     public partial class Province
     {
-        public Province()
-        {
-            this.Districts = new HashSet<District>();
-            this.ImportUnits = new HashSet<ImportUnit>();
-            this.Users = new HashSet<User>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-    
-        public virtual ICollection<District> Districts { get; set; }
-        public virtual ICollection<ImportUnit> ImportUnits { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 }

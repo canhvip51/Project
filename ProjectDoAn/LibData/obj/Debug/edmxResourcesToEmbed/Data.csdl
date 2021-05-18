@@ -28,22 +28,6 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Cart" EntitySet="Carts" />
     </AssociationSet>
-    <AssociationSet Name="FK_District_Province" Association="SHOESSHOPModel.FK_District_Province">
-      <End Role="Province" EntitySet="Provinces" />
-      <End Role="District" EntitySet="Districts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ImportUnit_District" Association="SHOESSHOPModel.FK_ImportUnit_District">
-      <End Role="District" EntitySet="Districts" />
-      <End Role="ImportUnit" EntitySet="ImportUnits" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_District" Association="SHOESSHOPModel.FK_User_District">
-      <End Role="District" EntitySet="Districts" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Ward_District" Association="SHOESSHOPModel.FK_Ward_District">
-      <End Role="District" EntitySet="Districts" />
-      <End Role="Ward" EntitySet="Wards" />
-    </AssociationSet>
     <AssociationSet Name="FK_Import_ImportUnit" Association="SHOESSHOPModel.FK_Import_ImportUnit">
       <End Role="ImportUnit" EntitySet="ImportUnits" />
       <End Role="Import" EntitySet="Imports" />
@@ -51,14 +35,6 @@
     <AssociationSet Name="FK_Import_Warehouse" Association="SHOESSHOPModel.FK_Import_Warehouse">
       <End Role="Warehouse" EntitySet="Warehouses" />
       <End Role="Import" EntitySet="Imports" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ImportUnit_Province" Association="SHOESSHOPModel.FK_ImportUnit_Province">
-      <End Role="Province" EntitySet="Provinces" />
-      <End Role="ImportUnit" EntitySet="ImportUnits" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ImportUnit_Ward" Association="SHOESSHOPModel.FK_ImportUnit_Ward">
-      <End Role="Ward" EntitySet="Wards" />
-      <End Role="ImportUnit" EntitySet="ImportUnits" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_User" Association="SHOESSHOPModel.FK_Order_User">
       <End Role="User" EntitySet="Users" />
@@ -84,17 +60,9 @@
       <End Role="ProductImg" EntitySet="ProductImgs" />
       <End Role="Warehouse" EntitySet="Warehouses" />
     </AssociationSet>
-    <AssociationSet Name="FK_User_Province" Association="SHOESSHOPModel.FK_User_Province">
-      <End Role="Province" EntitySet="Provinces" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
     <AssociationSet Name="FK_Warehouse_Size" Association="SHOESSHOPModel.FK_Warehouse_Size">
       <End Role="Size" EntitySet="Sizes" />
       <End Role="Warehouse" EntitySet="Warehouses" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_Ward" Association="SHOESSHOPModel.FK_User_Ward">
-      <End Role="Ward" EntitySet="Wards" />
-      <End Role="User" EntitySet="Users" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="BanList">
@@ -153,10 +121,6 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="ProvinceId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_District_Province" FromRole="District" ToRole="Province" />
-    <NavigationProperty Name="ImportUnits" Relationship="SHOESSHOPModel.FK_ImportUnit_District" FromRole="District" ToRole="ImportUnit" />
-    <NavigationProperty Name="Users" Relationship="SHOESSHOPModel.FK_User_District" FromRole="District" ToRole="User" />
-    <NavigationProperty Name="Wards" Relationship="SHOESSHOPModel.FK_Ward_District" FromRole="District" ToRole="Ward" />
   </EntityType>
   <EntityType Name="Import">
     <Key>
@@ -179,19 +143,13 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProvinceId" Type="Int32" />
-    <Property Name="DistrictId" Type="Int32" />
-    <Property Name="WardId" Type="Int32" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="IsDelete" Type="Int32" />
     <Property Name="IsUpdate" Type="DateTime" Precision="3" />
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_ImportUnit_District" FromRole="ImportUnit" ToRole="District" />
     <NavigationProperty Name="Imports" Relationship="SHOESSHOPModel.FK_Import_ImportUnit" FromRole="ImportUnit" ToRole="Import" />
-    <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_ImportUnit_Province" FromRole="ImportUnit" ToRole="Province" />
-    <NavigationProperty Name="Ward" Relationship="SHOESSHOPModel.FK_ImportUnit_Ward" FromRole="ImportUnit" ToRole="Ward" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -272,9 +230,6 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Districts" Relationship="SHOESSHOPModel.FK_District_Province" FromRole="Province" ToRole="District" />
-    <NavigationProperty Name="ImportUnits" Relationship="SHOESSHOPModel.FK_ImportUnit_Province" FromRole="Province" ToRole="ImportUnit" />
-    <NavigationProperty Name="Users" Relationship="SHOESSHOPModel.FK_User_Province" FromRole="Province" ToRole="User" />
   </EntityType>
   <EntityType Name="Size">
     <Key>
@@ -332,19 +287,14 @@
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Facebook" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="Role" Type="Int32" />
-    <Property Name="ProvinceId" Type="Int32" />
-    <Property Name="DistrictId" Type="Int32" />
-    <Property Name="WardId" Type="Int32" />
     <Property Name="Status" Type="Int32" />
     <Property Name="IsDelete" Type="Int32" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_User" FromRole="User" ToRole="Cart" />
-    <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_User_District" FromRole="User" ToRole="District" />
     <NavigationProperty Name="Orders" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="User" ToRole="Order" />
-    <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_User_Province" FromRole="User" ToRole="Province" />
-    <NavigationProperty Name="Ward" Relationship="SHOESSHOPModel.FK_User_Ward" FromRole="User" ToRole="Ward" />
   </EntityType>
   <EntityType Name="Ward">
     <Key>
@@ -354,9 +304,6 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="DistrictId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Ward_District" FromRole="Ward" ToRole="District" />
-    <NavigationProperty Name="ImportUnits" Relationship="SHOESSHOPModel.FK_ImportUnit_Ward" FromRole="Ward" ToRole="ImportUnit" />
-    <NavigationProperty Name="Users" Relationship="SHOESSHOPModel.FK_User_Ward" FromRole="Ward" ToRole="User" />
   </EntityType>
   <EntityType Name="Warehouse">
     <Key>
@@ -400,54 +347,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_District_Province">
-    <End Type="SHOESSHOPModel.Province" Role="Province" Multiplicity="1" />
-    <End Type="SHOESSHOPModel.District" Role="District" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Province">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="District">
-        <PropertyRef Name="ProvinceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ImportUnit_District">
-    <End Type="SHOESSHOPModel.District" Role="District" Multiplicity="0..1" />
-    <End Type="SHOESSHOPModel.ImportUnit" Role="ImportUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="District">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ImportUnit">
-        <PropertyRef Name="DistrictId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_District">
-    <End Type="SHOESSHOPModel.District" Role="District" Multiplicity="0..1" />
-    <End Type="SHOESSHOPModel.User" Role="User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="District">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="DistrictId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Ward_District">
-    <End Type="SHOESSHOPModel.District" Role="District" Multiplicity="1" />
-    <End Type="SHOESSHOPModel.Ward" Role="Ward" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="District">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Ward">
-        <PropertyRef Name="DistrictId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Import_ImportUnit">
     <End Type="SHOESSHOPModel.ImportUnit" Role="ImportUnit" Multiplicity="0..1" />
     <End Type="SHOESSHOPModel.Import" Role="Import" Multiplicity="*" />
@@ -469,30 +368,6 @@
       </Principal>
       <Dependent Role="Import">
         <PropertyRef Name="WarehouseId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ImportUnit_Province">
-    <End Type="SHOESSHOPModel.Province" Role="Province" Multiplicity="0..1" />
-    <End Type="SHOESSHOPModel.ImportUnit" Role="ImportUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Province">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ImportUnit">
-        <PropertyRef Name="ProvinceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ImportUnit_Ward">
-    <End Type="SHOESSHOPModel.Ward" Role="Ward" Multiplicity="0..1" />
-    <End Type="SHOESSHOPModel.ImportUnit" Role="ImportUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ward">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ImportUnit">
-        <PropertyRef Name="WardId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -568,18 +443,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_Province">
-    <End Type="SHOESSHOPModel.Province" Role="Province" Multiplicity="0..1" />
-    <End Type="SHOESSHOPModel.User" Role="User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Province">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="ProvinceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Warehouse_Size">
     <End Type="SHOESSHOPModel.Size" Role="Size" Multiplicity="0..1" />
     <End Type="SHOESSHOPModel.Warehouse" Role="Warehouse" Multiplicity="*" />
@@ -589,18 +452,6 @@
       </Principal>
       <Dependent Role="Warehouse">
         <PropertyRef Name="SizeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_Ward">
-    <End Type="SHOESSHOPModel.Ward" Role="Ward" Multiplicity="0..1" />
-    <End Type="SHOESSHOPModel.User" Role="User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ward">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="WardId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

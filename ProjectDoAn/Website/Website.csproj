@@ -2270,6 +2270,8 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\DetailProduct.cshtml" />
+    <Content Include="Views\Product\ListAllProductByType.cshtml" />
+    <Content Include="Views\Product\ListAllProductByBrand.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

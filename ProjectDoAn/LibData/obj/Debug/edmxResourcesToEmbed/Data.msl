@@ -85,9 +85,6 @@
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="WardId" ColumnName="WardId" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -218,14 +215,12 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="SHOESSHOPModel.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="WardId" ColumnName="WardId" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
           <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="Facebook" ColumnName="Facebook" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />

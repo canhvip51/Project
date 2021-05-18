@@ -27,19 +27,14 @@ namespace LibData
         public string Phone { get; set; }
         public string Facebook { get; set; }
         public Nullable<int> Role { get; set; }
-        public Nullable<int> ProvinceId { get; set; }
-        public Nullable<int> DistrictId { get; set; }
-        public Nullable<int> WardId { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> IsDelete { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string FullName { get; set; }
+        public string Adress { get; set; }
     
         public virtual ICollection<Cart> Carts { get; set; }
-        public virtual District District { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual Province Province { get; set; }
-        public virtual Ward Ward { get; set; }
     }
 }

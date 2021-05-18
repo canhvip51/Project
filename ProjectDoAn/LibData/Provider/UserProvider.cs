@@ -66,9 +66,7 @@ namespace LibData.Provider
                 user.Phone = model.Phone;
                 user.Status = model.Status;
                 user.FullName = model.FullName;
-                user.DistrictId = model.DistrictId;
-                user.ProvinceId = model.ProvinceId;
-                user.WardId = model.WardId;
+                user.Adress = model.Adress;
                 user.Email = model.Email;
                 ApplicationDbContext.SaveChanges();
                 return true;

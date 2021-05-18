@@ -13,7 +13,6 @@
         <tr>
             <th>Họ tên</th>
             <th>Email</th>
-            <th>Facebook</th>
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th>Trạng thái</th>
@@ -24,7 +23,7 @@
         @if (Model.Count() == 0)
         {
             <tr>
-                <td colspan="7" class="text-center">
+                <td colspan="6" class="text-center">
                     <div class=" text-danger">
                         Không có dữ liệu!
                     </div>
@@ -41,13 +40,10 @@
             @item.Email
         </td>
         <td>
-            @item.Facebook
-        </td>
-        <td>
             @item.Phone
         </td>
         <td>
-            @item.Ward.Name - @item.District.Name - @item.Province.Name
+            @item.Adress
         </td>
         <td>
             @item.Status

@@ -74,9 +74,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProvinceId" Type="int" />
-    <Property Name="DistrictId" Type="int" />
-    <Property Name="WardId" Type="int" />
     <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="IsDelete" Type="int" />
@@ -209,14 +206,12 @@
     <Property Name="Phone" Type="varchar" MaxLength="20" />
     <Property Name="Facebook" Type="nvarchar" MaxLength="255" />
     <Property Name="Role" Type="int" />
-    <Property Name="ProvinceId" Type="int" />
-    <Property Name="DistrictId" Type="int" />
-    <Property Name="WardId" Type="int" />
     <Property Name="Status" Type="int" />
     <Property Name="IsDelete" Type="int" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Adress" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Ward">
     <Key>
@@ -253,18 +248,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_District_Province">
-    <End Role="Province" Type="Self.Province" Multiplicity="1" />
-    <End Role="District" Type="Self.District" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Province">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="District">
-        <PropertyRef Name="ProvinceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Import_ImportUnit">
     <End Role="ImportUnit" Type="Self.ImportUnit" Multiplicity="0..1" />
     <End Role="Import" Type="Self.Import" Multiplicity="*" />
@@ -286,42 +269,6 @@
       </Principal>
       <Dependent Role="Import">
         <PropertyRef Name="WarehouseId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ImportUnit_District">
-    <End Role="District" Type="Self.District" Multiplicity="0..1" />
-    <End Role="ImportUnit" Type="Self.ImportUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="District">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ImportUnit">
-        <PropertyRef Name="DistrictId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ImportUnit_Province">
-    <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
-    <End Role="ImportUnit" Type="Self.ImportUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Province">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ImportUnit">
-        <PropertyRef Name="ProvinceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ImportUnit_Ward">
-    <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
-    <End Role="ImportUnit" Type="Self.ImportUnit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ward">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ImportUnit">
-        <PropertyRef Name="WardId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -397,54 +344,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_District">
-    <End Role="District" Type="Self.District" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="District">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="DistrictId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_Province">
-    <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Province">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="ProvinceId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_Ward">
-    <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Ward">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="WardId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Ward_District">
-    <End Role="District" Type="Self.District" Multiplicity="1" />
-    <End Role="Ward" Type="Self.Ward" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="District">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Ward">
-        <PropertyRef Name="DistrictId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Warehouse_ProductImg">
     <End Role="ProductImg" Type="Self.ProductImg" Multiplicity="0..1" />
     <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
@@ -493,10 +392,6 @@
       <End Role="User" EntitySet="User" />
       <End Role="Cart" EntitySet="Cart" />
     </AssociationSet>
-    <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
-      <End Role="Province" EntitySet="Province" />
-      <End Role="District" EntitySet="District" />
-    </AssociationSet>
     <AssociationSet Name="FK_Import_ImportUnit" Association="Self.FK_Import_ImportUnit">
       <End Role="ImportUnit" EntitySet="ImportUnit" />
       <End Role="Import" EntitySet="Import" />
@@ -504,18 +399,6 @@
     <AssociationSet Name="FK_Import_Warehouse" Association="Self.FK_Import_Warehouse">
       <End Role="Warehouse" EntitySet="Warehouse" />
       <End Role="Import" EntitySet="Import" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ImportUnit_District" Association="Self.FK_ImportUnit_District">
-      <End Role="District" EntitySet="District" />
-      <End Role="ImportUnit" EntitySet="ImportUnit" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ImportUnit_Province" Association="Self.FK_ImportUnit_Province">
-      <End Role="Province" EntitySet="Province" />
-      <End Role="ImportUnit" EntitySet="ImportUnit" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ImportUnit_Ward" Association="Self.FK_ImportUnit_Ward">
-      <End Role="Ward" EntitySet="Ward" />
-      <End Role="ImportUnit" EntitySet="ImportUnit" />
     </AssociationSet>
     <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
       <End Role="User" EntitySet="User" />
@@ -540,22 +423,6 @@
     <AssociationSet Name="FK_ProductImg_Product" Association="Self.FK_ProductImg_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="ProductImg" EntitySet="ProductImg" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_District" Association="Self.FK_User_District">
-      <End Role="District" EntitySet="District" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_Province" Association="Self.FK_User_Province">
-      <End Role="Province" EntitySet="Province" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_Ward" Association="Self.FK_User_Ward">
-      <End Role="Ward" EntitySet="Ward" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Ward_District" Association="Self.FK_Ward_District">
-      <End Role="District" EntitySet="District" />
-      <End Role="Ward" EntitySet="Ward" />
     </AssociationSet>
     <AssociationSet Name="FK_Warehouse_ProductImg" Association="Self.FK_Warehouse_ProductImg">
       <End Role="ProductImg" EntitySet="ProductImg" />
