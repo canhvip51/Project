@@ -101,6 +101,17 @@ namespace LibData.Provider
                 return null;
             }
         }
+        public List<Warehouse> GetAllByKey(int productImg)
+        {
+            try
+            {
+                return ApplicationDbContext.Warehouses.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.ProductImgId == productImg).OrderByDescending(x => x.CreateDate).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public int CountAllBykey(int productImg)
         {
             try

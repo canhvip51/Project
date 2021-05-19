@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibData.Configuration
 {
-    class ProductConfig
+    public class ProductConfig
     {
         public enum Type
         {

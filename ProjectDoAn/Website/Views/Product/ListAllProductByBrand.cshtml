@@ -22,16 +22,17 @@
 
         <form method="get">
             <div class="row mb-4">
+                <input type="hidden" name="brandid" id="brandid" class="brandid" value="@ViewBag.brandid" />
                 <div class="col-12 col-sm-6 col-md-3">
-                    <input type="text" name="keysearch" id="keysearch" class="keysearch form-control" placeholder="Nhập tên sản phẩm"  value="@ViewBag.keysearch" />
+                    <input type="text" name="keysearch" id="keysearch" class="keysearch form-control" placeholder="Nhập tên sản phẩm" value="@ViewBag.keysearch" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-3">
 
-                            <select class="form-control typeselect" id="typeselect" name="typeselect">
-                                <option value="-1">Tất cả</option>
-                                <option value="1" @((ViewBag.typeselect == 1) ? "selected" : "")>Nam</option>
-                                <option value="2" @((ViewBag.typeselect== 2) ? "selected" : "")>Nữ</option>
-                            </select>
+                    <select class="form-control typeselect" id="typeselect" name="typeselect">
+                        <option value="-1">Nam & Nữ</option>
+                        <option value="1" @((ViewBag.typeselect == 1) ? "selected" : "")>Nam</option>
+                        <option value="2" @((ViewBag.typeselect == 2) ? "selected" : "")>Nữ</option>
+                    </select>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4"></div>
                 <div class="col-2 col-sm-2 col-md-2">

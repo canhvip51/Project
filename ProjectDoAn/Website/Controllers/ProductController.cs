@@ -57,10 +57,11 @@ namespace Website.Controllers
             StaticPagedList<LibData.Product> pagedlist = new StaticPagedList<LibData.Product>(list, page, size, count);
             return View(pagedlist);
         }
-        public ActionResult ListAllProductByType(string keysearch, string type, int brandid = -1, int typeselect = -1, int page = 1, int size = 12)
+        public ActionResult ListAllProductByType( string type, string keysearch="", int brandid = -1, int typeselect = -1, int page = 1, int size = 1)
         {
             ViewBag.page = page;
             ViewBag.size = size;
+            ViewBag.typeselect = typeselect;
             ViewBag.Type = type;
             ViewBag.brandid = brandid;
             ViewBag.keysearch = keysearch;
@@ -102,10 +103,11 @@ namespace Website.Controllers
             StaticPagedList<LibData.Product> pagedlist = new StaticPagedList<LibData.Product>(list, page, size, count);
             return View(pagedlist);
         }
-        public ActionResult ListAllProductByBrand(string keysearch,  int brandid, int typeselect = -1, int page = 1, int size = 1)
+        public ActionResult ListAllProductByBrand(  int brandid, string keysearch = "", int typeselect = -1, int page = 1, int size = 1)
         {
             ViewBag.page = page;
             ViewBag.size = size;
+            ViewBag.typeselect = typeselect;
             ViewBag.brandid = brandid;
             ViewBag.keysearch = keysearch;
             int skip = (page - 1) * size;
@@ -117,6 +119,16 @@ namespace Website.Controllers
             count = viewProvider.CountAllProductByBrand(keysearch, typeselect, brandid);
             StaticPagedList<LibData.Product> pagedlist = new StaticPagedList<LibData.Product>(list, page, size, count);
             return View(pagedlist);
+        }
+        public ActionResult DetailProduct(int id) {
+
+            LibData.Product product = new LibData.Provider.ProductProvider().GetById(id);
+            return View(product);
+        }
+        public ActionResult SelectSize(int id)
+        {
+            List<LibData.Warehouse> list = new LibData.Provider.WarehouseProvider().GetAllByKey(id);
+            return View(list);
         }
     }
 }

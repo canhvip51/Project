@@ -149,6 +149,7 @@
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\fonts\ionicons.min.css" />
     <Content Include="assets\fonts\ionicons.svg" />
+    <Content Include="assets\img\6b750f75e5f602a85be7-1.jpg" />
     <Content Include="assets\img\building.jpg" />
     <Content Include="assets\img\desk.jpg" />
     <Content Include="assets\img\loft.jpg" />
@@ -2236,6 +2237,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2272,6 +2274,7 @@
     <Content Include="Views\Product\DetailProduct.cshtml" />
     <Content Include="Views\Product\ListAllProductByType.cshtml" />
     <Content Include="Views\Product\ListAllProductByBrand.cshtml" />
+    <Content Include="Views\Product\SelectSize.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2281,7 +2284,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@
     var type = ViewBag.Type as string;
     var brand = new Website.Controllers.HomeController().ListBrand() as List<LibData.Brand>;
 }
+
 <div class="shopping-grid">
     <div class="container">
         @if (type == ViewConfig.DISCOUNT)
@@ -118,4 +119,4 @@
         </div>
     </div>
 </div>
-}
+

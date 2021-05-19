@@ -13,5 +13,7 @@ namespace LibData.Configuration
         public static string DISCOUNT = "DISCOUNT";
         public static string MALE = "MALE";
         public static string FEMALE = "FEMALE";
+
     }
+
 }
