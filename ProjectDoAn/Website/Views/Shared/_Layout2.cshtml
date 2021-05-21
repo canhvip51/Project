@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="~/assets/css/styles.css">
     <link href="~/Content/PagedList.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/theme/site.css" rel="stylesheet" />
+    <script src="~/Content/theme/Site.js"></script>
     <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
     <script src="~/assets/js/jquery.min.js"></script>
 </head>
@@ -55,10 +57,11 @@
             font-size: 30px !important;
             font-weight: 700 !important;
         }
-        .nav-link.nav-font.nav-home {
-            font-size: 35px !important;
-            font-weight: 700 !important;
-        }
+
+            .nav-link.nav-font.nav-home {
+                font-size: 35px !important;
+                font-weight: 700 !important;
+            }
     </style>
     <div></div>
     <nav class="navbar navbar-light navbar-expand-md navigation-clean">
@@ -76,7 +79,7 @@
                         <div class="dropdown-menu">
                             @foreach (var item in new Website.Controllers.HomeController().ListBrand())
                             {
-                <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="/Product/ListAllProductByBrand?brandid=@item.Id">@item.Name</a>}
+                                <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="/Product/ListAllProductByBrand?brandid=@item.Id">@item.Name</a>}
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link active text-uppercase nav-font nav-home" style="font-family:'Source Sans Pro', sans-serif;" href="#">ShoesShop </a></li>
@@ -86,6 +89,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="#">Nữ </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="/Product/OrderofCustomer" title="Giỏ hàng"><i class="fa fa-shopping-cart"></i> </a>
                     </li>
                     @*<li class="nav-item">
                             <a class="nav-link text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Đăng nhập </a>
@@ -119,10 +125,23 @@
             <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
         </ul>
     </footer>
-
+    <div class="div-hidden" id="loading-page">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
     <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
     <script src="~/assets/js/Simple-Slider.js"></script>
+    <script>
+        function loading(status) {
+            if (status) {
+                $("#loading-page").attr("class", "loading-page")
+            } else {
+                $("#loading-page").attr("class", "div-hidden")
+            }
+        }
+    </script>
 </body>
 
 </html>

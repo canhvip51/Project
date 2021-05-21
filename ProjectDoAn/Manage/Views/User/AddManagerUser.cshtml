@@ -51,7 +51,8 @@
         </div>
     </div><!-- modal-body -->
     <script>
-    function sumbitManager() {
+        function sumbitManager() {
+            loading(true)
         var notify = ""
         if (@Model.Id== 0) {
             notify = "Thêm quản lý thành công"
@@ -83,6 +84,7 @@
                 await $("#form-addmanager").html($(data).filter("#form-addmanager").html());
             },
         });
+            loading(true)
     }
     </script>
 </form>

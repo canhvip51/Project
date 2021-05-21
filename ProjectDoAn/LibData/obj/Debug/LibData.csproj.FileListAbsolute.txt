@@ -43,4 +43,3 @@ G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.csproj.CopyComplete
 G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.dll
 G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.pdb
-G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.csprojAssemblyReference.cache

@@ -269,3 +269,6 @@ G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.csproj.CopyComplete
 G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.dll
 G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.pdb
+G:\Project\ProjectDoAn\Manage\bin\Newtonsoft.Json.dll
+G:\Project\ProjectDoAn\Manage\bin\Owin.dll
+G:\Project\ProjectDoAn\Manage\bin\Newtonsoft.Json.xml

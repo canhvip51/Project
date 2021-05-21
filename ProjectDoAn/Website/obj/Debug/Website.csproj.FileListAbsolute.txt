@@ -210,3 +210,6 @@ G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CopyComplete
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.dll
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.pdb
+G:\Project\ProjectDoAn\Website\bin\Newtonsoft.Json.dll
+G:\Project\ProjectDoAn\Website\bin\Owin.dll
+G:\Project\ProjectDoAn\Website\bin\Newtonsoft.Json.xml

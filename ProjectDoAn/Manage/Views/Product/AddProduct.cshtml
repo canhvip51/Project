@@ -188,7 +188,8 @@
             reader.readAsDataURL(this.files[0]);
         }
     });
-        function sumbitProduct() {
+    function sumbitProduct() {
+            loading(true)
         var notify = ""
         if (@Model.Id== 0) {
             notify = "Thêm sản phẩm thành công"
@@ -222,6 +223,7 @@
                 await $("#form-addproduct").html($(data).filter("#form-addproduct").html());
             },
         });
+        loading(false)
     }
         loadListProductImg()
         function loadListProductImg() {
@@ -230,32 +232,42 @@
                 }
     }
     function AddProductImg(id) {
+        loading(true)
         $("#content-form-md").load("/ProductImg/AddProductImg?productid="+id, function (response) {
             $("#modal-form-md").modal('show');
         });
+        loading(false)
     }
     function EditProductImg(id, productid) {
+        loading(true)
         $("#content-form-md").load("/ProductImg/AddProductImg?id=" + id + "&productid=" + productid, function (response) {
             $("#modal-form-md").modal('show');
         });
+        loading(false)
     }
     function ListWarehouse(id) {
         $("#list-warehouse").load("/Warehouse/ListWarehouse?productImgid=" + id)
     }
     function AddWarehouse(id) {
+        loading(true)
         $("#content-form-md").load("/Warehouse/AddWarehouse?productImgid=" + id, function (response) {
             $("#modal-form-md").modal('show');
         });
+        loading(false)
     }
-    function EditWarehouse(id,productimgid) {
+    function EditWarehouse(id, productimgid) {
+        loading(true)
         $("#content-form-lg").load("/Warehouse/AddWarehouse?id=" + id + "&productImgid=" + productimgid, function (response) {
             $("#modal-form-lg").modal('show');
         });
+        loading(false)
     }
-    function AddImport(productimgid,warehouseid) {
+    function AddImport(productimgid, warehouseid) {
+        loading(true)
         $("#content-form-md").load("/Import/AddImport?productimgid=" + productimgid + "&warehouseid=" + warehouseid, function (response) {
             $("#modal-form-md").modal('show');
         });
+        loading(false)
     }
         $(function () {
             $('#Describe').froalaEditor({

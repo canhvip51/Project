@@ -38,7 +38,8 @@
     <!-- Page level plugins -->
     <script src="~/Content/vendor/chart.js/Chart.min.js"></script>
 
-
+    <link href="~/Content/theme/cms/Assets/css/site.css" rel="stylesheet" />
+    <script src="~/Content/theme/cms/Assets/js/Site.js"></script>
     <!-- Page level custom scripts -->
     <script src="~/Content/js/demo/chart-area-demo.js"></script>
     <script src="~/Content/js/demo/chart-pie-demo.js"></script>
@@ -88,7 +89,7 @@
                             Sản phẩm
                         </a>
                         <a class="collapse-item" href="/Brand/Index">
-                           Thương hiệu
+                            Thương hiệu
                         </a>
                         <a class="collapse-item" href="/ImportUnit/Index">
                             Nhà cung cấp
@@ -119,8 +120,8 @@
                 <div id="navUser" class="collapse" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         @*<a class="collapse-item" href="/User/CustomerUser">
-                            Tài khoản khách
-                        </a>*@
+                                Tài khoản khách
+                            </a>*@
                         <a class="collapse-item" href="/User/ManagerUser">
                             Tài khoản quản lý
                         </a>
@@ -468,13 +469,27 @@
             </div>
         </div>
     </div>
-
+    <div class="div-hidden" id="loading-page">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script>
         function ChangePass() {
+            loading(true)
             $("#content-form-md").load("/Login/ChangePass", function (response) {
                 $("#modal-form-md").modal('show');
             });
+            loading(false)
+        }
+
+        function loading(status) {
+            if (status) {
+                $("#loading-page").attr("class", "loading-page")
+            } else {
+                $("#loading-page").attr("class", "div-hidden")
+            }
         }
     </script>
 </body>

@@ -64,14 +64,18 @@
         $("#list-customer").load("/user/ListManagerUser?keysearch=@ViewBag.keysearch")
     }
     function AddManager() {
+        loading(true)
         $("#content-form-lg").load("/user/AddManagerUser?id", function (response) {
                 $("#modal-form-lg").modal('show');
         });
+        loading(false)
     }
     function EditManager(id) {
+        loading(true)
         $("#content-form-lg").load("/user/AddManagerUser?id="+id, function (response) {
             $("#modal-form-lg").modal('show');
         });
+        loading(false)
     }
     function DeleteManager(id) {
         Swal.fire({
