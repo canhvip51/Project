@@ -179,6 +179,8 @@ G:\Project\ProjectDoAn\Website\bin\Microsoft.AI.WindowsServer.dll
 G:\Project\ProjectDoAn\Website\bin\Microsoft.ApplicationInsights.dll
 G:\Project\ProjectDoAn\Website\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 G:\Project\ProjectDoAn\Website\bin\Microsoft.Web.Infrastructure.dll
+G:\Project\ProjectDoAn\Website\bin\Newtonsoft.Json.dll
+G:\Project\ProjectDoAn\Website\bin\Owin.dll
 G:\Project\ProjectDoAn\Website\bin\PagedList.dll
 G:\Project\ProjectDoAn\Website\bin\PagedList.Mvc.dll
 G:\Project\ProjectDoAn\Website\bin\System.Web.Helpers.dll
@@ -196,6 +198,7 @@ G:\Project\ProjectDoAn\Website\bin\Microsoft.AI.Web.xml
 G:\Project\ProjectDoAn\Website\bin\Microsoft.AI.WindowsServer.xml
 G:\Project\ProjectDoAn\Website\bin\Microsoft.ApplicationInsights.xml
 G:\Project\ProjectDoAn\Website\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+G:\Project\ProjectDoAn\Website\bin\Newtonsoft.Json.xml
 G:\Project\ProjectDoAn\Website\bin\PagedList.xml
 G:\Project\ProjectDoAn\Website\bin\PagedList.Mvc.xml
 G:\Project\ProjectDoAn\Website\bin\System.Web.Razor.xml
@@ -210,6 +213,3 @@ G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CopyComplete
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.dll
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.pdb
-G:\Project\ProjectDoAn\Website\bin\Newtonsoft.Json.dll
-G:\Project\ProjectDoAn\Website\bin\Owin.dll
-G:\Project\ProjectDoAn\Website\bin\Newtonsoft.Json.xml

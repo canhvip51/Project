@@ -1,0 +1,10 @@
+﻿@model List<LibData.Warehouse>
+@{
+    Layout = null;
+}
+    @foreach (var item in Model)
+    {
+        <option value="@item.Id" @(item.Amount < 1 ? "disabled" : "")>VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK</option>
+    }
+
+

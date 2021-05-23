@@ -1,0 +1,58 @@
+﻿
+<div class="container-fluid">
+    <h1>Tài khoản khách</h1>
+    <div>
+        <div class="card shadow">
+            <div class="card-header">
+                <h6>
+                    Danh sách tài khoản khách
+                </h6>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-3">
+                            <input type="text" class="form-control" placeholder="Nhập số điện thoại hoặc email" title="Nhập số điện thoại hoặc email" maxlength="255" name="keysearch" value="@ViewBag.keysearch" />
+                        </div>
+                        <div class="col-2 offset-7">
+                            <button class="btn btn-primary btn-block" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row mt-3">
+                    <div class="col-12" id="list-customer">
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal*@
+<div class="modal fade bd-example-modal-lg" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="content-form-lg">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-md" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" id="content-form-md">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-sm" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" id="content-form-sm">
+
+        </div>
+    </div>
+</div>
+<script>
+    loadListCustomerUser()
+    function loadListCustomerUser() {
+        $("#list-customer").load("/Admin/user/ListCustomerUser?keysearch=@ViewBag.keysearch")
+    }
+</script>

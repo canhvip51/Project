@@ -1,0 +1,38 @@
+﻿@model IEnumerable<LibData.CauHinh>
+
+@{
+    ViewBag.Title = "Cấu hình";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Cấu hình</h2>
+<p>
+    @Html.ActionLink("Tạo mới", "Create")
+</p>
+<table class="table  table-bordered">
+    <tr>
+        <th>
+           Tên cấu hình
+        </th>
+        <th>
+           Giá trị <i> (html,text,number,url,file....)</i>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenCauHinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Giatri)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.Id })
+            @*@Html.ActionLink("Details", "Details", new { id=item.Id }) |*@
+            @*@Html.ActionLink("xóa", "Delete", new { id=item.Id })*@
+        </td>
+    </tr>
+}
+
+</table>

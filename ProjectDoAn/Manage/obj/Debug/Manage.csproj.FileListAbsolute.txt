@@ -238,6 +238,8 @@ G:\Project\ProjectDoAn\Manage\bin\Microsoft.AI.WindowsServer.dll
 G:\Project\ProjectDoAn\Manage\bin\Microsoft.ApplicationInsights.dll
 G:\Project\ProjectDoAn\Manage\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 G:\Project\ProjectDoAn\Manage\bin\Microsoft.Web.Infrastructure.dll
+G:\Project\ProjectDoAn\Manage\bin\Newtonsoft.Json.dll
+G:\Project\ProjectDoAn\Manage\bin\Owin.dll
 G:\Project\ProjectDoAn\Manage\bin\PagedList.dll
 G:\Project\ProjectDoAn\Manage\bin\PagedList.Mvc.dll
 G:\Project\ProjectDoAn\Manage\bin\System.Web.Helpers.dll
@@ -255,6 +257,7 @@ G:\Project\ProjectDoAn\Manage\bin\Microsoft.AI.Web.xml
 G:\Project\ProjectDoAn\Manage\bin\Microsoft.AI.WindowsServer.xml
 G:\Project\ProjectDoAn\Manage\bin\Microsoft.ApplicationInsights.xml
 G:\Project\ProjectDoAn\Manage\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+G:\Project\ProjectDoAn\Manage\bin\Newtonsoft.Json.xml
 G:\Project\ProjectDoAn\Manage\bin\PagedList.xml
 G:\Project\ProjectDoAn\Manage\bin\PagedList.Mvc.xml
 G:\Project\ProjectDoAn\Manage\bin\System.Web.Razor.xml
@@ -269,6 +272,3 @@ G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.csproj.CopyComplete
 G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.dll
 G:\Project\ProjectDoAn\Manage\obj\Debug\Manage.pdb
-G:\Project\ProjectDoAn\Manage\bin\Newtonsoft.Json.dll
-G:\Project\ProjectDoAn\Manage\bin\Owin.dll
-G:\Project\ProjectDoAn\Manage\bin\Newtonsoft.Json.xml
