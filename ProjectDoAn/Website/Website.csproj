@@ -10946,6 +10946,15 @@
     <Content Include="Views\Product\ListAllProductSimilar.cshtml" />
     <Content Include="Views\Product\OrderofCustomer.cshtml" />
     <Content Include="Views\Product\Cart.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\ListProduct\Cart.cshtml" />
+    <Content Include="Views\ListProduct\DetailProduct.cshtml" />
+    <Content Include="Views\ListProduct\ListAllProductByBrand.cshtml" />
+    <Content Include="Views\ListProduct\ListAllProductByType.cshtml" />
+    <Content Include="Views\ListProduct\ListAllProductSimilar.cshtml" />
+    <Content Include="Views\ListProduct\SelectSize.cshtml" />
+    <Content Include="Views\ListProduct\Index.cshtml" />
+    <Content Include="Views\Cart\Order.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -10974,8 +10983,6 @@
     <Folder Include="Areas\Admin\Content\theme\cms\Assets\lib\spectrum-colorpicker\build\" />
     <Folder Include="Areas\Admin\Views\Slide\" />
     <Folder Include="Images\Drafts\" />
-    <Folder Include="Views\Cart\" />
-    <Folder Include="Views\ListProduct\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibData\LibData.csproj">

@@ -79,7 +79,7 @@
                 <div class="row float-right">
                     @*phân trang*@
                     @Html.PagedListPager((IPagedList)Model,
-                    page => Url.Action("Index", new { page = page, brandid = ViewBag.brandid, keysearch = ViewBag.keysearch, typeselect = ViewBag.typeselect }),
+                    page => Url.Action("ListAllProductByBrand", new { page = page, brandid = ViewBag.brandid, keysearch = ViewBag.keysearch, typeselect = ViewBag.typeselect }),
                     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
                     {
                         HttpMethod = "GET",

@@ -20,7 +20,7 @@ namespace Website.Business
                     cookie = new HttpCookie("orderlist");
                 }
 
-                if (cookie["list"] == null)
+                if (string.IsNullOrEmpty(cookie["list"]))
                 {
                     cookie["list"] = id.ToString();
                     cookie["amount"] = "1";
@@ -54,6 +54,24 @@ namespace Website.Business
                         cookie["amount"] += ",1";
                     }
                 }
+                cookie.Expires = DateTime.Now.AddDays(30);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+            catch (Exception)
+            {
+            }
+        }
+        public void UpdateCart(List<int> list, List<int> amount)
+        {
+            try
+            {
+                HttpCookie cookie = HttpContext.Current.Request.Cookies["orderlist"];
+                if (cookie == null)
+                {
+                    cookie = new HttpCookie("orderlist");
+                }
+                cookie["list"] = string.Join(",", list);
+                cookie["amount"] = string.Join(",", amount);
                 cookie.Expires = DateTime.Now.AddDays(30);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
@@ -102,12 +120,8 @@ namespace Website.Business
         {
             try
             {
-                HttpCookie cookie = HttpContext.Current.Request.Cookies["orderlist"];
-                if (cookie == null)
-                {
-                    return;
-                }
-                cookie.Expires = DateTime.Now.AddDays(-1);
+                HttpCookie cookie = new HttpCookie("orderlist");
+                cookie.Expires = DateTime.Now.AddDays(30);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
             catch (Exception)

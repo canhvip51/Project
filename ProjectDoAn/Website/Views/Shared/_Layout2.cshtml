@@ -79,7 +79,7 @@
                         <div class="dropdown-menu">
                             @foreach (var item in new Website.Controllers.HomeController().ListBrand())
                             {
-                                <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="/Product/ListAllProductByBrand?brandid=@item.Id">@item.Name</a>}
+                                <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="/ListProduct/ListAllProductByBrand?brandid=@item.Id">@item.Name</a>}
                         </div>
                     </li>
                     <li class="nav-item"><a class="nav-link active text-uppercase nav-font nav-home" style="font-family:'Source Sans Pro', sans-serif;" href="#">ShoesShop </a></li>
@@ -91,7 +91,7 @@
                         <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="#">Nữ </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="/Product/Cart" title="Giỏ hàng"><i class="fa fa-shopping-cart"></i> </a>
+                        <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="/Cart/Index" title="Giỏ hàng"><i class="fa fa-shopping-cart"></i> </a>
                     </li>
                     @*<li class="nav-item">
                             <a class="nav-link text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Đăng nhập </a>
