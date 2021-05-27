@@ -35,8 +35,15 @@ namespace LibData
         public string AddressFrom { get; set; }
         public string BuyerName { get; set; }
         public string Note { get; set; }
+        public string KeyCode { get; set; }
+        public Nullable<int> ProvinceId { get; set; }
+        public Nullable<int> DistrictId { get; set; }
+        public Nullable<int> WardId { get; set; }
     
+        public virtual District District { get; set; }
+        public virtual Province Province { get; set; }
         public virtual User User { get; set; }
+        public virtual Ward Ward { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

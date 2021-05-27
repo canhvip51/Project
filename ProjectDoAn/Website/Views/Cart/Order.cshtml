@@ -1,18 +1,49 @@
 ﻿
 @model Website.Models.CustomerOrderModel
+<style>
+    input, select, textarea {
+        max-width: 100%
+    }
+</style>
 <div class="shopping-cart">
     <div class="px-4 px-lg-0">
 
         <div class="pb-5">
             <div class="container">
-
                 <h3 class="" align="center">Giỏ hàng</h3>
+                <form class="row py-5 p-4 bg-white rounded shadow-sm" id="form-order">
+                    @Html.ValidationMessage("error", new { @class = "text-danger" })
+                    @Html.ValidationMessage("success", new { @class = "text-success" })
+                    <div class="col-lg-4">
+                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin khách hàng</div>
+                        <div class="mt-3">
+                            <div class="input-group mb-4 border rounded-pill p-2">
+                                <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" class="form-control border-0">
+                                @*<div class="input-group-append border-0">
+                        <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+                    </div>*@
+                            </div>
+                            <div class="input-group mb-4 border rounded-pill p-2">
+                                <input type="text" placeholder="Số điện thoại nhận hàng" aria-describedby="button-addon3" class="form-control border-0">
+                            </div>
+                            <div class="input-group mb-4 border rounded-pill p-2">
+                                <input type="text" placeholder="Địa chỉ nhận hàng" aria-describedby="button-addon3" class="form-control border-0">
+                            </div>
+                            @*<div class="input-group mb-4 border rounded-pill p-2">
+                    <input type="text" placeholder="Mã giảm giá" aria-describedby="button-addon3" class="form-control border-0">
+                    <div class="input-group-append border-0">
+                        <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Xác nhận</button>
+                    </div>
+                </div>*@
+                            <p class="font-italic mb-4">Ghi chú cho người bán</p>
+                            <textarea name="" rows="2" class="form-control" style="max-width:100%"></textarea>
 
-                <div class="row">
-                    <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                        </div>
 
-                        @*<form action="/Cart/Index" method="post">*@
-                            <!-- Shopping cart table -->
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Chi tiết đơn hàng </div>
+                        <div class="mt-3">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -27,7 +58,7 @@
                                                 <div class="py-2 text-uppercase">Số lượng</div>
                                             </th>
                                             <th scope="col" class="border-0 bg-light">
-                                                <div class="py-2 text-uppercase">Xóa</div>
+                                                <div class="py-2 text-uppercase">Tổng tiền</div>
                                             </th>
                                         </tr>
                                     </thead>
@@ -39,10 +70,11 @@
                             <tr>
                                 <th scope="row" class="border-0">
                                     <div class="p-2">
-                                        @*<img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">*@
+                                        <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
                                         <div class="ml-3 d-inline-block align-middle">
                                             <input type="hidden" name="WarehouseId" id="WarehouseId" value="@Model.WarehouseId[i]" />
-                                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">@Model.ProductName[i]</a></h5>@*<span class="text-muted font-weight-normal font-italic d-block">Category: Watches</span>*@
+                                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">@Model.ProductName[i]</a></h5>
+                                            <span class="text-muted font-weight-normal font-italic d-block">@Model.Size[i]</span>
                                         </div>
                                     </div>
                                 </th>
@@ -54,58 +86,59 @@
 
                                 <td class="border-0 align-middle">
                                     <strong>@Model.Amount[i]</strong>
-                                    <input type="hidden" name="Amount" id="Amount" max="@Model.MaxAmount[i]" min="0" class="Price form-control" value="@Model.Amount[i]" />
+                                    <input type="hidden" name="Amount" id="Amount" min="0" class="Price form-control" value="@Model.Amount[i]" />
                                 </td>
-                                <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                                <td class="border-0 align-middle">
+                                    <strong>@Model.TotalPrice[i] VNĐ</strong>
+                                    <input type="hidden" name="TotalPrice" id="TotalPrice" min="0" class="Price form-control" value="@Model.TotalPrice[i]" />
+                                </td>
                             </tr>}
                                         }
-
-
-
+                                        <tr>
+                                            <td colspan="3"><strong class="text-muted">Tổng tiền </strong></td>
+                                            <td colspan="2"><strong>@Model.Total VNĐ</strong></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-
-                        @*</form>*@
-                        <!-- End -->
+                            @*<p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
+                <ul class="list-unstyled mb-4">
+                    <li class="d-flex justify-content-between py-3 border-bottom"></li>
+                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Phí giao hàng</strong><strong>0</strong></li>
+                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tax</strong><strong>$0.00</strong></li>
+                    <li class="d-flex justify-content-between py-3 border-bottom">
+                        <strong class="text-muted">Tổng</strong>
+                        <h5 class="font-weight-bold">$400.00</h5>
+                    </li>
+                </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Đặt hàng</a>*@
+                        </div>
+                    </div>
+                </form>
+                <div class="row d-flex justify-content-center mt-3" style="min-height:72px">
+                    <div class="col-md-2 col-6 ">
+                        <a href="#" class="btn btn-dark rounded-pill py-2 btn-block" onclick="ConfirmOrder()">Đặt hàng</a>
                     </div>
                 </div>
-                <div class="row py-5 p-4 bg-white rounded shadow-sm">
-                    <div class="col-lg-6">
-                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
-                        <div class="p-4">
-                            <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
-                            <div class="input-group mb-4 border rounded-pill p-2">
-                                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
-                                <div class="input-group-append border-0">
-                                    <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
-                        <div class="p-4">
-                            <p class="font-italic mb-4">If you have some information for the seller you can leave them in the box below</p>
-                            <textarea name="" cols="30" rows="2" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
-                        <div class="p-4">
-                            <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
-                            <ul class="list-unstyled mb-4">
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order Subtotal </strong><strong>$390.00</strong></li>
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and handling</strong><strong>$10.00</strong></li>
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tax</strong><strong>$0.00</strong></li>
-                                <li class="d-flex justify-content-between py-3 border-bottom">
-                                    <strong class="text-muted">Total</strong>
-                                    <h5 class="font-weight-bold">$400.00</h5>
-                                </li>
-                            </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 </div>
+<script>
+    function ConfirmOrder() {
+        loading(true)
+        var $form = $("#form-order");
+        $.ajax({
+            type:"POST",
+            url: "/Cart/Order",
+            data: $form.serialize(),
+            success: function (rs) {
+                var statusCode = xhr.getResponseHeader("statusCode");
+                if (xhr.status == 201) {
+                }
+                await $("#form-order").html($(data).filter("#form-order").html());
+            },
+             
+        });
+        loading(false)
+    }
+</script>

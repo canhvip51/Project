@@ -11,7 +11,7 @@ namespace Website.Controllers
     public class ListProductController : Controller
     {
         // GET: ListProduct
-    public ActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
@@ -101,10 +101,77 @@ namespace Website.Controllers
             return View(list);
         }
 
-        public void OrderProduct(int id)
+        public bool OrderProduct(int id)
         {
-            if (new LibData.Provider.WarehouseProvider().GetById(id) != null)
-                new Business.OrderList().AddCart(id);
+            string key;
+            LibData.Provider.CartProvider cartProvider = new LibData.Provider.CartProvider();
+            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
+            LibData.Cookie cookie = new LibData.Cookie();
+            HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+            if (httpCookie == null)
+            {
+                httpCookie = new HttpCookie("key");
+                httpCookie["keycode"] = Guid.NewGuid().ToString();
+                httpCookie.Expires = DateTime.Now.AddMinutes(10);
+                HttpContext.Response.Cookies.Add(httpCookie);
+            }
+            key = httpCookie["keycode"];
+            cookie = cookieProvider.GetByKey(key);
+            if (cookie == null)
+            {
+                httpCookie = new HttpCookie("key");
+                httpCookie["keycode"] = Guid.NewGuid().ToString();
+                httpCookie.Expires = DateTime.Now.AddMinutes(10);
+                HttpContext.Response.Cookies.Add(httpCookie);
+                cookie = new LibData.Cookie()
+                {
+                    KeyCode = httpCookie["keycode"],
+                    ExpiredDate = DateTime.Now.AddMinutes(20),
+                };
+                LibData.Cart newCart = new LibData.Cart()
+                {
+                    WarehouseId = id,
+                    Amount = 1,
+                    CookieId = cookie.Id,
+                    Status = 1,
+                };
+                cookie.Carts.Add(newCart);
+                    if (cookieProvider.Insert(cookie))
+
+                    return true;
+                return false;
+            }
+            else
+            {
+                cookie.ExpiredDate = DateTime.Now.AddMinutes(20);
+                LibData.Cart cart = cookie.Carts.FirstOrDefault(x => x.Id == id);
+                if (cart == null)
+                {
+                    cart = cartProvider.GetByProductAndKey(id, cookie.Id);
+                    if (cart == null)
+                    {
+                        cart = new LibData.Cart();
+                        cart.CreateDate = DateTime.Now;
+                        cart.Status = 1;
+                        cart.Amount = 1;
+                        cart.CookieId = cookie.Id;
+                        cart.WarehouseId = id;
+                        cookie.Carts.Add(cart);
+                    }
+                    else
+                    {
+                        cookie.Carts.FirstOrDefault(x => x.Id == id).Amount += 1;
+                        cookie.Carts.FirstOrDefault(x => x.Id == id).UpdateDate = DateTime.Now;
+                    }
+                }
+                if (cookieProvider.Update(cookie))
+                {
+                    return true;
+                }
+                return false;
+
+            }
+            return false;
         }
     }
 }

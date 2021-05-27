@@ -133,13 +133,13 @@
         $("#WarehouseId").removeAttr("disabled")
     })
     function SelectWarehoue(id)  {
-        $("#WarehouseId").load("/Product/SelectSize?id="+id)
+        $("#WarehouseId").load("/ListProduct/SelectSize?id="+id)
     }
-    $("#product-relate").load("/Product/ListAllProductSimilar?brandid=@Model.BrandId&type=@Model.Type")
+    $("#product-relate").load("/ListProduct/ListAllProductSimilar?brandid=@Model.BrandId&type=@Model.Type")
     function BuyProduct() {
         var warehouse = $("#WarehouseId").val();
         if (Number.isInteger(parseInt(warehouse))) {
-            $.ajax({ url: "/Product/Order?id=" + warehouse });
+            $.ajax({ url: "/ListProduct/OrderProduct?id=" + warehouse });
         } else {
             alert("Lỗi")
         }

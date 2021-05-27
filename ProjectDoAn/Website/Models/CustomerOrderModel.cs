@@ -21,6 +21,7 @@ namespace Website.Models
         public List<string> ProductName = new List<string>();
         public List<int> MaxAmount = new List<int>();
         public List<int> Price = new List<int>();
+        public List<int> TotalPrice = new List<int>();
         public List<string> Avatar = new List<string>();
     }
 }

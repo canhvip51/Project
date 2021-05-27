@@ -67,6 +67,9 @@
     <Compile Include="Configuration\ProductConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Configuration\ViewConfig.cs" />
+    <Compile Include="Cookie.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,6 +118,7 @@
     <Compile Include="Provider\BrandProvider.cs" />
     <Compile Include="Provider\CartProvider.cs" />
     <Compile Include="Provider\ConfigProvider.cs" />
+    <Compile Include="Provider\CookieProvider.cs" />
     <Compile Include="Provider\ExtendProvider.cs" />
     <Compile Include="Provider\ImportProvider.cs" />
     <Compile Include="Provider\ImportUnitProvider.cs" />
@@ -193,7 +197,6 @@
       <LastGenOutput>Data.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

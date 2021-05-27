@@ -16,6 +16,7 @@ namespace LibData
     {
         public Warehouse()
         {
+            this.Carts = new HashSet<Cart>();
             this.Imports = new HashSet<Import>();
             this.OrderDetails = new HashSet<OrderDetail>();
         }
@@ -30,6 +31,7 @@ namespace LibData
         public Nullable<int> ProductImgId { get; set; }
         public Nullable<int> Discount { get; set; }
     
+        public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<Import> Imports { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ProductImg ProductImg { get; set; }

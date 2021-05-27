@@ -31,6 +31,9 @@
     <EntitySetMapping Name="Carts">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Cart">
         <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="CookieId" ColumnName="CookieId" />
+          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+          <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Status" ColumnName="Status" />
@@ -47,6 +50,15 @@
         <MappingFragment StoreEntitySet="Config">
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cookies">
+      <EntityTypeMapping TypeName="SHOESSHOPModel.Cookie">
+        <MappingFragment StoreEntitySet="Cookie">
+          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+          <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -92,6 +104,10 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="WardId" ColumnName="WardId" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+          <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
           <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
           <ScalarProperty Name="AddressFrom" ColumnName="AddressFrom" />
@@ -215,7 +231,10 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="SHOESSHOPModel.User">
         <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="WardId" ColumnName="WardId" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="ProviceId" ColumnName="ProviceId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

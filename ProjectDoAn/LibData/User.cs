@@ -32,7 +32,10 @@ namespace LibData
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string FullName { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
+        public Nullable<int> ProviceId { get; set; }
+        public Nullable<int> DistrictId { get; set; }
+        public Nullable<int> WardId { get; set; }
     
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

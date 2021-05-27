@@ -66,7 +66,7 @@ namespace LibData.Provider
                 user.Phone = model.Phone;
                 user.Status = model.Status;
                 user.FullName = model.FullName;
-                user.Adress = model.Adress;
+                user.Address = model.Address;
                 user.Email = model.Email;
                 ApplicationDbContext.SaveChanges();
                 return true;

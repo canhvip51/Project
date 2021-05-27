@@ -12,19 +12,17 @@ namespace LibData
     using System;
     using System.Collections.Generic;
     
-    public partial class Province
+    public partial class Cookie
     {
-        public Province()
+        public Cookie()
         {
-            this.Districts = new HashSet<District>();
-            this.Orders = new HashSet<Order>();
+            this.Carts = new HashSet<Cart>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
+        public string KeyCode { get; set; }
+        public Nullable<System.DateTime> ExpiredDate { get; set; }
     
-        public virtual ICollection<District> Districts { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

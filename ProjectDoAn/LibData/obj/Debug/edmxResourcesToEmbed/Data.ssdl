@@ -37,6 +37,9 @@
     <Property Name="Status" Type="int" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="KeyCode" Type="nvarchar(max)" />
+    <Property Name="ExpiredDate" Type="datetime" />
+    <Property Name="CookieId" Type="int" />
   </EntityType>
   <EntityType Name="Config">
     <Key>
@@ -45,6 +48,14 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Cookie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KeyCode" Type="nvarchar(max)" />
+    <Property Name="ExpiredDate" Type="datetime" />
   </EntityType>
   <EntityType Name="District">
     <Key>
@@ -101,6 +112,10 @@
     <Property Name="AddressFrom" Type="nvarchar(max)" />
     <Property Name="BuyerName" Type="nvarchar(max)" />
     <Property Name="Note" Type="nvarchar(max)" />
+    <Property Name="KeyCode" Type="nvarchar(max)" />
+    <Property Name="ProvinceId" Type="int" />
+    <Property Name="DistrictId" Type="int" />
+    <Property Name="WardId" Type="int" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -211,7 +226,10 @@
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="FullName" Type="nvarchar" MaxLength="255" />
-    <Property Name="Adress" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="ProviceId" Type="int" />
+    <Property Name="DistrictId" Type="int" />
+    <Property Name="WardId" Type="int" />
   </EntityType>
   <EntityType Name="Ward">
     <Key>
@@ -236,6 +254,18 @@
     <Property Name="ProductImgId" Type="int" />
     <Property Name="Discount" Type="int" />
   </EntityType>
+  <Association Name="FK_Cart_Cookie">
+    <End Role="Cookie" Type="Self.Cookie" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cookie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="CookieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Cart_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
@@ -245,6 +275,30 @@
       </Principal>
       <Dependent Role="Cart">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Warehouse">
+    <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="WarehouseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_District_Province">
+    <End Role="Province" Type="Self.Province" Multiplicity="1" />
+    <End Role="District" Type="Self.District" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="District">
+        <PropertyRef Name="ProvinceId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -272,6 +326,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Order_District">
+    <End Role="District" Type="Self.District" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Province">
+    <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ProvinceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Order_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -281,6 +359,18 @@
       </Principal>
       <Dependent Role="Order">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Ward">
+    <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ward">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="WardId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -344,6 +434,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Ward_District">
+    <End Role="District" Type="Self.District" Multiplicity="1" />
+    <End Role="Ward" Type="Self.Ward" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ward">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Warehouse_ProductImg">
     <End Role="ProductImg" Type="Self.ProductImg" Multiplicity="0..1" />
     <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
@@ -373,6 +475,7 @@
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cookie" EntityType="Self.Cookie" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ImportUnit" EntityType="Self.ImportUnit" Schema="dbo" store:Type="Tables" />
@@ -388,9 +491,21 @@
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cart_Cookie" Association="Self.FK_Cart_Cookie">
+      <End Role="Cookie" EntitySet="Cookie" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
     <AssociationSet Name="FK_Cart_User" Association="Self.FK_Cart_User">
       <End Role="User" EntitySet="User" />
       <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Warehouse" Association="Self.FK_Cart_Warehouse">
+      <End Role="Warehouse" EntitySet="Warehouse" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
+      <End Role="Province" EntitySet="Province" />
+      <End Role="District" EntitySet="District" />
     </AssociationSet>
     <AssociationSet Name="FK_Import_ImportUnit" Association="Self.FK_Import_ImportUnit">
       <End Role="ImportUnit" EntitySet="ImportUnit" />
@@ -400,8 +515,20 @@
       <End Role="Warehouse" EntitySet="Warehouse" />
       <End Role="Import" EntitySet="Import" />
     </AssociationSet>
+    <AssociationSet Name="FK_Order_District" Association="Self.FK_Order_District">
+      <End Role="District" EntitySet="District" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Province" Association="Self.FK_Order_Province">
+      <End Role="Province" EntitySet="Province" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
     <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
       <End Role="User" EntitySet="User" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Ward" Association="Self.FK_Order_Ward">
+      <End Role="Ward" EntitySet="Ward" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
@@ -423,6 +550,10 @@
     <AssociationSet Name="FK_ProductImg_Product" Association="Self.FK_ProductImg_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="ProductImg" EntitySet="ProductImg" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ward_District" Association="Self.FK_Ward_District">
+      <End Role="District" EntitySet="District" />
+      <End Role="Ward" EntitySet="Ward" />
     </AssociationSet>
     <AssociationSet Name="FK_Warehouse_ProductImg" Association="Self.FK_Warehouse_ProductImg">
       <End Role="ProductImg" EntitySet="ProductImg" />

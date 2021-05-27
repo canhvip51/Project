@@ -14,9 +14,19 @@ namespace LibData
     
     public partial class District
     {
+        public District()
+        {
+            this.Orders = new HashSet<Order>();
+            this.Wards = new HashSet<Ward>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public int ProvinceId { get; set; }
+    
+        public virtual Province Province { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Ward> Wards { get; set; }
     }
 }

@@ -8372,6 +8372,8 @@
     <Content Include="assets\img\united-states-flag.png" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\Simple-Slider.js" />
+    <Content Include="Content\sweetalert\sweetalert2.all.min.js" />
+    <Content Include="Content\sweetalert\sweetalert2.min.css" />
     <Content Include="Content\theme\Site.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

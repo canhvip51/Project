@@ -29,6 +29,7 @@ namespace LibData
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Config> Configs { get; set; }
+        public DbSet<Cookie> Cookies { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Import> Imports { get; set; }
         public DbSet<ImportUnit> ImportUnits { get; set; }

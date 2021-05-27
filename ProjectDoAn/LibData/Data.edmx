@@ -42,6 +42,9 @@
           <Property Name="Status" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="KeyCode" Type="nvarchar(max)" />
+          <Property Name="ExpiredDate" Type="datetime" />
+          <Property Name="CookieId" Type="int" />
         </EntityType>
         <EntityType Name="Config">
           <Key>
@@ -50,6 +53,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Cookie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyCode" Type="nvarchar(max)" />
+          <Property Name="ExpiredDate" Type="datetime" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -106,6 +117,10 @@
           <Property Name="AddressFrom" Type="nvarchar(max)" />
           <Property Name="BuyerName" Type="nvarchar(max)" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="KeyCode" Type="nvarchar(max)" />
+          <Property Name="ProvinceId" Type="int" />
+          <Property Name="DistrictId" Type="int" />
+          <Property Name="WardId" Type="int" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -216,7 +231,10 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="FullName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Adress" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="ProviceId" Type="int" />
+          <Property Name="DistrictId" Type="int" />
+          <Property Name="WardId" Type="int" />
         </EntityType>
         <EntityType Name="Ward">
           <Key>
@@ -241,6 +259,18 @@
           <Property Name="ProductImgId" Type="int" />
           <Property Name="Discount" Type="int" />
         </EntityType>
+        <Association Name="FK_Cart_Cookie">
+          <End Role="Cookie" Type="Self.Cookie" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cookie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="CookieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Cart_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
@@ -250,6 +280,30 @@
             </Principal>
             <Dependent Role="Cart">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="District" Type="Self.District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="ProvinceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -277,6 +331,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_User">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -286,6 +364,18 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Ward">
+          <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ward">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="WardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -349,6 +439,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ward_District">
+          <End Role="District" Type="Self.District" Multiplicity="1" />
+          <End Role="Ward" Type="Self.Ward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ward">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Warehouse_ProductImg">
           <End Role="ProductImg" Type="Self.ProductImg" Multiplicity="0..1" />
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
@@ -378,6 +480,7 @@
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cookie" EntityType="Self.Cookie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImportUnit" EntityType="Self.ImportUnit" Schema="dbo" store:Type="Tables" />
@@ -393,9 +496,21 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cart_Cookie" Association="Self.FK_Cart_Cookie">
+            <End Role="Cookie" EntitySet="Cookie" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
           <AssociationSet Name="FK_Cart_User" Association="Self.FK_Cart_User">
             <End Role="User" EntitySet="User" />
             <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Warehouse" Association="Self.FK_Cart_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="District" EntitySet="District" />
           </AssociationSet>
           <AssociationSet Name="FK_Import_ImportUnit" Association="Self.FK_Import_ImportUnit">
             <End Role="ImportUnit" EntitySet="ImportUnit" />
@@ -405,8 +520,20 @@
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Import" EntitySet="Import" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order_District" Association="Self.FK_Order_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Province" Association="Self.FK_Order_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
             <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Ward" Association="Self.FK_Order_Ward">
+            <End Role="Ward" EntitySet="Ward" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
@@ -429,6 +556,10 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductImg" EntitySet="ProductImg" />
           </AssociationSet>
+          <AssociationSet Name="FK_Ward_District" Association="Self.FK_Ward_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Ward" EntitySet="Ward" />
+          </AssociationSet>
           <AssociationSet Name="FK_Warehouse_ProductImg" Association="Self.FK_Warehouse_ProductImg">
             <End Role="ProductImg" EntitySet="ProductImg" />
             <End Role="Warehouse" EntitySet="Warehouse" />
@@ -447,6 +578,7 @@
           <EntitySet Name="Brands" EntityType="SHOESSHOPModel.Brand" />
           <EntitySet Name="Carts" EntityType="SHOESSHOPModel.Cart" />
           <EntitySet Name="Configs" EntityType="SHOESSHOPModel.Config" />
+          <EntitySet Name="Cookies" EntityType="SHOESSHOPModel.Cookie" />
           <EntitySet Name="Districts" EntityType="SHOESSHOPModel.District" />
           <EntitySet Name="Imports" EntityType="SHOESSHOPModel.Import" />
           <EntitySet Name="ImportUnits" EntityType="SHOESSHOPModel.ImportUnit" />
@@ -466,9 +598,29 @@
             <End Role="Brand" EntitySet="Brands" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cart_Cookie" Association="SHOESSHOPModel.FK_Cart_Cookie">
+            <End Role="Cookie" EntitySet="Cookies" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
           <AssociationSet Name="FK_Cart_User" Association="SHOESSHOPModel.FK_Cart_User">
             <End Role="User" EntitySet="Users" />
             <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Warehouse" Association="SHOESSHOPModel.FK_Cart_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_Province" Association="SHOESSHOPModel.FK_District_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="District" EntitySet="Districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_District" Association="SHOESSHOPModel.FK_Order_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ward_District" Association="SHOESSHOPModel.FK_Ward_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
           <AssociationSet Name="FK_Import_ImportUnit" Association="SHOESSHOPModel.FK_Import_ImportUnit">
             <End Role="ImportUnit" EntitySet="ImportUnits" />
@@ -478,8 +630,16 @@
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Import" EntitySet="Imports" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order_Province" Association="SHOESSHOPModel.FK_Order_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_User" Association="SHOESSHOPModel.FK_Order_User">
             <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Ward" Association="SHOESSHOPModel.FK_Order_Ward">
+            <End Role="Ward" EntitySet="Wards" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Order" Association="SHOESSHOPModel.FK_OrderDetail_Order">
@@ -545,7 +705,12 @@
           <Property Name="Status" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="KeyCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
+          <Property Name="CookieId" Type="Int32" />
+          <NavigationProperty Name="Cookie" Relationship="SHOESSHOPModel.FK_Cart_Cookie" FromRole="Cart" ToRole="Cookie" />
           <NavigationProperty Name="User" Relationship="SHOESSHOPModel.FK_Cart_User" FromRole="Cart" ToRole="User" />
+          <NavigationProperty Name="Warehouse" Relationship="SHOESSHOPModel.FK_Cart_Warehouse" FromRole="Cart" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="Config">
           <Key>
@@ -555,6 +720,15 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Cookie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_Cookie" FromRole="Cookie" ToRole="Cart" />
+        </EntityType>
         <EntityType Name="District">
           <Key>
             <PropertyRef Name="Id" />
@@ -563,6 +737,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_District_Province" FromRole="District" ToRole="Province" />
+          <NavigationProperty Name="Orders" Relationship="SHOESSHOPModel.FK_Order_District" FromRole="District" ToRole="Order" />
+          <NavigationProperty Name="Wards" Relationship="SHOESSHOPModel.FK_Ward_District" FromRole="District" ToRole="Ward" />
         </EntityType>
         <EntityType Name="Import">
           <Key>
@@ -613,7 +790,14 @@
           <Property Name="AddressFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BuyerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KeyCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="WardId" Type="Int32" />
+          <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Order_District" FromRole="Order" ToRole="District" />
+          <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Order" ToRole="Province" />
           <NavigationProperty Name="User" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="Ward" Relationship="SHOESSHOPModel.FK_Order_Ward" FromRole="Order" ToRole="Ward" />
           <NavigationProperty Name="OrderDetails" Relationship="SHOESSHOPModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
         </EntityType>
         <EntityType Name="OrderDetail">
@@ -672,6 +856,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Districts" Relationship="SHOESSHOPModel.FK_District_Province" FromRole="Province" ToRole="District" />
+          <NavigationProperty Name="Orders" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Province" ToRole="Order" />
         </EntityType>
         <EntityType Name="Size">
           <Key>
@@ -734,7 +920,10 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProviceId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="WardId" Type="Int32" />
           <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_User" FromRole="User" ToRole="Cart" />
           <NavigationProperty Name="Orders" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="User" ToRole="Order" />
         </EntityType>
@@ -746,6 +935,8 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="DistrictId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Ward_District" FromRole="Ward" ToRole="District" />
+          <NavigationProperty Name="Orders" Relationship="SHOESSHOPModel.FK_Order_Ward" FromRole="Ward" ToRole="Order" />
         </EntityType>
         <EntityType Name="Warehouse">
           <Key>
@@ -760,6 +951,7 @@
           <Property Name="IsDelete" Type="Int32" />
           <Property Name="ProductImgId" Type="Int32" />
           <Property Name="Discount" Type="Int32" />
+          <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_Warehouse" FromRole="Warehouse" ToRole="Cart" />
           <NavigationProperty Name="Imports" Relationship="SHOESSHOPModel.FK_Import_Warehouse" FromRole="Warehouse" ToRole="Import" />
           <NavigationProperty Name="OrderDetails" Relationship="SHOESSHOPModel.FK_OrderDetail_Warehouse" FromRole="Warehouse" ToRole="OrderDetail" />
           <NavigationProperty Name="ProductImg" Relationship="SHOESSHOPModel.FK_Warehouse_ProductImg" FromRole="Warehouse" ToRole="ProductImg" />
@@ -777,6 +969,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Cart_Cookie">
+          <End Type="SHOESSHOPModel.Cookie" Role="Cookie" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cookie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="CookieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Cart_User">
           <End Type="SHOESSHOPModel.User" Role="User" Multiplicity="0..1" />
           <End Type="SHOESSHOPModel.Cart" Role="Cart" Multiplicity="*" />
@@ -786,6 +990,54 @@
             </Principal>
             <Dependent Role="Cart">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Warehouse">
+          <End Type="SHOESSHOPModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_Province">
+          <End Type="SHOESSHOPModel.Province" Role="Province" Multiplicity="1" />
+          <End Type="SHOESSHOPModel.District" Role="District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_District">
+          <End Type="SHOESSHOPModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ward_District">
+          <End Type="SHOESSHOPModel.District" Role="District" Multiplicity="1" />
+          <End Type="SHOESSHOPModel.Ward" Role="Ward" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ward">
+              <PropertyRef Name="DistrictId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -813,6 +1065,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_Province">
+          <End Type="SHOESSHOPModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_User">
           <End Type="SHOESSHOPModel.User" Role="User" Multiplicity="0..1" />
           <End Type="SHOESSHOPModel.Order" Role="Order" Multiplicity="*" />
@@ -822,6 +1086,18 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Ward">
+          <End Type="SHOESSHOPModel.Ward" Role="Ward" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ward">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="WardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -897,7 +1173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -933,6 +1209,9 @@
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="SHOESSHOPModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="CookieId" ColumnName="CookieId" />
+                <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+                <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -949,6 +1228,15 @@
               <MappingFragment StoreEntitySet="Config">
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cookies">
+            <EntityTypeMapping TypeName="SHOESSHOPModel.Cookie">
+              <MappingFragment StoreEntitySet="Cookie">
+                <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+                <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -994,6 +1282,10 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="WardId" ColumnName="WardId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
                 <ScalarProperty Name="AddressFrom" ColumnName="AddressFrom" />
@@ -1117,7 +1409,10 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="SHOESSHOPModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="WardId" ColumnName="WardId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="ProviceId" ColumnName="ProviceId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

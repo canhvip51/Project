@@ -20,7 +20,7 @@
                                 <h6 class="modal-title">Thông tin sản phẩm</h6>
                                 <div class="">
                                     <button type="button" onclick="sumbitProduct()" class="btn btn-primary">Lưu</button>
-                                    <button type="button" onclick="window.location.href='/Product/Index'" class="btn btn-light">Đóng</button>
+                                    <button type="button" onclick="window.location.href='Admin/Product/Index'" class="btn btn-light">Đóng</button>
                                 </div>
                             </div>
                             <div class="modal-body">
@@ -200,7 +200,7 @@
        /*     var $form = $("#form-addproduct");*/
         $.ajax({
             type: "POST",
-            url: "/Product/AddProduct",
+            url: "/Admin/Product/AddProduct",
             data:img,
             contentType: false,
             processData: false,
