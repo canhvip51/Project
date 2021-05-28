@@ -47,7 +47,7 @@ namespace LibData.Provider
         {
             try
             {
-                //var old = GetById(cookie.Id);
+              
                 ApplicationDbContext.SaveChanges();
                 return true;
             }

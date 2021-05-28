@@ -12,36 +12,45 @@ namespace Website.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
-            Business.CookieOrder cookieOrder = new Business.OrderList().GetCookieOrder();
-            Models.CustomerOrderModel listOrderModel = new Models.CustomerOrderModel();
-            if (cookieOrder != null)
+            HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+            LibData.Cookie cookie = new LibData.Cookie();
+            if (httpCookie != null)
             {
-                for (int i = 0; i < cookieOrder.list.Count; i++)
-                {
-                    LibData.Warehouse warehouse = warehouseProvider.GetById(cookieOrder.list[i]);
-                    listOrderModel.WarehouseId.Add(cookieOrder.list[i]);
-                    if (warehouse.Amount.Value > cookieOrder.amount[i])
-                        listOrderModel.Amount.Add(cookieOrder.amount[i]);
-                    else
-                        listOrderModel.Amount.Add(warehouse.Amount.Value);
-                    listOrderModel.MaxAmount.Add(warehouse.Amount.Value);
-                    listOrderModel.Avatar.Add(warehouse.ProductImg.Url);
-                    listOrderModel.ProductName.Add(warehouse.ProductImg.Product.Name + " - " + warehouse.ProductImg.Color);
-                    listOrderModel.Size.Add("VN : " + warehouse.Size.VN.ToString() + "- US :" + warehouse.Size.US.ToString() + "- UK :" + warehouse.Size.UK.ToString());
-                    listOrderModel.Price.Add(warehouse.ProductImg.Product.Price.Value * (100 - warehouse.ProductImg.Product.Discount.Value) / 100);
-                }
-                return View(listOrderModel);
-
+                cookie = new LibData.Provider.CookieProvider().GetByKey(httpCookie["keycode"]);
             }
-            return View(warehouseProvider);
+            return View(cookie);
         }
         [HttpPost]
-        public ActionResult Index(Models.CustomerOrderModel model)
+        public ActionResult Index(LibData.Cookie model)
         {
-            LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
-            new Business.OrderList().UpdateCart(model.WarehouseId, model.Amount);
-            return View(warehouseProvider);
+            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
+            double timeout = Convert.ToDouble(new LibData.Provider.ConfigProvider().GetTimeOut_Hours_Cookie());
+            //update cookie
+            HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+            httpCookie.Expires = DateTime.Now.AddHours(timeout);
+            HttpContext.Response.Cookies.Add(httpCookie);
+            //change db
+            var old = cookieProvider.GetById(model.Id);
+            old.ExpiredDate = DateTime.Now.AddHours(timeout);
+            int i = 0;
+            List<LibData.Cart> carts = model.Carts.ToList();
+            foreach (var item in old.Carts)
+            {
+                item.Amount = carts[i].Amount;
+                item.UpdateDate = DateTime.Now;
+                i++;
+                if (i > carts.Count)
+                    break;
+            }
+            if (cookieProvider.Update(old))
+            {
+                ModelState.AddModelError("success", "Cập nhật gió hàng thành công.");
+            }
+            else
+            {
+                ModelState.AddModelError("error", "Cập nhật gió hàng thất bại.");
+            }
+            return View(old);
         }
         public ActionResult Order()
         {
@@ -56,9 +65,9 @@ namespace Website.Controllers
                     listOrderModel.WarehouseId.Add(cookieOrder.list[i]);
                     listOrderModel.Amount.Add(cookieOrder.amount[i]);
                     listOrderModel.ProductName.Add(warehouse.ProductImg.Product.Name + " - " + warehouse.ProductImg.Color);
-                    listOrderModel.Size.Add("VN : " +warehouse.Size.VN.ToString() +"- US :" +warehouse.Size.US.ToString() +"- UK :"+ warehouse.Size.UK.ToString());
+                    listOrderModel.Size.Add("VN : " + warehouse.Size.VN.ToString() + "- US :" + warehouse.Size.US.ToString() + "- UK :" + warehouse.Size.UK.ToString());
                     listOrderModel.Price.Add(warehouse.ProductImg.Product.Price.Value * (100 - warehouse.ProductImg.Product.Discount.Value) / 100);
-                    listOrderModel.TotalPrice.Add(listOrderModel.Amount[i]*listOrderModel.Price[i]);
+                    listOrderModel.TotalPrice.Add(listOrderModel.Amount[i] * listOrderModel.Price[i]);
                 }
                 listOrderModel.Total = listOrderModel.TotalPrice.Sum();
                 return View(listOrderModel);
@@ -69,7 +78,7 @@ namespace Website.Controllers
         [HttpPost]
         public ActionResult Order(Models.CustomerOrderModel model)
         {
-            int price=0;
+            int price = 0;
             LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
             Models.CustomerOrderModel listOrderModel = new Models.CustomerOrderModel();
             List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
@@ -78,7 +87,7 @@ namespace Website.Controllers
                 for (int i = 0; i < model.WarehouseId.Count; i++)
                 {
                     LibData.Warehouse warehouse = warehouseProvider.GetById(model.WarehouseId[i]);
-                 if (warehouse != null)
+                    if (warehouse != null)
                     {
                         if (warehouse.Amount < model.Amount[i])
                             ModelState.AddModelError("error", "Số lượng " + model.ProductName[i] + " - " + model.Size[i] + " không đủ.");
@@ -88,12 +97,12 @@ namespace Website.Controllers
                             {
                                 Amount = model.Amount[i],
                                 WarehouseId = model.WarehouseId[i],
-                                Price = (model.Amount[i] * (warehouse.ProductImg.Product.Price.Value*(100-warehouse.ProductImg.Product.Discount)/100)),
+                                Price = (model.Amount[i] * (warehouse.ProductImg.Product.Price.Value * (100 - warehouse.ProductImg.Product.Discount) / 100)),
                             };
                             price += orderDetail.Price.Value;
                             listOrderDetail.Add(orderDetail);
                         }
-                         
+
                     }
                     else
                     {
@@ -107,9 +116,9 @@ namespace Website.Controllers
                             Phone = model.Phone,
                             AddressFrom = model.AddressFrom,
                             Note = model.Note,
-                            Total=price,
+                            Total = price,
                         };
-                        if(new LibData.Provider.OrderProvider().Insert(order))
+                        if (new LibData.Provider.OrderProvider().Insert(order))
                         {
                             model.Id = order.Id;
                             foreach (var item in listOrderDetail)
@@ -117,7 +126,7 @@ namespace Website.Controllers
                                 //Add orderdetail
                                 item.OrderId = order.Id;
                             }
-                            if(new LibData.Provider.OrderDetailProvider().InsertAll(listOrderDetail))
+                            if (new LibData.Provider.OrderDetailProvider().InsertAll(listOrderDetail))
                             {
                                 ModelState.AddModelError("success", "Đặt hàng thành công");
                                 Response.StatusCode = (int)HttpStatusCode.Created;

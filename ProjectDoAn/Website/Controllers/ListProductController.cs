@@ -107,12 +107,13 @@ namespace Website.Controllers
             LibData.Provider.CartProvider cartProvider = new LibData.Provider.CartProvider();
             LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
             LibData.Cookie cookie = new LibData.Cookie();
+            double timeout = Convert.ToDouble(new LibData.Provider.ConfigProvider().GetTimeOut_Hours_Cookie());
             HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
             if (httpCookie == null)
             {
                 httpCookie = new HttpCookie("key");
                 httpCookie["keycode"] = Guid.NewGuid().ToString();
-                httpCookie.Expires = DateTime.Now.AddMinutes(10);
+                httpCookie.Expires = DateTime.Now.AddHours(timeout);
                 HttpContext.Response.Cookies.Add(httpCookie);
             }
             key = httpCookie["keycode"];
@@ -121,12 +122,12 @@ namespace Website.Controllers
             {
                 httpCookie = new HttpCookie("key");
                 httpCookie["keycode"] = Guid.NewGuid().ToString();
-                httpCookie.Expires = DateTime.Now.AddMinutes(10);
+                httpCookie.Expires = DateTime.Now.AddHours(timeout);
                 HttpContext.Response.Cookies.Add(httpCookie);
                 cookie = new LibData.Cookie()
                 {
                     KeyCode = httpCookie["keycode"],
-                    ExpiredDate = DateTime.Now.AddMinutes(20),
+                    ExpiredDate = DateTime.Now.AddHours(timeout),
                 };
                 LibData.Cart newCart = new LibData.Cart()
                 {
@@ -136,33 +137,31 @@ namespace Website.Controllers
                     Status = 1,
                 };
                 cookie.Carts.Add(newCart);
-                    if (cookieProvider.Insert(cookie))
+                if (cookieProvider.Insert(cookie))
 
                     return true;
                 return false;
             }
             else
             {
-                cookie.ExpiredDate = DateTime.Now.AddMinutes(20);
-                LibData.Cart cart = cookie.Carts.FirstOrDefault(x => x.Id == id);
-                if (cart == null)
+                httpCookie.Expires = DateTime.Now.AddHours(timeout);
+                HttpContext.Response.Cookies.Add(httpCookie);
+                cookie.ExpiredDate = DateTime.Now.AddHours(timeout);
+                LibData.Cart cart = cookie.Carts.FirstOrDefault(x => x.WarehouseId == id );
+                 if (cart == null)
                 {
-                    cart = cartProvider.GetByProductAndKey(id, cookie.Id);
-                    if (cart == null)
-                    {
-                        cart = new LibData.Cart();
-                        cart.CreateDate = DateTime.Now;
-                        cart.Status = 1;
-                        cart.Amount = 1;
-                        cart.CookieId = cookie.Id;
-                        cart.WarehouseId = id;
-                        cookie.Carts.Add(cart);
-                    }
-                    else
-                    {
-                        cookie.Carts.FirstOrDefault(x => x.Id == id).Amount += 1;
-                        cookie.Carts.FirstOrDefault(x => x.Id == id).UpdateDate = DateTime.Now;
-                    }
+                    cart = new LibData.Cart();
+                    cart.CreateDate = DateTime.Now;
+                    cart.Status = 1;
+                    cart.Amount = 1;
+                    cart.CookieId = cookie.Id;
+                    cart.WarehouseId = id;
+                    cookie.Carts.Add(cart);
+                }
+                else
+                {
+                    cart.Amount += 1;
+                    cart.UpdateDate = DateTime.Now;
                 }
                 if (cookieProvider.Update(cookie))
                 {

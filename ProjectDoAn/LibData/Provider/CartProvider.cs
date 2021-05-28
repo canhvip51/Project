@@ -82,5 +82,9 @@ namespace LibData.Provider
                 return false;
             }
         }
+        public int GetAmount(int wareid)
+        {
+            return ApplicationDbContext.Carts.Count(x => x.Cookie.ExpiredDate > DateTime.Now);
+        }
     }
 }

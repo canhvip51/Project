@@ -8,5 +8,9 @@ namespace LibData.Provider
 {
     public class ConfigProvider : ApplicationDbContexts
     {
+        public string GetTimeOut_Hours_Cookie()
+        {
+            return ApplicationDbContext.Configs.FirstOrDefault(x => x.Name == "TIMEOUT_COOKIE_HOURS").Value;
+        }
     }
 }

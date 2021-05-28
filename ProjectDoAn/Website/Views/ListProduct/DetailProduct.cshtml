@@ -88,7 +88,7 @@
           
         </div>
     </div>
-    <div class="row  mt-4" style="max-height: 550px; overflow: auto;  border:1px solid">
+    <div class="row  mt-4" style=" border:1px solid">
         <div class="col-12">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1"><h3 class="my-3">Mô tả sản phẩm</h3></a></li>
@@ -96,12 +96,12 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active row" role="tabpanel" id="tab-1">
-                    <div class="col-12">
+                    <div class="col-12" style="max-height: 550px; overflow: auto; ">
                         @Html.Raw(Model.Describe)
                     </div>
                 </div>
                 <div class="tab-pane" role="tabpanel" id="tab-2">
-                    <div class="col-12">
+                    <div class="col-12" style="max-height: 550px; overflow: auto; ">
                         <img src="~/assets/img/6b750f75e5f602a85be7-1.jpg" style="width:100%"/>
                     </div>
                 </div>
