@@ -69,7 +69,8 @@
                 <td class="border-0 align-middle">
                     <strong>@(item.Warehouse.ProductImg.Product.Price * (100-item.Warehouse.ProductImg.Product.Discount) / 100) VNĐ</strong>
                 </td>
-                @{ int maxamount = item.Warehouse.Amount.Value - cartProvinder.GetAmount(item.WarehouseId.Value) + item.Amount.Value;
+                @{
+                    int maxamount = item.Warehouse.Amount.Value - cartProvinder.GetAmount(item.WarehouseId.Value) + item.Amount.Value;
 <td class="border-0 align-middle"><input type="number" name="Carts[@i].Amount" id="Amount" max="@maxamount" min="1" class="Price form-control" value="@item.Amount" /></td>
                 }
 
@@ -156,7 +157,7 @@ else
             data: $form.serialize(),
             success: async function (data, status, xhr) {
                 console.log(data)
-                await $("#form-updatecart").html($(data).filter("#form-updatecart").html());
+                await $("#form-updatecart").html($(data).find("#form-updatecart").html());
             }
         });
     }

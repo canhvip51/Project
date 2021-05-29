@@ -7,28 +7,27 @@ using System.Threading.Tasks;
 
 namespace LibData.Provider
 {
-    public class CartProvider:ApplicationDbContexts
+    public class CartProvider : ApplicationDbContexts
     {
         public void RemoveProductinCart(string key)
         {
             try
             {
-               ApplicationDbContext.Carts.Where(x => x.KeyCode == key && x.Status == 1).ToList().ForEach(x=>x.Status=3);
+                ApplicationDbContext.Carts.Where(x => x.KeyCode == key && x.Status == 1).ToList().ForEach(x => x.Status = 3);
                 ApplicationDbContext.SaveChanges();
                 return;
             }
             catch (Exception)
             {
-
-                throw;
+                return;
             }
-            return;
+
         }
         public Cart GetByProductAndKey(int wareId, int cookieId)
         {
             try
             {
-               return  ApplicationDbContext.Carts.FirstOrDefault(x=>x.WarehouseId==wareId && x.CookieId == cookieId && x.Status==1 &&( x.IsDelete==1 || x. IsDelete==null));
+                return ApplicationDbContext.Carts.FirstOrDefault(x => x.WarehouseId == wareId && x.CookieId == cookieId && x.Status == 1 && (x.IsDelete == 1 || x.IsDelete == null));
             }
             catch (Exception)
             {
@@ -50,14 +49,25 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Carts.FirstOrDefault(x => x.Id==Id);
+                return ApplicationDbContext.Carts.FirstOrDefault(x => x.Id == Id);
             }
             catch (Exception)
             {
                 return null;
             }
         }
-        public bool Insert(Cart  cart)
+        public List<Cart> GetAllByKey(string key)
+        {
+            try
+            {
+                return ApplicationDbContext.Carts.Where(x => x.Cookie.KeyCode == key && x.Cookie.ExpiredDate > DateTime.Now).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public bool Insert(Cart cart)
         {
             try
             {
@@ -84,7 +94,7 @@ namespace LibData.Provider
         }
         public int GetAmount(int wareid)
         {
-            return ApplicationDbContext.Carts.Count(x => x.Cookie.ExpiredDate > DateTime.Now);
+            return ApplicationDbContext.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && x.Status == 1 && (x.IsDelete == 1 || x.IsDelete == null)).Sum(x => x.Amount.Value);
         }
     }
 }
