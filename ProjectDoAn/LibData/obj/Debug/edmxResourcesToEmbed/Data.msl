@@ -111,7 +111,6 @@
           <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
           <ScalarProperty Name="AddressFrom" ColumnName="AddressFrom" />
-          <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="AddressTo" ColumnName="AddressTo" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />

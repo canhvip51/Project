@@ -101,14 +101,13 @@
     <Property Name="Discount" Type="int" />
     <Property Name="UserId" Type="int" />
     <Property Name="SaleId" Type="int" />
-    <Property Name="Code" Type="nchar" MaxLength="20" />
+    <Property Name="Code" Type="nvarchar(max)" />
     <Property Name="IsDelete" Type="int" />
     <Property Name="Status" Type="int" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="AddressTo" Type="nvarchar(max)" />
-    <Property Name="Phone" Type="nchar" MaxLength="10" />
-    <Property Name="AccountNumber" Type="nchar" MaxLength="10" />
+    <Property Name="Phone" Type="nchar" MaxLength="20" />
     <Property Name="AddressFrom" Type="nvarchar(max)" />
     <Property Name="BuyerName" Type="nvarchar(max)" />
     <Property Name="Note" Type="nvarchar(max)" />

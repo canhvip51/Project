@@ -41,8 +41,8 @@
 
         <div class="form-group">
             <label>Địa chỉ</label>
-            @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
         @Html.ValidationMessage("error", new { @class = "text-danger" })
         <div class="modal-footer">

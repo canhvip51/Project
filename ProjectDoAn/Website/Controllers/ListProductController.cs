@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LibData.Configuration;
 
 namespace Website.Controllers
 {
@@ -134,7 +135,7 @@ namespace Website.Controllers
                     WarehouseId = id,
                     Amount = 1,
                     CookieId = cookie.Id,
-                    Status = 1,
+                    Status = CartConfig.INCART,
                 };
                 cookie.Carts.Add(newCart);
                 if (cookieProvider.Insert(cookie))
@@ -147,12 +148,12 @@ namespace Website.Controllers
                 httpCookie.Expires = DateTime.Now.AddHours(timeout);
                 HttpContext.Response.Cookies.Add(httpCookie);
                 cookie.ExpiredDate = DateTime.Now.AddHours(timeout);
-                LibData.Cart cart = cookie.Carts.FirstOrDefault(x => x.WarehouseId == id );
+                LibData.Cart cart = cookie.Carts.FirstOrDefault(x => x.WarehouseId == id && x.Status==1 &&(x.IsDelete==null||x.IsDelete==0) );
                  if (cart == null)
                 {
                     cart = new LibData.Cart();
                     cart.CreateDate = DateTime.Now;
-                    cart.Status = 1;
+                    cart.Status = CartConfig.INCART;
                     cart.Amount = 1;
                     cart.CookieId = cookie.Id;
                     cart.WarehouseId = id;
@@ -168,9 +169,9 @@ namespace Website.Controllers
                     return true;
                 }
                 return false;
-
             }
             return false;
         }
+     
     }
 }

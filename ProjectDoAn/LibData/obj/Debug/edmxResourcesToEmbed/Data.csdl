@@ -206,14 +206,13 @@
     <Property Name="Discount" Type="Int32" />
     <Property Name="UserId" Type="Int32" />
     <Property Name="SaleId" Type="Int32" />
-    <Property Name="Code" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="IsDelete" Type="Int32" />
     <Property Name="Status" Type="Int32" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <Property Name="AddressTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="AccountNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="AddressFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="BuyerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />

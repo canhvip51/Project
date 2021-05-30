@@ -127,7 +127,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Warehouses.Find(id);
+                return ApplicationDbContext.Warehouses.FirstOrDefault(x=>x.Id==id);
             }
             catch (Exception)
             {

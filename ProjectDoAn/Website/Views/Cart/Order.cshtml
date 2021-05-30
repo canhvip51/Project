@@ -2,8 +2,7 @@
 @model LibData.Order
 @{
     int i = 0;
-
-
+    LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
 }
 <style>
     input, select, textarea {
@@ -17,33 +16,50 @@
             <div class="container">
                 <h3 class="" align="center">Đặt hàng</h3>
                 <form class=" py-5 p-4 bg-white rounded shadow-sm" id="form-order" action="/Cart/Order" method="post">
-
+                    <div class="row">
+                        <div class="col-12" id="success">
+                            @Html.ValidationMessage("success", new { @id = "msgsuccess", @style = "font-size:20px" })
+                        </div>
+                        <div class="col-12" id="error">
+                            @Html.ValidationMessage("error", new { @id = "msgerror", @style = "font-size:20px" })
+                        </div>
+                    </div>
                     @if (Model.OrderDetails.Count > 0)
                     {
-                        <div class="row">
-                            <div class="col-12" id="success">
-                                @Html.ValidationMessage("success", new { @id = "msgsuccess", @style = "font-size:20px" })
-                            </div>
-                            <div class="col-12" id="error">
-                                @Html.ValidationMessage("error", new { @id = "msgerror", @style = "font-size:20px" })
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin khách hàng</div>
                                 <div class="mt-3">
-                                    <div class="input-group mb-4 border rounded-pill p-2">
-                                        <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" name="BuyerName" maxlength="255" class="form-control border-0">
+
+                                    <div class="form-group pb-3">
+                                        <input type="text" placeholder="Số điện thoại nhận hàng" id="Phone" value="@Model.Phone" name="Phone" aria-describedby="button-addon3" maxlength="11" class="Phone form-control ">
+                                        @Html.ValidationMessage("Phone", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group pb-3">
+                                        <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" value="@Model.BuyerName" name="BuyerName" maxlength="255" class="form-control ">
+                                        @Html.ValidationMessage("BuyerName", new { @class = "text-danger" })
                                         @*<div class="input-group-append border-0">
                                 <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
                             </div>*@
                                     </div>
-                                    <div class="input-group mb-4 border rounded-pill p-2">
-                                        <input type="text" placeholder="Số điện thoại nhận hàng" id="Phone" name="Phone" aria-describedby="button-addon3" maxlength="11" class="Phone form-control border-0">
+
+                                    <div class="form-group pb-3">
+                                        <select aria-describedby="button-addon3" class="form-control" name="ProvinceId">
+                                            <option value="-1">Tỉnh / Thành phố</option>
+                                            @foreach (var item in ViewBag.Province as List<LibData.Province>)
+                                            {
+                                                <option value="@item.Id" @(item.Id==@Model.ProvinceId?"selected":"")>@item.Name</option>
+                                            }
+                                        </select>
+                                        @Html.ValidationMessage("ProvinceId", new { @class = "text-danger" })
                                     </div>
-                                    <div class="input-group mb-4 border rounded-pill p-2">
-                                        <input type="text" placeholder="Địa chỉ nhận hàng" aria-describedby="button-addon3" maxlength="510" name="AddressTo" class="form-control border-0">
+                                    <div class="form-group pb-3">
+                                        <input type="text" placeholder="Địa chỉ nhận hàng" value="@Model.AddressTo" aria-describedby="button-addon3" maxlength="510" name="AddressTo" class="form-control ">
+                                        @Html.ValidationMessage("AddressTo", new { @class = "text-danger" })
                                     </div>
+
                                     @*<div class="input-group mb-4 border rounded-pill p-2">
                             <input type="text" placeholder="Mã giảm giá" aria-describedby="button-addon3" class="form-control border-0">
                             <div class="input-group-append border-0">
@@ -51,7 +67,7 @@
                             </div>
                         </div>*@
                                     <p class="font-italic mb-4">Ghi chú cho người bán</p>
-                                    <textarea name="Note" rows="5" maxlength="2048" class="form-control" style="max-width:100%"></textarea>
+                                    <textarea name="Note" rows="5" maxlength="2048" class="form-control"  value="@Model.Note" style="max-width:100%"></textarea>
 
                                 </div>
 
@@ -85,13 +101,17 @@
 
                                                         <tr>
                                                             <th scope="row" class="border-0">
-                                                                <div class="p-2">
-                                                                    <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                                                    <div class="ml-3 d-inline-block align-middle">
-                                                                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">@item.Warehouse.ProductImg.Product.Name - @item.Warehouse.ProductImg.Color</a></h5>
-                                                                        <span class="text-muted font-weight-normal font-italic d-block">VN : @item.Warehouse.Size.VN - US : @item.Warehouse.Size.US - UK : @item.Warehouse.Size.UK</span>
+                                                                @{
+                                                                    LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
+                                                                    <div class="p-2">
+                                                                        <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                                        <div class="ml-3 d-inline-block align-middle">
+                                                                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">@warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</a></h5>
+                                                                            <span class="text-muted font-weight-normal font-italic d-block">VN : @warehouse.Size.VN - US : @warehouse.Size.US - UK : @warehouse.Size.UK</span>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                }
+
                                                             </th>
 
                                                             <td class="border-0 align-middle">
@@ -158,6 +178,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function ConfirmOrder() {
         loading(true)
@@ -176,12 +197,7 @@
         });
         loading(false)
     }
-    if ($("#msgsuccess").html() != "") {
-        $("#success").addClass("alert alert-success")
-    }
-    if ($("#msgerror").html() != "") {
-        $("#error").addClass("alert alert-danger")
-    }
+ 
     //input number
     $(document).ready(function () {
         $("#Phone").keypress(function (e) {
@@ -190,4 +206,13 @@
             }
         });
     });
+ 
+</script>
+<script>
+    if ($("#msgsuccess").html() != "") {
+        $("#success").addClass("alert alert-success")
+    }
+    if ($("#msgerror").html() != "") {
+        $("#error").addClass("alert alert-danger")
+    }
 </script>

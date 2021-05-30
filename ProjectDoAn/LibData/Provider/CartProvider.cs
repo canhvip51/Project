@@ -38,7 +38,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Carts.FirstOrDefault(x => x.WarehouseId == id && x.Status == 1 && x.KeyCode == key);
+                return ApplicationDbContext.Carts.FirstOrDefault(x => x.WarehouseId == id && x.Status == 1 && x.Cookie.KeyCode== key);
             }
             catch (Exception)
             {
@@ -60,7 +60,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Carts.Where(x => x.Cookie.KeyCode == key && x.Cookie.ExpiredDate > DateTime.Now).ToList();
+                return ApplicationDbContext.Carts.Where(x => x.Cookie.KeyCode == key && x.Cookie.ExpiredDate > DateTime.Now && ( x.IsDelete == null || x.IsDelete == 0)&&x.Status==Configuration.CartConfig.INCART).ToList();
             }
             catch (Exception)
             {

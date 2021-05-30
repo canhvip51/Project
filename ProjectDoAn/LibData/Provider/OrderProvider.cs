@@ -12,8 +12,6 @@ namespace LibData.Provider
         {
             try
             {
-                model.Status = (int)Configuration.OrderConfig.Status.FINISH;
-                model.CreateDate = DateTime.Now;
                 ApplicationDbContext.Orders.Add(model);
                 ApplicationDbContext.SaveChanges();
                 return true;

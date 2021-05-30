@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using LibData.Configuration;
 
 namespace Website.Controllers
 {
@@ -35,7 +36,7 @@ namespace Website.Controllers
             old.ExpiredDate = DateTime.Now.AddHours(timeout);
             int i = 0;
             List<LibData.Cart> carts = model.Carts.ToList();
-            foreach (var item in old.Carts)
+            foreach (var item in old.Carts.Where(x=>x.Status==1&&(x.IsDelete==0||x.IsDelete==null)))
             {
                 if (item.Warehouse.Amount - cartProvider.GetAmount(item.WarehouseId.Value) + item.Amount >= carts[i].Amount)
                 {
@@ -67,16 +68,20 @@ namespace Website.Controllers
         [HttpGet]
         public ActionResult Order()
         {
+            ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
             int total = 0;
-            LibData.Provider.CartProvider cartProvider = new LibData.Provider.CartProvider();
+            LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
+            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
             HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+            LibData.Cookie cookies = new LibData.Cookie();
             List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
+
             if (httpCookie != null)
             {
-                List<LibData.Cart> listCart = cartProvider.GetAllByKey(httpCookie["keycode"]);
-                if (listCart != null)
+                cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
+                if (cookies != null)
                 {
-                    foreach (var item in listCart)
+                    foreach (var item in cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null))
                     {
                         LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                         {
@@ -97,25 +102,42 @@ namespace Website.Controllers
         [HttpPost]
         public ActionResult Order(LibData.Order model)
         {
+            if (string.IsNullOrEmpty(model.BuyerName))
+            {
+                ModelState.AddModelError("BuyerName", "Xin mời nhập họ tên.");
+            }
+            if (string.IsNullOrEmpty(model.Phone))
+            {
+                ModelState.AddModelError("Phone", "Xin mời nhập số điện thoại nhận hàng.");
+            }
+            if (string.IsNullOrEmpty(model.AddressTo))
+            {
+                ModelState.AddModelError("AddressTo", "Xin mời nhập số địa chỉ nhận hàng.");
+            }
+            if (model.ProvinceId == -1)
+            {
+                ModelState.AddModelError("ProvinceId", "Xin mời chọn thành phố bạn đang sống");
+            }
+
+            ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
             int total = 0;
             LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
-            LibData.Provider.CartProvider cartProvider = new LibData.Provider.CartProvider();
+            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
             HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
-            List<LibData.Cart> listCart = new List<LibData.Cart>();
+            LibData.Cookie cookies = new LibData.Cookie();
             List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
-            Random r = new Random();
-            int k = r.Next(1000, 9999);
+
             if (httpCookie != null)
             {
-                listCart = cartProvider.GetAllByKey(httpCookie["keycode"]);
-                if (listCart != null)
+                cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
+                if (cookies != null)
                 {
-                    foreach (var item in listCart)
+                    foreach (var item in cookies.Carts.Where(x=>x.Status==1 && x.IsDelete==0 || x.IsDelete==null))
                     {
                         LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                         {
                             Amount = item.Amount,
-                            WarehouseId = item.WarehouseId,
+                            WarehouseId=item.WarehouseId,
                             Price = item.Warehouse.ProductImg.Product.Price * (100 - item.Warehouse.ProductImg.Product.Discount) / 100,
                         };
                         total += orderDetail.Price.Value;
@@ -123,16 +145,24 @@ namespace Website.Controllers
                     }
                 }
             }
-            model.Code = "SHOESSHOP"  + DateTime.Now.ToString("yyyyMMddHHmmss") + k;
-            model.CreateDate = DateTime.Now;
-            model.Status = 1;
+            
             model.Total = total;
             model.OrderDetails = listOrderDetail;
-            listCart.ForEach(x => x.Status = 2);
-            listCart.ForEach(x => x.UpdateDate = DateTime.Now);
-            listCart.ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount-x.Amount);
-            if (orderProvider.Insert(model))
+           
+            if (ModelState.IsValid)
+            {
+                Random r = new Random();
+                int k = r.Next(1000, 9999);
+                model.Code = "SHOESSHOP" + DateTime.Now.ToString("yyyyMMddHHmmss") + k;
+                model.CreateDate = DateTime.Now;
+                model.Status = 1;
+                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.Status = CartConfig.ORDERED);
+                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.UpdateDate = DateTime.Now);
+                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
+                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount - x.Amount);
+                if (orderProvider.Insert(model))
                 {
+                    cookieProvider.Update(cookies);
                     ModelState.AddModelError("success", "Đặt hàng thành công.");
                     httpCookie.Expires = DateTime.Now.AddDays(-1);
                     HttpContext.Response.Cookies.Add(httpCookie);
@@ -145,7 +175,29 @@ namespace Website.Controllers
                     ModelState.AddModelError("error", "Đặt hàng thất bại.");
                     return View(model);
                 }
-
+            }
+            return View(model);
+        }
+        public bool RemoveProductFromCart(int id)
+        {
+            LibData.Provider.CartProvider cartProvider = new LibData.Provider.CartProvider();
+            HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+            if (httpCookie == null)
+            {
+                return false;
+            }
+            LibData.Cart old = cartProvider.GetByProductAndKey(id, httpCookie["keycode"]);
+            if (old != null)
+            {
+                old.Status = CartConfig.CANCEL;
+                old.IsDelete = CartConfig.ISDELETE;
+                old.UpdateDate = DateTime.Now;
+                if (cartProvider.Update(old))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
