@@ -106,14 +106,13 @@
           <Property Name="Discount" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="SaleId" Type="int" />
-          <Property Name="Code" Type="nchar" MaxLength="20" />
+          <Property Name="Code" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="int" />
           <Property Name="Status" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="AddressTo" Type="nvarchar(max)" />
-          <Property Name="Phone" Type="nchar" MaxLength="10" />
-          <Property Name="AccountNumber" Type="nchar" MaxLength="10" />
+          <Property Name="Phone" Type="nchar" MaxLength="20" />
           <Property Name="AddressFrom" Type="nvarchar(max)" />
           <Property Name="BuyerName" Type="nvarchar(max)" />
           <Property Name="Note" Type="nvarchar(max)" />
@@ -779,14 +778,13 @@
           <Property Name="Discount" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
           <Property Name="SaleId" Type="Int32" />
-          <Property Name="Code" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="AddressTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="AccountNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="AddressFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BuyerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1173,7 +1171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1289,7 +1287,6 @@
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
                 <ScalarProperty Name="AddressFrom" ColumnName="AddressFrom" />
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="AddressTo" ColumnName="AddressTo" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />

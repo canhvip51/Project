@@ -31,7 +31,6 @@ namespace LibData
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string AddressTo { get; set; }
         public string Phone { get; set; }
-        public string AccountNumber { get; set; }
         public string AddressFrom { get; set; }
         public string BuyerName { get; set; }
         public string Note { get; set; }

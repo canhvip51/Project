@@ -103,6 +103,8 @@ namespace Website.Controllers
             HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
             List<LibData.Cart> listCart = new List<LibData.Cart>();
             List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
+            Random r = new Random();
+            int k = r.Next(1000, 9999);
             if (httpCookie != null)
             {
                 listCart = cartProvider.GetAllByKey(httpCookie["keycode"]);
@@ -121,6 +123,7 @@ namespace Website.Controllers
                     }
                 }
             }
+            model.Code = "SHOESSHOP"  + DateTime.Now.ToString("yyyyMMddHHmmss") + k;
             model.CreateDate = DateTime.Now;
             model.Status = 1;
             model.Total = total;

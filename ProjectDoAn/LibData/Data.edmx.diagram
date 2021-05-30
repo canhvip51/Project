@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="SHOESSHOPModel.District" Width="1.5" PointX="8.25" PointY="19" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Import" Width="1.5" PointX="12.75" PointY="1.125" />
         <EntityTypeShape EntityType="SHOESSHOPModel.ImportUnit" Width="1.5" PointX="10.5" PointY="1.375" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Order" Width="1.5" PointX="10.5" PointY="15.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Order" Width="1.5" PointX="10.5" PointY="15.875" />
         <EntityTypeShape EntityType="SHOESSHOPModel.OrderDetail" Width="1.5" PointX="12.75" PointY="5.5" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Product" Width="1.5" PointX="3" PointY="4.5" />
         <EntityTypeShape EntityType="SHOESSHOPModel.ProductImg" Width="1.5" PointX="5.25" PointY="5.375" />
