@@ -38,6 +38,7 @@ namespace LibData
         public Nullable<int> ProvinceId { get; set; }
         public Nullable<int> DistrictId { get; set; }
         public Nullable<int> WardId { get; set; }
+        public Nullable<int> CustomerPay { get; set; }
     
         public virtual District District { get; set; }
         public virtual Province Province { get; set; }

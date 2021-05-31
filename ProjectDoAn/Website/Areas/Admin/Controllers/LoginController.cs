@@ -68,7 +68,7 @@ namespace Website.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("error", "Account password is incorrect, please try again.");
+                    ModelState.AddModelError("error", "Tài khoản mật khẩu không đúng xin vui lòng thử lại.");
                     return View(model);
                 }
             }

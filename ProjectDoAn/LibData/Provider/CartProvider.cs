@@ -94,7 +94,15 @@ namespace LibData.Provider
         }
         public int GetAmount(int wareid)
         {
-            return ApplicationDbContext.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && x.Status == 1 && (x.IsDelete == 1 || x.IsDelete == null)).Sum(x => x.Amount.Value);
+            try
+            {
+                return ApplicationDbContext.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && x.WarehouseId.Value == wareid && x.Status.Value == 1 && (x.IsDelete.Value == 1 || x.IsDelete == null)).Sum(x => x.Amount.Value);
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+           
         }
     }
 }

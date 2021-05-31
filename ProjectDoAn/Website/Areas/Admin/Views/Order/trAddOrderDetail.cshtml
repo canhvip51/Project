@@ -1,0 +1,27 @@
+﻿@model LibData.OrderDetail
+    @{ 
+        LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
+    }
+<tr class="row-orderdetail">
+    <td>
+        @{
+            LibData.Warehouse warehouse = warehouseProvider.GetById(Model.WarehouseId.Value);
+            <div class="form-group">
+                <input type="hidden" id="WarehouseId" class="WarehouseId" value="@Model.WarehouseId" />
+                <h6 class="mb-0"> @warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</h6>
+                <span class="text-muted font-weight-normal font-italic d-block">VN : @warehouse.Size.VN - US : @warehouse.Size.US - UK : @warehouse.Size.UK</span>
+            </div>
+            }
+        </td>
+    <td>
+        @*@Model.Amount*@
+        <input type="number" class="Amount form-control" id="Amount" min="1" onchange="Update()" max="20" value="@Model.Amount" />
+    </td>
+    <td>
+        @Model.Price
+        <input type="hidden" class="Price" id="Price" value="@Model.Price" />
+    </td>
+    <td>
+        <a onclick="Delete();"> <i class="fa fa-times"></i></a>
+    </td>
+</tr>

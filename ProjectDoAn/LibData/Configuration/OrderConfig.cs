@@ -10,11 +10,11 @@ namespace LibData.Configuration
     {
         public enum Status
         {
-            WAIT = 2,
-            CONFIRM = 3,
-            CANCEL = 4,
-            SHIP=5,
-            FINISH=6,
+            WAIT = 1,
+            CONFIRM = 2,
+            CANCEL = 3,
+            SHIP=4,
+            FINISH=5,
             ISDELETE = 1,
         }
         public static Dictionary<int, string> StatusToDictionaryHTML = new Dictionary<int, string>()

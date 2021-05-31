@@ -213,3 +213,7 @@ G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CopyComplete
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.dll
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.pdb
+G:\Project\ProjectDoAn\Website\bin\EPPlus.dll
+G:\Project\ProjectDoAn\Website\bin\Microsoft.IO.RecyclableMemoryStream.dll
+G:\Project\ProjectDoAn\Website\bin\EPPlus.xml
+G:\Project\ProjectDoAn\Website\bin\Microsoft.IO.RecyclableMemoryStream.xml

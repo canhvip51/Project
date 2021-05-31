@@ -17,9 +17,10 @@
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th>Trạng thái</th>
-            <th>Giảm giá</th>
+            <th>Số điện thoại</th>
+            @*<th>Giảm giá</th>*@
             <th>Tổng tiền</th>
-            <th>Ghi chú</th>
+            @*<th>Ghi chú</th>*@
             <th></th>
         </tr>
     </thead>
@@ -36,42 +37,42 @@
         }
         @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @item.BuyerName
-        </td>
-        <td>
-            @item.Phone
-        </td>
-        <td>
-            @item.AddressTo
-        </td>
-        <td>
-            <span class="badge ">@LibData.Configuration.OrderConfig.StatusToDictionaryHTML[item.Status.Value]</span>
-        </td>
-        <td>
-            @item.Phone
-        </td>
-        <td>
-            @item.Code - @item.Discount
-        </td>
-        <td>
-            @item.Total
-        </td>
-        <td>
-            @item.Note
-        </td>
-        <td>
-            <div class="btn-group">
-                <a data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-fw fa-wrench"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" onclick="Detail(@item.Id)">Chi tiết đơn hàng</a>
-                </div>
-            </div>
-        </td>
-    </tr>
+            <tr>
+                <td>
+                    @item.BuyerName
+                </td>
+                <td>
+                    @item.Phone
+                </td>
+                <td>
+                    @item.Province.Name
+                </td>
+                <td>
+                    <span class="badge ">@LibData.Configuration.OrderConfig.StatusToDictionaryHTML[item.Status.Value]</span>
+                </td>
+                <td>
+                    @item.Phone
+                </td>
+                @*<td>
+                        @item.Code - @item.Discount
+                    </td>*@
+                <td>
+                    @item.Total
+                </td>
+                @*<td>
+                        @item.Note
+                    </td>*@
+                <td>
+                    <div class="btn-group">
+                        <a data-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-fw fa-wrench"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="Detail(@item.Id)">Chi tiết đơn hàng</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
         }
 
     </tbody>
@@ -87,5 +88,33 @@
             UpdateTargetId = "list-order",
         })
         )
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="modal-form-lg" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="content-form-lg">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-xl" id="modal-form-xl" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" id="content-form-xl">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-md" id="modal-form-md" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" id="content-form-md">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-sm" id="modal-form-sm" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" id="content-form-sm">
+
+        </div>
     </div>
 </div>
