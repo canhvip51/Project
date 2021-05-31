@@ -104,6 +104,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="CustomerPay" ColumnName="CustomerPay" />
           <ScalarProperty Name="WardId" ColumnName="WardId" />
           <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
           <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />

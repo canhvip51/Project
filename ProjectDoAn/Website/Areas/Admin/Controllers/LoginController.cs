@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Vbot.Web.Infrastructure;
-using Vbot.Web.Models;
+using Website.Infrastructure;
+using Website.Areas.Admin.Models;
 
 namespace Website.Areas.Admin.Controllers
 {

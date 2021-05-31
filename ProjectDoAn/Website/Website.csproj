@@ -10811,6 +10811,7 @@
     <Content Include="Areas\Admin\Views\Order\AddOrder.cshtml" />
     <Content Include="Areas\Admin\Views\Order\AddOrderDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Order\trAddOrderDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\DashboardOrder.cshtml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -10910,6 +10911,7 @@
     <Compile Include="Areas\Admin\Controllers\TypeShoeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Controllers\WarehouseController.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardOrderModel.cs" />
     <Compile Include="Areas\Admin\Models\UserLogin.cs" />
     <Compile Include="Business\OrderList.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -10970,6 +10972,7 @@
     <Content Include="Views\ListProduct\SelectSize.cshtml" />
     <Content Include="Views\ListProduct\Index.cshtml" />
     <Content Include="Views\Cart\Order.cshtml" />
+    <Content Include="Template\ListOrder.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -10998,6 +11001,7 @@
     <Folder Include="Areas\Admin\Content\theme\cms\Assets\lib\spectrum-colorpicker\build\" />
     <Folder Include="Areas\Admin\Views\Slide\" />
     <Folder Include="Images\Drafts\" />
+    <Folder Include="Report\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LibData\LibData.csproj">

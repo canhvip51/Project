@@ -220,6 +220,7 @@
     <Property Name="ProvinceId" Type="Int32" />
     <Property Name="DistrictId" Type="Int32" />
     <Property Name="WardId" Type="Int32" />
+    <Property Name="CustomerPay" Type="Int32" />
     <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Order_District" FromRole="Order" ToRole="District" />
     <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Order" ToRole="Province" />
     <NavigationProperty Name="User" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="Order" ToRole="User" />

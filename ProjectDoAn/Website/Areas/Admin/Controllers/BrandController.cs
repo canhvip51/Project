@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Vbot.Web.Infrastructure;
+using Website.Infrastructure;
 
 namespace Website.Areas.Admin.Controllers
 {

@@ -115,6 +115,7 @@
     <Property Name="ProvinceId" Type="int" />
     <Property Name="DistrictId" Type="int" />
     <Property Name="WardId" Type="int" />
+    <Property Name="CustomerPay" Type="int" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>

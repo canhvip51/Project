@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Filters;
 using System.Web.Routing;
 
-namespace Vbot.Web.Infrastructure
+namespace Website.Infrastructure
 {
     public class CustomAuthenticationFilter: ActionFilterAttribute, IAuthenticationFilter
     {

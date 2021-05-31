@@ -4,11 +4,14 @@
         <div class="col-6">
             <h1>Đơn hàng</h1>
         </div>
-        <div class="col-2  offset-4">
+        <div class="col-2  offset-2">
+            <button class="btn btn-success btn-block" type="button" onclick="Export()">Export</button>
+        </div>
+        <div class="col-2  ">
             <button class="btn btn-success btn-block" onclick="window.location.href='/Admin/Order/AddOrder'">Thêm</button>
         </div>
     </div>
-
+    <div class="row"></div>
     <div>
         <div class="card shadow">
             <div class="card-header">
@@ -79,7 +82,7 @@
     //    });
     //}
     function Detail(id) {
-        $("#content-form-lg").load("Admin/Order/Detail?Id="+id, function (response) {
+        $("#content-form-lg").load("/Admin/Order/Detail?Id="+id, function (response) {
             $("#modal-form-lg").modal('show');
         });
     }
@@ -124,4 +127,9 @@
     //        }
     //    })
     //}
+    function Export() {
+        loading(true);
+        window.location = "/Admin/Order/Export";
+        loading(false);
+        }
 </script>

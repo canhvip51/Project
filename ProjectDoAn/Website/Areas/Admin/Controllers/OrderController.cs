@@ -1,6 +1,9 @@
-﻿using PagedList;
+﻿using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using PagedList;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -39,6 +42,7 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
             LibData.Order order = new LibData.Order();
             order.Total = 0;
+            order.CustomerPay = 0;
             return View(order);
         }
         [HttpPost]
@@ -153,7 +157,7 @@ namespace Website.Areas.Admin.Controllers
                 {
                     if (model.Amount.Value > warehouse.Amount.Value - amount)
                     {
-                        ModelState.AddModelError("Amount", "Số lượng trong kho không đủ");
+                        ModelState.AddModelError("Amount", "Sản phẩm chỉ còn "+(warehouse.Amount.Value - amount).ToString() +" trong kho.");
                     }
                 }
                 else
@@ -179,5 +183,42 @@ namespace Website.Areas.Admin.Controllers
         {
             return View(new LibData.Provider.OrderProvider().GetById(id));
         }
+        public FileResult Export()
+        {
+            FileInfo file = new FileInfo(Server.MapPath(@"/Template/ListOrder.xlsx"));
+            ExcelPackage package = new ExcelPackage(file);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelWorkbook workbook = package.Workbook;
+
+         
+            ExcelWorksheet sheet = workbook.Worksheets[0];
+            int stt = 1;
+            int startrow = 2;
+            List<LibData.Order> orders = new LibData.Provider.OrderProvider().GetAll();
+            foreach (var item in orders)
+            {
+                sheet.Cells[startrow, 1].Value = stt;
+                sheet.Cells[startrow, 2].Value = item.Code;
+                sheet.Cells[startrow, 3].Value = item.Phone;
+                sheet.Cells[startrow, 4].Value = item.BuyerName;
+                sheet.Cells[startrow, 5].Value = item.AddressTo;
+                sheet.Cells[startrow, 6].Value = LibData.Configuration.OrderConfig.StatusToDictionaryHTML[item.Status.Value];
+                sheet.Cells[startrow, 7].Value = item.Total;
+                startrow++;
+                stt++;
+            }
+            var modelTable = sheet.Cells["A2:G" + (startrow-1)];
+            modelTable.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+            modelTable.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            modelTable.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            modelTable.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            modelTable.AutoFitColumns();
+            string filename = "BaoCao_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
+            return File(package.GetAsByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
+        }
+        //public FileResult Export(string keysearch="",int status=-1)
+        //{
+        //    return File();
+        //}
     }
 }
