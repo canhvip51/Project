@@ -132,7 +132,7 @@
                                                         <input type="hidden" class="Price" id="Price" value="@item.Price" />
                                                     </td>
                                                     <td>
-                                                        <a onclick="Delete();"> <i class="fa fa-times"></i></a>
+                                                        <a onclick="Remove(this);"> <i class="fa fa-times"></i></a>
                                                     </td>
                                                 </tr>
                                             }
@@ -323,6 +323,10 @@
             },
         });
     }
+       function Remove(item) {
+           $(item).closest('.row-orderdetail').remove()
+           Update()
+     }
 </script>
 <script>
     if ($("#msgsuccess").html() != "") {

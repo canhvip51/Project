@@ -45,5 +45,6 @@ namespace LibData
         public DbSet<User> Users { get; set; }
         public DbSet<Ward> Wards { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<ImportDetail> ImportDetails { get; set; }
     }
 }

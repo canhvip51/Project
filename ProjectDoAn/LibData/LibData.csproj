@@ -92,6 +92,9 @@
     <Compile Include="Import.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
+    <Compile Include="ImportDetail.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
     <Compile Include="ImportUnit.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>

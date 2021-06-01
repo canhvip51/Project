@@ -191,7 +191,7 @@
                 //var statusCode = xhr.getResponseHeader("statusCode");
                 //if (xhr.status == 201) {
                 //}
-                await $("#form-order").html($(data).find("#form-order").html());
+                 $("#form-order").html($(data).find("#form-order").html());
             },
 
         });
@@ -208,9 +208,11 @@
     });
  
 </script>
+<button id="btn_order" style="visibility:hidden">show</button>
 <script>
     if ($("#msgsuccess").html() != "") {
         $("#success").addClass("alert alert-success")
+        $("#btn_order").click()
     }
     if ($("#msgerror").html() != "") {
         $("#error").addClass("alert alert-danger")

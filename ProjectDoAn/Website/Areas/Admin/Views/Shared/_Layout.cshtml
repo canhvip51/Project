@@ -42,9 +42,13 @@
     <script src="~/Areas/Admin/Content/theme/cms/Assets/js/Site.js"></script>
     <!-- Page level custom scripts -->
     @*<script src="~/Areas/Admin/Content/js/demo/chart-area-demo.js"></script>
-    <script src="~/Areas/Admin/Content/js/demo/chart-pie-demo.js"></script>*@
+        <script src="~/Areas/Admin/Content/js/demo/chart-pie-demo.js"></script>*@
     <script src="~/Areas/Admin/Content/theme/cms/Assets/chosen_v1.8.7/chosen.jquery.min.js"></script>
     <script src="~/Areas/Admin/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    @*toást*@
+    <link href="~/Areas/Admin/Content/Toast/vanillatoasts.css" rel="stylesheet" />
+    <script src="~/Areas/Admin/Content/Toast/vanillatoasts.js"></script>
     <style>
         .chosen-container {
             width: 100% !important;
@@ -474,6 +478,7 @@
             <span class="sr-only"></span>
         </div>
     </div>
+
     <!-- Bootstrap core JavaScript-->
     <script>
         function ChangePass() {
@@ -491,6 +496,38 @@
                 $("#loading-page").attr("class", "div-hidden")
             }
         }
+        function create() {
+            VanillaToasts.create({
+                title: "Thông báo",
+                text: "Bạn có đơn hàng mới",
+                type: "success",
+                /*   icon: document.body.querySelector('input[name="icon"]').value || null,*/
+                timeout: "3000",
+            });
+        }
+    </script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+            $(document).ready(function () {
+                console.log(1)
+                var noti = $.connection.xmpp;
+                noti.client.sendNoti = function (provinceid) {
+                    var id = parseInt("@user.ProviceId");
+                    id = (isNaN(id) ? 0 : a)
+                    if (@user.Role== 1 || id == provinceid) {
+                        create();
+                    }
+                };
+                $.connection.hub.start().done(function () {
+                    $('#btn_order').click(function () {
+                        //console.log($('#ProvinceId').val())
+                        noti.server.send($('#ProvinceId').val());
+                    });
+                });
+            });
+
     </script>
 </body>
 

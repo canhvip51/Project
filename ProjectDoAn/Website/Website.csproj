@@ -77,6 +77,12 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -6579,6 +6585,8 @@
     <Content Include="Areas\Admin\Content\theme\cms\Assets\lib\typicons.font\typicons.css" />
     <Content Include="Areas\Admin\Content\theme\cms\Assets\lib\typicons.font\typicons.svg" />
     <Content Include="Areas\Admin\Content\theme\cms\Assets\style.css" />
+    <Content Include="Areas\Admin\Content\Toast\vanillatoasts.css" />
+    <Content Include="Areas\Admin\Content\Toast\vanillatoasts.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap.js" />
@@ -10817,6 +10825,8 @@
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -10921,12 +10931,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\Xmpp.cs" />
     <Compile Include="Infrastructure\CustomAuthenticationFilter.cs" />
     <Compile Include="Infrastructure\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\CustomerOrderModel.cs" />
     <Compile Include="Models\ListOrderModel.cs" />
     <Compile Include="Models\ProductDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

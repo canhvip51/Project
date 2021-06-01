@@ -14,6 +14,11 @@ namespace LibData
     
     public partial class Import
     {
+        public Import()
+        {
+            this.ImportDetails = new HashSet<ImportDetail>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> WarehouseId { get; set; }
         public Nullable<int> Price { get; set; }
@@ -25,6 +30,6 @@ namespace LibData
         public Nullable<int> ImportUnitId { get; set; }
     
         public virtual ImportUnit ImportUnit { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
+        public virtual ICollection<ImportDetail> ImportDetails { get; set; }
     }
 }

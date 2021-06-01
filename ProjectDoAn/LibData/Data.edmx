@@ -25,10 +25,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
-          <Property Name="OriginName" Type="nvarchar" MaxLength="255" />
+          <Property Name="OriginName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Cart">
           <Key>
@@ -85,6 +85,20 @@
           <Property Name="Status" Type="int" />
           <Property Name="ImportUnitId" Type="int" />
         </EntityType>
+        <EntityType Name="ImportDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImportId" Type="int" />
+          <Property Name="WarehouseId" Type="int" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="ImportUnit">
           <Key>
             <PropertyRef Name="Id" />
@@ -94,7 +108,7 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="IsDelete" Type="int" />
           <Property Name="IsUpdate" Type="datetime" />
-          <Property Name="Phone" Type="nchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Order">
@@ -112,7 +126,7 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="AddressTo" Type="nvarchar(max)" />
-          <Property Name="Phone" Type="nchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar(max)" />
           <Property Name="AddressFrom" Type="nvarchar(max)" />
           <Property Name="BuyerName" Type="nvarchar(max)" />
           <Property Name="Note" Type="nvarchar(max)" />
@@ -121,6 +135,7 @@
           <Property Name="DistrictId" Type="int" />
           <Property Name="WardId" Type="int" />
           <Property Name="CustomerPay" Type="int" />
+          <Property Name="Refuse" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -138,11 +153,11 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BrandId" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="TypeShoeId" Type="int" />
           <Property Name="Describe" Type="nvarchar(max)" />
           <Property Name="Status" Type="int" />
-          <Property Name="Origin" Type="nvarchar" MaxLength="255" />
+          <Property Name="Origin" Type="nvarchar(max)" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="IsDelete" Type="int" />
@@ -159,7 +174,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Url" Type="nvarchar(max)" />
           <Property Name="ProductId" Type="int" />
-          <Property Name="Color" Type="nvarchar" MaxLength="255" />
+          <Property Name="Color" Type="nvarchar(max)" />
           <Property Name="IsDelete" Type="int" />
           <Property Name="Status" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
@@ -169,8 +184,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Size">
           <Key>
@@ -220,17 +235,17 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Password" Type="nchar" MaxLength="100" />
-          <Property Name="Email" Type="nvarchar" MaxLength="255" />
-          <Property Name="Phone" Type="varchar" MaxLength="20" />
-          <Property Name="Facebook" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Facebook" Type="nvarchar(max)" />
           <Property Name="Role" Type="int" />
           <Property Name="Status" Type="int" />
           <Property Name="IsDelete" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="255" />
+          <Property Name="FullName" Type="nvarchar(max)" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="ProviceId" Type="int" />
           <Property Name="DistrictId" Type="int" />
@@ -319,14 +334,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Import_Warehouse">
+        <Association Name="FK_ImportDetail_Import">
+          <End Role="Import" Type="Self.Import" Multiplicity="0..1" />
+          <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Import">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="ImportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportDetail_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="0..1" />
-          <End Role="Import" Type="Self.Import" Multiplicity="*" />
+          <End Role="ImportDetail" Type="Self.ImportDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Warehouse">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Import">
+            <Dependent Role="ImportDetail">
               <PropertyRef Name="WarehouseId" />
             </Dependent>
           </ReferentialConstraint>
@@ -483,6 +510,7 @@
           <EntitySet Name="Cookie" EntityType="Self.Cookie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Import" EntityType="Self.Import" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportDetail" EntityType="Self.ImportDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImportUnit" EntityType="Self.ImportUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
@@ -516,9 +544,13 @@
             <End Role="ImportUnit" EntitySet="ImportUnit" />
             <End Role="Import" EntitySet="Import" />
           </AssociationSet>
-          <AssociationSet Name="FK_Import_Warehouse" Association="Self.FK_Import_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouse" />
+          <AssociationSet Name="FK_ImportDetail_Import" Association="Self.FK_ImportDetail_Import">
             <End Role="Import" EntitySet="Import" />
+            <End Role="ImportDetail" EntitySet="ImportDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportDetail_Warehouse" Association="Self.FK_ImportDetail_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="ImportDetail" EntitySet="ImportDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_District" Association="Self.FK_Order_District">
             <End Role="District" EntitySet="District" />
@@ -626,10 +658,6 @@
             <End Role="ImportUnit" EntitySet="ImportUnits" />
             <End Role="Import" EntitySet="Imports" />
           </AssociationSet>
-          <AssociationSet Name="FK_Import_Warehouse" Association="SHOESSHOPModel.FK_Import_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouses" />
-            <End Role="Import" EntitySet="Imports" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_Province" Association="SHOESSHOPModel.FK_Order_Province">
             <End Role="Province" EntitySet="Provinces" />
             <End Role="Order" EntitySet="Orders" />
@@ -666,6 +694,15 @@
             <End Role="Size" EntitySet="Sizes" />
             <End Role="Warehouse" EntitySet="Warehouses" />
           </AssociationSet>
+          <EntitySet Name="ImportDetails" EntityType="SHOESSHOPModel.ImportDetail" />
+          <AssociationSet Name="FK_ImportDetail_Import" Association="SHOESSHOPModel.FK_ImportDetail_Import">
+            <End Role="Import" EntitySet="Imports" />
+            <End Role="ImportDetail" EntitySet="ImportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportDetail_Warehouse" Association="SHOESSHOPModel.FK_ImportDetail_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="ImportDetail" EntitySet="ImportDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BanList">
           <Key>
@@ -687,10 +724,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="OriginName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OriginName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="SHOESSHOPModel.FK_Product_Brand" FromRole="Brand" ToRole="Product" />
         </EntityType>
         <EntityType Name="Cart">
@@ -755,7 +792,7 @@
           <Property Name="Status" Type="Int32" />
           <Property Name="ImportUnitId" Type="Int32" />
           <NavigationProperty Name="ImportUnit" Relationship="SHOESSHOPModel.FK_Import_ImportUnit" FromRole="Import" ToRole="ImportUnit" />
-          <NavigationProperty Name="Warehouse" Relationship="SHOESSHOPModel.FK_Import_Warehouse" FromRole="Import" ToRole="Warehouse" />
+          <NavigationProperty Name="ImportDetails" Relationship="SHOESSHOPModel.FK_ImportDetail_Import" FromRole="Import" ToRole="ImportDetail" />
         </EntityType>
         <EntityType Name="ImportUnit">
           <Key>
@@ -766,7 +803,7 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="IsDelete" Type="Int32" />
           <Property Name="IsUpdate" Type="DateTime" Precision="3" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Imports" Relationship="SHOESSHOPModel.FK_Import_ImportUnit" FromRole="ImportUnit" ToRole="Import" />
         </EntityType>
@@ -785,7 +822,7 @@
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="AddressTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AddressFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BuyerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -794,6 +831,7 @@
           <Property Name="DistrictId" Type="Int32" />
           <Property Name="WardId" Type="Int32" />
           <Property Name="CustomerPay" Type="Int32" />
+          <Property Name="Refuse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Order_District" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Order" ToRole="Province" />
           <NavigationProperty Name="User" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="Order" ToRole="User" />
@@ -818,11 +856,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BrandId" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TypeShoeId" Type="Int32" />
           <Property Name="Describe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int32" />
-          <Property Name="Origin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Origin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="IsDelete" Type="Int32" />
@@ -842,7 +880,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ProductId" Type="Int32" />
-          <Property Name="Color" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDelete" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
@@ -854,8 +892,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Districts" Relationship="SHOESSHOPModel.FK_District_Province" FromRole="Province" ToRole="District" />
           <NavigationProperty Name="Orders" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Province" ToRole="Order" />
         </EntityType>
@@ -909,17 +947,17 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Facebook" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Facebook" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Role" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="IsDelete" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="FullName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ProviceId" Type="Int32" />
           <Property Name="DistrictId" Type="Int32" />
@@ -952,10 +990,10 @@
           <Property Name="ProductImgId" Type="Int32" />
           <Property Name="Discount" Type="Int32" />
           <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_Warehouse" FromRole="Warehouse" ToRole="Cart" />
-          <NavigationProperty Name="Imports" Relationship="SHOESSHOPModel.FK_Import_Warehouse" FromRole="Warehouse" ToRole="Import" />
           <NavigationProperty Name="OrderDetails" Relationship="SHOESSHOPModel.FK_OrderDetail_Warehouse" FromRole="Warehouse" ToRole="OrderDetail" />
           <NavigationProperty Name="ProductImg" Relationship="SHOESSHOPModel.FK_Warehouse_ProductImg" FromRole="Warehouse" ToRole="ProductImg" />
           <NavigationProperty Name="Size" Relationship="SHOESSHOPModel.FK_Warehouse_Size" FromRole="Warehouse" ToRole="Size" />
+          <NavigationProperty Name="ImportDetails" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="Warehouse" ToRole="ImportDetail" />
         </EntityType>
         <Association Name="FK_Product_Brand">
           <End Type="SHOESSHOPModel.Brand" Role="Brand" Multiplicity="0..1" />
@@ -1050,18 +1088,6 @@
             </Principal>
             <Dependent Role="Import">
               <PropertyRef Name="ImportUnitId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Import_Warehouse">
-          <End Type="SHOESSHOPModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
-          <End Type="SHOESSHOPModel.Import" Role="Import" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Import">
-              <PropertyRef Name="WarehouseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1170,6 +1196,46 @@
             </Principal>
             <Dependent Role="Warehouse">
               <PropertyRef Name="SizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ImportDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImportId" Type="Int32" />
+          <Property Name="WarehouseId" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Import" Relationship="SHOESSHOPModel.FK_ImportDetail_Import" FromRole="ImportDetail" ToRole="Import" />
+          <NavigationProperty Name="Warehouse" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="ImportDetail" ToRole="Warehouse" />
+        </EntityType>
+        <Association Name="FK_ImportDetail_Import">
+          <End Type="SHOESSHOPModel.Import" Role="Import" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.ImportDetail" Role="ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Import">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="ImportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportDetail_Warehouse">
+          <End Type="SHOESSHOPModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.ImportDetail" Role="ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="WarehouseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1282,6 +1348,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Refuse" ColumnName="Refuse" />
                 <ScalarProperty Name="CustomerPay" ColumnName="CustomerPay" />
                 <ScalarProperty Name="WardId" ColumnName="WardId" />
                 <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
@@ -1449,6 +1516,21 @@
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="SizeId" ColumnName="SizeId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportDetails">
+            <EntityTypeMapping TypeName="SHOESSHOPModel.ImportDetail">
+              <MappingFragment StoreEntitySet="ImportDetail">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

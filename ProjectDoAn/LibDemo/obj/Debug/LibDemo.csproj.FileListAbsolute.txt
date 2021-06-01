@@ -28,15 +28,3 @@ G:\DoAn\ProjectDoAn\LibDemo\obj\Debug\LibDemo.csproj.CoreCompileInputs.cache
 G:\DoAn\ProjectDoAn\LibDemo\obj\Debug\LibDemo.csproj.CopyComplete
 G:\DoAn\ProjectDoAn\LibDemo\obj\Debug\LibDemo.dll
 G:\DoAn\ProjectDoAn\LibDemo\obj\Debug\LibDemo.pdb
-G:\Project\ProjectDoAn\LibDemo\bin\Debug\LibDemo.dll.config
-G:\Project\ProjectDoAn\LibDemo\bin\Debug\LibDemo.dll
-G:\Project\ProjectDoAn\LibDemo\bin\Debug\LibDemo.pdb
-G:\Project\ProjectDoAn\LibDemo\bin\Debug\EntityFramework.dll
-G:\Project\ProjectDoAn\LibDemo\bin\Debug\EntityFramework.SqlServer.dll
-G:\Project\ProjectDoAn\LibDemo\bin\Debug\EntityFramework.xml
-G:\Project\ProjectDoAn\LibDemo\bin\Debug\EntityFramework.SqlServer.xml
-G:\Project\ProjectDoAn\LibDemo\obj\Debug\LibDemo.csprojAssemblyReference.cache
-G:\Project\ProjectDoAn\LibDemo\obj\Debug\LibDemo.csproj.CoreCompileInputs.cache
-G:\Project\ProjectDoAn\LibDemo\obj\Debug\LibDemo.csproj.CopyComplete
-G:\Project\ProjectDoAn\LibDemo\obj\Debug\LibDemo.dll
-G:\Project\ProjectDoAn\LibDemo\obj\Debug\LibDemo.pdb
