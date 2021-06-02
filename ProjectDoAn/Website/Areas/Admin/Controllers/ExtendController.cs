@@ -66,5 +66,9 @@ namespace Website.Areas.Admin.Controllers
             file.SaveAs(Path.Combine(rootPath, fileName));
             return Json(new { link = "/Images/Upload/" + fileName }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult PrintOrder(int orderid)
+        {
+            return View();
+        }
     }
 }

@@ -33,28 +33,16 @@ namespace LibDemo
         public virtual DbSet<Import> Imports { get; set; }
         public virtual DbSet<ImportUnit> ImportUnits { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductImg> ProductImgs { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
+        public virtual DbSet<Size> Sizes { get; set; }
+        public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TypeSho> TypeShoes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
-        public virtual DbSet<BanList1> BanList1 { get; set; }
-        public virtual DbSet<Brand1> Brand1 { get; set; }
-        public virtual DbSet<Cart1> Cart1 { get; set; }
-        public virtual DbSet<Config1> Config1 { get; set; }
-        public virtual DbSet<District1> District1 { get; set; }
-        public virtual DbSet<Import1> Import1 { get; set; }
-        public virtual DbSet<ImportUnit1> ImportUnit1 { get; set; }
-        public virtual DbSet<Order1> Order1 { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Product1> Product1 { get; set; }
-        public virtual DbSet<ProductImg1> ProductImg1 { get; set; }
-        public virtual DbSet<Province1> Province1 { get; set; }
-        public virtual DbSet<User1> User1 { get; set; }
-        public virtual DbSet<Ward1> Ward1 { get; set; }
-        public virtual DbSet<Warehouse1> Warehouse1 { get; set; }
     }
 }

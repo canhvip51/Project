@@ -32,6 +32,7 @@ namespace LibData
         public DbSet<Cookie> Cookies { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Import> Imports { get; set; }
+        public DbSet<ImportDetail> ImportDetails { get; set; }
         public DbSet<ImportUnit> ImportUnits { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
@@ -45,6 +46,5 @@ namespace LibData
         public DbSet<User> Users { get; set; }
         public DbSet<Ward> Wards { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<ImportDetail> ImportDetails { get; set; }
     }
 }

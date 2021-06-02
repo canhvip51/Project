@@ -14,18 +14,28 @@ namespace LibDemo
     
     public partial class Warehouse
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Warehouse()
+        {
+            this.Imports = new HashSet<Import>();
+            this.OrderDetails = new HashSet<OrderDetail>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> Amount { get; set; }
-        public Nullable<int> Size { get; set; }
-        public string Color { get; set; }
-        public Nullable<int> ProductId { get; set; }
+        public Nullable<int> SizeId { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public string Status { get; set; }
-        public string IsDelete { get; set; }
-        public Nullable<int> Price { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<int> IsDelete { get; set; }
+        public Nullable<int> ProductImgId { get; set; }
         public Nullable<int> Discount { get; set; }
     
-        public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Import> Imports { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ProductImg ProductImg { get; set; }
+        public virtual Size Size { get; set; }
     }
 }

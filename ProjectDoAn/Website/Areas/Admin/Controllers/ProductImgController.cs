@@ -50,6 +50,10 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Url", "Thêm ảnh giày");
             }
+            if (string.IsNullOrEmpty(model.Color))
+            {
+                ModelState.AddModelError("Color", "Nhập màu");
+            }
             if (ModelState.IsValid)
             {
                 if(Url!=null)

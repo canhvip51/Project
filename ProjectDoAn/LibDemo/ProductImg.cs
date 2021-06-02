@@ -14,10 +14,22 @@ namespace LibDemo
     
     public partial class ProductImg
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductImg()
+        {
+            this.Warehouses = new HashSet<Warehouse>();
+        }
+    
         public int Id { get; set; }
         public string Url { get; set; }
         public Nullable<int> ProductId { get; set; }
+        public string Color { get; set; }
+        public Nullable<int> IsDelete { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
     
         public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Warehouse> Warehouses { get; set; }
     }
 }

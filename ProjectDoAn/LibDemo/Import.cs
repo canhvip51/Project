@@ -25,5 +25,6 @@ namespace LibDemo
         public Nullable<int> ImportUnitId { get; set; }
     
         public virtual ImportUnit ImportUnit { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

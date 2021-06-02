@@ -18,121 +18,59 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.size = size;
             return View();
         }
-        public ActionResult ListImport(int warehouseid = -1, int importunitid = -1, int page = 1, int size = 10)
+        public ActionResult ListImport(int importunitid = -1, int page = 1, int size = 10)
         {
             ViewBag.page = page;
             ViewBag.size = size;
-            ViewBag.warehouseid = warehouseid;
             ViewBag.importunitid = importunitid;
             int skip = (page - 1) * size;
             LibData.Provider.ImportProvider importProvider = new LibData.Provider.ImportProvider();
-            var list = importProvider.GetAllByKey(warehouseid, importunitid, skip, size);
-            var count = importProvider.CountAllByKey(warehouseid, importunitid);
+            var list = importProvider.GetAllByKey( importunitid, skip, size);
+            var count = importProvider.CountAllByKey( importunitid);
             StaticPagedList<LibData.Import> pagedList = new StaticPagedList<LibData.Import>(list, page, size, count);
             return View(pagedList);
         }
         [HttpGet]
-        public ActionResult AddImport(int? id, int? warehouseid, int? importunitid, int productid = -1, int productimgid = -1)
+        public ActionResult AddImport(int ?id, int? importunitid)
         {
-            LibData.Provider.ProductImgProvider productImgProvider = new LibData.Provider.ProductImgProvider(); 
-            var size = new List<LibData.Size>();
-            var productimg = productImgProvider.GetById(productimgid);
-            var warehouse = new LibData.Provider.WarehouseProvider().GetById(warehouseid.HasValue? warehouseid.Value:-1);
-            if (productimgid!=-1)
-            {
-                size = new LibData.Provider.SizeProvider().GetAllBySex(productimg.Product.Type.Value);
-            }
-            ViewBag.productimgid = productimgid;
-            productid = (int)(warehouse != null ? warehouse.ProductImg.ProductId : (productimg != null ? productimg.ProductId : productid));
-            ViewBag.Size = size;
-            ViewBag.ProductImg = productid!=-1?  productImgProvider.GetAllByProductId(productid):productImgProvider.GetAll();
-            ViewBag.ImportUnit = new LibData.Provider.ImportUnitProvider().GetAll();
-            ViewBag.productid = productid;
+         
             LibData.Import import = new LibData.Import();
-            import.WarehouseId = warehouseid;
             import.ImportUnitId = importunitid;
-            import.Amount = 0;
-            import.Warehouse = warehouse != null ? warehouse : new LibData.Warehouse();
+            import.ImportDetails = new List<LibData.ImportDetail>();
             if (id.HasValue)
             {
                 import = new LibData.Provider.ImportProvider().GetById(id.Value);
             }
-           
+            ViewBag.ImportUnit = new LibData.Provider.ImportUnitProvider().GetAll();
             return View(import);
         }
         [HttpPost]
-        public ActionResult AddImport(LibData.Import model, int productimgid , int SizeId, int productid)
+        public ActionResult AddImport(LibData.Import model)
         {
-            LibData.Provider.ProductImgProvider productImgProvider = new LibData.Provider.ProductImgProvider();
-            var productimg = productImgProvider.GetById(productimgid);
-            ViewBag.productid = productid;
-            ViewBag.Size = new LibData.Provider.SizeProvider().GetAllBySex(productimg.Product.Type.Value);
-            ViewBag.ProductImg = productid != -1 ? productImgProvider.GetAllByProductId(productid) : productImgProvider.GetAll();
-            ViewBag.ImportUnit = new LibData.Provider.ImportUnitProvider().GetAll();
+            LibData.Provider.ImportUnitProvider  importUnitProvider= new LibData.Provider.ImportUnitProvider();
             LibData.Provider.ImportProvider importProvider = new LibData.Provider.ImportProvider();
-            LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
-            if (model.Amount.Value < 0)
+            ViewBag.ImportUnit = new LibData.Provider.ImportUnitProvider().GetAll();
+            if (model.ImportUnitId.HasValue)
             {
-                ModelState.AddModelError("Amount", "Số lượng không khả dụng");
-            }
-            if (model.Price.HasValue)
-            {
-                if (model.Price.Value <= 10000 || model.Price.Value >= 2000000000)
+                if (!importUnitProvider.GetAll().Select(x => x.Id).Contains(model.ImportUnitId.Value))
                 {
-                    ModelState.AddModelError("Price", "Giá không khả dụng");
+                    ModelState.AddModelError("ImportUnitId", "Nhà cung cấp không tồn tại.");
                 }
-            }else
-            {
-                ModelState.AddModelError("Price", "Giá nhập không được bỏ trống");
             }
-
+            else
+            {
+                ModelState.AddModelError("ImportUnitId", "Vui lòng chọn nhà cung cấp.");
+            }
+            if (model.ImportDetails == null)
+            {
+                ModelState.AddModelError("Error", "Vui lòng thêm sản phẩm vào phiếu nhập.");
+            }
             if (ModelState.IsValid)
             {
-
-                if (model.Id > 0)
-                {
-                    if (importProvider.Update(model))
-                    {
-                        Response.StatusCode = (int)HttpStatusCode.Created;
-                        return View(model);
-
-                    }
-                    ModelState.AddModelError("Error", "Lỗi hệ thống");
-                }
-                else
-                {
-                    LibData.Warehouse warehouse = warehouseProvider.GetBySize(productimgid, SizeId)??new LibData.Warehouse();
-                    if (warehouse.Id > 0 )
-                    {
-                        model.WarehouseId = warehouse.Id;
-                        if (importProvider.Insert(model))
-                        {
-                            Response.StatusCode = (int)HttpStatusCode.Created;
-                            model.Warehouse = warehouse;
-                            return View(model);
-                        }
-                    }
-                    else
-                    {
-                        warehouse.SizeId = SizeId;
-                        warehouse.ProductImgId = productimgid;
-                        warehouse.Status = 1;
-                        warehouse.Discount = 0;
-                        warehouse.Amount = 0;
-                        if (warehouseProvider.Insert(warehouse))
-                        {
-                            model.WarehouseId = warehouse.Id;
-                            if (importProvider.Insert(model))
-                            {
-                                Response.StatusCode = (int)HttpStatusCode.Created;
-                                model.Warehouse = warehouse;
-                                return View(model);
-                            }
-                        }
-                    }
-                      
-                    ModelState.AddModelError("Error", "Lỗi hệ thống");
-                }
+                //if (importProvider.Insert(model))
+                //{
+                //    Response.StatusCode = (int)HttpStatusCode.Created;
+                //}
             }
             return View(model);
         }

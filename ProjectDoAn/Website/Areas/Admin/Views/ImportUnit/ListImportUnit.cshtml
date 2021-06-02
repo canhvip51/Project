@@ -49,7 +49,7 @@
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" onclick="ShowListImport(@item.Id)">Lịch sử nhập hàng</a>
-                    <a class="dropdown-item" onclick="AddImport(@item.Id)">Nhập hàng</a>
+                    <a class="dropdown-item" onclick="window.location.href='/Admin/Import/AddImport?importunitid=@item.Id'">Nhập hàng</a>
                     <a class="dropdown-item" onclick="EditImportUnit(@item.Id)">Sửa</a>
                 </div>
             </div>

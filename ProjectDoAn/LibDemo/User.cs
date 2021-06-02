@@ -28,14 +28,12 @@ namespace LibDemo
         public string Phone { get; set; }
         public string Facebook { get; set; }
         public Nullable<int> Role { get; set; }
-        public Nullable<int> ProvinceId { get; set; }
-        public Nullable<int> DistrictId { get; set; }
-        public Nullable<int> WardId { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> IsDelete { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string FullName { get; set; }
+        public string Adress { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }

@@ -10820,6 +10820,10 @@
     <Content Include="Areas\Admin\Views\Order\AddOrderDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Order\trAddOrderDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\DashboardOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportUnit\ImportUnitDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportDetail\AddImportDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\ImportDetail\trAddImportDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Extend\PrintOrder.cshtml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -10912,6 +10916,7 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExtendController.cs" />
     <Compile Include="Areas\Admin\Controllers\ImportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ImportDetailController.cs" />
     <Compile Include="Areas\Admin\Controllers\ImportUnitController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />

@@ -76,9 +76,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="WarehouseId" Type="int" />
           <Property Name="Price" Type="int" />
-          <Property Name="Amount" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="IsDelete" Type="int" />
@@ -613,6 +611,7 @@
           <EntitySet Name="Cookies" EntityType="SHOESSHOPModel.Cookie" />
           <EntitySet Name="Districts" EntityType="SHOESSHOPModel.District" />
           <EntitySet Name="Imports" EntityType="SHOESSHOPModel.Import" />
+          <EntitySet Name="ImportDetails" EntityType="SHOESSHOPModel.ImportDetail" />
           <EntitySet Name="ImportUnits" EntityType="SHOESSHOPModel.ImportUnit" />
           <EntitySet Name="Orders" EntityType="SHOESSHOPModel.Order" />
           <EntitySet Name="OrderDetails" EntityType="SHOESSHOPModel.OrderDetail" />
@@ -658,6 +657,14 @@
             <End Role="ImportUnit" EntitySet="ImportUnits" />
             <End Role="Import" EntitySet="Imports" />
           </AssociationSet>
+          <AssociationSet Name="FK_ImportDetail_Import" Association="SHOESSHOPModel.FK_ImportDetail_Import">
+            <End Role="Import" EntitySet="Imports" />
+            <End Role="ImportDetail" EntitySet="ImportDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImportDetail_Warehouse" Association="SHOESSHOPModel.FK_ImportDetail_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="ImportDetail" EntitySet="ImportDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Province" Association="SHOESSHOPModel.FK_Order_Province">
             <End Role="Province" EntitySet="Provinces" />
             <End Role="Order" EntitySet="Orders" />
@@ -693,15 +700,6 @@
           <AssociationSet Name="FK_Warehouse_Size" Association="SHOESSHOPModel.FK_Warehouse_Size">
             <End Role="Size" EntitySet="Sizes" />
             <End Role="Warehouse" EntitySet="Warehouses" />
-          </AssociationSet>
-          <EntitySet Name="ImportDetails" EntityType="SHOESSHOPModel.ImportDetail" />
-          <AssociationSet Name="FK_ImportDetail_Import" Association="SHOESSHOPModel.FK_ImportDetail_Import">
-            <End Role="Import" EntitySet="Imports" />
-            <End Role="ImportDetail" EntitySet="ImportDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ImportDetail_Warehouse" Association="SHOESSHOPModel.FK_ImportDetail_Warehouse">
-            <End Role="Warehouse" EntitySet="Warehouses" />
-            <End Role="ImportDetail" EntitySet="ImportDetails" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="BanList">
@@ -783,9 +781,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WarehouseId" Type="Int32" />
           <Property Name="Price" Type="Int32" />
-          <Property Name="Amount" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="IsDelete" Type="Int32" />
@@ -793,6 +789,22 @@
           <Property Name="ImportUnitId" Type="Int32" />
           <NavigationProperty Name="ImportUnit" Relationship="SHOESSHOPModel.FK_Import_ImportUnit" FromRole="Import" ToRole="ImportUnit" />
           <NavigationProperty Name="ImportDetails" Relationship="SHOESSHOPModel.FK_ImportDetail_Import" FromRole="Import" ToRole="ImportDetail" />
+        </EntityType>
+        <EntityType Name="ImportDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImportId" Type="Int32" />
+          <Property Name="WarehouseId" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Import" Relationship="SHOESSHOPModel.FK_ImportDetail_Import" FromRole="ImportDetail" ToRole="Import" />
+          <NavigationProperty Name="Warehouse" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="ImportDetail" ToRole="Warehouse" />
         </EntityType>
         <EntityType Name="ImportUnit">
           <Key>
@@ -990,10 +1002,10 @@
           <Property Name="ProductImgId" Type="Int32" />
           <Property Name="Discount" Type="Int32" />
           <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_Warehouse" FromRole="Warehouse" ToRole="Cart" />
+          <NavigationProperty Name="ImportDetails" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="Warehouse" ToRole="ImportDetail" />
           <NavigationProperty Name="OrderDetails" Relationship="SHOESSHOPModel.FK_OrderDetail_Warehouse" FromRole="Warehouse" ToRole="OrderDetail" />
           <NavigationProperty Name="ProductImg" Relationship="SHOESSHOPModel.FK_Warehouse_ProductImg" FromRole="Warehouse" ToRole="ProductImg" />
           <NavigationProperty Name="Size" Relationship="SHOESSHOPModel.FK_Warehouse_Size" FromRole="Warehouse" ToRole="Size" />
-          <NavigationProperty Name="ImportDetails" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="Warehouse" ToRole="ImportDetail" />
         </EntityType>
         <Association Name="FK_Product_Brand">
           <End Type="SHOESSHOPModel.Brand" Role="Brand" Multiplicity="0..1" />
@@ -1088,6 +1100,30 @@
             </Principal>
             <Dependent Role="Import">
               <PropertyRef Name="ImportUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportDetail_Import">
+          <End Type="SHOESSHOPModel.Import" Role="Import" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.ImportDetail" Role="ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Import">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="ImportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImportDetail_Warehouse">
+          <End Type="SHOESSHOPModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.ImportDetail" Role="ImportDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ImportDetail">
+              <PropertyRef Name="WarehouseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1199,46 +1235,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ImportDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ImportId" Type="Int32" />
-          <Property Name="WarehouseId" Type="Int32" />
-          <Property Name="Amount" Type="Int32" />
-          <Property Name="Price" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="IsDelete" Type="Int32" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Import" Relationship="SHOESSHOPModel.FK_ImportDetail_Import" FromRole="ImportDetail" ToRole="Import" />
-          <NavigationProperty Name="Warehouse" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="ImportDetail" ToRole="Warehouse" />
-        </EntityType>
-        <Association Name="FK_ImportDetail_Import">
-          <End Type="SHOESSHOPModel.Import" Role="Import" Multiplicity="0..1" />
-          <End Type="SHOESSHOPModel.ImportDetail" Role="ImportDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Import">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ImportDetail">
-              <PropertyRef Name="ImportId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ImportDetail_Warehouse">
-          <End Type="SHOESSHOPModel.Warehouse" Role="Warehouse" Multiplicity="0..1" />
-          <End Type="SHOESSHOPModel.ImportDetail" Role="ImportDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Warehouse">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ImportDetail">
-              <PropertyRef Name="WarehouseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1325,9 +1321,22 @@
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportDetails">
+            <EntityTypeMapping TypeName="SHOESSHOPModel.ImportDetail">
+              <MappingFragment StoreEntitySet="ImportDetail">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1516,21 +1525,6 @@
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="SizeId" ColumnName="SizeId" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ImportDetails">
-            <EntityTypeMapping TypeName="SHOESSHOPModel.ImportDetail">
-              <MappingFragment StoreEntitySet="ImportDetail">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
-                <ScalarProperty Name="ImportId" ColumnName="ImportId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

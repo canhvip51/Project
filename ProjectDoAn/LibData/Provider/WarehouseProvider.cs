@@ -12,6 +12,9 @@ namespace LibData.Provider
         {
             try
             {
+                model.Discount = 0;
+                model.Amount = 0;
+                model.Status = 1;
                 model.CreateDate = DateTime.Now;
                 ApplicationDbContext.Warehouses.Add(model);
                 ApplicationDbContext.SaveChanges();

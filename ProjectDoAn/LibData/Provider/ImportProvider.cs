@@ -12,14 +12,8 @@ namespace LibData.Provider
         {
             try
             {
-                model.CreateDate = DateTime.Now;
-                Warehouse warehouse = new WarehouseProvider().GetById(model.WarehouseId.Value);
-                warehouse.Amount += model.Amount;
-                if(new WarehouseProvider().UpdateAmount(warehouse))
-                {
                     ApplicationDbContext.Imports.Add(model);
                     ApplicationDbContext.SaveChanges();
-                }
                 return true;
             }
             catch (Exception e)
@@ -31,12 +25,6 @@ namespace LibData.Provider
         {
             try
             {
-                Import import = GetById(model.Id);
-                import.ImportUnitId = model.ImportUnitId;
-                import.Amount = model.Amount;
-                import.WarehouseId = model.WarehouseId;
-                import.Price = model.Price;
-                import.UpdateDate= DateTime.Now;
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -107,11 +95,11 @@ namespace LibData.Provider
             }
 
         }
-        public List<Import> GetAllByKey(int warehouseid,int importunitid,int skip, int size)
+        public List<Import> GetAllByKey(int importunitid,int skip, int size)
         {
             try
             {
-                return ApplicationDbContext.Imports.Where(x => (x.IsDelete == 0 || x.IsDelete == null)&& (importunitid>0 ? x.ImportUnitId == importunitid : true)&&(warehouseid>0?x.WarehouseId==warehouseid:true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Imports.Where(x => (x.IsDelete == 0 || x.IsDelete == null)&& (importunitid>0 ? x.ImportUnitId == importunitid : true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -119,11 +107,11 @@ namespace LibData.Provider
             }
 
         }
-        public int CountAllByKey(int warehouseid, int importunitid)
+        public int CountAllByKey( int importunitid)
         {
             try
             {
-                return ApplicationDbContext.Imports.Count(x => (x.IsDelete == 0 || x.IsDelete == null) && (importunitid>0? x.ImportUnitId == importunitid : true) && (warehouseid>0? x.WarehouseId == warehouseid : true));
+                return ApplicationDbContext.Imports.Count(x => (x.IsDelete == 0 || x.IsDelete == null) && (importunitid>0? x.ImportUnitId == importunitid : true));
             }
             catch (Exception e)
             {

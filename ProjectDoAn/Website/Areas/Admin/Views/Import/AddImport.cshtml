@@ -1,92 +1,187 @@
-﻿@model LibData.Import
+﻿
 @{
-    Layout = null;
+    ViewBag.Title = "AddImport";
+    LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
 }
-<form id="form-addimport">
-    <div class="modal-header">
-        <h6 class="modal-title">Thông tin nhập hàng</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div>
-            <input type="hidden"  name="productid" value="@ViewBag.productid" id="productid"/>
-            <input type="hidden" name="Id" value="@Model.Id" id="Id" />
+@model LibData.Import
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1>Phiếu nhập kho</h1>
         </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    <label>Sản phẩm<span class="text-danger">*</span></label>
+        @*<div class="col-2  offset-4">
+                <button class="btn btn-success btn-block" onclick="window.location.href='/Order/AddOrder?Id'">Thêm</button>
+            </div>*@
+    </div>
 
-                    <select class="form-control chosen-select" name="productimgid" id="productimgid" @(ViewBag.productid>0?"onchange='SelectSize()'":"")>
-                        @if (ViewBag.productimgid != -1)
-                        {
-                            foreach (var item in ViewBag.ProductImg as List<LibData.ProductImg>)
-                            {
-                                <option value="@item.Id" @(item.Id == ViewBag.productimgid ? "selected" : "")>@item.Product.Name - @item.Color </option>
-                            }
-                        }
-                        else
-                        {
-                            foreach (var item in ViewBag.ProductImg as List<LibData.ProductImg>)
-                            {
-                                <option value="@item.Id">@item.Product.Name - @item.Color </option>
-                            }
-                        }
-                    </select>
-                </div>
-                <div class="col-6" id="size-select">
-                    <label>Kích cỡ<span class="text-danger">*</span></label>
-                    <select class="form-control chosen-select" name="SizeId" id="SizeId">
-     
-                            @foreach (var item in ViewBag.Size as List<LibData.Size>)
-                            {
-                                <option value="@item.Id" @(item.Id == Model.Warehouse.SizeId ? "selected" : "")> VN : @item.VN - US : @item.US - UK : @item.UK</option>
-                            }
+    <form id="form-addimport">
+        <div class="row">
+            <div class="col-12" id="success">
+                @Html.ValidationMessage("success", new { @id = "msgsuccess", @style = "font-size:20px" })
+            </div>
+            <div class="col-12" id="error">
+                @Html.ValidationMessage("error", new { @id = "msgerror", @style = "font-size:20px" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <div class="row">
+                            <h6>
+                                Thông tin phiếu nhập
+                            </h6>
 
-                    </select>
+
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <div class="col-12" id="infoimport">
+                                <div class="form-group pb-3">
+                                    <label>Nhà cung cấp <span class="text-danger">*</span></label>
+                                    <select class="form-control chosen-select" id="ImportUnitId" name="ImportUnitId">
+                                        @foreach (var item in ViewBag.ImportUnit as List<LibData.ImportUnit>)
+                                        {
+                                            <option value="@item.Id" @(item.Id == Model.ImportUnitId.Value ? "selected" : "")>@item.Name</option>
+                                        }
+
+                                    </select>
+                                    @Html.ValidationMessage("ImportUnitId", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-12" id="list_warehouse">
+                                <div class="form-group pb-3">
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label>Danh sách sản phẩm </label>
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <button type="button" onclick="AddImportDetail()" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table class="table table-bordered table-responsive-sm  table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:40%">Sản phẩm</th>
+                                                        <th style="width:20%">Số lượng</th>
+                                                        <th style="width:30%">Giá</th>
+                                                        <th style="width:10%"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="list-product">
+                                                    @if (Model.ImportDetails.Count > 0)
+                                                    {
+                                                        foreach (var item in Model.ImportDetails)
+                                                        {
+                                                            <tr class="row-importdetail">
+                                                                <td>
+                                                                    @{
+                                                                            LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
+                                                                            < div class="form-group">
+                                                                            <input type="hidden" class="@warehouse.ProductImgId" value="@warehouse.SizeId" />
+                                                                            <input type="hidden" id="WarehouseId" class="WarehouseId" value="@item.WarehouseId" />
+                                                                            @*<h6 class="mb-0"> @warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</h6>
+                                                                            <span class="text-muted font-weight-normal font-italic d-block" style="font-size:11px">VN : @warehouse.Size.VN - US : @warehouse.Size.US - UK : @warehouse.Size.UK</span>*@
+                                                                        </div>
+                                                                    }
+                                                                </td>
+                                                                <td>
+
+                                                                    <input type="number" class="Amount form-control" onchange="UpdateImport()" min="0" value="@item.Amount" />
+                                                                </td>
+                                                                <td>
+                                                                    @*@item.Price*@
+                                                                    <input type="number" min="10000" onchange="UpdateImport()" class=" Price form-control"  value="@item.Price" />
+                                                                </td>
+                                                                <td>
+                                                                    <a onclick="Remove(this);"> <i class="fa fa-times"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <b>Tổng tiền : </b>
+                                                        </td>
+                                                        <td colspan="2" class="Total">
+                                                            <h5 id="total-show" style="">
+                                                                <b>
+                                                                    @string.Format("{0:#,0}", Model.Price) VNĐ
+
+                                                                </b>
+                                                            </h5>
+                                                            <input type="hidden" id="Total"  name="Price" value="@Model.Price" />
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @*<p class="font-italic mb-4">Ghi chú cho người bán</p>
+                            <textarea name="Note" rows="5" maxlength="2048" class="form-control" value="@Model.Note" style="max-width:100%"></textarea>*@
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row justify-content-center">
+                            <div class="col-2 col-lg-offset-2">
+                                <button type="button" class="btn btn-block btn-primary" onclick="SubmitImport()">Tạo</button>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-block btn-outline-secondary">Hủy</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
-        <div class="form-group">
 
-            <label>Tên nhà cung cấp<span class="text-danger">*</span></label>
-            <select class="form-control chosen-select" name="ImportUnitId" id="ImportUnitId">
-                @foreach (var item in ViewBag.ImportUnit as List<LibData.ImportUnit>)
-                {
+        </div>
 
-                    <option value="@item.Id" @(item.Id == Model.ImportUnitId ? "selected" : "")>@item.Name - @item.Phone</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
+    </form>
+</div>
+<div class="modal fade bd-example-modal-xl" id="modal-form-xl" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" id="content-form-xl">
 
-            <label>Số lượng<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" name="Amount" id="Amount" value="@Model.Amount" />
-            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            <label>Giá<span class="text-danger">*</span></label>
-            <input type="number" class="form-control" name="Price" id="Price" value="@Model.Price" />
-            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-        </div>
-        @Html.ValidationMessage("error", new { @class = "text-danger" })
-        <div class="modal-footer">
-            <button type="button" onclick="sumbitImport()" class="btn btn-primary">Lưu</button>
-            <button type="button" data-dismiss="modal" class="btn btn-light">Đóng</button>
-        </div>
-    </div><!-- modal-body -->
-    <script>
-        $(".chosen-select").chosen()
-        SelectSize();
-        async function SelectSize() {
-            var productimgid = $("#productimgid").val()
-        //var district = $("#DistrictId").val()
-            await $("#size-select").load("/Admin/Extend/SelectSize?productimgid=" + productimgid + "&selecteds=@Model.Warehouse.SizeId" )
+    </div>
+</div>
+<div class="modal fade bd-example-modal-md" id="modal-form-md" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" id="content-form-md">
 
-    }
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-sm" id="modal-form-sm" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" id="content-form-sm">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="modal-form-lg" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="content-form-lg">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".chosen-select").chosen()
+</script>
+<script>
         //$("#WarehouseId").select2();
         function sumbitImport() {
             var notify = ""
@@ -125,5 +220,109 @@
                         },
                     });
         }
-    </script>
-</form>
+</script>
+
+<script>
+    function AddImportDetail() {
+        //var list = "";
+        //try {
+        //    $(".row-orderdetail #WarehouseId").each(function () {
+        //        list += $(this).val() + ",";
+        //    });
+        //} catch (e) {
+        //    list = "";
+        //}
+        loading(true)
+        $("#content-form-md").load("/Admin/ImportDetail/AddImportDetail", function (response) {
+            $("#modal-form-md").modal('show');
+            loading(false)
+        });
+    }
+    async function SubmitImport() {
+      
+        await $("#list_warehouse .Amount").each(function (i) {
+            console.log("Amount"+i)
+            $(this).attr('name', "ImportDetails[" + i + "].Amount");
+        })
+    
+        await $("#list_warehouse .Price").each(function (i) {
+            console.log("Price" + i)
+            $(this).attr('name', "ImportDetails[" + i + "].Price");
+        })
+        await $("#list_warehouse .WarehouseId").each(function (i) {
+            console.log("WarehouseId" + i)
+            $(this).attr('name', "ImportDetails[" + i + "].WarehouseId");
+        })
+        loading(true)
+        var $form = $("#form-addimport");
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Import/AddImport",
+            data: $form.serialize(),
+            success: function (data, status, xhr) {
+                loading(false)
+                var statusCode = xhr.getResponseHeader("statusCode");
+                if (statusCode == '401') {
+                    window.location.replace("/admin/login");
+                }
+                if (xhr.status == 201) {
+                    /*        loadListImportUnit()*/
+
+                    //$("#modal-form-md").modal("hide");
+                    //$("#list-product").append(data)
+                    //Swal.fire({
+                    //    icon: 'success',
+                    //    title: 'Thêm vào sản phẩm thành công',
+                    //    showConfirmButton: false,
+                    //    timer: 1500
+                    //})
+                } else {
+                    $("#form-addimport").html($(data).find("#form-addimport").html());
+                }
+
+            },
+        });
+    }
+    //async function UpdateImport() {
+    //    await $(".WarehouseId").each(function (i) {
+    //        $(this).attr('name', "OrderDetails[" + i + "].WarehouseId");
+    //    })
+    //    await $(".Amount").each(function (i) {
+    //        $(this).attr('name', "OrderDetails[" + i + "].Amount");
+    //    })
+    //    await $(".Price").each(function (i) {
+    //        $(this).attr('name', "OrderDetails[" + i + "].Price");
+    //    })
+    //    loading(true)
+    //    var $form = $("#form-addorder");
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Admin/Order/UpdateOrder",
+    //        data: $form.serialize(),
+    //        success: function (data, status, xhr) {
+    //            loading(false)
+    //            var statusCode = xhr.getResponseHeader("statusCode");
+    //            if (statusCode == '401') {
+    //                window.location.replace("/admin/login");
+    //            }
+    //            if (xhr.status == 201) {
+    //            }
+    //            $("#form-addorder").html($(data).find("#form-addorder").html());
+
+
+    //        },
+    //    });
+    //}
+    function RemoveImport(item) {
+        $(item).closest('.row-importdetail').remove()
+      /*  UpdateImport()*/
+    }
+</script>
+<script>
+    if ($("#msgsuccess").html() != "") {
+        $("#success").addClass("alert alert-success")
+    }
+    if ($("#msgerror").html() != "") {
+        $("#error").addClass("alert alert-danger")
+    }
+</script>

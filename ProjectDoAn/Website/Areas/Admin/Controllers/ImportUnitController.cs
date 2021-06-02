@@ -52,7 +52,7 @@ namespace Website.Areas.Admin.Controllers
             }
             if (string.IsNullOrEmpty(model.Phone))
             {
-                ModelState.AddModelError("Address", "Số điện thoại không được để trống");
+                ModelState.AddModelError("Phone", "Số điện thoại không được để trống");
             }
             if (ModelState.IsValid)
             {
@@ -78,6 +78,12 @@ namespace Website.Areas.Admin.Controllers
                 }
             }
             return View(model);
+        }
+        [HttpGet]
+        public ActionResult ImportUnitDetail(int id)
+        {
+               LibData.ImportUnit importUnit = new LibData.Provider.ImportUnitProvider().GetById(id);
+            return View(importUnit);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace LibDemo
         public Product()
         {
             this.ProductImgs = new HashSet<ProductImg>();
-            this.Warehouses = new HashSet<Warehouse>();
         }
     
         public int Id { get; set; }
@@ -31,11 +30,15 @@ namespace LibDemo
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<int> IsDelete { get; set; }
-        public string Price { get; set; }
+        public Nullable<int> Discount { get; set; }
+        public Nullable<int> Price { get; set; }
+        public Nullable<int> Type { get; set; }
+        public string AvatarUrl { get; set; }
+        public Nullable<int> Sold { get; set; }
     
+        public virtual Brand Brand { get; set; }
+        public virtual TypeSho TypeSho { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductImg> ProductImgs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Warehouse> Warehouses { get; set; }
     }
 }

@@ -124,6 +124,7 @@
     <Compile Include="Provider\ConfigProvider.cs" />
     <Compile Include="Provider\CookieProvider.cs" />
     <Compile Include="Provider\ExtendProvider.cs" />
+    <Compile Include="Provider\ImportDetailProvider.cs" />
     <Compile Include="Provider\ImportProvider.cs" />
     <Compile Include="Provider\ImportUnitProvider.cs" />
     <Compile Include="Provider\OrderDetailProvider.cs" />

@@ -53,25 +53,13 @@
     <Compile Include="BanList.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="BanList1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Brand.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Brand1.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="Cart.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="Cart1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Config.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Config1.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="Data.Context.cs">
@@ -92,25 +80,13 @@
     <Compile Include="District.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="District1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Import.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Import1.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="ImportUnit.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="ImportUnit1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Order.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Order1.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="OrderDetail.cs">
@@ -119,13 +95,7 @@
     <Compile Include="Product.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="Product1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="ProductImg.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductImg1.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,7 +107,10 @@
     <Compile Include="Province.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="Province1.cs">
+    <Compile Include="Size.cs">
+      <DependentUpon>Data.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Slide.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
@@ -149,19 +122,10 @@
     <Compile Include="User.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="User1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Ward.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="Ward1.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Warehouse.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Warehouse1.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
   </ItemGroup>

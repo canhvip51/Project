@@ -20,9 +20,7 @@ namespace LibData
         }
     
         public int Id { get; set; }
-        public Nullable<int> WarehouseId { get; set; }
         public Nullable<int> Price { get; set; }
-        public Nullable<int> Amount { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<int> IsDelete { get; set; }

@@ -23,7 +23,7 @@
                 @foreach (var item in ViewBag.Warehouse as List<LibData.Warehouse>)
                 {
                     int maxamount = item.Amount.Value - item.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status.Value == 1).Sum(x => x.Amount.Value);
-                    <option value="@item.Id" @(listwarehouseid.Contains(@item.Id.ToString())?"disabled":"" )>
+                    <option value="@item.Id" @(listwarehouseid.Contains(@item.Id.ToString()) ? "disabled" : "" )>
                         @item.ProductImg.Product.Name - @item.ProductImg.Color -  ( VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK ) - SL : @maxamount
 
                     </option>
@@ -43,7 +43,7 @@
         </div>
     </div><!-- modal-body -->
     <script>
-            $(".chosen-select").chosen()
+        $(".chosen-select").chosen()
         function submitAddOrderDetail() {
             loading(true)
             var list = "";
@@ -58,7 +58,7 @@
             $.ajax({
                 type: "POST",
                 url: "/Admin/Order/AddOrderDetail",
-                data: $form.serialize()+"&list="+list,
+                data: $form.serialize() + "&list=" + list,
                 success: async function (data, status, xhr) {
                     loading(false)
                     var statusCode = xhr.getResponseHeader("statusCode");
@@ -67,7 +67,6 @@
                     }
                     if (xhr.status == 201) {
                         /*        loadListImportUnit()*/
-
                         $("#modal-form-md").modal("hide");
                         $("#list-product").prepend(data)
                         Update()
@@ -80,7 +79,6 @@
                     } else {
                         await $("#form-addorderdetail").html($(data).filter("#form-addorderdetail").html());
                     }
-
                 },
             });
         }

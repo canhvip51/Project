@@ -22,6 +22,7 @@ namespace LibDemo
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string KeyCode { get; set; }
     
         public virtual User User { get; set; }
     }

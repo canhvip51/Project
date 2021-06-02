@@ -21,14 +21,12 @@ namespace LibDemo
         }
     
         public int Id { get; set; }
-        public Nullable<int> ProvinceId { get; set; }
-        public Nullable<int> DistrictId { get; set; }
-        public Nullable<int> WardId { get; set; }
         public string Address { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> IsDelete { get; set; }
         public Nullable<System.DateTime> IsUpdate { get; set; }
         public string Phone { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Import> Imports { get; set; }
