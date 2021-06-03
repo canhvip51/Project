@@ -17,11 +17,11 @@
     </td>
     <td>
 
-        <input type="number" class="Amount form-control" onchange="Update()"  min="0" value="@Model.Amount" />
+        <input type="number" class="Amount form-control" onchange="UpdateImport()"  min="0" value="@Model.Amount" />
     </td>
     <td>
         @*@item.Price*@
-        <input type="number" min="10000" onchange="Update()" class="Price form-control"  value="@Model.Price" />
+        <input type="number" min="10000" onchange="UpdateImport()" class="Price form-control"  value="@Model.Price" />
     </td>
     <td>
         <a onclick="RemoveImport(this);"> <i class="fa fa-times"></i></a>

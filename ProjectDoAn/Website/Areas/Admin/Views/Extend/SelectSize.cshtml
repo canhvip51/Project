@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    List<string> listsize =  ViewBag.listDatas as List<string>;
 }
 @model List<LibData.Size>
 @if (ViewBag.Type > 0 || ViewBag.Type != null)
@@ -10,7 +11,7 @@
     <select class="form-control chosen-select" name="Warehouse.SizeId" id="SizeId">
         @foreach (var item in Model)
         {
-            <option value="@item.Id" @(item.Id == ViewBag.selecteds ? "selected" : "")> VN : @item.VN - US : @item.US - UK : @item.UK</option>
+            <option value="@item.Id" @(item.Id == ViewBag.selecteds ? "selected" : "") @(listsize.Contains(item.Id.ToString()) ? "disabled" : "")> VN : @item.VN - US : @item.US - UK : @item.UK</option>
         }
     </select>
 }

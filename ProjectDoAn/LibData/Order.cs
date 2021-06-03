@@ -40,6 +40,7 @@ namespace LibData
         public Nullable<int> WardId { get; set; }
         public Nullable<int> CustomerPay { get; set; }
         public string Refuse { get; set; }
+        public string BankAccount { get; set; }
     
         public virtual District District { get; set; }
         public virtual Province Province { get; set; }

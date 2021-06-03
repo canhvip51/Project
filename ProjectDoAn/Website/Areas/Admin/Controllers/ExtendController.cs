@@ -52,8 +52,12 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.selectedp = selectedw;
             return new LibData.Provider.ExtendProvider().GetAddWard(id);
         }
-        public ActionResult SelectSize(int? productimgid, int? selecteds)
+        public ActionResult SelectSize(int? productimgid, int? selecteds,string list)
         {
+            if (string.IsNullOrEmpty(list))
+                list = "0";
+            List<string> listDatas = list.Split(',').ToList();
+            ViewBag.listDatas = listDatas;
             int type = new LibData.Provider.ProductImgProvider().GetById(productimgid.Value).Product.Type.Value;
             ViewBag.Type = type;
             ViewBag.selecteds = selecteds??-1;
@@ -68,7 +72,8 @@ namespace Website.Areas.Admin.Controllers
         }
         public ActionResult PrintOrder(int orderid)
         {
-            return View();
+
+            return View( new LibData.Provider.OrderProvider().GetById(orderid));
         }
     }
 }

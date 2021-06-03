@@ -5,9 +5,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using Website.Infrastructure;
 
 namespace Website.Areas.Admin.Controllers
 {
+    [CustomAuthenticationFilter]
+
+    [CustomAuthorize("SuperAdmin")]
     public class UserController : Controller
     {
         // GET: User

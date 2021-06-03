@@ -28,5 +28,15 @@ namespace LibData.Configuration
             //{(int)Status.SHIP, "Đang giao" },
             {(int)Status.FINISH, "Hoàn thành" },
         };
+        public enum Pay
+        {
+            PAID = 1,
+            UNPAID=0,
+        }
+        public static Dictionary<int, string> StatusToDictionaryPayHTML = new Dictionary<int, string>()
+        {
+            {(int)Pay.UNPAID, "Chưa thanh toán" },
+            {(int)Pay.PAID, "Đã thanh toán" },
+        };
     }
 }

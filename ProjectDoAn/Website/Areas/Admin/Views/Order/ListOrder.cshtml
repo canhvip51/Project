@@ -13,11 +13,10 @@
 <table class="table table-bordered table-responsive-sm  table-hover">
     <thead>
         <tr>
+            <th>Mã hóa đơn</th>
             <th>Tên khách</th>
-            <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th>Trạng thái</th>
-            <th>Số điện thoại</th>
             @*<th>Giảm giá</th>*@
             <th>Tổng tiền</th>
             @*<th>Ghi chú</th>*@
@@ -39,19 +38,19 @@
         {
             <tr>
                 <td>
-                    @item.BuyerName
+                    @item.Code
                 </td>
                 <td>
-                    @item.Phone
+                    <div class="form-group">
+                        <h6 class="mb-0"> @item.BuyerName</h6>
+                        <span class="text-muted font-weight-normal font-italic d-block">@item.Phone</span>
+                    </div>
                 </td>
                 <td>
                     @item.Province.Name
                 </td>
                 <td>
                     <span class="badge ">@LibData.Configuration.OrderConfig.StatusToDictionaryHTML[item.Status.Value]</span>
-                </td>
-                <td>
-                    @item.Phone
                 </td>
                 @*<td>
                         @item.Code - @item.Discount

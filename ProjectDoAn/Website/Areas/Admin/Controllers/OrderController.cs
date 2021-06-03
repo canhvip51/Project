@@ -8,9 +8,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Website.Infrastructure;
 
 namespace Website.Areas.Admin.Controllers
 {
+    [CustomAuthenticationFilter]
+
+    [CustomAuthorize("SuperAdmin")]
     public class OrderController : Controller
     {
         // GET: Order

@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
+using Website.Infrastructure;
 
 namespace Website.Areas.Admin.Controllers
 {
+    [CustomAuthenticationFilter]
+
+    [CustomAuthorize("SuperAdmin")]
     public class WarehouseController : Controller
     {
         // GET: Warehouse

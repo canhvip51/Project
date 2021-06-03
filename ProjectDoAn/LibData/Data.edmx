@@ -134,6 +134,7 @@
           <Property Name="WardId" Type="int" />
           <Property Name="CustomerPay" Type="int" />
           <Property Name="Refuse" Type="nvarchar(max)" />
+          <Property Name="BankAccount" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -844,6 +845,7 @@
           <Property Name="WardId" Type="Int32" />
           <Property Name="CustomerPay" Type="Int32" />
           <Property Name="Refuse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankAccount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Order_District" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Order" ToRole="Province" />
           <NavigationProperty Name="User" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="Order" ToRole="User" />
@@ -1357,6 +1359,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
                 <ScalarProperty Name="Refuse" ColumnName="Refuse" />
                 <ScalarProperty Name="CustomerPay" ColumnName="CustomerPay" />
                 <ScalarProperty Name="WardId" ColumnName="WardId" />

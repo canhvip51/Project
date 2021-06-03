@@ -6,25 +6,25 @@
     <edmx:Diagrams>
       <Diagram DiagramId="f3f2464f95b24195a648a19037b7240b" Name="Diagram1" ZoomLevel="54">
         <EntityTypeShape EntityType="SHOESSHOPModel.BanList" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Brand" Width="1.5" PointX="0.75" PointY="5.625" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Cart" Width="1.5" PointX="9.75" PointY="0.875" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Brand" Width="1.5" PointX="0.75" PointY="1.625" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Cart" Width="1.5" PointX="9.75" PointY="4.875" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Config" Width="1.5" PointX="2.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Cookie" Width="1.5" PointX="7.5" PointY="2.25" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.District" Width="1.5" PointX="5.25" PointY="23" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Import" Width="1.5" PointX="10.5" PointY="15.375" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.ImportDetail" Width="1.5" PointX="12.75" PointY="5.125" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.ImportUnit" Width="1.5" PointX="8.25" PointY="15.375" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Order" Width="1.5" PointX="7.5" PointY="19.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.OrderDetail" Width="1.5" PointX="9.75" PointY="5.5" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Cookie" Width="1.5" PointX="7.5" PointY="10.25" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.District" Width="1.5" PointX="8.25" PointY="19.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Import" Width="1.5" PointX="10.5" PointY="1.375" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.ImportDetail" Width="1.5" PointX="12.75" PointY="1.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.ImportUnit" Width="1.5" PointX="8.25" PointY="1.375" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Order" Width="1.5" PointX="10.5" PointY="18.625" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.OrderDetail" Width="1.5" PointX="12.75" PointY="5.5" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Product" Width="1.5" PointX="3" PointY="4.5" />
         <EntityTypeShape EntityType="SHOESSHOPModel.ProductImg" Width="1.5" PointX="5.25" PointY="5.375" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Province" Width="1.5" PointX="3" PointY="23.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Province" Width="1.5" PointX="6" PointY="19.25" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Size" Width="1.5" PointX="5.25" PointY="1.625" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Slide" Width="1.5" PointX="4.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.sysdiagram" Width="1.5" PointX="9.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.TypeSho" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.User" Width="1.5" PointX="7.5" PointY="9.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Ward" Width="1.5" PointX="5.25" PointY="20.125" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.sysdiagram" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.TypeSho" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.User" Width="1.5" PointX="7.5" PointY="12.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Ward" Width="1.5" PointX="8.25" PointY="22.125" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Warehouse" Width="1.5" PointX="7.5" PointY="4.875" />
         <AssociationConnector Association="SHOESSHOPModel.FK_Product_Brand" />
         <AssociationConnector Association="SHOESSHOPModel.FK_Cart_Cookie" />

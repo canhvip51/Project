@@ -14,23 +14,25 @@
     </div>
         <div class="form-group">
             <div class="row">
+                <input type="hidden" id="selectedProductImg" value="@Model.Warehouse.ProductImgId" />
                 <div class="col-6">
                     <label>Sản phẩm<span class="text-danger">*</span></label>
                     <select class="form-control chosen-select" name="Warehouse.ProductImgId" id="productimgid" onchange='SelectSize()'>
-                            @foreach (var item in ViewBag.ProductImg as List<LibData.ProductImg>)
-                            {
-                                <option value="@item.Id">@item.Product.Name - @item.Color </option>
-                            }
+                        @foreach (var item in ViewBag.ProductImg as List<LibData.ProductImg>)
+                        {
+                            <option value="@item.Id" @(item.Id == Model.Warehouse.ProductImgId ? "selected" : "")>@item.Product.Name - @item.Color </option>
+                        }
                     </select>
                 </div>
+                <input type="hidden" id="selectedSize" value="@Model.Warehouse.SizeId" />
                 <div class="col-6" id="size-select">
                     <label>Kích cỡ<span class="text-danger">*</span></label>
                     <select class="form-control chosen-select" name="Warehouse.SizeId" id="SizeId">
                         <option disabled value="">Chọn sản phẩm</option>
                         @*@foreach (var item in ViewBag.Size as List<LibData.Size>)
-                        {
-                            <option value="@item.Id" @(item.Id == Model.Warehouse.SizeId ? "selected" : "")> VN : @item.VN - US : @item.US - UK : @item.UK</option>
-                        }*@
+                {
+                    <option value="@item.Id" @(item.Id == Model.Warehouse.SizeId ? "selected" : "")> VN : @item.VN - US : @item.US - UK : @item.UK</option>
+                }*@
 
                     </select>
                 </div>
@@ -56,12 +58,27 @@
         </div>
     </div><!-- modal-body -->
     <script>
+     
         $(".chosen-select").chosen()
         SelectSize();
         async function SelectSize() {
+            var list = "";
             var productimgid = $("#productimgid").val()
-            await $("#size-select").load("/Admin/Extend/SelectSize?productimgid=" + productimgid)
-
+            try {
+                $("." + productimgid).each(function () {
+                    list += $(this).val() + ",";
+                });
+            } catch (e) {
+                list = "";
+            }
+            var productimgid = $("#productimgid").val()
+            console.log($("#form-addimportdetail #selectedSize").val());
+            if ($("#selectedProductImg").val() != $("#productimgid").val()) {
+                await $("#size-select").load("/Admin/Extend/SelectSize?productimgid=" + productimgid + "&list=" + list)}
+            else {
+                await $("#size-select").load("/Admin/Extend/SelectSize?productimgid=" + productimgid + "&list=" + list + "&selecteds=" + $("#form-addimportdetail #selectedSize").val())
+            }
+          
     }
         //$("#WarehouseId").select2();
         function sumbitImportDetail() {
@@ -91,7 +108,7 @@
 
                         $("#modal-form-md").modal("hide");
                         $("#list-product").prepend(data)
-                      //  UpdateImport()
+                        UpdateImport();
                         //Swal.fire({
                         //    icon: 'success',
                         //    title: 'Thêm vào sản phẩm thành công',

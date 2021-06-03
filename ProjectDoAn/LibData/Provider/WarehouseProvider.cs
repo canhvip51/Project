@@ -57,6 +57,18 @@ namespace LibData.Provider
                 return false;
             }
         }
+        public bool Update()
+        {
+            try
+            {
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         public bool Delete(int id)
         {
             try

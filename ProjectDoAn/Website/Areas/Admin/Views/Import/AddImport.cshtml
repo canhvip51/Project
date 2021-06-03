@@ -82,11 +82,11 @@
                                                                 <td>
                                                                     @{
                                                                             LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
-                                                                            < div class="form-group">
+                                                                            <div class="form-group">
                                                                             <input type="hidden" class="@warehouse.ProductImgId" value="@warehouse.SizeId" />
                                                                             <input type="hidden" id="WarehouseId" class="WarehouseId" value="@item.WarehouseId" />
-                                                                            @*<h6 class="mb-0"> @warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</h6>
-                                                                            <span class="text-muted font-weight-normal font-italic d-block" style="font-size:11px">VN : @warehouse.Size.VN - US : @warehouse.Size.US - UK : @warehouse.Size.UK</span>*@
+                                                                            <h6 class="mb-0"> @warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</h6>
+                                                                            <span class="text-muted font-weight-normal font-italic d-block" style="font-size:11px">VN : @warehouse.Size.VN - US : @warehouse.Size.US - UK : @warehouse.Size.UK</span>
                                                                         </div>
                                                                     }
                                                                 </td>
@@ -224,14 +224,7 @@
 
 <script>
     function AddImportDetail() {
-        //var list = "";
-        //try {
-        //    $(".row-orderdetail #WarehouseId").each(function () {
-        //        list += $(this).val() + ",";
-        //    });
-        //} catch (e) {
-        //    list = "";
-        //}
+  
         loading(true)
         $("#content-form-md").load("/Admin/ImportDetail/AddImportDetail", function (response) {
             $("#modal-form-md").modal('show');
@@ -241,16 +234,13 @@
     async function SubmitImport() {
       
         await $("#list_warehouse .Amount").each(function (i) {
-            console.log("Amount"+i)
             $(this).attr('name', "ImportDetails[" + i + "].Amount");
         })
     
         await $("#list_warehouse .Price").each(function (i) {
-            console.log("Price" + i)
             $(this).attr('name', "ImportDetails[" + i + "].Price");
         })
         await $("#list_warehouse .WarehouseId").each(function (i) {
-            console.log("WarehouseId" + i)
             $(this).attr('name', "ImportDetails[" + i + "].WarehouseId");
         })
         loading(true)
@@ -283,36 +273,36 @@
             },
         });
     }
-    //async function UpdateImport() {
-    //    await $(".WarehouseId").each(function (i) {
-    //        $(this).attr('name', "OrderDetails[" + i + "].WarehouseId");
-    //    })
-    //    await $(".Amount").each(function (i) {
-    //        $(this).attr('name', "OrderDetails[" + i + "].Amount");
-    //    })
-    //    await $(".Price").each(function (i) {
-    //        $(this).attr('name', "OrderDetails[" + i + "].Price");
-    //    })
-    //    loading(true)
-    //    var $form = $("#form-addorder");
-    //    $.ajax({
-    //        type: "POST",
-    //        url: "/Admin/Order/UpdateOrder",
-    //        data: $form.serialize(),
-    //        success: function (data, status, xhr) {
-    //            loading(false)
-    //            var statusCode = xhr.getResponseHeader("statusCode");
-    //            if (statusCode == '401') {
-    //                window.location.replace("/admin/login");
-    //            }
-    //            if (xhr.status == 201) {
-    //            }
-    //            $("#form-addorder").html($(data).find("#form-addorder").html());
+    async function UpdateImport() {
+        await $("#list_warehouse .Amount").each(function (i) {
+            $(this).attr('name', "ImportDetails[" + i + "].Amount");
+        })
 
+        await $("#list_warehouse .Price").each(function (i) {
+            $(this).attr('name', "ImportDetails[" + i + "].Price");
+        })
+        await $("#list_warehouse .WarehouseId").each(function (i) {
+            $(this).attr('name', "ImportDetails[" + i + "].WarehouseId");
+        })
+         loading(true)
+        var $form = $("#form-addimport");
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Import/UpdateImport",
+            data: $form.serialize(),
+            success: function (data, status, xhr) {
+                loading(false)
+                var statusCode = xhr.getResponseHeader("statusCode");
+                if (statusCode == '401') {
+                    window.location.replace("/admin/login");
+                }
+                if (xhr.status == 201) {
+                } 
+                    $("#form-addimport").html($(data).find("#form-addimport").html());
 
-    //        },
-    //    });
-    //}
+            },
+        });
+    }
     function RemoveImport(item) {
         $(item).closest('.row-importdetail').remove()
       /*  UpdateImport()*/

@@ -8284,6 +8284,9 @@
     <Content Include="Areas\Admin\Scripts\popper-utils.min.js" />
     <Content Include="Areas\Admin\Scripts\popper.js" />
     <Content Include="Areas\Admin\Scripts\popper.min.js" />
+    <Content Include="Areas\Admin\Scripts\Print\output-onlinepngtools.png" />
+    <Content Include="Areas\Admin\Scripts\Print\printThis.js" />
+    <Content Include="Areas\Admin\Scripts\Print\shoe-icon-11006.png" />
     <Content Include="Areas\Admin\Scripts\src\index.js" />
     <Content Include="Areas\Admin\Scripts\src\methods\defaults.js" />
     <Content Include="Areas\Admin\Scripts\src\methods\destroy.js" />
@@ -10824,6 +10827,9 @@
     <Content Include="Areas\Admin\Views\ImportDetail\AddImportDetail.cshtml" />
     <Content Include="Areas\Admin\Views\ImportDetail\trAddImportDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Extend\PrintOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\ListSlide.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\ChangeOrder.cshtml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -11016,7 +11022,6 @@
     <Folder Include="Areas\Admin\Content\theme\cms\Assets\lib\morris.js\less\" />
     <Folder Include="Areas\Admin\Content\theme\cms\Assets\lib\morris.js\lib\" />
     <Folder Include="Areas\Admin\Content\theme\cms\Assets\lib\spectrum-colorpicker\build\" />
-    <Folder Include="Areas\Admin\Views\Slide\" />
     <Folder Include="Images\Drafts\" />
     <Folder Include="Report\" />
   </ItemGroup>
