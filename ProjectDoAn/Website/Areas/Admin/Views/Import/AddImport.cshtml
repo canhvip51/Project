@@ -137,7 +137,7 @@
                                 <button type="button" class="btn btn-block btn-primary" onclick="SubmitImport()">Tạo</button>
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-block btn-outline-secondary">Hủy</button>
+                                <button type="button" class="btn btn-block btn-outline-secondary" onclick="Back()">Hủy</button>
                             </div>
                         </div>
                     </div>
@@ -306,6 +306,9 @@
     function RemoveImport(item) {
         $(item).closest('.row-importdetail').remove()
       /*  UpdateImport()*/
+    }
+    function Back() {
+        window.history.back();
     }
 </script>
 <script>

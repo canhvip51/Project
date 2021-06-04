@@ -241,6 +241,7 @@
     <Property Name="WardId" Type="Int32" />
     <Property Name="CustomerPay" Type="Int32" />
     <Property Name="Refuse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BankAccount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Order_District" FromRole="Order" ToRole="District" />
     <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Order" ToRole="Province" />
     <NavigationProperty Name="User" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="Order" ToRole="User" />
@@ -256,6 +257,7 @@
     <Property Name="WarehouseId" Type="Int32" />
     <Property Name="Price" Type="Int32" />
     <Property Name="Amount" Type="Int32" />
+    <Property Name="IsDelete" Type="Int32" />
     <NavigationProperty Name="Order" Relationship="SHOESSHOPModel.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
     <NavigationProperty Name="Warehouse" Relationship="SHOESSHOPModel.FK_OrderDetail_Warehouse" FromRole="OrderDetail" ToRole="Warehouse" />
   </EntityType>
@@ -323,11 +325,12 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UrlFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="UrlLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="IsDelete" Type="Int32" />
     <Property Name="Status" Type="Int32" />
     <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>

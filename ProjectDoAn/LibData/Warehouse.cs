@@ -30,6 +30,7 @@ namespace LibData
         public Nullable<int> IsDelete { get; set; }
         public Nullable<int> ProductImgId { get; set; }
         public Nullable<int> Discount { get; set; }
+        public string Code { get; set; }
     
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<ImportDetail> ImportDetails { get; set; }

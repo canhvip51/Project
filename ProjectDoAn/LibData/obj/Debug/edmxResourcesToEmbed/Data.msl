@@ -117,6 +117,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
           <ScalarProperty Name="Refuse" ColumnName="Refuse" />
           <ScalarProperty Name="CustomerPay" ColumnName="CustomerPay" />
           <ScalarProperty Name="WardId" ColumnName="WardId" />
@@ -144,6 +145,7 @@
     <EntitySetMapping Name="OrderDetails">
       <EntityTypeMapping TypeName="SHOESSHOPModel.OrderDetail">
         <MappingFragment StoreEntitySet="OrderDetail">
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Amount" ColumnName="Amount" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
@@ -209,11 +211,12 @@
     <EntitySetMapping Name="Slides">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Slide">
         <MappingFragment StoreEntitySet="Slide">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="UrlLink" ColumnName="UrlLink" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="UrlFile" ColumnName="UrlFile" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

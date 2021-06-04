@@ -118,7 +118,7 @@
                                     <img src="~/Areas/Admin/Scripts/Print/shoe-icon-11006.png" style="width: 100px" />
 
                                 </td>
-                                <td colspan="3">
+                                <td colspan="3" class="text-left">
                                     <h5>SHOESSHOP</h5>
                                     Hoàng Mai - Hà Nội<br />
                                     ĐT: 096.571.xxxx - 035.333.xxxx<br />
@@ -236,8 +236,15 @@
 
     </div>
     <div class="row mt-3">
-        <div class="col-12">
-            <button type="button" class="btn btn-primary" onclick="PrintOrder()">In hóa đơn</button>
+        <div class="col-4">
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-block btn-outline-secondary" onclick="Back() ">Hủy</button>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-block btn-primary" onclick="PrintOrder()">In hóa đơn</button>
+        </div>
+        <div class="col-4">
         </div>
     </div>
 </div>
@@ -245,5 +252,8 @@
     function PrintOrder() {
         $("#print-order").printThis()
 
+    }
+    function Back() {
+        window.history.back();
     }
 </script>

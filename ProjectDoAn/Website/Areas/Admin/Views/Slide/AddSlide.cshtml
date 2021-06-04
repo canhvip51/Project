@@ -1,11 +1,11 @@
-﻿@model LibData.ProductImg
+﻿@model LibData.Slide
 @{
     Layout = null;
 }
 
-<form id="form-addproductimg" @*enctype="multipart/form-data" novalidate="novalidate" method="post" action="/ProductImg/AddProductImg"*@>
+<form id="form-addslide" @*enctype="multipart/form-data" novalidate="novalidate" method="post" action="/ProductImg/AddProductImg"*@>
     <div class="modal-header">
-        <h6 class="modal-title">Thông tin màu giày</h6>
+        <h6 class="modal-title">Thông tin slide</h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -13,20 +13,26 @@
     <div class="modal-body">
         <div>
             <input type="hidden" name="Id" value="@Model.Id" id="Id" />
-            <input type="hidden" name="ProductId" value="@Model.ProductId" id="ProductId" />
         </div>
         <div class="form-group">
-            <label>Màu sắc</label>
-            <input type="text" class="form-control" name="Color" id="Color" value="@Model.Color" />
+            <label>Trạng thái<span class="text-danger">*</span></label>
+            <select class="form-control" name="Status" id="Status">
+                @foreach (var item in LibData.Configuration.SlideConfig.StatusToDictionaryStatus as Dictionary<int, string>)
+                {
+                <option value="@item.Key" @(@item.Key==Model.Status?"selected":"")>@item.Value</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <label>Ảnh mẫu</label>
-            <input type="file" name="Url" id="Url" class="Url" value="@Model.Url" />
-            @if (!string.IsNullOrEmpty(Model.Url))
+            <input type="file" name="UrlFile" id="UrlFile" class="UrlFile" value="@Model.UrlFile" />
+            @if (!string.IsNullOrEmpty(Model.UrlFile))
             {
                 <div style="width:150px;height:150px">
-                    <img src="~/Images/Products/@Model.Url" id="imgshow" class="img-thumbnail">
+                    <img src="~/Images/Slider/@Model.UrlFile" id="imgshow" class="img-thumbnail">
                 </div>
+                @Html.ValidationMessageFor(model => model.UrlFile, "", new { @class = "text-danger" })
             }
             else
             {
@@ -34,13 +40,13 @@
                     <img src="" style="display:none" id="imgshow" class="img-thumbnail">
                 </div>
             }
-            @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.UrlFile, "", new { @class = "text-danger" })
         </div>
 
 
         @Html.ValidationMessage("error", new { @class = "text-danger" })
         <div class="modal-footer">
-            <button type="button" onclick="sumbitproductImg()" class="btn btn-primary">Lưu</button>
+            <button type="button" onclick="sumbitSlide()" class="btn btn-primary">Lưu</button>
             <button type="button" data-dismiss="modal" class="btn btn-light">Đóng</button>
         </div>
     </div><!-- modal-body -->
@@ -52,7 +58,7 @@
             $('#imgshow').attr('height', '100%');
             $('#imgshow').attr('width', 'auto');
         }
-        $("#Url").change(function () {
+        $("#UrlFile").change(function () {
         $('#imgshow').css('display', 'block');
         if (this.files && this.files[0]) {
             var reader = new FileReader();
@@ -69,18 +75,18 @@
             reader.readAsDataURL(this.files[0]);
         }
     });
-        function sumbitproductImg() {
+        function sumbitSlide() {
         var notify = ""
         if (@Model.Id== 0) {
-            notify = "Thêm màu thành công"
+            notify = "Thêm ảnh thành công"
 
         } else {
-            notify = "Sửa màu thành công"
+            notify = "Sửa ảnh thành công"
             }
-            var img = new FormData($("#form-addproductimg")[0]);
+            var img = new FormData($("#form-addslide")[0]);
         $.ajax({
             type: "POST",
-            url: "/Admin/ProductImg/AddProductImg",
+            url: "/Admin/Slide/AddSlide",
             data: img,
             contentType: false,
             processData: false,
@@ -90,7 +96,7 @@
                     window.location.replace("/Admin/login");
                 }
                 if (xhr.status == 201) {
-                    loadListProductImg()
+                    loadListSlide();
 
                     $("#modal-form-md").modal("hide");
                     Swal.fire({
@@ -100,7 +106,7 @@
                         timer: 1500
                     })
                 }
-                await $("#form-addproductimg").html($(data).filter("#form-addproductimg").html());
+                await $("#form-addslide").html($(data).find("#form-addslide").html());
             },
         });
     }

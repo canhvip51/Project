@@ -24,14 +24,31 @@ namespace LibData.Configuration
            // {(int)Status.WAITFORPAY, "Chờ thanh toán" },
             {(int)Status.WAIT, "Chờ xử lý" },
             {(int)Status.CONFIRM, "Xác nhận" },
+            {(int)Status.FINISH, "Hoàn thành" },
+           {(int)Status.CANCEL, "Hủy" },
+        };
+        public static Dictionary<int, string> StatusToDictionary = new Dictionary<int, string>()
+        {
+            {(int)Status.WAIT, "Chờ xử lý" },
+            {(int)Status.CONFIRM, "Xác nhận" },
+            {(int)Status.FINISH, "Hoàn thành" },
+           {(int)Status.CANCEL, "Hủy" },
+        };
+        public static Dictionary<int, string> StatusToDictionaryCONFIRM = new Dictionary<int, string>()
+        {
+            {(int)Status.CONFIRM, "Xác nhận" },
+            {(int)Status.FINISH, "Hoàn thành" },
             {(int)Status.CANCEL, "Hủy" },
-            //{(int)Status.SHIP, "Đang giao" },
+        };
+        public static Dictionary<int, string> StatusToDictionaryFINISH = new Dictionary<int, string>()
+        {
+            {(int)Status.CANCEL, "Hủy" },
             {(int)Status.FINISH, "Hoàn thành" },
         };
         public enum Pay
         {
             PAID = 1,
-            UNPAID=0,
+            UNPAID = 0,
         }
         public static Dictionary<int, string> StatusToDictionaryPayHTML = new Dictionary<int, string>()
         {

@@ -129,6 +129,7 @@
     <Property Name="WardId" Type="int" />
     <Property Name="CustomerPay" Type="int" />
     <Property Name="Refuse" Type="nvarchar(max)" />
+    <Property Name="BankAccount" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -139,6 +140,7 @@
     <Property Name="WarehouseId" Type="int" />
     <Property Name="Price" Type="int" />
     <Property Name="Amount" Type="int" />
+    <Property Name="IsDelete" Type="int" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -196,11 +198,12 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UrlFile" Type="nvarchar(max)" />
-    <Property Name="UrlLink" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="IsDelete" Type="int" />
     <Property Name="Status" Type="int" />
     <Property Name="OrderNumber" Type="int" Nullable="false" />
+    <Property Name="UpdateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>

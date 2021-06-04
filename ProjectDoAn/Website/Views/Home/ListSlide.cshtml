@@ -1,10 +1,18 @@
-﻿
+﻿@model List<LibData.Slide>
 <div class="simple-slider">
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background: url(&quot;https://cdn.bootstrapstudio.io/placeholders/1400x800.png&quot;) center center / cover no-repeat;"></div>
-            <div class="swiper-slide" style="background: url(&quot;https://cdn.bootstrapstudio.io/placeholders/1400x800.png&quot;) center center / cover no-repeat;"></div>
-            <div class="swiper-slide" style="background: url(&quot;https://cdn.bootstrapstudio.io/placeholders/1400x800.png&quot;) center center / cover no-repeat;"></div>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="swiper-slide" style="background: url(/Images/Slider/@item.UrlFile) center center / cover no-repeat;"></div>
+                }
+            }
+            else
+            {
+                <div class="swiper-slide" style="background: url(&quot;https://cdn.bootstrapstudio.io/placeholders/1400x800.png&quot;) center center / cover no-repeat;"></div>
+            }
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev"></div>

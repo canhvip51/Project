@@ -16,10 +16,11 @@ namespace LibData
     {
         public int Id { get; set; }
         public string UrlFile { get; set; }
-        public string UrlLink { get; set; }
+        public string Name { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> IsDelete { get; set; }
         public Nullable<int> Status { get; set; }
         public int OrderNumber { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

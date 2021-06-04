@@ -157,8 +157,6 @@ namespace Website.Controllers
                 model.Status = 1;
                 cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.Status = CartConfig.ORDERED);
                 cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.UpdateDate = DateTime.Now);
-                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
-                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount - x.Amount);
                 if (orderProvider.Insert(model))
                 {
                     cookieProvider.Update(cookies);

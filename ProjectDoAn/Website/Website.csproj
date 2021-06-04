@@ -10830,6 +10830,7 @@
     <Content Include="Areas\Admin\Views\Slide\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Slide\ListSlide.cshtml" />
     <Content Include="Areas\Admin\Views\Slide\ChangeOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\AddSlide.cshtml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -10911,6 +10912,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Sound\mixkit-arcade-score-interface-217.wav" />
     <Content Include="Web.config" />
     <Content Include="Views\Products\Category.cshtml" />
     <Content Include="Views\About\Index.cshtml" />

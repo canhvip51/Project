@@ -8,7 +8,18 @@ namespace LibData.Provider
 {
     public class OrderDetailProvider : ApplicationDbContexts
     {
-      public bool InsertAll(List<LibData.OrderDetail> list)
+        public int GetAmountWait(int id)
+        {
+            try
+            {
+                return ApplicationDbContext.OrderDetails.Where(x => x.WarehouseId == id && (x.IsDelete==null||x.IsDelete==0) && x.Order.Status==(int)Configuration.OrderConfig.Status.WAIT).Sum(x => x.Amount.Value);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+        public bool InsertAll(List<LibData.OrderDetail> list)
         {
             try
             {

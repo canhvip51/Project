@@ -49,7 +49,7 @@ namespace Website.Controllers
         }
         public ActionResult ListSlide()
         {
-            return View();
+            return View(new LibData.Provider.SlideProvider().GetAllByStatus((int)LibData.Configuration.SlideConfig.Status.SHOW));
         }
         public List<LibData.Brand> ListBrand()
         {

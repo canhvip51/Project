@@ -19,6 +19,7 @@ namespace LibData
         public Nullable<int> WarehouseId { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> Amount { get; set; }
+        public Nullable<int> IsDelete { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Warehouse Warehouse { get; set; }
