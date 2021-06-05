@@ -14,6 +14,7 @@
     <EntitySet Name="OrderDetails" EntityType="SHOESSHOPModel.OrderDetail" />
     <EntitySet Name="Products" EntityType="SHOESSHOPModel.Product" />
     <EntitySet Name="ProductImgs" EntityType="SHOESSHOPModel.ProductImg" />
+    <EntitySet Name="Promotions" EntityType="SHOESSHOPModel.Promotion" />
     <EntitySet Name="Provinces" EntityType="SHOESSHOPModel.Province" />
     <EntitySet Name="Sizes" EntityType="SHOESSHOPModel.Size" />
     <EntitySet Name="Slides" EntityType="SHOESSHOPModel.Slide" />
@@ -298,6 +299,17 @@
     <NavigationProperty Name="Product" Relationship="SHOESSHOPModel.FK_ProductImg_Product" FromRole="ProductImg" ToRole="Product" />
     <NavigationProperty Name="Warehouses" Relationship="SHOESSHOPModel.FK_Warehouse_ProductImg" FromRole="ProductImg" ToRole="Warehouse" />
   </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KeyCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="Discount" Type="Int32" />
+  </EntityType>
   <EntityType Name="Province">
     <Key>
       <PropertyRef Name="Id" />
@@ -401,6 +413,7 @@
     <Property Name="IsDelete" Type="Int32" />
     <Property Name="ProductImgId" Type="Int32" />
     <Property Name="Discount" Type="Int32" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_Warehouse" FromRole="Warehouse" ToRole="Cart" />
     <NavigationProperty Name="ImportDetails" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="Warehouse" ToRole="ImportDetail" />
     <NavigationProperty Name="OrderDetails" Relationship="SHOESSHOPModel.FK_OrderDetail_Warehouse" FromRole="Warehouse" ToRole="OrderDetail" />

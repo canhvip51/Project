@@ -38,6 +38,7 @@ namespace LibData
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImg> ProductImgs { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Slide> Slides { get; set; }

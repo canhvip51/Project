@@ -149,24 +149,24 @@ else
     </div>
 </div>
 <script>
-    function UpdateCart() {
-        var $form = $("#form-updatecart");
-        $.ajax({
-            type: "POST",
-            url: "/Cart/Index",
-            data: $form.serialize(),
-            success: async function (data, status, xhr) {
-                console.log(data)
-                await $("#form-updatecart").html($(data).find("#form-updatecart").html());
-            }
-        });
-    }
-    if ($("#msgsuccess").html() != "") {
-        $("#success").addClass("alert alert-success")
-    }
-    if ($("#msgerror").html() != "") {
-        $("#error").addClass("alert alert-danger")
-    }
+    //function UpdateCart() {
+    //    var $form = $("#form-updatecart");
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Cart/Index",
+    //        data: $form.serialize(),
+    //        success: async function (data, status, xhr) {
+    //            console.log(data)
+    //            await $("#form-updatecart").html($(data).find("#form-updatecart").html());
+    //        }
+    //    });
+    //}
+    //if ($("#msgsuccess").html() != "") {
+    //    $("#success").addClass("alert alert-success")
+    //}
+    //if ($("#msgerror").html() != "") {
+    //    $("#error").addClass("alert alert-danger")
+    //}
     function Remove(id) {
         Swal.fire({
             title: 'Xóa?',

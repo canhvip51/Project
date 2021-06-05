@@ -226,8 +226,8 @@ namespace Website.Areas.Admin.Controllers
             if (order.Status == (int)LibData.Configuration.OrderConfig.Status.CANCEL)
             {
                 return View(order);
-            } 
-                if (!LibData.Configuration.OrderConfig.StatusToDictionaryHTML.ContainsKey(model.Status.Value))
+            }
+            if (!LibData.Configuration.OrderConfig.StatusToDictionaryHTML.ContainsKey(model.Status.Value))
             {
                 ModelState.AddModelError("error", "Lỗi");
                 return View(order);
@@ -240,6 +240,87 @@ namespace Website.Areas.Admin.Controllers
             if (order.Status != (int)LibData.Configuration.OrderConfig.Status.WAIT && model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
             {
                 ModelState.AddModelError("error", "Lỗi");
+                return View(order);
+            }
+            // Chờ => Hủy 
+            if (order.Status != (int)LibData.Configuration.OrderConfig.Status.WAIT && model.Status == (int)LibData.Configuration.OrderConfig.Status.CANCEL)
+            {
+                order.Status = model.Status;
+                order.Refuse = model.Refuse;
+                order.UpdateDate = DateTime.Now;
+                if (orderProvider.Update(order))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(order);
+                }
+                return View(order);
+            }
+            // Chờ => Xác nhận 
+            if (order.Status != (int)LibData.Configuration.OrderConfig.Status.WAIT && model.Status == (int)LibData.Configuration.OrderConfig.Status.CONFIRM)
+            {
+                //Trừ số lượng trong kho
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount - x.Amount);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
+                order.Status = model.Status;
+                order.Refuse = model.Refuse;
+                order.UpdateDate = DateTime.Now;
+                if (orderProvider.Update(order))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(order);
+                }
+                return View(order);
+            }
+            //Xác nhận => hủy
+            if (order.Status != (int)LibData.Configuration.OrderConfig.Status.CONFIRM && model.Status == (int)LibData.Configuration.OrderConfig.Status.CANCEL)
+            {
+                  //Cộng lại vào kho
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount + x.Amount);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
+                order.Status = model.Status;
+                order.Refuse = model.Refuse;
+                order.UpdateDate = DateTime.Now;
+                if (orderProvider.Update(order))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(order);
+                }
+                return View(order);
+            }
+            // Xác nhận => hoàn thành
+            if (order.Status != (int)LibData.Configuration.OrderConfig.Status.CONFIRM && model.Status == (int)LibData.Configuration.OrderConfig.Status.FINISH)
+            {
+                //Cộng số lượng đã bán
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.Sold = x.Warehouse.ProductImg.Product.Sold + x.Amount);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.UpdateDate = DateTime.Now);
+                order.Status = model.Status;
+                order.Refuse = model.Refuse;
+                order.UpdateDate = DateTime.Now;
+                if (orderProvider.Update(order))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(order);
+                }
+                return View(order);
+            }
+            // hoàn thành => hủy
+            if (order.Status != (int)LibData.Configuration.OrderConfig.Status.CONFIRM && model.Status == (int)LibData.Configuration.OrderConfig.Status.FINISH)
+            {
+                //Trừ số lượng đã bán
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.Sold = x.Warehouse.ProductImg.Product.Sold - x.Amount);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.UpdateDate = DateTime.Now);
+                //Cộng lại vào kho
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount + x.Amount);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
+         
+                order.Status = model.Status;
+                order.Refuse = model.Refuse;
+                order.UpdateDate = DateTime.Now;
+                if (orderProvider.Update(order))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(order);
+                }
                 return View(order);
             }
             if (order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
@@ -269,6 +350,7 @@ namespace Website.Areas.Admin.Controllers
                         total += item.Amount.Value * order.OrderDetails.First(x => x.WarehouseId == item.WarehouseId).Price.Value;
                     }
                 }
+                order.Status = model.Status;
                 order.Total = total;
             }
             if (ModelState.IsValid)
@@ -278,7 +360,9 @@ namespace Website.Areas.Admin.Controllers
                 if (orderProvider.Update(order))
                 {
                     Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(order);
                 }
+                return View(order);
             }
             return View(order);
         }

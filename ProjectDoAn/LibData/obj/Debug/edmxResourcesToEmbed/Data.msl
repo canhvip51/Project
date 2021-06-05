@@ -188,6 +188,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Promotions">
+      <EntityTypeMapping TypeName="SHOESSHOPModel.Promotion">
+        <MappingFragment StoreEntitySet="Promotion">
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+          <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Provinces">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Province">
         <MappingFragment StoreEntitySet="Province">
@@ -280,6 +292,7 @@
     <EntitySetMapping Name="Warehouses">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Warehouse">
         <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Discount" ColumnName="Discount" />
           <ScalarProperty Name="ProductImgId" ColumnName="ProductImgId" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />

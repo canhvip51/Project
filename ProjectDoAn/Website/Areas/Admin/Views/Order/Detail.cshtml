@@ -53,8 +53,8 @@
                                     <label>Họ tên người nhận<span class="text-danger">*</span></label>
                                     <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" value="@Model.BuyerName" maxlength="255" class="form-control " readonly>
                                     @*<div class="input-group-append border-0">
-                                            <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
-                                        </div>*@
+                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+            </div>*@
                                 </div>
 
                                 <div class="form-group pb-3">
@@ -76,7 +76,7 @@
                                     <label>Trạng thái<span class="text-danger">*</span></label>
                                     @if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
                                     {
-                                        @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionary, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
+                                        @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryWAIT, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
                                     }
                                     else if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.CANCEL)
                                     {
@@ -88,10 +88,14 @@
                                     {
                                         @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryCONFIRM, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
                                     }
-                                    else 
+                                    else
                                     {
                                         @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryFINISH, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
                                     }
+                                </div>
+                                <div class="form-group pb-3">
+                                    <label>Lời nhắn từ khách<span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="Refuse" rows="5">@Model.Note</textarea>
                                 </div>
                                 <div class="form-group pb-3">
                                     <label>Lời nhắn từ cửa hàng<span class="text-danger">*</span></label>

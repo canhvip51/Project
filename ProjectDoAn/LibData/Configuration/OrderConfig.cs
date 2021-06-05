@@ -27,11 +27,17 @@ namespace LibData.Configuration
             {(int)Status.FINISH, "Hoàn thành" },
            {(int)Status.CANCEL, "Hủy" },
         };
-        public static Dictionary<int, string> StatusToDictionary = new Dictionary<int, string>()
+        public static Dictionary<int, string> StatusToDictionaryALL = new Dictionary<int, string>()
         {
             {(int)Status.WAIT, "Chờ xử lý" },
             {(int)Status.CONFIRM, "Xác nhận" },
             {(int)Status.FINISH, "Hoàn thành" },
+           {(int)Status.CANCEL, "Hủy" },
+        };
+        public static Dictionary<int, string> StatusToDictionaryWAIT = new Dictionary<int, string>()
+        {
+            {(int)Status.WAIT, "Chờ xử lý" },
+            {(int)Status.CONFIRM, "Xác nhận" },
            {(int)Status.CANCEL, "Hủy" },
         };
         public static Dictionary<int, string> StatusToDictionaryCONFIRM = new Dictionary<int, string>()
@@ -42,8 +48,8 @@ namespace LibData.Configuration
         };
         public static Dictionary<int, string> StatusToDictionaryFINISH = new Dictionary<int, string>()
         {
-            {(int)Status.CANCEL, "Hủy" },
             {(int)Status.FINISH, "Hoàn thành" },
+                 {(int)Status.CANCEL, "Hủy" },
         };
         public enum Pay
         {

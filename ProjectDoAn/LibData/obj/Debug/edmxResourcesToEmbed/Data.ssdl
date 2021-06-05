@@ -174,6 +174,17 @@
     <Property Name="Status" Type="int" />
     <Property Name="CreateDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KeyCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="ExpiredDate" Type="datetime" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="Discount" Type="int" />
+  </EntityType>
   <EntityType Name="Province">
     <Key>
       <PropertyRef Name="Id" />
@@ -269,6 +280,7 @@
     <Property Name="IsDelete" Type="int" />
     <Property Name="ProductImgId" Type="int" />
     <Property Name="Discount" Type="int" />
+    <Property Name="Code" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_Cart_Cookie">
     <End Role="Cookie" Type="Self.Cookie" Multiplicity="0..1" />
@@ -512,6 +524,7 @@
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductImg" EntityType="Self.ProductImg" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Slide" EntityType="Self.Slide" Schema="dbo" store:Type="Tables" />

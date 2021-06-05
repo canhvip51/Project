@@ -95,6 +95,7 @@ namespace Website.Controllers
             }
             LibData.Order order = new LibData.Order();
             order.Total = total;
+            order.Discount = 0;
             order.OrderDetails = listOrderDetail;
             return View(order);
         }
@@ -196,5 +197,6 @@ namespace Website.Controllers
             }
             return false;
         }
+    
     }
 }
