@@ -178,7 +178,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="KeyCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="KeyCode" Type="nvarchar(max)" />
     <Property Name="ExpiredDate" Type="datetime" />
     <Property Name="Amount" Type="int" />
     <Property Name="StartDate" Type="datetime" />

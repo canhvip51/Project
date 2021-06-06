@@ -145,7 +145,7 @@
                                                     <td colspan="2">
                                                         <strong>
                                                             @{
-                                                                int discount = Model.Total.Value * Model.Discount.Value / 100;
+                                                                int discount = Convert.ToInt32(Math.Floor(Convert.ToDouble(Model.Total.Value/1000 * Model.Discount.Value / 100))*1000);
                                                             }
                                                             @string.Format("{0:#,0}", Model.Total) VNĐ
                                                         </strong>
@@ -250,7 +250,7 @@
         var $form = $("#form-order");
         $.ajax({
             type: "POST",
-            url: "/Cart/Update",
+            url: "/Cart/ApplyPromotion",
             data: $form.serialize(),
             success: async function (data, status, xhr) {
                 console.log(data)

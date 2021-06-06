@@ -137,10 +137,10 @@ namespace Website.Controllers
                     Amount = 1,
                     CookieId = cookie.Id,
                     Status = CartConfig.INCART,
+                    CreateDate=DateTime.Now,
                 };
                 cookie.Carts.Add(newCart);
                 if (cookieProvider.Insert(cookie))
-
                     return true;
                 return false;
             }

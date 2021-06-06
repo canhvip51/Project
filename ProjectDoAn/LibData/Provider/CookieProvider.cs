@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibData.Provider
 {
-   public class CookieProvider : ApplicationDbContexts
+    public class CookieProvider : ApplicationDbContexts
     {
         public Cookie GetByKey(string key)
         {
@@ -14,7 +14,7 @@ namespace LibData.Provider
             {
                 return ApplicationDbContext.Cookies.FirstOrDefault(x => x.KeyCode == key && x.ExpiredDate > DateTime.Now);
             }
-            catch (Exception e )
+            catch (Exception e)
             {
                 return null;
             }
@@ -23,7 +23,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Cookies.FirstOrDefault(x=>x.Id==id);
+                return ApplicationDbContext.Cookies.FirstOrDefault(x => x.Id == id);
             }
             catch (Exception e)
             {
@@ -47,7 +47,7 @@ namespace LibData.Provider
         {
             try
             {
-              
+
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -60,14 +60,10 @@ namespace LibData.Provider
         {
             try
             {
-                foreach (var item in cookie.Carts)
-                {
-                    ApplicationDbContext.Carts.Remove(item);
-                }
                 ApplicationDbContext.Carts.RemoveRange(cookie.Carts);
-                    ApplicationDbContext.Cookies.Remove(cookie);
-                    ApplicationDbContext.SaveChanges();
-                    return true;
+                ApplicationDbContext.Cookies.Remove(cookie);
+                ApplicationDbContext.SaveChanges();
+                return true;
             }
             catch (Exception e)
             {

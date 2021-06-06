@@ -303,7 +303,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="KeyCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="KeyCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
     <Property Name="Amount" Type="Int32" />
     <Property Name="StartDate" Type="DateTime" Precision="3" />

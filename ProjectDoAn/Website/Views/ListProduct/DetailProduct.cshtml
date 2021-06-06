@@ -148,10 +148,17 @@
         loading(true)
         var warehouse = $("#WarehouseId").val();
         if (Number.isInteger(parseInt(warehouse))) {
-            $.ajax({ url: "/ListProduct/OrderProduct?id=" + warehouse });
-            loading(false)
-            window.location.href='/Cart/Index'
+            $.ajax({
+                url: "/ListProduct/OrderProduct?id=" + warehouse,
+                success: function (rs) {
+                    loading(false)
+                    if (rs) {
+                        window.location.href = '/Cart/Index'
+                    }
+                }
+            });
         } else {
+            loading(false)
             alert("Lỗi")
         }
     }
@@ -174,6 +181,6 @@
         else {
             alert("Lỗi")
         }
-     
+
     }
 </script>

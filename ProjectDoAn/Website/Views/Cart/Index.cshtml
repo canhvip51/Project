@@ -67,7 +67,7 @@
                 </th>
 
                 <td class="border-0 align-middle">
-                    <strong>@(item.Warehouse.ProductImg.Product.Price * (100-item.Warehouse.ProductImg.Product.Discount) / 100) VNĐ</strong>
+                    <strong>@(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value/1000 * (100-item.Warehouse.ProductImg.Product.Discount.Value) / 100)) * 1000) VNĐ</strong>
                 </td>
                 @{
                     int maxamount = item.Warehouse.Amount.Value - cartProvinder.GetAmount(item.WarehouseId.Value) + item.Amount.Value;

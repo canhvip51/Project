@@ -86,7 +86,7 @@ namespace Website.Controllers
                         {
                             Amount = item.Amount,
                             WarehouseId = item.WarehouseId,
-                            Price = item.Warehouse.ProductImg.Product.Price * (100 - item.Warehouse.ProductImg.Product.Discount) / 100,
+                            Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * ((100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100))) * 1000),
                         };
                         total += orderDetail.Price.Value;
                         listOrderDetail.Add(orderDetail);
@@ -102,6 +102,8 @@ namespace Website.Controllers
         [HttpPost]
         public ActionResult Order(LibData.Order model)
         {
+            LibData.Provider.PromotionProvider promotionProvider = new LibData.Provider.PromotionProvider();
+            LibData.Promotion promotion = null;
             if (string.IsNullOrEmpty(model.BuyerName))
             {
                 ModelState.AddModelError("BuyerName", "Xin mời nhập họ tên.");
@@ -116,9 +118,24 @@ namespace Website.Controllers
             }
             if (model.ProvinceId == -1)
             {
-                ModelState.AddModelError("ProvinceId", "Xin mời chọn thành phố bạn đang sống");
+                ModelState.AddModelError("ProvinceId", "Xin mời chọn thành phố bạn đang sống.");
             }
-
+            if (!string.IsNullOrEmpty(model.KeyCode))
+            {
+                 promotion = promotionProvider.GetByKeyCode(model.KeyCode);
+                if (promotion == null)
+                {
+                    model.Discount = 0;
+                    model.KeyCode = "";
+                    ModelState.AddModelError("KeyCode", "Mã giảm giá không tồn tại hoặc đã hết hạn.");
+                }
+                else
+                {
+                    if (promotion.Amount.HasValue)
+                        promotion.Amount -= 1;
+                    model.Discount = promotion.Discount.Value;
+                }
+            }
             ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
             int total = 0;
             LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
@@ -138,7 +155,7 @@ namespace Website.Controllers
                         {
                             Amount = item.Amount,
                             WarehouseId=item.WarehouseId,
-                            Price = item.Warehouse.ProductImg.Product.Price * (100 - item.Warehouse.ProductImg.Product.Discount) / 100,
+                            Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * ((100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100))) * 1000),
                         };
                         total += orderDetail.Price.Value;
                         listOrderDetail.Add(orderDetail);
@@ -160,7 +177,7 @@ namespace Website.Controllers
                 cookies.Carts.Where(x => x.Status == 1).ToList().ForEach(x => x.UpdateDate = DateTime.Now);
                 if (orderProvider.Insert(model))
                 {
-                    cookieProvider.Update(cookies);
+                    promotionProvider.Update();
                     cookieProvider.Remove(cookies);
                     ModelState.AddModelError("success", "Đặt hàng thành công.");
                     httpCookie.Expires = DateTime.Now.AddDays(-1);
@@ -193,6 +210,52 @@ namespace Website.Controllers
             }
             return false;
         }
-    
+        [HttpPost]
+        public ActionResult ApplyPromotion(LibData.Order model)
+        {
+            ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
+            int total = 0;
+            LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
+            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
+            HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+            LibData.Cookie cookies = new LibData.Cookie();
+            List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
+
+            if (httpCookie != null)
+            {
+                cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
+                if (cookies != null)
+                {
+                    foreach (var item in cookies.Carts.Where(x => x.Status == 1))
+                    {
+                        LibData.OrderDetail orderDetail = new LibData.OrderDetail()
+                        {
+                            Amount = item.Amount,
+                            WarehouseId = item.WarehouseId,
+                            Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value/1000 * ((100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100)))*1000),
+                        };
+                        total += orderDetail.Price.Value;
+                        listOrderDetail.Add(orderDetail);
+                    }
+                }
+            }
+            if (!string.IsNullOrEmpty(model.KeyCode))
+            {
+                LibData.Promotion promotion = new LibData.Provider.PromotionProvider().GetByKeyCode(model.KeyCode);
+                if (promotion == null)
+                {
+                    model.Discount = 0;
+                    model.KeyCode = "";
+                    ModelState.AddModelError("KeyCode", "Mã giảm giá không tồn tại hoặc đã hết hạn.");
+                }
+                else
+                {
+                    model.Discount = promotion.Discount.Value;
+                }
+            }
+            model.Total = total;
+            model.OrderDetails = listOrderDetail;
+            return View("Order", model);
+        }
     }
 }
