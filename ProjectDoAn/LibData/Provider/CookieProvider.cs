@@ -56,6 +56,24 @@ namespace LibData.Provider
                 return false;
             }
         }
+        public bool Remove(Cookie cookie)
+        {
+            try
+            {
+                foreach (var item in cookie.Carts)
+                {
+                    ApplicationDbContext.Carts.Remove(item);
+                }
+                ApplicationDbContext.Carts.RemoveRange(cookie.Carts);
+                    ApplicationDbContext.Cookies.Remove(cookie);
+                    ApplicationDbContext.SaveChanges();
+                    return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         public bool Update(string key)
         {
             try

@@ -33,7 +33,6 @@
     <Property Name="UserId" Type="int" />
     <Property Name="WarehouseId" Type="int" />
     <Property Name="Amount" Type="int" />
-    <Property Name="IsDelete" Type="int" />
     <Property Name="Status" Type="int" />
     <Property Name="CreateDate" Type="datetime" />
     <Property Name="UpdateDate" Type="datetime" />

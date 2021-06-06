@@ -38,7 +38,6 @@
           <Property Name="UserId" Type="int" />
           <Property Name="WarehouseId" Type="int" />
           <Property Name="Amount" Type="int" />
-          <Property Name="IsDelete" Type="int" />
           <Property Name="Status" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateDate" Type="datetime" />
@@ -753,7 +752,6 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="WarehouseId" Type="Int32" />
           <Property Name="Amount" Type="Int32" />
-          <Property Name="IsDelete" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
@@ -1309,7 +1307,6 @@
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

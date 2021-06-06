@@ -80,7 +80,7 @@ namespace Website.Areas.Admin.Controllers
                 total += item.Price.Value * item.Amount.Value;
                 if (warehouse.Carts != null)
                 {
-                    amount = (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => x.Order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == null || x.IsDelete.Value == 0) && x.WarehouseId != item.WarehouseId).ToList().Sum(x => x.Amount.Value) : 0);
+                    amount = (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => x.Order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == null || x.IsDelete.Value == 0) && x.WarehouseId != item.WarehouseId).ToList().Sum(x => x.Amount.Value) : 0);
                 }
                 if (item.Amount.Value > warehouse.Amount.Value - amount)
                 {
@@ -143,7 +143,7 @@ namespace Website.Areas.Admin.Controllers
                 total += item.Price.Value * item.Amount.Value;
                 if (warehouse.Carts != null)
                 {
-                    amount = (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => x.Order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == null || x.IsDelete.Value == 0) && x.WarehouseId != item.WarehouseId).ToList().Sum(x => x.Amount.Value) : 0);
+                    amount = (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now  && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => x.Order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == null || x.IsDelete.Value == 0) && x.WarehouseId != item.WarehouseId).ToList().Sum(x => x.Amount.Value) : 0);
                 }
                 if (item.Amount.Value > warehouse.Amount.Value - amount)
                 {
@@ -181,7 +181,7 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.listDatas = listDatas;
             ViewBag.Warehouse = new LibData.Provider.WarehouseProvider().GetAll().Where(x => x.Amount > 0).ToList();
             LibData.Warehouse warehouse = new LibData.Provider.WarehouseProvider().GetById(model.WarehouseId.Value);
-            int amount = warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value);
+            int amount = warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now  && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value);
             if (listDatas.Contains(model.WarehouseId.ToString()))
             {
                 ModelState.AddModelError("WarehouseId", "Sản phẩm đã có trong giỏ hàng vui lòng thực hiện thao tác trên giỏ");
@@ -340,7 +340,7 @@ namespace Website.Areas.Admin.Controllers
                             ModelState.AddModelError("error", "Lỗi");
                             break;
                         }
-                        amount = (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => x.Order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == null || x.IsDelete.Value == 0) && x.WarehouseId != item.WarehouseId).ToList().Sum(x => x.Amount.Value) : 0);
+                        amount = (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now  && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => x.Order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == null || x.IsDelete.Value == 0) && x.WarehouseId != item.WarehouseId).ToList().Sum(x => x.Amount.Value) : 0);
                         if (item.Amount.Value > warehouse.Amount.Value - amount)
                         {
                             ModelState.AddModelError("error", "Sản phẩm" + item.Warehouse.ProductImg.Product.Name.ToString() + " - " + item.Warehouse.ProductImg.Color.ToString() + " VN : " + item.Warehouse.Size.VN.ToString() + " - US : " + item.Warehouse.Size.US.ToString() + " - UK : " + item.Warehouse.Size.UK.ToString() + " chỉ còn " + (item.Warehouse.Amount.Value - amount).ToString());

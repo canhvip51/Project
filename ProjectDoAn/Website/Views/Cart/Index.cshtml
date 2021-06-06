@@ -52,7 +52,7 @@
                         </thead>
                         <tbody>
 
-                            @foreach (var item in Model.Carts.Where(x=>x.Status==LibData.Configuration.CartConfig.INCART&&(x.IsDelete==null || x.IsDelete ==0 )))
+                            @foreach (var item in Model.Carts.Where(x=>x.Status==LibData.Configuration.CartConfig.INCART))
                             {
             <tr>
                 <th scope="row" class="border-0">

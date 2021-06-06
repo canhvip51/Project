@@ -134,7 +134,6 @@
     <Property Name="UserId" Type="Int32" />
     <Property Name="WarehouseId" Type="Int32" />
     <Property Name="Amount" Type="Int32" />
-    <Property Name="IsDelete" Type="Int32" />
     <Property Name="Status" Type="Int32" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
     <Property Name="UpdateDate" Type="DateTime" Precision="3" />

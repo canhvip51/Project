@@ -36,7 +36,7 @@ namespace Website.Controllers
             old.ExpiredDate = DateTime.Now.AddHours(timeout);
             int i = 0;
             List<LibData.Cart> carts = model.Carts.ToList();
-            foreach (var item in old.Carts.Where(x=>x.Status==1&&(x.IsDelete==0||x.IsDelete==null)))
+            foreach (var item in old.Carts.Where(x=>x.Status==1))
             {
                 if (item.Warehouse.Amount - cartProvider.GetAmount(item.WarehouseId.Value) + item.Amount >= carts[i].Amount)
                 {
@@ -80,7 +80,7 @@ namespace Website.Controllers
                 cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
                 if (cookies != null)
                 {
-                    foreach (var item in cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null))
+                    foreach (var item in cookies.Carts.Where(x => x.Status == 1))
                     {
                         LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                         {
@@ -132,7 +132,7 @@ namespace Website.Controllers
                 cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
                 if (cookies != null)
                 {
-                    foreach (var item in cookies.Carts.Where(x=>x.Status==1 && x.IsDelete==0 || x.IsDelete==null))
+                    foreach (var item in cookies.Carts.Where(x=>x.Status==1 ))
                     {
                         LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                         {
@@ -156,11 +156,12 @@ namespace Website.Controllers
                 model.Code = "SHOESSHOP" + DateTime.Now.ToString("yyyyMMddHHmmss") + k;
                 model.CreateDate = DateTime.Now;
                 model.Status = 1;
-                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.Status = CartConfig.ORDERED);
-                cookies.Carts.Where(x => x.Status == 1 && x.IsDelete == 0 || x.IsDelete == null).ToList().ForEach(x => x.UpdateDate = DateTime.Now);
+                cookies.Carts.Where(x => x.Status == 1).ToList().ForEach(x => x.Status = CartConfig.ORDERED);
+                cookies.Carts.Where(x => x.Status == 1).ToList().ForEach(x => x.UpdateDate = DateTime.Now);
                 if (orderProvider.Insert(model))
                 {
                     cookieProvider.Update(cookies);
+                    cookieProvider.Remove(cookies);
                     ModelState.AddModelError("success", "Đặt hàng thành công.");
                     httpCookie.Expires = DateTime.Now.AddDays(-1);
                     HttpContext.Response.Cookies.Add(httpCookie);
@@ -168,8 +169,6 @@ namespace Website.Controllers
                 }
                 else
                 {
-                    model.Total = total;
-                    model.OrderDetails = listOrderDetail;
                     ModelState.AddModelError("error", "Đặt hàng thất bại.");
                     return View(model);
                 }
@@ -187,10 +186,7 @@ namespace Website.Controllers
             LibData.Cart old = cartProvider.GetByProductAndKey(id, httpCookie["keycode"]);
             if (old != null)
             {
-                old.Status = CartConfig.CANCEL;
-                old.IsDelete = CartConfig.ISDELETE;
-                old.UpdateDate = DateTime.Now;
-                if (cartProvider.Update(old))
+                if (cartProvider.Remove(old))
                 {
                     return true;
                 }

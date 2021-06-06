@@ -15,7 +15,7 @@
                         <div class="swiper-slide img-thumbnail" style="background: url(/Images/Products/@Model.AvatarUrl) center center / cover no-repeat;background-size:400px auto;"></div>
                         @foreach (var item in Model.ProductImgs)
                         {
-                    <div class="swiper-slide img-thumbnail" style="background: url(/Images/Products/@item.Url) center center / cover no-repeat;background-size:400px auto; "></div>
+                            <div class="swiper-slide img-thumbnail" style="background: url(/Images/Products/@item.Url) center center / cover no-repeat;background-size:400px auto; "></div>
                         }
 
                     </div>
@@ -55,7 +55,7 @@
 
             <div class="row">
 
-                @foreach (var item in Model.ProductImgs.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Warehouses.Count(m => (m.IsDelete == 0 || m.IsDelete == null)) > 0))
+                @foreach (var item in Model.ProductImgs.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Warehouses.Count(m => (m.IsDelete == 0 || m.IsDelete == null)) > 0 && x.Warehouses.Sum(m => m.Amount) > 0))
                 {
                     <div class="col-3">
                         <a style="width:150px;height:150px">
@@ -72,20 +72,25 @@
                     <select class="form-control block WarehouseId" disabled name="WarehouseId" id="WarehouseId">
                         <option>Vui lòng chọn màu sắc của giày</option>
                         @*@foreach (var item in Model.ProductImgs.First().Warehouses)
-                                            {
-                                <option value="@item.Id" @(item.Amount < 1 ? "disabled" : "")>VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK</option>
-                    }*@
+                                                    {
+                                        <option value="@item.Id" @(item.Amount < 1 ? "disabled" : "")>VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK</option>
+                            }*@
                     </select>
                 </div>
             </div>
-            <div class=" row mt-3">
-                <div class="col-12 text center-block">
-                    <button id="" onclick="BuyProduct()" class="btn btn-success rounded-pill">
+            <div class=" row mt-3 justify-content-center">
+                <div class="col-12 text center-block  pb-2">
+                    <button id="" onclick="BuyProduct()" disabled class="btn btn-success rounded-pill btn-disabled">
                         Mua ngay
                     </button>
                 </div>
+                <div class="col-12 text center-block">
+                    <button id="" type="button" onclick="AddCart()" disabled class="btn btn-outline-success rounded-pill btn-disabled">
+                        Thêm vào giỏ
+                    </button>
+                </div>
             </div>
-          
+
         </div>
     </div>
     <div class="row  mt-4" style=" border:1px solid">
@@ -102,29 +107,29 @@
                 </div>
                 <div class="tab-pane" role="tabpanel" id="tab-2">
                     <div class="col-12" style="max-height: 550px; overflow: auto; ">
-                        <img src="~/assets/img/6b750f75e5f602a85be7-1.jpg" style="width:100%"/>
+                        <img src="~/assets/img/6b750f75e5f602a85be7-1.jpg" style="width:100%" />
                     </div>
                 </div>
             </div>
             @*<h3 class="my-3">Mô tả sản phẩm</h3>
-            <div class="row" style="max-height:400px;overflow:auto;border:1px solid">
-                <div class="col">
-                    @Html.Raw(Model.Describe)
-                </div>
+                <div class="row" style="max-height:400px;overflow:auto;border:1px solid">
+                    <div class="col">
+                        @Html.Raw(Model.Describe)
+                    </div>
 
-            </div>*@
+                </div>*@
         </div>
     </div>
     <div class="row" id="product-relate">
         <div class="col-12" id="product-relate"></div>
     </div>
     @*<h3 class="my-4">Related Projects<br></h3>
-    <div class="row">
-        <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-        <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-        <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-        <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-    </div>*@
+        <div class="row">
+            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
+            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
+            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
+            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
+        </div>*@
 </div>
 <script>
     $(".img-active").click(function () {
@@ -133,15 +138,42 @@
         $("#WarehouseId").removeAttr("disabled")
     })
     function SelectWarehoue(id)  {
-        $("#WarehouseId").load("/ListProduct/SelectSize?id="+id)
+        $("#WarehouseId").load("/ListProduct/SelectSize?id=" + id)
+        $(".btn-disabled").removeAttr("disabled")
+
+
     }
     $("#product-relate").load("/ListProduct/ListAllProductSimilar?brandid=@Model.BrandId&type=@Model.Type")
     function BuyProduct() {
+        loading(true)
         var warehouse = $("#WarehouseId").val();
         if (Number.isInteger(parseInt(warehouse))) {
             $.ajax({ url: "/ListProduct/OrderProduct?id=" + warehouse });
+            loading(false)
+            window.location.href='/Cart/Index'
         } else {
             alert("Lỗi")
         }
+    }
+    async function AddCart() {
+        loading(true)
+        var warehouse = $("#WarehouseId").val();
+        if (Number.isInteger(parseInt(warehouse))) {
+            $.ajax({
+                url: "/ListProduct/OrderProduct?id=" + warehouse,
+                success: function (data, status, xhr) {
+                    loading(false)
+                    if (xhr.status == 201) {
+                        alert("Thêm vào giỏ thành công")
+                    } else {
+                        alert("Lỗi")
+                    }
+                },
+            });
+        }
+        else {
+            alert("Lỗi")
+        }
+     
     }
 </script>

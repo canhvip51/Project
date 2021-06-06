@@ -27,7 +27,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Carts.FirstOrDefault(x => x.WarehouseId == wareId && x.CookieId == cookieId && x.Status == 1 && (x.IsDelete == 1 || x.IsDelete == null));
+                return ApplicationDbContext.Carts.FirstOrDefault(x => x.WarehouseId == wareId && x.CookieId == cookieId && x.Status == 1);
             }
             catch (Exception)
             {
@@ -60,7 +60,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Carts.Where(x => x.Cookie.KeyCode == key && x.Cookie.ExpiredDate > DateTime.Now && ( x.IsDelete == null || x.IsDelete == 0)&&x.Status==Configuration.CartConfig.INCART).ToList();
+                return ApplicationDbContext.Carts.Where(x => x.Cookie.KeyCode == key && x.Cookie.ExpiredDate > DateTime.Now &&x.Status==Configuration.CartConfig.INCART).ToList();
             }
             catch (Exception)
             {
@@ -96,13 +96,26 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && x.WarehouseId.Value == wareid && x.Status.Value == 1 && (x.IsDelete.Value == 1 || x.IsDelete == null)).Sum(x => x.Amount.Value);
+                return ApplicationDbContext.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && x.WarehouseId.Value == wareid && x.Status.Value == 1).Sum(x => x.Amount.Value);
             }
             catch (Exception e)
             {
                 return 0;
             }
            
+        }
+        public bool Remove(Cart cart)
+        {
+            try
+            {
+                ApplicationDbContext.Carts.Remove(cart);
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

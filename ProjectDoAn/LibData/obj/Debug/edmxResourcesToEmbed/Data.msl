@@ -37,7 +37,6 @@
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Amount" ColumnName="Amount" />
           <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />

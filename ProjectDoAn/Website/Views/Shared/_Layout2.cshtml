@@ -151,7 +151,7 @@
                 var noti = $.connection.xmpp;
                 $.connection.hub.start().done(function () {
                     $('#btn_order').click(function () {
-                      //  console.log($('#ProvinceId').val())
+                        console.log($('#ProvinceId').val())
                         noti.server.send($('#ProvinceId').val());
                     });
                 });

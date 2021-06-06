@@ -18,7 +18,6 @@ namespace LibData
         public Nullable<int> UserId { get; set; }
         public Nullable<int> WarehouseId { get; set; }
         public Nullable<int> Amount { get; set; }
-        public Nullable<int> IsDelete { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
