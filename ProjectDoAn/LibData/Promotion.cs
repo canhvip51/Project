@@ -20,5 +20,8 @@ namespace LibData
         public Nullable<int> Amount { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<int> Discount { get; set; }
+        public Nullable<int> IsDelete { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

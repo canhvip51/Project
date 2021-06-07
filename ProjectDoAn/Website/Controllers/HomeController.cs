@@ -16,7 +16,7 @@ namespace Website.Controllers
 
             //ViewData["Sliders"] = new LibData.Provider.SlideProvider().getAll();
             //return View(new LibData.Provider.SanPhamProvider().getAllBySize(8));
-            return View(new LibData.Provider.SlideProvider().GetAll());
+            return View(new LibData.Provider.SlideProvider().GetAllByStatus((int)LibData.Configuration.SlideConfig.Status.SHOW));
         }
         public ActionResult ListProduct(string type)
         {

@@ -29,6 +29,7 @@
     <script>
   
         function sumbitBrand() {
+            loading(true)
         var notify = ""
         if (@Model.Id== 0) {
             notify = "Thêm hãng thành công"
@@ -42,6 +43,7 @@
             url: "/Admin/Brand/AddBrand",
             data: $form.serialize(),
             success: async function (data, status, xhr) {
+                loading(false)
                 var statusCode = xhr.getResponseHeader("statusCode");
                 if (statusCode == '401') {
                     window.location.replace("/login");

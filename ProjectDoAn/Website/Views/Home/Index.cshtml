@@ -1,31 +1,49 @@
-﻿@*@model List<LibData.SanPham>
-@{
-    ViewBag.Title = "Trang chủ";
-    System.Globalization.CultureInfo elGRs = System.Globalization.CultureInfo.CreateSpecificCulture("en-US");
-}
-<div class="col-lg-9 content-right">
-    <div class="hidden-xs hidden-sm">
-        <h4>Nổi bật</h4>
-        <div class="featured">
-            @foreach (var item in ViewData["Sliders"] as List<LibData.Slider>)
+﻿@model List<LibData.Slide>
+<div class="simple-slider">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            @if (Model.Count > 0)
             {
-                <a href="@item.TenUrl"><img src="http://123.30.181.81:6556/Images/Slider/@item.TenFile" /></a>
+                foreach (var item in Model)
+                {
+                    <div class="swiper-slide" style="background: url(/Images/Slider/@item.UrlFile) center center / cover no-repeat;"></div>
+                }
+            }
+            else
+            {
+                <div class="swiper-slide" style="background: url(&quot;https://cdn.bootstrapstudio.io/placeholders/1400x800.png&quot;) center center / cover no-repeat;"></div>
             }
         </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
-    <h4>Sản phẩm mới</h4>
-    <div class="row selected-classifieds">
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                <div class="thumbnail">
-                    <a href="@Url.Action("Detail", "Products",new { id=item.TenUrl})"><img src="http://123.30.181.81:6556/Images/Products/@item.TenFileImage" /></a>
-                    <div class="caption">
-                        <h5><a href="@Url.Action("Detail", "Products",new { id=item.TenUrl})">@item.TenSanPham</a></h5>
-                        <p class="price">@String.Format(elGRs, "{0:0,0}", Convert.ToDouble(item.GiaSanPham)) VNĐ</p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>*@
+</div>
+
+<div class="row" id="discount">
+
+</div>
+<div class="row" id="topsell">
+
+</div>
+<div class="row" id="newproduct">
+
+</div>
+<div class="row" id="male">
+
+</div>
+<div class="row" id="female">
+
+</div>
+
+<script>
+    LoadList();
+    function LoadList() {
+    $("#discount").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.DISCOUNT")
+    $("#topsell").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.TOPSALE")
+    $("#newproduct").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.PRODUCTNEW")
+    $("#male").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.MALE")
+    $("#female").load("/Home/ListProduct?Type=@LibData.Configuration.ViewConfig.FEMALE")
+    }
+
+</script>

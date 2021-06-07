@@ -31,21 +31,25 @@
                             <div class="col-lg-4">
                                 <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Thông tin khách hàng</div>
                                 <div class="mt-3">
-
                                     <div class="form-group pb-3">
+
+                                        <label>Số điện thoại nhận hàng<span class="text-danger">*</span></label>
                                         <input type="text" placeholder="Số điện thoại nhận hàng" id="Phone" value="@Model.Phone" name="Phone" aria-describedby="button-addon3" maxlength="11" class="Phone form-control ">
                                         @Html.ValidationMessage("Phone", new { @class = "text-danger" })
                                     </div>
 
                                     <div class="form-group pb-3">
+                                        <label>Họ tên người nhận<span class="text-danger">*</span></label>
                                         <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" value="@Model.BuyerName" name="BuyerName" maxlength="255" class="form-control ">
                                         @Html.ValidationMessage("BuyerName", new { @class = "text-danger" })
                                         @*<div class="input-group-append border-0">
-                                                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
-                                            </div>*@
+                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+            </div>*@
                                     </div>
 
                                     <div class="form-group pb-3">
+
+                                        <label>Thành phố<span class="text-danger">*</span></label>
                                         <select aria-describedby="button-addon3" class="form-control" name="ProvinceId">
                                             <option value="-1">Tỉnh / Thành phố</option>
                                             @foreach (var item in ViewBag.Province as List<LibData.Province>)
@@ -56,25 +60,27 @@
                                         @Html.ValidationMessage("ProvinceId", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group pb-3">
+                                        <label>Địa chỉ nhận hàng<span class="text-danger">*</span></label>
                                         <input type="text" placeholder="Địa chỉ nhận hàng" value="@Model.AddressTo" aria-describedby="button-addon3" maxlength="510" name="AddressTo" class="form-control ">
                                         @Html.ValidationMessage("AddressTo", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group pb-3" id="KeyCode">
+                                        <label>Mã khuyến mãi</label>
                                         <div class="input-group">
-                                            <input type="text" name="KeyCode"  value="@Model.KeyCode" class="form-control" placeholder="Mã khuyễn mãi" aria-describedby="basic-addon2">
+                                            <input type="text" name="KeyCode" value="@Model.KeyCode" class="form-control" placeholder="Mã khuyễn mãi" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button" onclick="Apply()">Apply</button>
                                             </div>
-                                            @Html.ValidationMessage("KeyCode", new { @class = "text-danger" })
                                         </div>
+                                        @Html.ValidationMessage("KeyCode", new { @class = "text-danger" })
                                     </div>
 
                                     @*<div class="input-group mb-4 border rounded-pill p-2">
-                                            <input type="text" placeholder="Mã giảm giá" aria-describedby="button-addon3" class="form-control border-0">
-                                            <div class="input-group-append border-0">
-                                                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Xác nhận</button>
-                                            </div>
-                                        </div>*@
+            <input type="text" placeholder="Mã giảm giá" aria-describedby="button-addon3" class="form-control border-0">
+            <div class="input-group-append border-0">
+                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Xác nhận</button>
+            </div>
+        </div>*@
                                     <p class="font-italic mb-4">Ghi chú cho người bán</p>
                                     <textarea name="Note" rows="5" maxlength="2048" class="form-control" value="@Model.Note" style="max-width:100%"></textarea>
 
@@ -124,7 +130,7 @@
                                                             </th>
 
                                                             <td class="border-0 align-middle">
-                                                                <strong>@item.Price VNĐ</strong>
+                                                                <strong> @string.Format("{0:#,0}", item.Price) VNĐ</strong>
                                                             </td>
 
                                                             <td class="border-0 align-middle">
@@ -145,9 +151,14 @@
                                                     <td colspan="2">
                                                         <strong>
                                                             @{
-                                                                int discount = Convert.ToInt32(Math.Floor(Convert.ToDouble(Model.Total.Value/1000 * Model.Discount.Value / 100))*1000);
+                                                                var to = 0;
+                                                                if (Model.OrderDetails.Count(x => x.IsDelete == 0 || x.IsDelete == null) > 0)
+                                                                {
+                                                                    to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value);
+                                                                }
+                                                                var discount = Math.Ceiling(Convert.ToDouble(to / 1000 * Model.Discount / 100)) * 1000;
                                                             }
-                                                            @string.Format("{0:#,0}", Model.Total) VNĐ
+                                                            @string.Format("{0:#,0}", to) VNĐ
                                                         </strong>
                                                     </td>
                                                 </tr>
@@ -164,7 +175,7 @@
 
                                                     <td colspan="2">
                                                         <strong>
-                                                            @string.Format("{0:#,0}", (@Model.Total - @discount)) VNĐ
+                                                            @string.Format("{0:#,0}", (to - discount)) VNĐ
                                                         </strong>
                                                     </td>
                                                 </tr>

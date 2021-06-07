@@ -35,49 +35,20 @@
     <script src="~/signalr/hubs"></script>
 </head>
 
-<body>
-    <style>
-        .hover-title:hover {
-            color: #78e08f !important;
-            cursor: pointer !important;
-        }
-
-        .pagination.active a {
-            background-color: #78e08f !important;
-            border-color: #78e08f !important;
-        }
-
-        .pagination a:hover {
-            color: #78e08f !important;
-        }
-
-        .pagination.active a:hover {
-            background-color: #78e08f !important;
-            border-color: #78e08f !important;
-            color: #fff !important;
-        }
-
-        .nav-link.nav-font {
-            font-size: 30px !important;
-            font-weight: 700 !important;
-        }
-
-            .nav-link.nav-font.nav-home {
-                font-size: 35px !important;
-                font-weight: 700 !important;
-            }
-    </style>
-    <div></div>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+<body class="pb-0">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-color: #c7c7c7;">
         <div class="container">
-            <div>
-                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
             <div class="collapse navbar-collapse d-flex justify-content-center" id="navcol-1">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active text-uppercase nav-font nav-home" style="font-family:'Source Sans Pro', sans-serif;" href="#">ShoesShop </a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="#">Sản phẩm </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle nav-link text-uppercase nav-font" aria-expanded="false" data-toggle="dropdown" style="font-family:'Source Sans Pro', sans-serif;" href="#">Thương hiệu </a>
                         <div class="dropdown-menu">
@@ -86,8 +57,6 @@
                                 <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="/ListProduct/ListAllProductByBrand?brandid=@item.Id">@item.Name</a>}
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link active text-uppercase nav-font nav-home" style="font-family:'Source Sans Pro', sans-serif;" href="#">ShoesShop </a></li>
-
                     <li class="nav-item">
                         <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="#">Nam </a>
                     </li>
@@ -95,7 +64,9 @@
                         <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="#">Nữ </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-uppercase nav-font" style="font-family:'Source Sans Pro', sans-serif;" href="/Cart/Index" title="Giỏ hàng"><i class="fa fa-shopping-cart"></i> </a>
+                        <a class="nav-link text-uppercase nav-font d-inline" style="font-family:'Source Sans Pro', sans-serif;" href="/Cart/Index" title="Giỏ hàng"><i class="fa fa-shopping-cart"></i> </a>
+                        |
+                        <a class="nav-link text-uppercase nav-font d-inline" style="font-family:'Source Sans Pro', sans-serif;" href="/Cart/Index" title="Đơn hàng đã đặt"><i class="fa fa-file"></i> </a>
                     </li>
                     @*<li class="nav-item">
                             <a class="nav-link text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="#">Đăng nhập </a>
@@ -107,10 +78,53 @@
             </div>
         </div>
     </nav>
+    <div class="container-fluid">
+        <style>
+            .hover-title:hover {
+                color: #78e08f !important;
+                cursor: pointer !important;
+            }
 
-    @RenderBody()
-    <footer class="footer-basic">
-        <div class="social">
+            .pagination.active a {
+                background-color: #78e08f !important;
+                border-color: #78e08f !important;
+            }
+
+            .pagination a:hover {
+                color: #78e08f !important;
+            }
+
+            .pagination.active a:hover {
+                background-color: #78e08f !important;
+                border-color: #78e08f !important;
+                color: #fff !important;
+            }
+
+            .nav-link.nav-font.nav-home {
+                font-weight: 600 !important;
+                font-size: 20px !important;
+            }
+
+            .nav-link.nav-font.nav-font {
+                font-size: 18px !important;
+            }
+        </style>
+
+        @RenderBody()
+    </div>
+
+
+    <footer class="footer-basic "  style="background-color: #c7c7c7;">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        @*<div class="social">
             <a href="#">
                 <i class="icon ion-social-instagram"></i>
             </a>
@@ -127,7 +141,7 @@
             <li class="list-inline-item"><a href="#">About</a></li>
             <li class="list-inline-item"><a href="#">Terms</a></li>
             <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-        </ul>
+        </ul>*@
     </footer>
     <div class="div-hidden" id="loading-page">
         <div class="spinner-border text-primary" role="status">
@@ -146,18 +160,18 @@
             }
         }
     </script>
-        <script>
-            $(document).ready(function () {
-                var noti = $.connection.xmpp;
-                $.connection.hub.start().done(function () {
-                    $('#btn_order').click(function () {
-                        console.log($('#ProvinceId').val())
-                        noti.server.send($('#ProvinceId').val());
-                    });
+    <script>
+        $(document).ready(function () {
+            var noti = $.connection.xmpp;
+            $.connection.hub.start().done(function () {
+                $('#btn_order').click(function () {
+                    console.log($('#ProvinceId').val())
+                    noti.server.send($('#ProvinceId').val());
                 });
             });
+        });
 
-        </script>
+    </script>
 </body>
 
 </html>

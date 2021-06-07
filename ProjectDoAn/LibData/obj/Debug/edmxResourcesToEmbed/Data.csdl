@@ -308,6 +308,9 @@
     <Property Name="Amount" Type="Int32" />
     <Property Name="StartDate" Type="DateTime" Precision="3" />
     <Property Name="Discount" Type="Int32" />
+    <Property Name="IsDelete" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Province">
     <Key>

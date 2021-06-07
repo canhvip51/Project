@@ -120,6 +120,22 @@ namespace LibData.Provider
             }
 
         }
+        public bool CheckPhoneUserKey(string phone , string key)
+        {
+            try
+            {
+                LibData.Order order= ApplicationDbContext.Orders.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Equals(key) && x.Phone.Equals(phone) && x.Status.Value==(int)LibData.Configuration.OrderConfig.Status.CANCEL);
+                if (order != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
       
     }
 }

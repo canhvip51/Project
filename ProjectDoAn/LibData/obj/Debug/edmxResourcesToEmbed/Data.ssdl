@@ -183,6 +183,9 @@
     <Property Name="Amount" Type="int" />
     <Property Name="StartDate" Type="datetime" />
     <Property Name="Discount" Type="int" />
+    <Property Name="IsDelete" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Province">
     <Key>

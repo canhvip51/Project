@@ -70,6 +70,53 @@ namespace LibData.Provider
                 return false;
             }
         }
+        public bool RemoveAll()
+        {
+            try
+            {
+                ApplicationDbContext.Carts.RemoveRange(ApplicationDbContext.Carts.ToList());
+                ApplicationDbContext.Cookies.RemoveRange(ApplicationDbContext.Cookies.ToList());
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool Remove(int id)
+        {
+            try
+            {
+                Cookie cookie = GetById(id);
+                if(cookie!=null){
+                    ApplicationDbContext.Carts.RemoveRange(ApplicationDbContext.Carts.ToList());
+                    ApplicationDbContext.Cookies.RemoveRange(ApplicationDbContext.Cookies.ToList());
+                    ApplicationDbContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool RemoveAllExpired()
+        {
+            try
+            {
+                List<Cookie> cookies = ApplicationDbContext.Cookies.Where(x => x.ExpiredDate<DateTime.Now).ToList();
+                ApplicationDbContext.Carts.RemoveRange(ApplicationDbContext.Carts.Where(x=>cookies.Select(m=>m.Id).Contains(x.CookieId.Value)).ToList());
+                ApplicationDbContext.Cookies.RemoveRange(cookies);
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         public bool Update(string key)
         {
             try

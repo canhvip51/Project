@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = null;
+}
+@model IEnumerable<LibData.Cookie>
+@using PagedList;
+@using PagedList.Mvc;
+<style>
+    a {
+        cursor: pointer !important;
+    }
+</style>
+<table class="table table-bordered table-responsive-sm  table-hover">
+    <thead>
+        <tr>
+            <th>Cookie code</th>
+            <th>Thời gian hết hạn</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" class="text-center">
+                    <div class=" text-danger">
+                        Không có dữ liệu!
+                    </div>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.KeyCode
+                </td>
+                <td>
+                    @item.ExpiredDate.ToString("dd/MM/yyyy hh:mm")
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a data-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-fw fa-trash"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" onclick="RemoveCookie(@item.Id)">Xóa</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<div class="col-md-12">
+    <div class="row float-right">
+        @*phân trang*@
+        @Html.PagedListPager((IPagedList)Model,
+        page => Url.Action("Index", new { page = page }),
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = "list-cookie",
+        })
+        )
+    </div>
+</div>

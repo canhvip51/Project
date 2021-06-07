@@ -72,9 +72,5 @@ namespace Website.Areas.Admin.Controllers
             }
             return View(model);
         }
-        public bool DeleteManagerUser(int id)
-        {
-            return new LibData.Provider.BrandProvider().Delete(id);
-        }
     }
 }

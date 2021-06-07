@@ -188,6 +188,9 @@
           <Property Name="Amount" Type="int" />
           <Property Name="StartDate" Type="datetime" />
           <Property Name="Discount" Type="int" />
+          <Property Name="IsDelete" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -926,6 +929,9 @@
           <Property Name="Amount" Type="Int32" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="Discount" Type="Int32" />
+          <Property Name="IsDelete" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -1460,6 +1466,9 @@
           <EntitySetMapping Name="Promotions">
             <EntityTypeMapping TypeName="SHOESSHOPModel.Promotion">
               <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />

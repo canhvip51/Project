@@ -40,6 +40,7 @@
     <script>
 
         function sumbitImportUnit() {
+            loading(true)
         var notify = ""
         if (@Model.Id== 0) {
             notify = "Thêm nhà cung cấp thành công"
@@ -53,6 +54,7 @@
             url: "/Admin/ImportUnit/AddImportUnit",
             data: $form.serialize(),
             success: async function (data, status, xhr) {
+                loading(false)
                 var statusCode = xhr.getResponseHeader("statusCode");
                 if (statusCode == '401') {
                     window.location.replace("/login");

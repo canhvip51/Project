@@ -64,13 +64,17 @@
         $("#list-brand").load("/Admin/Brand/ListBrand")
     }
     function AddBrand() {
+        loading(true)
         $("#content-form-md").load("/Admin/Brand/AddBrand?id", function (response) {
             $("#modal-form-md").modal('show');
+            loading(false)
         });
     }
     function EditBrand(id) {
+        loading(true)
         $("#content-form-md").load("/Admin/Brand/AddBrand?id="+id, function (response) {
             $("#modal-form-md").modal('show');
+            loading(false)
         });
     }
     

@@ -46,8 +46,8 @@
                                     <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" value="@Model.BuyerName" name="BuyerName" maxlength="255" class="form-control ">
                                     @Html.ValidationMessage("BuyerName", new { @class = "text-danger" })
                                     @*<div class="input-group-append border-0">
-                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
-            </div>*@
+                                            <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+                                        </div>*@
                                 </div>
 
                                 <div class="form-group pb-3">
@@ -67,15 +67,19 @@
                                     <input type="text" placeholder="Địa chỉ nhận hàng" value="@Model.AddressTo" aria-describedby="button-addon3" maxlength="510" name="AddressTo" class="form-control ">
                                     @Html.ValidationMessage("AddressTo", new { @class = "text-danger" })
                                 </div>
-
                                 <div class="form-group pb-3">
-                                    <label>Địa chỉ nhận hàng<span class="text-danger">*</span></label>
-                                    <input type="text" placeholder="Địa chỉ nhận hàng" value="@Model.AddressTo" aria-describedby="button-addon3" maxlength="510" name="AddressTo" class="form-control ">
-                                    @Html.ValidationMessage("AddressTo", new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group bp-3">
                                     <label>Trạng thái<span class="text-danger">*</span></label>
                                     @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryCONFIRM, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
+                                </div>
+                                <div class="form-group pb-3" id="KeyCode">
+                                    <label>Mã khuyến mãi</label>
+                                    <div class="input-group">
+                                        <input type="text" name="KeyCode" value="@Model.KeyCode" onchange="Update()" class="form-control" placeholder="Mã khuyễn mãi" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" onclick="Update()">Apply</button>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessage("KeyCode", new { @class = "text-danger" })
                                 </div>
                                 <div class="form-group pb-3">
                                     <label>Lời nhắn từ khách</label>
@@ -122,7 +126,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="list-product">
-                                        @if (Model.OrderDetails.Count > 0)
+                                        @if (Model.OrderDetails.Count(x => x.IsDelete == 0 || x.IsDelete == null) > 0)
                                         {
                                             foreach (var item in Model.OrderDetails)
                                             {
@@ -143,7 +147,7 @@
                                                     </td>
                                                     <td>
                                                         @item.Price
-                                                        <input type="hidden" class="Price" id="Price" value="@item.Price" />
+                                                        <input type="hidden" class="Price" id="Price" value="   @string.Format("{0:#,0}",item.Price)" />
                                                     </td>
                                                     <td>
                                                         <a onclick="Remove(this);"> <i class="fa fa-times"></i></a>
@@ -158,11 +162,42 @@
                                             <td colspan="3" class="Total">
                                                 <h5 id="total-show" style="">
                                                     <b>
-                                                        @string.Format("{0:#,0}", Model.Total) VNĐ
+                                                        @{
+                                                            var to = 0;
+                                                            if (Model.OrderDetails.Count(x=>x.IsDelete==0 || x.IsDelete==null) > 0) {
+                                                                to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value);
+                                                            }
+                                                            var discount = Math.Floor(Convert.ToDouble(to / 1000 * Model.Discount / 100)) * 1000;
+                                                        }
+                                                        @string.Format("{0:#,0}", to) VNĐ
 
                                                     </b>
                                                 </h5>
-                                                <input type="hidden" id="total" class="Total" name="Total" value="" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">
+                                                <b>Giảm giá : </b>
+                                            </td>
+                                            <td colspan="3" class="Total">
+                                                <h5 id="total-show" style="">
+                                                    <b>
+                                                        - @string.Format("{0:#,0}", discount) VNĐ
+
+                                                    </b>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">
+                                                <b>Thanh toán : </b>
+                                            </td>
+                                            <td colspan="3" class="Total">
+                                                <h5 id="total-show" style="">
+                                                    <b>
+                                                         @string.Format("{0:#,0}", to-discount) VNĐ
+                                                    </b>
+                                                </h5>
                                             </td>
                                         </tr>
                                         <tr>
@@ -179,7 +214,7 @@
                                             </td>
                                             <td colspan="3" class="Total" id="total-show">
                                                 @{
-                                                    int refund = (Model.CustomerPay.Value - Model.Total.Value);
+                                                    var refund = (Model.CustomerPay.Value - (to - discount));
                                                     if (refund >= 0)
                                                     {
                                                         <h5 id="total-show" style="">
@@ -192,7 +227,7 @@
                                                     {
                                                         <h5 id="total-show" style="">
                                                             <b>
-                                                               Khách trả chưa đủ
+                                                                Khách trả chưa đủ
                                                             </b>
                                                         </h5>
                                                     }
@@ -243,6 +278,7 @@
 
 <script>
     function AddOrderDetail() {
+        loading(true)
         var list = "";
         try {
             $(".row-orderdetail #WarehouseId").each(function () {
@@ -251,13 +287,13 @@
         } catch (e) {
             list = "";
         }
-        loading(true)
         $("#content-form-md").load("/Admin/Order/AddOrderDetail?list=" + list, function (response) {
             $("#modal-form-md").modal('show');
             loading(false)
         });
     }
     async function SubmitOrder() {
+        loading(true)
         await $(".WarehouseId").each(function (i) {
             $(this).attr('name', "OrderDetails[" + i + "].WarehouseId");
         })
@@ -267,7 +303,6 @@
         await $(".Price").each(function (i) {
             $(this).attr('name', "OrderDetails[" + i + "].Price");
         })
-        loading(true)
         var $form = $("#form-addorder");
         $.ajax({
             type: "POST",
@@ -298,6 +333,7 @@
         });
     }
     async function Update() {
+        loading(true)
         await $(".WarehouseId").each(function (i) {
             $(this).attr('name', "OrderDetails[" + i + "].WarehouseId");
         })
@@ -307,7 +343,6 @@
         await $(".Price").each(function (i) {
             $(this).attr('name', "OrderDetails[" + i + "].Price");
         })
-        loading(true)
         var $form = $("#form-addorder");
         $.ajax({
             type: "POST",
@@ -337,10 +372,10 @@
             },
         });
     }
-       function Remove(item) {
-           $(item).closest('.row-orderdetail').remove()
-           Update()
-     }
+    function Remove(item) {
+        $(item).closest('.row-orderdetail').remove()
+        Update()
+    }
 </script>
 <script>
     if ($("#msgsuccess").html() != "") {

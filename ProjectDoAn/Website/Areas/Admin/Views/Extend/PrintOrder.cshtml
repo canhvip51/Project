@@ -164,7 +164,9 @@
                 <tr>
                     <td colspan="4">
                         <b>Đơn hàng: </b> @Model.Code <br />
+                        <b>Ngày đặt: </b> @Model.CreateDate.Value.ToString("dd/MM/yyyy hh:mm")<br />
                         <b>Ngày tạo: </b> @DateTime.Now.ToString("dd/MM/yyyy hh:mm")<br />
+                        <b>Mã khuyễn mãi: </b>@Model.Discount<br />
                     </td>
                 </tr>
                 <tr class="heading text-center">
@@ -173,7 +175,7 @@
                     <td style="width:20%">Đơn giá</td>
                     <td style="width:20%">Thành tiền</td>
                 </tr>
-                @foreach (var item in Model.OrderDetails)
+                @foreach (var item in Model.OrderDetails.Where(x=>x.IsDelete==null||x.IsDelete==0))
                 {
                     <tr class="item">
 
@@ -193,19 +195,31 @@
                     </tr>
 
                 }
+                @{ 
+                    var to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value);
+                    var discount = Math.Floor(Convert.ToDouble(to / 1000 * (Model.Discount.HasValue ? Model.Discount : 0) / 100)) * 1000;
+                }
                 <tr class="total">
                     <td colspan="3"><b>Tổng tiền: </b></td>
+                    <td colspan="1">@string.Format("{0:#,0}", to) VNĐ</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3"><b>Giảm giá: </b></td>
+                    <td colspan="1">- @string.Format("{0:#,0}", discount) VNĐ</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3"><b>Thanh toán: </b></td>
                     <td colspan="1">@string.Format("{0:#,0}", @Model.Total) VNĐ</td>
                 </tr>
                 <tr class="total">
                     <td colspan="3"><b>Khách đưa: </b></td>
-                    <td colspan="1">@string.Format("{0:#,0}", @Model.CustomerPay) VNĐ</td>
+                    <td colspan="1">@string.Format("{0:#,0}", Model.CustomerPay.HasValue?Model.CustomerPay.Value : 0) VNĐ</td>
                 </tr>
                 <tr class="total">
                     <td colspan="3"><b>Trả khách: </b></td>
                     <td colspan="1">
                         @{
-                            int re = Model.CustomerPay.Value - Model.Total.Value;
+                            int re = (Model.CustomerPay.HasValue ? Model.CustomerPay.Value : 0) - Model.Total.Value;
                         }
                         @string.Format("{0:#,0}", (@re > 0 ? re : 0)) VNĐ
                     </td>

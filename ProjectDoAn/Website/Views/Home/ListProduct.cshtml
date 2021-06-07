@@ -18,19 +18,19 @@
             }
             @if (type == ViewConfig.MALE)
             {
-                <h3 class="hover-title"  onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Giày Nam</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Giày Nam</h3>
             }
             @if (type == ViewConfig.FEMALE)
             {
-                <h3 class="hover-title"  onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Giày nữ</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Giày nữ</h3>
             }
             @if (type == ViewConfig.PRODUCTNEW)
             {
-                <h3 class="hover-title"  onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">New</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">New</h3>
             }
             @if (type == ViewConfig.TOPSALE)
             {
-                <h3 class="hover-title"  onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Bán chạy</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Bán chạy</h3>
             }
             <div class="row">
                 @foreach (var item in Model)
@@ -54,16 +54,27 @@
                             <div class="product-content">
                                 <h3 class="title"><a href="/ListProduct/DetailProduct?Id=@item.Id">@item.Name</a></h3>
                                 @*<ul class="rating">
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                    </ul>*@
-                                <div class="price">
-                                    @item.Price VNĐ
-                                    @*<span>$20.00</span>*@
-                                </div>
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star"></li>
+            <li class="fa fa-star"></li>
+        </ul>*@
+
+                                @{ if (item.Discount.Value > 0)
+                                    {
+                                        var p = Math.Ceiling(Convert.ToDouble(item.Price / 1000 * ((100 - item.Discount.Value) / 100))) * 1000;
+                                        <div class="price">
+                                            @string.Format("{0:#,0}", @p) VNĐ
+                                        </div>
+                                        <span> @string.Format("{0:#,0}", item.Price) VNĐ</span>
+                                    }
+                                    else
+                                    {
+                                        <div class="price">
+                                            @string.Format("{0:#,0}", item.Price) VNĐ
+                                        </div>
+                                    } }
                             </div>
                         </div>
                     </div>

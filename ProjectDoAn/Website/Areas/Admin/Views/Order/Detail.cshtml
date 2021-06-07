@@ -53,8 +53,8 @@
                                     <label>Họ tên người nhận<span class="text-danger">*</span></label>
                                     <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" value="@Model.BuyerName" maxlength="255" class="form-control " readonly>
                                     @*<div class="input-group-append border-0">
-                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
-            </div>*@
+                                            <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+                                        </div>*@
                                 </div>
 
                                 <div class="form-group pb-3">
@@ -92,6 +92,11 @@
                                     {
                                         @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryFINISH, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
                                     }
+                                </div>
+                                <div class="form-group pb-3" id="KeyCode">
+                                    <label>Mã khuyến mãi</label>
+                                    <input type="text" name="KeyCode" value="@Model.KeyCode" onchange="Update()" class="form-control" placeholder="Mã khuyễn mãi" aria-describedby="basic-addon2" readonly>
+                                    @Html.ValidationMessage("KeyCode", new { @class = "text-danger" })
                                 </div>
                                 <div class="form-group pb-3">
                                     <label>Lời nhắn từ khách<span class="text-danger">*</span></label>
@@ -174,9 +179,37 @@
                                                 </tr>
                                             }
                                         }
+                                        @{
+                                            var to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value);
+                                            var discount = Math.Floor(Convert.ToDouble(to / 1000 * (Model.Discount.HasValue ? Model.Discount : 0) / 100)) * 1000;
+                                        }
                                         <tr>
                                             <td colspan="1">
                                                 <b>Tổng tiền : </b>
+                                            </td>
+                                            <td colspan="3" class="Total">
+                                                <h5 id="total-show" style="">
+                                                    <b>
+                                                        @string.Format("{0:#,0}", to) VNĐ
+                                                    </b>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">
+                                                <b>Giảm giá : </b>
+                                            </td>
+                                            <td colspan="3" class="Total">
+                                                <h5 id="total-show" style="">
+                                                    <b>
+                                                        -  @string.Format("{0:#,0}", discount) VNĐ
+                                                    </b>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">
+                                                <b>Thanh toán : </b>
                                             </td>
                                             <td colspan="3" class="Total">
                                                 <h5 id="total-show" style="">
@@ -193,7 +226,7 @@
                                             <td colspan="3" class="CustomerPay">
                                                 <h5 id="total-show" style="">
                                                     <b>
-                                                        @string.Format("{0:#,0}", Model.CustomerPay) VNĐ
+                                                        @string.Format("{0:#,0}", Model.CustomerPay.HasValue ? Model.CustomerPay.Value : 0) VNĐ
                                                     </b>
                                                 </h5>
                                             </td>
@@ -204,8 +237,8 @@
                                             </td>
                                             <td colspan="3" class="Total" id="total-show">
                                                 @{
-                                                    int refund = (Model.CustomerPay.Value - Model.Total.Value);
-                                                    if (refund >= 0)
+                                                    int refund = ((Model.CustomerPay.HasValue ? Model.CustomerPay.Value : 0) - Model.Total.Value);
+                                                    if (refund > 0)
                                                     {
                                                         <h5 id="total-show" style="">
                                                             <b>
@@ -298,7 +331,7 @@
         });
     }
     function RemoveProductInOrder(item) {
-    
+
     }
 </script>
 <script>

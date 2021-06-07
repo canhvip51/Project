@@ -190,6 +190,9 @@
     <EntitySetMapping Name="Promotions">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Promotion">
         <MappingFragment StoreEntitySet="Promotion">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Discount" ColumnName="Discount" />
           <ScalarProperty Name="StartDate" ColumnName="StartDate" />
           <ScalarProperty Name="Amount" ColumnName="Amount" />

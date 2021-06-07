@@ -22,7 +22,7 @@
             <select class="form-control chosen-select" name="WarehouseId" id="@Model.WarehouseId" )>
                 @foreach (var item in ViewBag.Warehouse as List<LibData.Warehouse>)
                 {
-                    int maxamount = item.Amount.Value - item.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status.Value == 1).Sum(x => x.Amount.Value);
+                    int maxamount = item.Amount.Value - (item.Carts!=null?item.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value):0)-(item.OrderDetails!=null?item.OrderDetails.Where(x=>x.IsDelete==0||x.IsDelete==null).Sum(x=>x.Amount.Value):0);
                     <option value="@item.Id" @(listwarehouseid.Contains(@item.Id.ToString()) ? "disabled" : "" )>
                         @item.ProductImg.Product.Name - @item.ProductImg.Color -  ( VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK ) - SL : @maxamount
 

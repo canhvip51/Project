@@ -2,10 +2,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">
-            <h1>Nhà cung cấp</h1>
+            <h1>Cookie giỏ hàng</h1>
         </div>
         <div class="col-2  offset-4">
-            <button class="btn btn-success btn-block" onclick="AddImportUnit()">Thêm</button>
+            <div class="text-right">
+                <button class="btn btn-danger" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-fw fa-trash"></i></button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" onclick="RemoveAll()">Xóa tất cả cookie</a>
+                    <a class="dropdown-item" onclick="RemoveExpried()">Xóa cookie hết hạn</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -13,7 +19,7 @@
         <div class="card shadow">
             <div class="card-header">
                 <h6>
-                    Danh sách nhà cung cấp
+                    Danh sách cookie giỏ hàng
                 </h6>
             </div>
             <div class="card-body">
@@ -28,7 +34,7 @@
                         </div>
                     </form>*@
                 <div class="row mt-3">
-                    <div class="col-12" id="list-importunit">
+                    <div class="col-12" id="list-cookie">
 
                     </div>
                 </div>
@@ -59,23 +65,8 @@
     </div>
 </div>
 <script>
-    loadListImportUnit()
-    function loadListImportUnit() {
-        $("#list-importunit").load("/Admin/ImportUnit/ListImportUnit")
+    loadListCookie()
+    function loadListCookie() {
+        $("#list-cookie").load("/Admin/Cookie/ListCookie")
     }
-    function AddImportUnit() {
-        loading(true)
-        $("#content-form-md").load("/Admin/ImportUnit/AddImportUnit?id", function (response) {
-            $("#modal-form-md").modal('show');
-            loading(false)
-        });
-    }
-    function EditImportUnit(id) {
-        loading(true)
-        $("#content-form-md").load("/Admin/ImportUnit/AddImportUnit?id="+id, function (response) {
-            $("#modal-form-md").modal('show');
-            loading(false)
-        });
-    }
-
 </script>
