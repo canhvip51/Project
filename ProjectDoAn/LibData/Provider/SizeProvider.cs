@@ -23,12 +23,13 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Sizes.Where(x => x.Type.Value == sex).OrderBy(x => x.Id).ToList();
+                return ApplicationDbContext.Sizes.Where(x =>(sex!=-1? x.Type.Value == sex:true)).OrderBy(x => x.Id).ToList();
             }
             catch (Exception)
             {
                 return null;
             }
         }
+
     }
 }

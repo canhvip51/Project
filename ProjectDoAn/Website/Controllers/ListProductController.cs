@@ -13,73 +13,28 @@ namespace Website.Controllers
     public class ListProductController : Controller
     {
         // GET: ListProduct
-        public ActionResult Index()
+        public ActionResult Index(int page =1 , int size = 12 , string key="", int sex=-1, int brand=-1,string sort = "",int sizeP=-1)
         {
-            return View();
-        }
-        public ActionResult ListAllProductByType(string type, string keysearch = "", int brandid = -1, int typeselect = -1, int page = 1, int size = 1)
-        {
+            LibData.Provider.ViewProvider viewProvider = new LibData.Provider.ViewProvider();
             ViewBag.page = page;
             ViewBag.size = size;
-            ViewBag.typeselect = typeselect;
-            ViewBag.Type = type;
-            ViewBag.brandid = brandid;
-            ViewBag.keysearch = keysearch;
+            ViewBag.sizeP = sizeP;
+            ViewBag.key = key;
+            ViewBag.sex = sex;
+            ViewBag.brand = brand;
+            ViewBag.sort = sort;
+            ViewBag.ListBrand = new LibData.Provider.BrandProvider().GetAll();
+            if (string.IsNullOrEmpty(sort))
+            {
+                sort = ViewConfig.ALL;
+            }
             int skip = (page - 1) * size;
-            List<LibData.Product> list = new List<LibData.Product>();
-            int count = 0;
-            LibData.Provider.ViewProvider viewProvider = new LibData.Provider.ViewProvider();
-            if (type == ViewConfig.TOPSALE)
-            {
-                list = viewProvider.GetAllTopSale(keysearch, typeselect, brandid, skip, size);
-                count = viewProvider.CountAllTopSale(keysearch, typeselect, brandid);
-                if (list.Count() < 1)
-                {
-                    list = viewProvider.GetAllProductNew(keysearch, typeselect, brandid, skip, size);
-                    count = viewProvider.CountAllProductNew(keysearch, typeselect, brandid);
-                }
-
-            }
-            if (type == ViewConfig.PRODUCTNEW)
-            {
-                list = viewProvider.GetAllProductNew(keysearch, typeselect, brandid, skip, size);
-                count = viewProvider.CountAllProductNew(keysearch, typeselect, brandid);
-            }
-            if (type == ViewConfig.DISCOUNT)
-            {
-                list = viewProvider.GetAllProductDiscount(keysearch, typeselect, brandid, skip, size);
-                count = viewProvider.CountAllProductDiscount(keysearch, typeselect, brandid);
-            }
-            if (type == ViewConfig.MALE)
-            {
-                list = viewProvider.GetAllProductMale(keysearch, -1, brandid, skip, size);
-                count = viewProvider.CountAllProductMale(keysearch, -1, brandid);
-            }
-            if (type == ViewConfig.FEMALE)
-            {
-                list = viewProvider.GetAllProductFemale(keysearch, -1, brandid, skip, size);
-                count = viewProvider.CountAllProductFemale(keysearch, -1, brandid);
-            }
+            List<LibData.Product> list = viewProvider.GetAllByAllKey(key, brand, sex, sort,sizeP, skip, size);
+            int count = viewProvider.CountAllByAllKey(key, brand, sex, sort, sizeP);
             StaticPagedList<LibData.Product> pagedlist = new StaticPagedList<LibData.Product>(list, page, size, count);
             return View(pagedlist);
         }
-        public ActionResult ListAllProductByBrand(int brandid, string keysearch = "", int typeselect = -1, int page = 1, int size = 1)
-        {
-            ViewBag.page = page;
-            ViewBag.size = size;
-            ViewBag.typeselect = typeselect;
-            ViewBag.brandid = brandid;
-            ViewBag.keysearch = keysearch;
-            int skip = (page - 1) * size;
-            List<LibData.Product> list = new List<LibData.Product>();
-            int count = 0;
-            LibData.Provider.ViewProvider viewProvider = new LibData.Provider.ViewProvider();
-
-            list = viewProvider.GetAllProductByBrand(keysearch, typeselect, brandid, skip, size);
-            count = viewProvider.CountAllProductByBrand(keysearch, typeselect, brandid);
-            StaticPagedList<LibData.Product> pagedlist = new StaticPagedList<LibData.Product>(list, page, size, count);
-            return View(pagedlist);
-        }
+      
         public ActionResult DetailProduct(int id)
         {
 
@@ -89,6 +44,12 @@ namespace Website.Controllers
         public ActionResult SelectSize(int id)
         {
             List<LibData.Warehouse> list = new LibData.Provider.WarehouseProvider().GetAllByKey(id);
+            return View(list);
+        }
+        public ActionResult SelectSizeSearch(int sex,int selected=-1)
+        {
+            ViewBag.selected = selected;
+            List<LibData.Size> list = new LibData.Provider.SizeProvider().GetAllBySex(sex);
             return View(list);
         }
         public ActionResult ListAllProductSimilar(int brandid, int type)

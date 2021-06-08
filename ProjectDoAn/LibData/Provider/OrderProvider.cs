@@ -136,6 +136,28 @@ namespace LibData.Provider
                 return false;
             }
         }
-      
+        public List<Order> GetAllByPhone(string phone,int skip,int size)
+        {
+            try
+            {
+                return ApplicationDbContext.Orders.Where(x =>x.Phone.Equals(phone) && (x.OrderDetails.Where(m=>m.IsDelete == null || m.IsDelete.Value == 0).Sum(m=>m.Amount.Value)>0) && (x.IsDelete==null|| x.IsDelete==0)).OrderByDescending(x=>x.CreateDate).Skip(skip).Take(size).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public int  CountAllByPhone(string phone)
+        {
+            try
+            {
+                return ApplicationDbContext.Orders.Count(x => x.Phone.Equals(phone) && (x.OrderDetails.Where(m=>m.IsDelete == null || m.IsDelete == 0).Sum(m=>m.Amount.Value) > 0) && (x.IsDelete == null || x.IsDelete == 0));
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
     }
 }

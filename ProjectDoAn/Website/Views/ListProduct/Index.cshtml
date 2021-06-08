@@ -1,1 +1,119 @@
-﻿
+﻿@using System.Web
+@using LibData.Configuration
+@model IEnumerable<LibData.Product>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+}
+<div class="shopping-grid">
+    <div class="container">
+        <h3 class="mt-5" align="center">Sản phẩm</h3>
+        <form method="get" action="/ListProduct/Index" class="mb-3">
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label>Tên sản phẩm</label>
+                        <input type="text" name="key" id="key" class="keysearch form-control" placeholder="Nhập tên sản " value="@ViewBag.key" />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label>Thương hiệu </label>
+                        <select class="form-control typeselect" id="brand" name="brand">
+                            <option value="-1">Tất cả thương hiệu</option>
+                            @foreach (var item in ViewBag.ListBrand as List<LibData.Brand>)
+                            {
+                                <option value="@item.Id" @((item.Id == ViewBag.brand) ? "selected" : "")>@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label>Giới tính</label>
+                        <select class="form-control typeselect" id="sex" name="sex" onchange="SelectSex()">
+                            <option value="-1">Nam & Nữ</option>
+                            <option value="1" @((ViewBag.sex == 1) ? "selected" : "")>Nam</option>
+                            <option value="2" @((ViewBag.sex == 2) ? "selected" : "")>Nữ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label>Sắp xếp</label>
+                        @Html.DropDownList("sort", new SelectList(LibData.Configuration.ViewConfig.StatusToDictionarySort, "Key", "Value", ViewBag.sort), new { @class = "form-control select2-no-search" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="form-group" id="selectsize">
+                        <label>Kích cỡ</label>
+                        <select class="form-control" name="sizeP">
+                             <option value="-1">Tất cả kích cỡ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-2 col-sm-2 col-md-2 offset-10">
+                    <button type="submit" class="btn btn-success">Tìm kiếm</button>
+                </div>
+            </div>
+
+        </form>
+        <div class="row" id="list-product">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 col-sm-6">
+                    <div class="product-grid7">
+                        <div class="product-image7">
+                            <a href="#" style="width:250px; height:250px;margin:0px">
+                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo8/images/img-1.jpg">
+
+                            </a>
+                            <ul class="social">
+                                <li title="Chi tiết"><a href="" class="fa fa-search"></a></li>
+                                <li title="Thêm vào giỏ hàng"><a href="" class="fa fa-shopping-cart"></a></li>
+                            </ul>
+                            <span class="product-new-label">New</span>
+
+                        </div>
+                        <div class="product-content">
+                            <h3 class="title"><a href="#">@item.Name</a></h3>
+                            @*<ul class="rating">
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                </ul>*@
+                            <div class="price">
+                                @item.Price VNĐ
+                                @*<span>$20.00</span>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-md-12">
+                <div class="row float-right">
+                    @*phân trang*@
+                    @Html.PagedListPager((IPagedList)Model,
+                    page => Url.Action("ListAllProductByBrand", new { page = page, brandid = ViewBag.brandid, keysearch = ViewBag.keysearch, typeselect = ViewBag.typeselect }),
+                    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+                    {
+                        HttpMethod = "GET",
+                        UpdateTargetId = "list-product",
+                    })
+                    )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    SelectSex()
+    function SelectSex() {
+        var sex = $("#sex").val()
+        $("#selectsize").load("/ListProduct/SelectSizeSearch?sex=" + sex + "&selected=@ViewBag.sizeP")
+    }
+</script>

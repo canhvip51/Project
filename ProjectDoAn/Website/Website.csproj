@@ -10918,8 +10918,6 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Sound\mixkit-arcade-score-interface-217.wav" />
     <Content Include="Web.config" />
-    <Content Include="Views\Products\Category.cshtml" />
-    <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -10946,7 +10944,6 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListProductController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -10967,10 +10964,7 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
-    <Content Include="Views\Products\Detail.cshtml" />
-    <Content Include="Views\Products\Search.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -10985,25 +10979,15 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Home\ListProduct.cshtml" />
-    <Content Include="Views\Home\ListSlide.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\DetailProduct.cshtml" />
-    <Content Include="Views\Product\ListAllProductByType.cshtml" />
-    <Content Include="Views\Product\ListAllProductByBrand.cshtml" />
-    <Content Include="Views\Product\SelectSize.cshtml" />
-    <Content Include="Views\Product\ListAllProductSimilar.cshtml" />
-    <Content Include="Views\Product\OrderofCustomer.cshtml" />
-    <Content Include="Views\Product\Cart.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\ListProduct\Cart.cshtml" />
     <Content Include="Views\ListProduct\DetailProduct.cshtml" />
-    <Content Include="Views\ListProduct\ListAllProductByBrand.cshtml" />
-    <Content Include="Views\ListProduct\ListAllProductByType.cshtml" />
     <Content Include="Views\ListProduct\ListAllProductSimilar.cshtml" />
     <Content Include="Views\ListProduct\SelectSize.cshtml" />
     <Content Include="Views\ListProduct\Index.cshtml" />
     <Content Include="Views\Cart\Order.cshtml" />
     <Content Include="Template\ListOrder.xlsx" />
+    <Content Include="Views\Cart\OrderList.cshtml" />
+    <Content Include="Views\ListProduct\SelectSizeSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

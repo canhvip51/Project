@@ -23,7 +23,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Cookies.OrderByDescending(x => x.Carts.Sum(m => m.Amount.Value)).ThenByDescending(x => x.ExpiredDate.Value).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Cookies.OrderByDescending(x => x.ExpiredDate.Value).ThenByDescending(x => x.Carts.Sum(m => m.Amount.Value)).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {

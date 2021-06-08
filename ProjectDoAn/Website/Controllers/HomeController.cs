@@ -47,10 +47,6 @@ namespace Website.Controllers
             }
             return View();
         }
-        public ActionResult ListSlide()
-        {
-            return View(new LibData.Provider.SlideProvider().GetAllByStatus((int)LibData.Configuration.SlideConfig.Status.SHOW));
-        }
         public List<LibData.Brand> ListBrand()
         {
             return new LibData.Provider.BrandProvider().GetAll();

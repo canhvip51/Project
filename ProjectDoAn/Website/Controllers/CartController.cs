@@ -5,6 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LibData.Configuration;
+using PagedList;
 
 namespace Website.Controllers
 {
@@ -182,7 +183,7 @@ namespace Website.Controllers
                 {
                     promotionProvider.Update();
                     cookieProvider.Remove(cookies);
-                    promotionProvider.Update();
+                    Response.StatusCode = (int)HttpStatusCode.Created;
                     ModelState.AddModelError("success", "Đặt hàng thành công.");
                     httpCookie.Expires = DateTime.Now.AddDays(-1);
                     HttpContext.Response.Cookies.Add(httpCookie);
@@ -285,6 +286,18 @@ namespace Website.Controllers
             }
             model.OrderDetails = listOrderDetail;
             return View("Order", model);
+        }
+        public ActionResult OrderList(string phone,int page=1 , int size=5)
+        {
+            LibData.Provider.OrderProvider orderProvide = new LibData.Provider.OrderProvider();
+            ViewBag.Phone = phone;
+            ViewBag.Page = page;
+            ViewBag.Size = size;
+            int skip = (page - 1) * size;
+            List<LibData.Order> orders = orderProvide.GetAllByPhone(phone, skip, size); 
+            int count = orderProvide.CountAllByPhone(phone);
+            StaticPagedList<LibData.Order> pageList = new StaticPagedList<LibData.Order>(orders, page, size, count);
+                return View(pageList);
         }
     }
 }

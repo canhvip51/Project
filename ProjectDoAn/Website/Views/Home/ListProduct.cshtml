@@ -3,7 +3,6 @@
 @model List<LibData.Product>
 @{
     Layout = null;
-    var path = Server.MapPath("~/Images/Product");
     var type = ViewBag.Type as string;
 }
 @if (Model.Count > 0)
@@ -14,23 +13,23 @@
         <div class="container">
             @if (type == ViewConfig.DISCOUNT)
             {
-                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Giảm giá</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/Index?sort=@ViewConfig.DISCOUNT'" align="center">Giảm giá</h3>
             }
             @if (type == ViewConfig.MALE)
             {
-                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Giày Nam</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/Index?sex=@ViewConfig.MALE_INT'" align="center">Giày Nam</h3>
             }
             @if (type == ViewConfig.FEMALE)
             {
-                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Giày nữ</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/Index?sex=@ViewConfig.FEMALE_INT'" align="center">Giày nữ</h3>
             }
             @if (type == ViewConfig.PRODUCTNEW)
             {
-                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">New</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/Index?sort=@ViewConfig.PRODUCTNEW'" align="center">New</h3>
             }
             @if (type == ViewConfig.TOPSALE)
             {
-                <h3 class="hover-title" onclick="window.location.href='/ListProduct/ListAllProductByType?type=@ViewBag.Type'" align="center">Bán chạy</h3>
+                <h3 class="hover-title" onclick="window.location.href='/ListProduct/Index?sort=@ViewConfig.TOPSALE'" align="center">Bán chạy</h3>
             }
             <div class="row">
                 @foreach (var item in Model)
