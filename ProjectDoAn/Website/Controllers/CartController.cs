@@ -109,6 +109,10 @@ namespace Website.Controllers
             {
                 ModelState.AddModelError("Phone", "Xin mời nhập số điện thoại nhận hàng.");
             }
+            if (model.Phone.Length!=10)
+            {
+                ModelState.AddModelError("Phone", "Số điện thoại không khả dụng.");
+            }
             if (string.IsNullOrEmpty(model.AddressTo))
             {
                 ModelState.AddModelError("AddressTo", "Xin mời nhập số địa chỉ nhận hàng.");
@@ -132,6 +136,10 @@ namespace Website.Controllers
                         promotion.Amount -= 1;
                     model.Discount = promotion.Discount.Value;
                 }
+            }
+            else
+            {
+                model.Discount = 0;
             }
             ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
             LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
@@ -216,6 +224,10 @@ namespace Website.Controllers
             if (string.IsNullOrEmpty(model.Phone))
             {
                 ModelState.AddModelError("Phone", "Xin mời nhập số điện thoại nhận hàng.");
+            }
+            if (model.Phone.Length != 10)
+            {
+                ModelState.AddModelError("Phone", "Số điện thoại không khả dụng.");
             }
             if (string.IsNullOrEmpty(model.AddressTo))
             {

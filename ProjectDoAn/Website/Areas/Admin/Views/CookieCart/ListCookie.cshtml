@@ -15,6 +15,7 @@
         <tr>
             <th>Cookie code</th>
             <th>Thời gian hết hạn</th>
+            <th>Tổng số lượng</th>
             <th></th>
         </tr>
     </thead>
@@ -31,24 +32,28 @@
         }
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @item.KeyCode
-                </td>
-                <td>
-                    @item.ExpiredDate.ToString("dd/MM/yyyy hh:mm")
-                </td>
-                <td>
-                    <div class="btn-group">
-                        <a data-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-fw fa-trash"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" onclick="RemoveCookie(@item.Id)">Xóa</a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @item.KeyCode
+        </td>
+        <td>
+            @item.ExpiredDate.Value.ToString("dd-MM-yyyy hh:mm")
+        </td>
+        <td>
+            @item.Carts.Sum(x=>x.Amount)
+        </td>
+        <td>
+            <div class="btn-group">
+                <a data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-fw fa-wrench"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" onclick="Detail(@item.Id)">Chi tiết</a>
+                    <a class="dropdown-item" onclick="Remove(@item.Id)">Xóa</a>
+                </div>
+            </div>
+        </td>
+    </tr>
         }
 
     </tbody>

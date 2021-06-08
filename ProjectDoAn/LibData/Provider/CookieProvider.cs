@@ -8,6 +8,39 @@ namespace LibData.Provider
 {
     public class CookieProvider : ApplicationDbContexts
     {
+        public List<Cookie> GetAll()
+        {
+            try
+            {
+                return ApplicationDbContext.Cookies.OrderByDescending(x => x.Carts.Sum(m => m.Amount.Value)).ThenByDescending(x => x.ExpiredDate.Value).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public List<Cookie> GetAll(int skip, int size)
+        {
+            try
+            {
+                return ApplicationDbContext.Cookies.OrderByDescending(x => x.Carts.Sum(m => m.Amount.Value)).ThenByDescending(x => x.ExpiredDate.Value).Skip(skip).Take(size).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public int CountAll()
+        {
+            try
+            {
+                return ApplicationDbContext.Cookies.Count();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
         public Cookie GetByKey(string key)
         {
             try
@@ -90,8 +123,8 @@ namespace LibData.Provider
             {
                 Cookie cookie = GetById(id);
                 if(cookie!=null){
-                    ApplicationDbContext.Carts.RemoveRange(ApplicationDbContext.Carts.ToList());
-                    ApplicationDbContext.Cookies.RemoveRange(ApplicationDbContext.Cookies.ToList());
+                    ApplicationDbContext.Carts.RemoveRange(cookie.Carts);
+                    ApplicationDbContext.Cookies.Remove(cookie);
                     ApplicationDbContext.SaveChanges();
                     return true;
                 }

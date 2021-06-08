@@ -124,7 +124,7 @@ namespace LibData.Provider
         {
             try
             {
-                LibData.Order order= ApplicationDbContext.Orders.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Equals(key) && x.Phone.Equals(phone) && x.Status.Value==(int)LibData.Configuration.OrderConfig.Status.CANCEL);
+                LibData.Order order= ApplicationDbContext.Orders.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Equals(key) && x.Phone.Equals(phone));
                 if (order != null)
                 {
                     return true;

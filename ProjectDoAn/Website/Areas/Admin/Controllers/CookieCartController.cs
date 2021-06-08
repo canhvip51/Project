@@ -26,10 +26,10 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.page = page;
             ViewBag.size = size;
             int skip = (page - 1) * size;
-            LibData.Provider.BrandProvider brandProvider = new LibData.Provider.BrandProvider();
-            var list = brandProvider.GetAll(skip, size);
-            var count = brandProvider.CountAll();
-            StaticPagedList<LibData.Brand> pagedList = new StaticPagedList<LibData.Brand>(list, page, size, count);
+            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
+            var list = cookieProvider.GetAll(skip, size);
+            var count = cookieProvider.CountAll();
+            StaticPagedList<LibData.Cookie> pagedList = new StaticPagedList<LibData.Cookie>(list, page, size, count);
             return View(pagedList);
         }
         public ActionResult Detail(int id)
