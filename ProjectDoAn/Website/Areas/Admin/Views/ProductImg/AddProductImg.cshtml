@@ -45,12 +45,12 @@
         </div>
     </div><!-- modal-body -->
     <script>
-        if ($("#imgshow").height() > $("#imgshow").width()) {
-            $('#imgshow').attr('width', '100%');
-            $('#imgshow').attr('height', 'auto');
+        if ($("#imgshow").height() < $("#imgshow").width()) {
+            $('#imgshow').css('width', '100%');
+            $('#imgshow').css('height', 'auto');
         } else {
-            $('#imgshow').attr('height', '100%');
-            $('#imgshow').attr('width', 'auto');
+            $('#imgshow').css('height', '100%');
+            $('#imgshow').css('width', 'auto');
         }
         $("#Url").change(function () {
         $('#imgshow').css('display', 'block');
@@ -58,12 +58,12 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#imgshow').attr('src', e.target.result);
-                if ($("#imgshow").height() > $("#imgshow").width()) {
-                    $('#imgshow').attr('width', '100%');
-                    $('#imgshow').attr('height', 'auto');
+                if ($("#imgshow").height() < $("#imgshow").width()) {
+                    $('#imgshow').css('width', '100%');
+                    $('#imgshow').css('height', 'auto');
                 } else {
-                    $('#imgshow').attr('height', '100%');
-                    $('#imgshow').attr('width', 'auto');
+                    $('#imgshow').css('height', '100%');
+                    $('#imgshow').css('width', 'auto');
                 }
             }
             reader.readAsDataURL(this.files[0]);

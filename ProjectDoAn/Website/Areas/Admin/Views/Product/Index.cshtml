@@ -6,7 +6,7 @@
             <h1>Sản phẩm</h1>
         </div>
         <div class="col-2  offset-4">
-            <button class="btn btn-success btn-block" onclick="window.location.href='/Product/AddProduct?Id'">Thêm</button>
+            <button class="btn btn-success btn-block" onclick="window.location.href='/Admin/Product/AddProduct?Id'">Thêm</button>
         </div>
     </div>
 
@@ -32,16 +32,14 @@
                                 }
                             </select>
                         </div>
-                        @*<div class="col-3">
-                            <select class="form-control" name="typeid">
-                                <option value="-1">Tất cả các hãng</option>
-                                @foreach (var item in ViewBag.Type as List<LibData.TypeSho>)
-                                {
-                                    <option value="@item.Id" @(item.Id == ViewBag.typeid ? "selected" : "")>@item.Name</option>
-                                }
+                        <div class="col-3">
+                            <select class="form-control typeselect" id="sex" name="sex">
+                                <option value="-1">Nam & Nữ</option>
+                                <option value="1" @((ViewBag.sex == 1) ? "selected" : "")>Nam</option>
+                                <option value="2" @((ViewBag.sex == 2) ? "selected" : "")>Nữ</option>
                             </select>
-                        </div>*@
-                        <div class="col-2 offset-4">
+                        </div>
+                        <div class="col-2 offset-1">
                             <button class="btn btn-primary btn-block" type="submit">Tìm kiếm</button>
                         </div>
                     </div>
@@ -80,7 +78,7 @@
 <script>
     loadListProduct()
     function loadListProduct() {
-        $("#list-product").load("/Admin/Product/ListProduct?keysearch=@ViewBag.keysearch&brandid=@ViewBag.brandid&typeid=@ViewBag.typeid")
+        $("#list-product").load("/Admin/Product/ListProduct?keysearch=@ViewBag.keysearch&brandid=@ViewBag.brandid&sex=@ViewBag.sex")
     }
     //function AddProduct() {
     //    $("#content-form-lg").load("/Product/AddProduct?id", function (response) {

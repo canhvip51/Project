@@ -75,5 +75,9 @@ namespace Website.Areas.Admin.Controllers
 
             return View( new LibData.Provider.OrderProvider().GetById(orderid));
         }
+        public int CoutOrder(int status)
+        {
+            return new LibData.Provider.OrderProvider().CountOrderByStatus(status);
+        }
     }
 }

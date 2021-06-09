@@ -41,7 +41,7 @@ namespace Website.Areas.Admin.Controllers
         }
         public bool RemoveAll()
         {
-           return new LibData.Provider.CookieProvider().RemoveAll();
+            return new LibData.Provider.CookieProvider().RemoveAll();
         }
         public bool RemoveAllExpired()
         {
@@ -50,6 +50,11 @@ namespace Website.Areas.Admin.Controllers
         public bool Remove(int id)
         {
             return new LibData.Provider.CookieProvider().Remove(id);
+        }
+
+        public bool RemoveProductInCart(int id)
+        {
+            return new LibData.Provider.CartProvider().RemoveProductInCart(id);
         }
     }
 

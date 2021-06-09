@@ -42,6 +42,30 @@
         .chosen-container {
             width: 100% !important;
         }
+      /*  .notification {
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            padding: 15px 26px;
+            position: relative;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+            .notification:hover {
+                background: red;
+            }*/
+
+            .notification .badge {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                padding: 5px 0px;
+                border-radius: 50%;
+                background-color: red;
+                color: white;
+                font-size:10px;
+            }
     </style>
 </head>
 
@@ -99,10 +123,11 @@
                     <span>Kho hàng</span>
                 </a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/Admin/Order/Index">
+            <li class="nav-item active ">
+                <a class="nav-link notification" href="/Admin/Order/Index">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Đơn hàng</span>
+                    <span class="badge" id="noticout" style="width:25px;height:25px"></span>
                 </a>
             </li>
             <li class="nav-item active">
@@ -351,6 +376,9 @@
 
     <!-- Bootstrap core JavaScript-->
     <script>
+        function CountOrder() {
+            $("#noticout").load("/Admin/Extend/CoutOrder?status=" +@Convert.ToInt32(LibData.Configuration.OrderConfig.Status.WAIT))
+        }
         function ChangePass() {
             loading(true)
             $("#content-form-md").load("/Admin/Login/ChangePass", function (response) {
@@ -376,6 +404,7 @@
                 /*   icon: document.body.querySelector('input[name="icon"]').value || null,*/
                 timeout: "3000",
             });
+            $("#noticout").html(parseInt($("#noticout").html())+1)
         }
     </script>
     <!-- Core plugin JavaScript-->
@@ -393,9 +422,11 @@
     <script src="~/signalr/hubs"></script>
 
     <script>
-            $(document).ready(function () {
+        $(document).ready(function () {
+           
                 var noti = $.connection.xmpp;
                 noti.client.sendNoti = function (provinceid) {
+                    LibDataiConfiguOrderConfigrationbDatabData
                     var id = parseInt("@user.ProviceId");
                     id = (isNaN(id) ? 0 : a)
                     if (@user.Role== 1 || id == provinceid) {
@@ -410,6 +441,9 @@
                 });
             });
 
+    </script>
+    <script>
+        CountOrder();
     </script>
 </body>
 

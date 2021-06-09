@@ -10,9 +10,9 @@ namespace LibData.Configuration
     {
         public enum Role
         {
-            SUPERADMIN=1,
-            MANAGER=2,
-            CUSTOMER=9
+            SUPERADMIN = 1,
+            MANAGER = 2,
+            CUSTOMER = 9
         }
         public enum Status
         {
@@ -26,6 +26,13 @@ namespace LibData.Configuration
             {(int)Role.SUPERADMIN, "SuperAdmin" },
             {(int)Role.MANAGER, "Manager" },
             {(int)Role.CUSTOMER, "Customer" },
+        };
+        public static int MALE_INT = 1;
+        public static int FEMALE_INT = 2;
+        public static Dictionary<int, string> StatusToDictionarySex = new Dictionary<int, string>()
+        {
+              {MALE_INT, "Nam" },
+            {FEMALE_INT, "Nữ" },
         };
     }
 }

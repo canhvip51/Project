@@ -1,11 +1,11 @@
-﻿
+﻿@model LibData.ImportUnit
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">
-            <h1>Nhà cung cấp</h1>
+            <h1>Danh sách nhập kho</h1>
         </div>
         <div class="col-2  offset-4">
-            <button class="btn btn-success btn-block" onclick="AddImportUnit()">Thêm</button>
+            <button class="btn btn-success btn-block" onclick="window.location.href='/Admin/Import/AddImport?importunitid=@Model.Id'">Thêm</button>
         </div>
     </div>
 
@@ -13,25 +13,51 @@
         <div class="card shadow">
             <div class="card-header">
                 <h6>
-                    Danh sách nhà cung cấp
+                    Thông tin nhà cung cấp
                 </h6>
             </div>
             <div class="card-body">
                 @*<form>
-                        <div class="row">
-                            <div class="col-4">
-                                <input type="text" class="form-control" placeholder="Nhập tên hãng giày" title="Nhập tên hãng giày" maxlength="255" name="keysearch" value="@ViewBag.keysearch" />
-                            </div>
-                            <div class="col-2 offset-6">
-                                <button class="btn btn-primary btn-block" type="submit">Tìm kiếm</button>
-                            </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" class="form-control" placeholder="Nhập tên hãng giày" title="Nhập tên hãng giày" maxlength="255" name="keysearch" value="@ViewBag.keysearch" />
+                    </div>
+                    <div class="col-2 offset-6">
+                        <button class="btn btn-primary btn-block" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+            </form>*@
+                <div class="row mt-3" id="info-importunit">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>
+                                Tên nhà cung cấp : <span>@Model.Name</span>
+                            </label>
                         </div>
-                    </form>*@
+                        <div class="form-group">
+                            <label>
+                                Số điện thoại : <span>@Model.Phone</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Địa chỉ : <span>@Model.Address</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 <div class="row mt-3">
-                    <div class="col-12" id="list-importunit">
+                    <div class="col-12" id="list-import">
 
                     </div>
                 </div>
+            </div>
+            <div class="card-footer">
+              <div class="row justify-content-center">
+                  <div class="col-2">
+                      <button class="btn btn-outline-secondary" onclick="window.location.href='/Admin/ImportUnit/Index">Trở lại</button>
+                  </div>
+              </div>
             </div>
         </div>
     </div>
@@ -59,23 +85,8 @@
     </div>
 </div>
 <script>
-    loadListImportUnit()
-    function loadListImportUnit() {
-        $("#list-importunit").load("/Admin/ImportUnit/ListImportUnit")
+    loadListImport()
+    function loadListImport() {
+        $("#list-import").load("/Admin/Import/ListImport?id=@ViewBag.id")
     }
-    function AddImportUnit() {
-        loading(true)
-        $("#content-form-md").load("/Admin/ImportUnit/AddImportUnit?id", function (response) {
-            $("#modal-form-md").modal('show');
-            loading(false)
-        });
-    }
-    function EditImportUnit(id) {
-        loading(true)
-        $("#content-form-md").load("/Admin/ImportUnit/AddImportUnit?id="+id, function (response) {
-            $("#modal-form-md").modal('show');
-            loading(false)
-        });
-    }
-
 </script>

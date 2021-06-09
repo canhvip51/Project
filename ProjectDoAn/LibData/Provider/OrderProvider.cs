@@ -158,6 +158,17 @@ namespace LibData.Provider
                 return 0;
             }
         }
+        public int CountOrderByStatus(int status)
+        {
+            try
+            {
+                return ApplicationDbContext.Orders.Count(x => (x.Status.Value == status)&&(x.IsDelete==null||x.IsDelete==0));
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
 
     }
 }

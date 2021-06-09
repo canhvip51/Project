@@ -73,7 +73,7 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid"  style="min-height:600px">
+    <div class="container-fluid" style="min-height:600px">
         <style>
             .hover-title:hover {
                 color: #78e08f !important;
@@ -109,7 +109,7 @@
     </div>
 
 
-    <footer class="footer-basic "  style="background-color: #c7c7c7;">
+    <footer class="footer-basic " style="background-color: #c7c7c7;">
         <table class="table">
             <tbody>
                 <tr>
@@ -120,23 +120,23 @@
             </tbody>
         </table>
         @*<div class="social">
-            <a href="#">
-                <i class="icon ion-social-instagram"></i>
-            </a>
-            <a href="#">
-                <i class="icon ion-social-snapchat"></i>
-            </a>
-            <a href="#">
-                <i class="icon ion-social-twitter"></i>
-            </a><a href="#"><i class="icon ion-social-facebook"></i></a>
-        </div>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Home</a></li>
-            <li class="list-inline-item"><a href="#">Services</a></li>
-            <li class="list-inline-item"><a href="#">About</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-        </ul>*@
+                <a href="#">
+                    <i class="icon ion-social-instagram"></i>
+                </a>
+                <a href="#">
+                    <i class="icon ion-social-snapchat"></i>
+                </a>
+                <a href="#">
+                    <i class="icon ion-social-twitter"></i>
+                </a><a href="#"><i class="icon ion-social-facebook"></i></a>
+            </div>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Home</a></li>
+                <li class="list-inline-item"><a href="#">Services</a></li>
+                <li class="list-inline-item"><a href="#">About</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>*@
     </footer>
     <div class="div-hidden" id="loading-page">
         <div class="spinner-border text-primary" role="status">
@@ -166,6 +166,32 @@
             });
         });
 
+    </script>
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "103536411908498");
+        chatbox.setAttribute("attribution", "biz_inbox");
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v11.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
 </body>
 

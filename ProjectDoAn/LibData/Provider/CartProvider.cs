@@ -117,5 +117,19 @@ namespace LibData.Provider
                 return false;
             }
         }
+        public bool RemoveProductInCart(int id)
+        {
+            try
+            {
+                Cart cart = GetById(id);
+                ApplicationDbContext.Carts.Remove(cart);
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

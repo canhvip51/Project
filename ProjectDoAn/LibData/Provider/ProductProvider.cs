@@ -136,22 +136,25 @@ namespace LibData.Provider
             }
 
         }
-        public List<Product> GetAllByKey(string key,int brandid, int typeid ,int skip, int size)
+        public List<Product> GetAllByKey(string key,int brandid,int sex ,int skip, int size)
         {
             try
             {
-                return ApplicationDbContext.Products.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Contains(key)&& (typeid!=-1?x.TypeShoeId.Value==typeid:true) && (brandid != -1 ? x.BrandId.Value == brandid : true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Products.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Contains(key)
+                && (sex!=-1?x.Type==sex:true)
+                && (brandid != -1 ? x.BrandId.Value == brandid : true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
                 return null;
             }
         }
-        public int CountAllByKey(string key, int brandid, int typeid)
+        public int CountAllByKey(string key, int brandid, int sex)
         {
             try
             {
-                return ApplicationDbContext.Products.Count(x => (x.IsDelete == 0 || x.IsDelete == null && (typeid != -1 ? x.TypeShoeId.Value == typeid : true) && (brandid != -1 ? x.BrandId.Value == brandid : true)) && x.Name.Contains(key));
+                return ApplicationDbContext.Products.Count(x => (x.IsDelete == 0 || x.IsDelete == null
+                && (brandid != -1 ? x.BrandId.Value == brandid : true)) && x.Name.Contains(key) && (sex != -1 ? x.Type == sex : true));
             }
             catch (Exception e)
             {

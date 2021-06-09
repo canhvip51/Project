@@ -40,15 +40,21 @@
                         <div class="row mt-3">
                             <div class="col-12" id="infoimport">
                                 <div class="form-group pb-3">
-                                    <label>Nhà cung cấp <span class="text-danger">*</span></label>
-                                    <select class="form-control chosen-select" id="ImportUnitId" name="ImportUnitId">
-                                        @foreach (var item in ViewBag.ImportUnit as List<LibData.ImportUnit>)
-                                        {
-                                            <option value="@item.Id" @(item.Id == Model.ImportUnitId.Value ? "selected" : "")>@item.Name</option>
-                                        }
-
-                                    </select>
-                                    @Html.ValidationMessage("ImportUnitId", new { @class = "text-danger" })
+                                    @if (Model.Id < 1)
+                                    {
+                                        <label>Nhà cung cấp <span class="text-danger">*</span></label>
+                                        <select class="form-control chosen-select" id="ImportUnitId" name="ImportUnitId">
+                                            @foreach (var item in ViewBag.ImportUnit as List<LibData.ImportUnit>)
+                                            {
+                                                <option value="@item.Id" @(item.Id == Model.ImportUnitId.Value ? "selected" : "")>@item.Name</option>
+                                            }
+                                        </select>
+                                        @Html.ValidationMessage("ImportUnitId", new { @class = "text-danger" })
+                                    }
+                                    else
+                                    {
+                                        <label>Nhà cung cấp : @Model.ImportUnit.Name</label>
+                                    }
                                 </div>
                             </div>
                             <div class="col-12" id="list_warehouse">
@@ -57,10 +63,12 @@
                                         <div class="col-6">
                                             <label>Danh sách sản phẩm </label>
                                         </div>
-                                        <div class="col-6 text-right">
-                                            <button type="button" onclick="AddImportDetail()" class="btn btn-success"><i class="fa fa-plus"></i></button>
-                                        </div>
-
+                                        @if (Model.Id < 1)
+                                        {
+                                            <div class="col-6 text-right">
+                                                <button type="button" onclick="AddImportDetail()" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        }
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
@@ -81,25 +89,46 @@
                                                             <tr class="row-importdetail">
                                                                 <td>
                                                                     @{
-                                                                            LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
-                                                                            <div class="form-group">
-                                                                            <input type="hidden" class="@warehouse.ProductImgId" value="@warehouse.SizeId" />
-                                                                            <input type="hidden" id="WarehouseId" class="WarehouseId" value="@item.WarehouseId" />
+                                                                        LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
+
+
+                                                                        <div class="form-group">
+                                                                            @if (Model.Id < 1)
+                                                                            {
+                                                                                <input type="hidden" class="@warehouse.ProductImgId" value="@warehouse.SizeId" />
+                                                                                <input type="hidden" id="WarehouseId" class="WarehouseId" value="@item.WarehouseId" />
+                                                                            }
                                                                             <h6 class="mb-0"> @warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</h6>
                                                                             <span class="text-muted font-weight-normal font-italic d-block" style="font-size:11px">VN : @warehouse.Size.VN - US : @warehouse.Size.US - UK : @warehouse.Size.UK</span>
                                                                         </div>
                                                                     }
                                                                 </td>
                                                                 <td>
+                                                                    @if (Model.Id < 1)
+                                                                    {
+                                                                        <input type="number" class="Amount form-control" onchange="UpdateImport()" min="0" value="@item.Amount" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @item.Amount
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    @if (Model.Id < 1)
+                                                                    {
+                                                                        <input type="number" min="10000" onchange="UpdateImport()" class=" Price form-control" value="@item.Price" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @(string.Format("{0:#,0}", item.Price)+ " VNĐ")
+                                                                                                                                                                    }
 
-                                                                    <input type="number" class="Amount form-control" onchange="UpdateImport()" min="0" value="@item.Amount" />
                                                                 </td>
                                                                 <td>
-                                                                    @*@item.Price*@
-                                                                    <input type="number" min="10000" onchange="UpdateImport()" class=" Price form-control"  value="@item.Price" />
-                                                                </td>
-                                                                <td>
-                                                                    <a onclick="Remove(this);"> <i class="fa fa-times"></i></a>
+                                                                    @if (Model.Id < 1)
+                                                                    {
+                                                                        <a onclick="Remove(this);"> <i class="fa fa-times"></i></a>
+                                                                    }
                                                                 </td>
                                                             </tr>
                                                         }
@@ -112,10 +141,9 @@
                                                             <h5 id="total-show" style="">
                                                                 <b>
                                                                     @string.Format("{0:#,0}", Model.Price) VNĐ
-
                                                                 </b>
                                                             </h5>
-                                                            <input type="hidden" id="Total"  name="Price" value="@Model.Price" />
+                                                            <input type="hidden" id="Total" name="Price" value="@Model.Price" />
                                                         </td>
                                                     </tr>
 
@@ -133,9 +161,12 @@
                     </div>
                     <div class="card-footer">
                         <div class="row justify-content-center">
-                            <div class="col-2 col-lg-offset-2">
-                                <button type="button" class="btn btn-block btn-primary" onclick="SubmitImport()">Tạo</button>
-                            </div>
+                            @if (Model.Id < 1)
+                            {
+                                <div class="col-2 col-lg-offset-2">
+                                    <button type="button" class="btn btn-block btn-primary" onclick="SubmitImport()">Tạo</button>
+                                </div>
+                            }
                             <div class="col-2">
                                 <button type="button" class="btn btn-block btn-outline-secondary" onclick="Back()">Hủy</button>
                             </div>
@@ -177,13 +208,9 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(".chosen-select").chosen()
-</script>
 <script>
     function AddImportDetail() {
-  
+
         loading(true)
         $("#content-form-md").load("/Admin/ImportDetail/AddImportDetail", function (response) {
             $("#modal-form-md").modal('show');
@@ -195,7 +222,7 @@
         await $("#list_warehouse .Amount").each(function (i) {
             $(this).attr('name', "ImportDetails[" + i + "].Amount");
         })
-    
+
         await $("#list_warehouse .Price").each(function (i) {
             $(this).attr('name', "ImportDetails[" + i + "].Price");
         })
@@ -243,7 +270,7 @@
         await $("#list_warehouse .WarehouseId").each(function (i) {
             $(this).attr('name', "ImportDetails[" + i + "].WarehouseId");
         })
-         loading(true)
+        loading(true)
         var $form = $("#form-addimport");
         $.ajax({
             type: "POST",
@@ -256,8 +283,8 @@
                     window.location.replace("/admin/login");
                 }
                 if (xhr.status == 201) {
-                } 
-                    $("#form-addimport").html($(data).find("#form-addimport").html());
+                }
+                $("#form-addimport").html($(data).find("#form-addimport").html());
 
             },
         });

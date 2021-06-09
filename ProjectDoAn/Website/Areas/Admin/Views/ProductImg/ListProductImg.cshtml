@@ -57,7 +57,7 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" onclick="EditProductImg(@item.Id,@item.ProductId)">Sửa</a>
-                            <a class="dropdown-item" onclick="AddImport(@item.Id,'')">Nhập kho</a>
+                            @*<a class="dropdown-item" onclick="AddImport(@item.Id,'')">Nhập kho</a>*@
                         </div>
                     </div>
                 </td>
@@ -80,11 +80,14 @@
     </div>
 </div>
 <script>
-    if ($(".imgshow").height() > $(".imgshow").width()) {
-        $('.imgshow').attr('width', '100%');
-        $('.imgshow').attr('height', 'auto');
-    } else {
-        $('.imgshow').attr('height', '100%');
-        $('.imgshow').attr('width', 'auto');
-    }
+    $(".imgshow").each(function () {
+        if ($(this).height() < $(this).width()) {
+            $(this).css('width', '100%');
+            $(this).css('height', 'auto');
+        } else {
+            $(this).css('height', '100%');
+            $(this).css('width', 'auto');
+        }
+    })
+  
 </script>

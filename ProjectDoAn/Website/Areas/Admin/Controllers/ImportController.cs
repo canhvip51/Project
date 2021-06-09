@@ -16,21 +16,22 @@ namespace Website.Areas.Admin.Controllers
     {
         // GET: Import
         // GET: ImportUnit
-        public ActionResult Index(int page = 1, int size = 10)
+        public ActionResult Index(int id,int page = 1, int size = 10)
         {
             ViewBag.page = page;
             ViewBag.size = size;
-            return View();
+            ViewBag.id = id;
+            return View(new LibData.Provider.ImportUnitProvider().GetById(id));
         }
-        public ActionResult ListImport(int importunitid = -1, int page = 1, int size = 10)
+        public ActionResult ListImport(int id, int page = 1, int size = 10)
         {
             ViewBag.page = page;
             ViewBag.size = size;
-            ViewBag.importunitid = importunitid;
+            ViewBag.id = id;
             int skip = (page - 1) * size;
             LibData.Provider.ImportProvider importProvider = new LibData.Provider.ImportProvider();
-            var list = importProvider.GetAllByKey( importunitid, skip, size);
-            var count = importProvider.CountAllByKey( importunitid);
+            var list = importProvider.GetAllByKey(id, skip, size);
+            var count = importProvider.CountAllByKey(id);
             StaticPagedList<LibData.Import> pagedList = new StaticPagedList<LibData.Import>(list, page, size, count);
             return View(pagedList);
         }
@@ -41,11 +42,12 @@ namespace Website.Areas.Admin.Controllers
             LibData.Import import = new LibData.Import();
             import.ImportUnitId = importunitid;
             import.ImportDetails = new List<LibData.ImportDetail>();
+            import.Price = 0;
             if (id.HasValue)
             {
                 import = new LibData.Provider.ImportProvider().GetById(id.Value);
             }
-            import.Price = 0;
+         
             ViewBag.ImportUnit = new LibData.Provider.ImportUnitProvider().GetAll();
             return View(import);
         }
@@ -119,6 +121,7 @@ namespace Website.Areas.Admin.Controllers
             }
             return View(model);
         }
+       
         [HttpPost]
         public ActionResult UpdateImport(LibData.Import model)
         {

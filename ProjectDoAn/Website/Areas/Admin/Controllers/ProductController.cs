@@ -17,28 +17,28 @@ namespace Website.Areas.Admin.Controllers
     {
         public const string _ImagesPath = "~/Images/Products";
         // GET: Product
-        public ActionResult Index(string keysearch, int brandid=-1, int typeid = -1, int page = 1, int size = 10)
+        public ActionResult Index(string keysearch,int sex=-1, int brandid=-1, int page = 1, int size = 10)
         {
             ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
             ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
             ViewBag.keysearch = keysearch;
             ViewBag.page = page;
             ViewBag.size = size;
+            ViewBag.sex = sex;
             ViewBag.brandid = brandid;
-            ViewBag.typeid = typeid;
             return View();
         }
-        public ActionResult ListProduct(string keysearch, int brandid = -1, int typeid = -1, int page = 1, int size = 10)
+        public ActionResult ListProduct(string keysearch, int sex = -1, int brandid = -1, int page = 1, int size = 10)
         {
             ViewBag.keysearch = keysearch;
             ViewBag.page = page;
             ViewBag.size = size;
             ViewBag.brandid = brandid;
-            ViewBag.typeid = typeid;
+            ViewBag.sex = sex;
             int skip = (page - 1) * size;
             LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
-            var list = productProvider.GetAllByKey(keysearch,brandid,typeid, skip, size);
-            var count = productProvider.CountAllByKey(keysearch, brandid, typeid);
+            var list = productProvider.GetAllByKey(keysearch,brandid,sex, skip, size);
+            var count = productProvider.CountAllByKey(keysearch, brandid, sex);
             StaticPagedList<LibData.Product> pagedList = new StaticPagedList<LibData.Product>(list, page, size, count);
             return View(pagedList);
         }
