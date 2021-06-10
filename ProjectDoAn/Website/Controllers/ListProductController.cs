@@ -121,11 +121,11 @@ namespace Website.Controllers
                     cart.WarehouseId = id;
                     cookie.Carts.Add(cart);
                 }
-                else
-                {
-                    cart.Amount += 1;
-                    cart.UpdateDate = DateTime.Now;
-                }
+                //else
+                //{
+                //    cart.Amount += 1;
+                //    cart.UpdateDate = DateTime.Now;
+                //}
                 if (cookieProvider.Update(cookie))
                 {
                     Response.StatusCode = (int)HttpStatusCode.Created;

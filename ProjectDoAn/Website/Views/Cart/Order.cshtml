@@ -118,7 +118,7 @@
                                                                 @{
                                                                     LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
                                                                     <div class="p-2">
-                                                                        <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                                        @*<img src="/Images/Products/@warehouse.ProductImg.Product.AvatarUrl" alt="" width="70" class="img-fluid rounded shadow-sm">*@
                                                                         <div class="ml-3 d-inline-block align-middle">
                                                                             <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">@warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</a></h5>
                                                                             <span class="text-muted font-weight-normal font-italic d-block">VN : @warehouse.Size.VN - US : @warehouse.Size.US - UK : @warehouse.Size.UK</span>
@@ -153,7 +153,7 @@
                                                                 var to = 0;
                                                                 if (Model.OrderDetails.Count(x => x.IsDelete == 0 || x.IsDelete == null) > 0)
                                                                 {
-                                                                    to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value);
+                                                                    to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value * m.Amount.Value);
                                                                 }
                                                                 var discount = Math.Ceiling(Convert.ToDouble(to / 1000 * Model.Discount / 100)) * 1000;
                                                             }
@@ -195,13 +195,36 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-12 pb-3">
+                                <label>Hình thức thanh toán</label>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" @(Model.Type == LibData.Configuration.ViewConfig.POSTPAID_INT ? "checked" : "") id="postpaid" name="Type" value="@LibData.Configuration.ViewConfig.POSTPAID_INT">
+                                    <label class="form-check-label" for="@LibData.Configuration.ViewConfig.POSTPAID_INT">Thanh toán khi nhận hàng</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" class="form-check-input" @(Model.Type == LibData.Configuration.ViewConfig.PREPAY_INT ? "checked" : "") id="prepay" name="Type" value="@LibData.Configuration.ViewConfig.PREPAY_INT">
+                                    <label class="form-check-label" for="@LibData.Configuration.ViewConfig.PREPAY_INT">Thanh toán chuyển khoản</label>
+                                </div>
+                                @Html.ValidationMessage("Type", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row alert alert-success">
+                            <div class="col-lg-12 p-3 " style="font-size:20px">
+                                <p style="">
+                                    <b>Lưu ý : </b> <br />
+                                    - Nếu bạn chọn hình thức thanh toán chuyển khoản.Vui lòng nhập mã đơn hàng (Mã đơn hàng bạn có thể xem ở phần kiểm tra đơn) và số điện thoại.<br />
+                                    - Bạn sẽ nhận được sản phẩm sau khi thanh toán.
+                                </p>
+                            </div>
+                        </div>
                         <div class="row d-flex justify-content-center mt-3" style="min-height:72px">
                             <div class="col-md-4 col-6 ">
-                                <button type="submit" class="btn btn-outline-success btn-block px-4 rounded-pill" onclick="SubmitCart();">Thanh toán khi nhận hàng</button>
+                                <button type="submit" class="btn btn-success btn-block px-4 rounded-pill" onclick="SubmitCart();">Thanh toán khi nhận hàng</button>
                             </div>
-                            <div class="col-md-4 col-6 ">
-                                <button type="button" class="btn btn-success btn-block px-4 rounded-pill">Thanh toán trực tuyến</button>
-                            </div>
+                            @*<div class="col-md-4 col-6 ">
+                    <button type="button" class="btn btn-success btn-block px-4 rounded-pill">Thanh toán trực tuyến</button>
+                </div>*@
                         </div>
                     }
                     else
@@ -227,7 +250,7 @@
                                 }
                             });
                         }
-                        if (typeof $("#msgsuccess").html() != "undefined" && $("#msgsuccess").html()!="") {
+                        if (typeof $("#msgsuccess").html() != "undefined" && $("#msgsuccess").html() != "") {
                             $("#success").addClass("alert alert-success")
                         }
                         if (typeof $("#msgerror").html() != "undefined" && $("#msgerror").html() != "") {
@@ -265,9 +288,9 @@
                 }
                 if (xhr.status == 201) {
                     $("#btn_order").click();
-                    window.location.href = '/Cart/OrderList?phone=' + $("#form-addbrand #Phone").val()
+                    window.location.href = '/Cart/OrderList?phone=' + $("#form-order #Phone").val()
                 }
-                await $("#form-addbrand").html($(data).filter("#form-addbrand").html());
+                await $("#form-order").html($(data).find("#form-order").html());
             },
         });
     }

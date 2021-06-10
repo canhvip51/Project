@@ -66,8 +66,9 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="product-grid7">
                         <div class="product-image7">
-                            <a href="#" style="width:250px; height:250px;margin:0px">
-                                <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo8/images/img-1.jpg">
+                            @*<a href="#" style="width:250px; height:250px;margin:0px">*@
+                            <a href="#" style="margin:0px">
+                                <img class="pic-1" src="/Images/Products/@item.AvatarUrl">
 
                             </a>
                             <ul class="social">
@@ -78,7 +79,7 @@
 
                         </div>
                         <div class="product-content">
-                            <h3 class="title"><a href="#">@item.Name</a></h3>
+                            <h3 class="title"><a href="/ListProduct/DetailProduct?Id=@item.Id">@item.Name</a></h3>
                             @*<ul class="rating">
                                     <li class="fa fa-star"></li>
                                     <li class="fa fa-star"></li>

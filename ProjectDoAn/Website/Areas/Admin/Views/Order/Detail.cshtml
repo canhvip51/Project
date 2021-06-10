@@ -60,7 +60,7 @@
                                 <div class="form-group pb-3">
 
                                     <label>Thành phố<span class="text-danger">*</span></label>
-                                    <select aria-describedby="button-addon3" class="form-control" readonly>
+                                    <select aria-describedby="button-addon3" disabled class="form-control" readonly>
                                         <option value="-1">Tỉnh / Thành phố</option>
                                         @foreach (var item in ViewBag.Province as List<LibData.Province>)
                                         {
@@ -88,7 +88,7 @@
                                     {
                                         @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryCONFIRM, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
                                     }
-                                    else
+                                    else if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.FINISH)
                                     {
                                         @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryFINISH, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
                                     }
@@ -97,6 +97,10 @@
                                     <label>Mã khuyến mãi</label>
                                     <input type="text" name="KeyCode" value="@Model.KeyCode" onchange="Update()" class="form-control" placeholder="Mã khuyễn mãi" aria-describedby="basic-addon2" readonly>
                                     @Html.ValidationMessage("KeyCode", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group pb-3">
+                                    <label>Hình thức thanh toán<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" disabled name="name" value="@LibData.Configuration.ViewConfig.StatusToDictionaryPay[Model.Type.Value]" readonly />
                                 </div>
                                 <div class="form-group pb-3">
                                     <label>Lời nhắn từ khách<span class="text-danger">*</span></label>
@@ -173,7 +177,10 @@
                                                         @item.Price
                                                     </td>
                                                     <td>
-                                                        <a onclick="Remove(@item.Id);"> <i class="fa fa-times"></i></a>
+                                                        @if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
+                                                        {
+                                                            <a onclick="Remove(@item.Id);"> <i class="fa fa-times"></i></a>
+                                                        }
                                                     </td>
                                                     @{i++;}
                                                 </tr>
@@ -323,9 +330,8 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                } else {
-                    $("#form-updateorder").html($(data).find("#form-updateorder").html());
                 }
+                $("#form-updateorder").html($(data).find("#form-updateorder").html());
 
             },
         });

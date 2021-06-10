@@ -10,6 +10,7 @@
         cursor: pointer !important;
     }
 </style>
+<label>Tổng kết quả tìm kiếm : @ViewBag.count</label>
 <table class="table table-bordered table-responsive-sm  table-hover">
     <thead>
         <tr>
@@ -38,7 +39,8 @@
         {
             <tr>
                 <td>
-                    @item.Code
+                    @item.Code<br />
+                    <label>Hình thức thanh toán : @LibData.Configuration.ViewConfig.StatusToDictionaryPay[item.Type.Value]</label>
                 </td>
                 <td>
                     <div class="form-group">
@@ -56,11 +58,21 @@
                         @item.Code - @item.Discount
                     </td>*@
                 <td>
-                    @item.Total
+                    @string.Format("{0:#,0}", item.Total) VNĐ
+                    <br />
+                    @if (item.Type == LibData.Configuration.ViewConfig.PREPAY_INT)
+                    {
+                        if (item.CustomerPay.Value > item.Total.Value)
+                        {
+                            <label>Đã thanh toán</label>
+                        }
+                        else
+                        {
+                            <label>Chưa thanh toán</label>
+                        }
+                    }
+
                 </td>
-                @*<td>
-                        @item.Note
-                    </td>*@
                 <td>
                     <div class="btn-group">
                         <a data-toggle="dropdown" aria-expanded="false">
@@ -68,6 +80,10 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" onclick="window.location.href = '/Admin/Order/Detail?id=@item.Id'">Chi tiết đơn hàng</a>
+                            @if (item.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && item.Type==LibData.Configuration.ViewConfig.PREPAY_INT)
+                            {
+                                <a class="dropdown-item" onclick="Paid(@item.Id,@item.Code)">Thanh toán</a>
+                            }
                         </div>
                     </div>
                 </td>
@@ -80,7 +96,7 @@
     <div class="row float-right">
         @*phân trang*@
         @Html.PagedListPager((IPagedList)Model,
-        page => Url.Action("Index", new { page = page }),
+        page => Url.Action("Index", new { page = page, paid = ViewBag.paid, status = ViewBag.status, type = ViewBag.type, keysearch = ViewBag.keysearch }),
         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
         {
             HttpMethod = "GET",

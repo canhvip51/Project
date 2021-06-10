@@ -20,7 +20,7 @@ namespace LibData.Configuration
         }
         public static Dictionary<int, string> StatusToDictionaryHTML = new Dictionary<int, string>()
         {
-            {-1, "Tất cả" },
+            {-1, "Tất cả trạng thái đơn hàng" },
            // {(int)Status.WAITFORPAY, "Chờ thanh toán" },
             {(int)Status.WAIT, "Chờ xử lý" },
             {(int)Status.CONFIRM, "Xác nhận" },
@@ -53,11 +53,12 @@ namespace LibData.Configuration
         };
         public enum Pay
         {
+            ALL = -1,
             PAID = 1,
             UNPAID = 0,
         }
-        public static Dictionary<int, string> StatusToDictionaryPayHTML = new Dictionary<int, string>()
-        {
+        public static Dictionary<int, string> StatusToDictionaryPaidHTML = new Dictionary<int, string>()
+        { {(int)Pay.ALL, "Tất cả trạng thái thanh toán" },
             {(int)Pay.UNPAID, "Chưa thanh toán" },
             {(int)Pay.PAID, "Đã thanh toán" },
         };

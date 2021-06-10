@@ -187,5 +187,10 @@ namespace LibData.Provider
             }
 
         }
+        public void UpdateCode()
+        {
+            ApplicationDbContext.Warehouses.ToList().ForEach(x => x.Code = x.ProductImg.ProductId.Value.ToString() + x.ProductImgId.Value.ToString() + x.SizeId.Value.ToString());
+            ApplicationDbContext.SaveChanges();
+        }
     }
 }

@@ -38,6 +38,21 @@ namespace LibData.Configuration
             {ATOZ, "A đến Z" },
               {ZTOA, "Z đến A" },
         };
+        public static int POSTPAID_INT = 1;// trả sau
+        public static int PREPAY_INT = 2; // trả trước
+        public static int BUYINSTORE_INT = 3; // mua tại cửa hàng
+
+        public static Dictionary<int, string> StatusToDictionaryPay = new Dictionary<int, string>()
+        {
+            {-1, "Tất cả hình thức thanh toán" },
+            {POSTPAID_INT, "Thanh toán khi nhận hàng" },
+            {PREPAY_INT, "Thanh toán chuyển khoản" },
+            { BUYINSTORE_INT, "Mua và thanh toán tại cửa hàng" },
+        };
+        public static List<int> ListPay = new List<int>()
+        {
+            POSTPAID_INT,PREPAY_INT,BUYINSTORE_INT
+        };
     }
 
 }

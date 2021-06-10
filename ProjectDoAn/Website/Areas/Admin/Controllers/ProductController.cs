@@ -118,5 +118,9 @@ namespace Website.Areas.Admin.Controllers
             }
             return View(model);
         }
+        public void UpdateCode()
+        {
+            new LibData.Provider.WarehouseProvider().UpdateCode();
+        }
     }
 }

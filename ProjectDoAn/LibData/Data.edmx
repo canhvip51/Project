@@ -124,7 +124,7 @@
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="AddressTo" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar(max)" />
-          <Property Name="AddressFrom" Type="nvarchar(max)" />
+          <Property Name="IsPaid" Type="int" />
           <Property Name="BuyerName" Type="nvarchar(max)" />
           <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="KeyCode" Type="nvarchar(max)" />
@@ -134,6 +134,7 @@
           <Property Name="CustomerPay" Type="int" />
           <Property Name="Refuse" Type="nvarchar(max)" />
           <Property Name="BankAccount" Type="nvarchar(max)" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -853,7 +854,7 @@
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="AddressTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AddressFrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsPaid" Type="Int32" />
           <Property Name="BuyerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="KeyCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -863,6 +864,7 @@
           <Property Name="CustomerPay" Type="Int32" />
           <Property Name="Refuse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="BankAccount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
           <NavigationProperty Name="District" Relationship="SHOESSHOPModel.FK_Order_District" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Order" ToRole="Province" />
           <NavigationProperty Name="User" Relationship="SHOESSHOPModel.FK_Order_User" FromRole="Order" ToRole="User" />
@@ -1392,6 +1394,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
                 <ScalarProperty Name="Refuse" ColumnName="Refuse" />
                 <ScalarProperty Name="CustomerPay" ColumnName="CustomerPay" />
@@ -1401,7 +1404,7 @@
                 <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
-                <ScalarProperty Name="AddressFrom" ColumnName="AddressFrom" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="AddressTo" ColumnName="AddressTo" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />

@@ -34,6 +34,12 @@
                     <div class="card-body">
                         <div class="row mt-3">
                             <div class="col-12">
+                                <div> <input type="hidden" id="Id" name="Id" value="@Model.Id" /></div>
+                                <div class="form-group pb-3">
+                                    <label>Hình thức thanh toán<span class="text-danger">*</span></label>
+                                    @Html.DropDownList("Type", new SelectList(LibData.Configuration.ViewConfig.StatusToDictionaryPay, "Key", "Value", Model.Type), new { @class = "form-control select2-no-search", @id = "Status" })
+                                    @Html.ValidationMessage("Type", new { @class = "text-danger" })
+                                </div>
                                 <div class="form-group pb-3">
 
                                     <label>Số điện thoại nhận hàng<span class="text-danger">*</span></label>
@@ -46,8 +52,8 @@
                                     <input type="text" placeholder="Họ tên" aria-describedby="button-addon3" value="@Model.BuyerName" name="BuyerName" maxlength="255" class="form-control ">
                                     @Html.ValidationMessage("BuyerName", new { @class = "text-danger" })
                                     @*<div class="input-group-append border-0">
-                                            <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
-                                        </div>*@
+                <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+            </div>*@
                                 </div>
 
                                 <div class="form-group pb-3">
@@ -67,10 +73,10 @@
                                     <input type="text" placeholder="Địa chỉ nhận hàng" value="@Model.AddressTo" aria-describedby="button-addon3" maxlength="510" name="AddressTo" class="form-control ">
                                     @Html.ValidationMessage("AddressTo", new { @class = "text-danger" })
                                 </div>
-                                <div class="form-group pb-3">
+                                @*<div class="form-group pb-3">
                                     <label>Trạng thái<span class="text-danger">*</span></label>
                                     @Html.DropDownList("Status", new SelectList(LibData.Configuration.OrderConfig.StatusToDictionaryCONFIRM, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
-                                </div>
+                                </div>*@
                                 <div class="form-group pb-3" id="KeyCode">
                                     <label>Mã khuyến mãi</label>
                                     <div class="input-group">
@@ -96,7 +102,7 @@
                             </div>
                         </div>
                         @*<p class="font-italic mb-4">Ghi chú cho người bán</p>
-                            <textarea name="Note" rows="5" maxlength="2048" class="form-control" value="@Model.Note" style="max-width:100%"></textarea>*@
+        <textarea name="Note" rows="5" maxlength="2048" class="form-control" value="@Model.Note" style="max-width:100%"></textarea>*@
 
                     </div>
                 </div>
@@ -134,6 +140,8 @@
                                                     <td>
                                                         @{
                                                             LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
+                                                            int maxamount = warehouse.Amount.Value - (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == ((int)LibData.Configuration.OrderConfig.Status.WAIT)).Sum(x => x.Amount.Value) : 0);
+
                                                             <div class="form-group">
                                                                 <input type="hidden" id="WarehouseId" class="WarehouseId" value="@item.WarehouseId" />
                                                                 <h6 class="mb-0"> @warehouse.ProductImg.Product.Name - @warehouse.ProductImg.Color</h6>
@@ -143,11 +151,11 @@
                                                     </td>
                                                     <td>
 
-                                                        <input type="number" class="Amount form-control" onchange="Update()" id="Amount" min="0" max="20" value="@item.Amount" />
+                                                        <input type="number" class="Amount form-control" onchange="Update()" id="Amount" min="1" max="@maxamount" value="@item.Amount" />
                                                     </td>
                                                     <td>
-                                                        @item.Price
-                                                        <input type="hidden" class="Price" id="Price" value="   @string.Format("{0:#,0}",item.Price)" />
+                                                        @string.Format("{0:#,0}", item.Price)
+                                                        <input type="hidden" class="Price" id="Price" value="@item.Price" />
                                                     </td>
                                                     <td>
                                                         <a onclick="Remove(this);"> <i class="fa fa-times"></i></a>
@@ -165,7 +173,7 @@
                                                         @{
                                                             var to = 0;
                                                             if (Model.OrderDetails.Count(x=>x.IsDelete==0 || x.IsDelete==null) > 0) {
-                                                                to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value);
+                                                                to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value*m.Amount.Value);
                                                             }
                                                             var discount = Math.Floor(Convert.ToDouble(to / 1000 * Model.Discount / 100)) * 1000;
                                                         }
@@ -244,7 +252,16 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            <script>
+                if ($("#msgsuccess").html() != "") {
+                    $("#success").addClass("alert alert-success")
+                }
+            if ($("#msgerror").html() != "") {
+                    $("#error").addClass("alert alert-danger")
+                }
+        </script>
+        </script>
     </form>
 </div>
 <div class="modal fade bd-example-modal-xl" id="modal-form-xl" aria-hidden="true">
@@ -315,16 +332,7 @@
                     window.location.replace("/admin/login");
                 }
                 if (xhr.status == 201) {
-                    /*        loadListImportUnit()*/
-
-                    //$("#modal-form-md").modal("hide");
-                    //$("#list-product").append(data)
-                    //Swal.fire({
-                    //    icon: 'success',
-                    //    title: 'Thêm vào sản phẩm thành công',
-                    //    showConfirmButton: false,
-                    //    timer: 1500
-                    //})
+                    window.location.href = '/Admin/Order/Detail?id=' + $(data).find("#form-addorder #Id").val()
                 } else {
                     $("#form-addorder").html($(data).find("#form-addorder").html());
                 }
@@ -375,13 +383,5 @@
     function Remove(item) {
         $(item).closest('.row-orderdetail').remove()
         Update()
-    }
-</script>
-<script>
-    if ($("#msgsuccess").html() != "") {
-        $("#success").addClass("alert alert-success")
-    }
-    if ($("#msgerror").html() != "") {
-        $("#error").addClass("alert alert-danger")
     }
 </script>

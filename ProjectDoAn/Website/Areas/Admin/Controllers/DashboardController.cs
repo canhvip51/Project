@@ -22,10 +22,10 @@ namespace Website.Areas.Admin.Controllers
         {
             LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
             Models.DashboardOrderModel dashboardOrderModel = new Models.DashboardOrderModel();
-            dashboardOrderModel.CountWait = orderProvider.CountAllByKey("", (int)LibData.Configuration.OrderConfig.Status.WAIT);
-            dashboardOrderModel.CountCancel = orderProvider.CountAllByKey("", (int)LibData.Configuration.OrderConfig.Status.CANCEL);
-            dashboardOrderModel.CountConfirm = orderProvider.CountAllByKey("", (int)LibData.Configuration.OrderConfig.Status.CONFIRM);
-            dashboardOrderModel.CountFinish = orderProvider.CountAllByKey("", (int)LibData.Configuration.OrderConfig.Status.FINISH);
+            dashboardOrderModel.CountWait = orderProvider.CountAllByStatus( (int)LibData.Configuration.OrderConfig.Status.WAIT);
+            dashboardOrderModel.CountCancel = orderProvider.CountAllByStatus((int)LibData.Configuration.OrderConfig.Status.CANCEL);
+            dashboardOrderModel.CountConfirm = orderProvider.CountAllByStatus( (int)LibData.Configuration.OrderConfig.Status.CONFIRM);
+            dashboardOrderModel.CountFinish = orderProvider.CountAllByStatus((int)LibData.Configuration.OrderConfig.Status.FINISH);
             return View(dashboardOrderModel);
         }
     }

@@ -116,6 +116,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
           <ScalarProperty Name="Refuse" ColumnName="Refuse" />
           <ScalarProperty Name="CustomerPay" ColumnName="CustomerPay" />
@@ -125,7 +126,7 @@
           <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
           <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
-          <ScalarProperty Name="AddressFrom" ColumnName="AddressFrom" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="AddressTo" ColumnName="AddressTo" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />

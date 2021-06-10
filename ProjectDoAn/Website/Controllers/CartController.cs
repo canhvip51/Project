@@ -114,6 +114,10 @@ namespace Website.Controllers
             {
                 ModelState.AddModelError("Phone", "Số điện thoại không khả dụng.");
             }
+            if (!ViewConfig.ListPay.Contains(model.Type.Value))
+            {
+                ModelState.AddModelError("Type", "Vui lòng chọn hình thức thanh toán.");
+            }
             if (string.IsNullOrEmpty(model.AddressTo))
             {
                 ModelState.AddModelError("AddressTo", "Xin mời nhập số địa chỉ nhận hàng.");
@@ -153,6 +157,7 @@ namespace Website.Controllers
            
             if (ModelState.IsValid)
             {
+
                 if (httpCookie != null)
                 {
                     cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
@@ -171,12 +176,14 @@ namespace Website.Controllers
                     }
                 }
                 model.OrderDetails = listOrderDetail;
-                model.Total =Convert.ToInt32(Math.Ceiling(Convert.ToDouble(model.OrderDetails.Sum(x => x.Price) / 1000 * (100 - model.Discount.Value) / 100)))*1000;
+                model.Total =Convert.ToInt32(Math.Ceiling(Convert.ToDouble(model.OrderDetails.Sum(x => x.Price.Value * x.Amount.Value) / 1000 * (100 - model.Discount.Value) / 100)))*1000;
                 Random r = new Random();
                 int k = r.Next(1000, 9999);
                 model.Code = "SHOESSHOP" + DateTime.Now.ToString("yyyyMMddHHmmss") + k;
                 model.CreateDate = DateTime.Now;
                 model.Status = 1;
+                model.Discount=model.Discount??0;
+                model.CustomerPay=0;
                 cookies.Carts.Where(x => x.Status == 1).ToList().ForEach(x => x.Status = CartConfig.ORDERED);
                 cookies.Carts.Where(x => x.Status == 1).ToList().ForEach(x => x.UpdateDate = DateTime.Now);
                 if (orderProvider.Insert(model))

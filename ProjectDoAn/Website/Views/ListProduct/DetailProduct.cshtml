@@ -35,11 +35,11 @@
             @if (Model.Type == (int)LibData.Configuration.ProductConfig.Type.MALE)
             {
                 <div>
-                    Nam
+                    Giày nam
                 </div>}
             @if (Model.Type == (int)LibData.Configuration.ProductConfig.Type.FEMALE)
             {<div>
-                    Nữ
+                   Giày nữ
                 </div>}
             @{ var price = Model.Price * (100 - Model.Discount) / 100; }
             <div class="price">

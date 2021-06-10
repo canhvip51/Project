@@ -90,6 +90,10 @@ namespace Website.Areas.Admin.Controllers
                         {
                             if(item.Price!=null&&item.Price>10000&& item.Amount != null && item.Amount > 0)
                             {
+                                if (string.IsNullOrEmpty(warehouse.Code))
+                                {
+                                    warehouse.Code = warehouse.ProductImg.ProductId.Value.ToString() + warehouse.ProductImgId.Value.ToString() + warehouse.SizeId.Value.ToString();
+                                }
                                 warehouse.Amount += item.Amount;
                                 warehouse.UpdateDate = DateTime.Now;
                                 total += item.Price.Value;
@@ -117,6 +121,7 @@ namespace Website.Areas.Admin.Controllers
                 {
                     warehouseProvider.Update();
                     Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View(importProvider.GetById(model.Id));
                 }
             }
             return View(model);

@@ -67,7 +67,7 @@
  
     loadListSlide()
     function loadListSlide() {
-        $("#list-slide").load("/Admin/Slide/ListSlide")
+        $("#list-slide").load("/Admin/Slide/ListSlide?status=@ViewBag.status")
     }
     function AddSlide() {
         $("#content-form-md").load("/Admin/Slide/AddSlide?id", function (response) {

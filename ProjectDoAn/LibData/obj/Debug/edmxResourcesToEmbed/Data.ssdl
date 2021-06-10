@@ -119,7 +119,7 @@
     <Property Name="UpdateDate" Type="datetime" />
     <Property Name="AddressTo" Type="nvarchar(max)" />
     <Property Name="Phone" Type="nvarchar(max)" />
-    <Property Name="AddressFrom" Type="nvarchar(max)" />
+    <Property Name="IsPaid" Type="int" />
     <Property Name="BuyerName" Type="nvarchar(max)" />
     <Property Name="Note" Type="nvarchar(max)" />
     <Property Name="KeyCode" Type="nvarchar(max)" />
@@ -129,6 +129,7 @@
     <Property Name="CustomerPay" Type="int" />
     <Property Name="Refuse" Type="nvarchar(max)" />
     <Property Name="BankAccount" Type="nvarchar(max)" />
+    <Property Name="Type" Type="int" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
