@@ -1,0 +1,84 @@
+﻿@model LibData.OrderDetail
+@{
+    Layout = null;
+    List<string> listwarehouseid = ViewBag.listDatas;
+    LibData.Provider.CartProvider cartProvider = new LibData.Provider.CartProvider();
+
+}
+<form id="form-addorderdetail">
+    <div class="modal-header">
+        <h6 class="modal-title">Thêm sản phẩm vào giỏ</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="hidden" name="Id" value="@Model.Id" id="Id" />
+        </div>
+        <div class="form-group">
+            <label>Sản phẩm<span class="text-danger">*</span></label>
+
+            <select class="form-control chosen-select" name="WarehouseId" id="@Model.WarehouseId" )>
+                @foreach (var item in ViewBag.Warehouse as List<LibData.Warehouse>)
+                {
+                    int maxamount = item.Amount.Value - (item.Carts!=null?item.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value):0)-(item.OrderDetails!=null?item.OrderDetails.Where(x=>(x.IsDelete==0||x.IsDelete==null)&&x.Order.Status==((int)LibData.Configuration.OrderConfig.Status.WAIT)).Sum(x=>x.Amount.Value):0);
+                    <option value="@item.Id" @(listwarehouseid.Contains(@item.Id.ToString()) ? "disabled" : "" )>
+                       @item.Code - @item.ProductImg.Product.Name - @item.ProductImg.Color -  ( VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK ) - SL : @maxamount
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Số lượng<span class="text-danger">*</span></label>
+            <input type="number" min="1" name="Amount" id="Amount" class="Amount form-control" value="@Model.Amount" />
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+        <div class="modal-footer">
+            <button type="button" onclick="submitAddOrderDetail()" class="btn btn-primary">Lưu</button>
+            <button type="button" data-dismiss="modal" class="btn btn-light">Đóng</button>
+        </div>
+    </div><!-- modal-body -->
+    <script>
+        $(".chosen-select").chosen()
+        function submitAddOrderDetail() {
+            loading(true)
+            var list = "";
+            try {
+                $(".row-orderdetail #WarehouseId").each(function () {
+                    list += $(this).val() + ",";
+                });
+            } catch (e) {
+                list = "";
+            }
+            var $form = $("#form-addorderdetail");
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Order/AddOrderDetail",
+                data: $form.serialize() + "&list=" + list,
+                success: async function (data, status, xhr) {
+                    loading(false)
+                    var statusCode = xhr.getResponseHeader("statusCode");
+                    if (statusCode == '401') {
+                        window.location.replace("/admin/login");
+                    }
+                    if (xhr.status == 201) {
+                        /*        loadListImportUnit()*/
+                        $("#modal-form-md").modal("hide");
+                        $("#list-product").prepend(data)
+                        Update()
+                        //Swal.fire({
+                        //    icon: 'success',
+                        //    title: 'Thêm vào sản phẩm thành công',
+                        //    showConfirmButton: false,
+                        //    timer: 1500
+                        //})
+                    } else {
+                        await $("#form-addorderdetail").html($(data).filter("#form-addorderdetail").html());
+                    }
+                },
+            });
+        }
+    </script>
+</form>

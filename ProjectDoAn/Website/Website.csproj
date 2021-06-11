@@ -10158,26 +10158,6 @@
     <Content Include="Content\Template\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\Template\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\Template\fonts\glyphicons-halflings-regulard41d.eot" />
-    <Content Include="Images\Products\513a7439-26b2-41bf-bd9b-20c9fd4c936dFUSE-Training-Shoes-RedBlack.jpg" />
-    <Content Include="Images\Products\771d5af0-98f1-4e8a-9cd8-41436eb099acFUSE-Training-Shoes-BlackWhite.jpg" />
-    <Content Include="Images\Products\8d1551d1-855e-44e2-928c-636e585f88d5Avatar.jpg" />
-    <Content Include="Images\Products\b0f807ca-155d-4fc9-ae6a-c64afbe8085bFUSE-Training-Shoes-White.jpg" />
-    <Content Include="Images\Products\fa46317c-e5f5-4685-aac4-aea202e8f427FUSE-Training-Shoes.jpg" />
-    <Content Include="Images\Slider\16877c3c-f8a5-40b9-89bf-c28191a770d4slide-02.jpg" />
-    <Content Include="Images\Slider\6952b6a7-78a8-47e1-8e26-a77792d47706slide-02.jpg" />
-    <Content Include="Images\Slider\b60c1f75-8b16-4899-b99e-253eaa5d176fslide-00.jpg" />
-    <Content Include="Images\Upload\1621098898039.jpg" />
-    <Content Include="Images\Upload\2016011409393592 - Copy.jpg" />
-    <Content Include="Images\Upload\2016011409393592.jpg" />
-    <Content Include="Images\Upload\banner5-op - Copy.jpg" />
-    <Content Include="Images\Upload\c15--1-.u2409.d20171025.t173904.425974 %281%29.jpg" />
-    <Content Include="Images\Upload\c15--1-.u2409.d20171025.t173904.425974.jpg" />
-    <Content Include="Images\Upload\c15--2-.u2409.d20171025.t173904.454667.jpg" />
-    <Content Include="Images\Upload\c15--5-.u2409.d20171025.t173904.531447.jpg" />
-    <Content Include="Images\Upload\c15--6-.u2409.d20171025.t173904.557267.jpg" />
-    <Content Include="Images\Upload\fire-fighting-chemicals_0ED858_cbanner.jpg" />
-    <Content Include="Images\Upload\firefighter-equipment-banner-horizontal-concept-K0GC7K.jpg" />
-    <Content Include="Images\Upload\product1.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -10836,6 +10816,7 @@
     <Content Include="Areas\Admin\Views\Promotion\AddPromotion.cshtml" />
     <Content Include="Areas\Admin\Views\CookieCart\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Product\PromotionProduct.cshtml" />
+    <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -11017,6 +10998,9 @@
     <Folder Include="Areas\Admin\Content\theme\cms\Assets\lib\morris.js\lib\" />
     <Folder Include="Areas\Admin\Content\theme\cms\Assets\lib\spectrum-colorpicker\build\" />
     <Folder Include="Images\Drafts\" />
+    <Folder Include="Images\Products\" />
+    <Folder Include="Images\Slider\" />
+    <Folder Include="Images\Upload\" />
     <Folder Include="Report\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,100 @@
+﻿.inner-page {
+    margin: 0px
+}
+
+#header {
+}
+
+.store-app a {
+    margin-left: 15px;
+}
+
+.store-app img {
+    border-radius: 3px;
+}
+
+.store-app {
+    font-size: 15px;
+    font-weight: 600;
+    color: #343a40;
+}
+
+section {
+    padding: 40px 0px;
+}
+
+.header-text {
+    color: #004d85;
+    font-weight: 700;
+}
+
+.form-register .form-control {
+    background: #f2f2f5;
+    border: none;
+    font-size: 15px;
+    padding: 25px 12px;
+    border-radius: 6px;
+}
+
+.form-register .btn {
+    padding: 10px 50px;
+}
+
+.fb-fram {
+    background: #3c5994;
+}
+
+.promotion {
+    position: relative;
+}
+
+.btn-like {
+    background-color: #3C5994;
+    color: #fff;
+}
+
+.btn-promotion {
+    border: 1px solid #28a745;
+    padding: 4px 20px;
+    border-radius: 28px;
+    margin-left: 12px;
+}
+
+    .btn-promotion img {
+        margin-right: 6px;
+    }
+
+
+@media screen and (min-width: 760px) {
+
+
+    .mockup_promotion {
+        position: absolute;
+        top: -200px;
+        right: 0px;
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+
+    .btn-free-image {
+        width: 42%;
+    }
+
+    .btn-free-content {
+        width: 58%;
+    }
+
+    .header-pc {
+        display: none;
+    }
+
+    .mockup_promotion {
+        display: none;
+    }
+}
+.spinner-border {
+    padding: 6px;
+    margin-left: 10px;
+}
