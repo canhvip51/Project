@@ -10835,6 +10835,7 @@
     <Content Include="Areas\Admin\Views\Promotion\ListPromotion.cshtml" />
     <Content Include="Areas\Admin\Views\Promotion\AddPromotion.cshtml" />
     <Content Include="Areas\Admin\Views\CookieCart\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\PromotionProduct.cshtml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -10938,6 +10939,7 @@
     <Compile Include="Areas\Admin\Controllers\TypeShoeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Controllers\WarehouseController.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModel.cs" />
     <Compile Include="Areas\Admin\Models\DashboardOrderModel.cs" />
     <Compile Include="Areas\Admin\Models\UserLogin.cs" />
     <Compile Include="Business\OrderList.cs" />

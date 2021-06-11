@@ -44,7 +44,8 @@ namespace Website.Areas.Admin.Controllers
                 list = new List<LibData.Order>();
             }
             var count = orderProvider.CountAllByKey(keysearch, status, type, paid);
-            ViewBag.Count = count;
+            ViewBag.revenue = orderProvider.GetTotalMoney(keysearch, status, type, paid);
+            ViewBag.count = count;
             StaticPagedList<LibData.Order> pagedList = new StaticPagedList<LibData.Order>(list, page, size, count);
             return View(pagedList);
         }

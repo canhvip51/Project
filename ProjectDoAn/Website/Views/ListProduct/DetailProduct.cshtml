@@ -11,10 +11,10 @@
             <div class="">
                 <div class="swiper-container" style="width:400px;height:400px">
                     <div class="swiper-wrapper" style="width:400px;height:400px">
-                        <div class="swiper-slide img-thumbnail" style="background: url(/Images/Products/@Model.AvatarUrl) center center / cover no-repeat;background-size:400px auto;"></div>
+                        <div class="swiper-slide img-thumbnail" style="background: url(/Images/Products/@Model.AvatarUrl) center center / 400px no-repeat; width: 400px;"></div>
                         @foreach (var item in Model.ProductImgs)
                         {
-                            <div class="swiper-slide img-thumbnail" style="background: url(/Images/Products/@item.Url) center center / cover no-repeat;background-size:400px auto; "></div>
+                            <div class="swiper-slide img-thumbnail" style="background: url(/Images/Products/@item.Url) center center / 400px no-repeat; width: 400px; "></div>
                         }
 
                     </div>
@@ -41,13 +41,12 @@
             {<div>
                    Giày nữ
                 </div>}
-            @{ var price = Model.Price * (100 - Model.Discount) / 100; }
-            <div class="price">
-                Giá : @price VNĐ
-                @if (Model.Discount > 0)
-                {
-                    <span>@Model.Price</span>}
-            </div>
+        <div class="price">
+            Giá :   @string.Format("{0:#,0}", (Math.Ceiling(Convert.ToDouble(Model.Price.Value / 1000 * (100-Model.Discount.Value) / 100)) * 1000)) VNĐ
+            @if (Model.Discount > 0)
+            {
+                <span>@Model.Price</span>}
+        </div>
             <div>
                 Màu sắc :
             </div>
@@ -92,7 +91,7 @@
 
         </div>
     </div>
-    <div class="row  mt-4" style=" border:1px solid">
+    <div class="row  mt-4" style=" border:1px solid whitesmoke">
         <div class="col-12">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1"><h3 class="my-3">Mô tả sản phẩm</h3></a></li>

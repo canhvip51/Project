@@ -138,6 +138,21 @@ namespace LibData.Provider
             }
 
         }
+        public int GetTotalMoney(string key, int status, int type, int paid)
+        {
+            try
+            {
+                return ApplicationDbContext.Orders.Where(x => (x.IsDelete == 0 || x.IsDelete == null)
+                && (paid != -1 ? (paid == (int)Configuration.OrderConfig.Pay.PAID ? x.CustomerPay > x.Total : x.CustomerPay < x.Total) : true)
+                && (type != -1 ? x.Type == type : true) && (x.BuyerName.Contains(key) || x.Phone.Contains(key))
+                && (status != -1 ? x.Status == status : true)).Sum(x=>x.Total.Value);
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+
+        }
         public int CountAllByStatus( int status)
         {
             try

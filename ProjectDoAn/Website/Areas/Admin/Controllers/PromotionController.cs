@@ -67,6 +67,7 @@ namespace Website.Areas.Admin.Controllers
             }
             if (!string.IsNullOrEmpty(ExpiredDate))
             {
+                model.Discount = model.Discount ?? 0;
                 if (DateTime.TryParseExact(ExpiredDate, "dd-MM-yyyy",
                             null, DateTimeStyles.None,
                             out d))

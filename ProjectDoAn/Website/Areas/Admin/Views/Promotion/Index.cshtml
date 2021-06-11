@@ -3,9 +3,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">
-            <h1>Khuyễn mãi</h1>
+            <h2>Khuyễn mãi</h2>
         </div>
-        <div class="col-2  offset-4">
+        <div class="col-3  offset-1">
+            <button class="btn btn-warning btn-block" onclick="PromotionProduct()">Khuyễn mãi sản phẩm</button>
+        </div>
+        <div class="col-2 ">
             <button class="btn btn-success btn-block" onclick="AddPromotion()">Thêm</button>
         </div>
     </div>
@@ -117,5 +120,9 @@
             }
         })
     }
-
+    function PromotionProduct() {
+        $("#content-form-md").load("/Admin/Product/PromotionProduct", function (response) {
+            $("#modal-form-md").modal('show');
+        });
+    }
 </script>

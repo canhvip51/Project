@@ -16,42 +16,26 @@
                 {
                     <div class="col-md-3 col-sm-6">
                         <div class="product-grid7">
-                            <div class="product-image7">
-                                <a href="#" style="width: 250px; height: 250px; margin: 0px">
-                                    <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo8/images/img-1.jpg">
+                            <div class="product-image7 d-flex" style="height:317px">
+                                <a href="/ListProduct/DetailProduct?Id=@item.Id" class="align-self-center ">
+                                    <img class="pic-1" src="/Images/Products/@item.AvatarUrl">
                                 </a>
-                                <ul class="social">
-                                    <li title="Chi tiết"><a href="/Product/DetailProduct?Id=@item.Id" class="fa fa-search"></a></li>
-                                    @*          <li title="Thêm vào giỏ hàng"><a href="" class="fa fa-shopping-cart"></a></li>*@
-                                </ul>
-                                @if (type == ViewConfig.PRODUCTNEW)
-                                {
-                                    <span class="product-new-label">New</span>
-                                }
-
                             </div>
                             <div class="product-content">
                                 <h3 class="title"><a href="/Product/DetailProduct?Id=@item.Id">@item.Name</a></h3>
-                                @*<ul class="rating">
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                        <li class="fa fa-star"></li>
-                                    </ul>*@
-
-                                @{
-                                    var price = item.Price * (100 - item.Discount) / 100;
+                                @if (item.Discount.HasValue && item.Discount > 0)
+                                {
                                     <div class="price">
-                                        @price VNĐ
-                                        @if (item.Discount > 0)
-                                        {
-                                            <span>@item.Price</span>
-                                        }
-
+                                        @string.Format("{0:#,0}", (Math.Floor(Convert.ToDouble(item.Price.Value / 1000 * item.Discount.Value / 100)) * 1000)) VNĐ
+                                        <span>   @string.Format("{0:#,0}", item.Price) VNĐ </span>
                                     </div>
                                 }
-
+                                else
+                                {
+                                    <div class="price">
+                                        @string.Format("{0:#,0}", item.Price) VNĐ
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

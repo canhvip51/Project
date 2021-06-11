@@ -162,5 +162,20 @@ namespace LibData.Provider
             }
 
         }
+        public bool DiscountProduct(List<int> productid, List<int> brandid,int discount)
+        {
+            try
+            {
+                var list = ApplicationDbContext.Products.Where(x => (productid.Count > 0 ? productid.Contains(x.Id) : true) || (brandid.Count>0?brandid.Contains(x.BrandId.Value):true)).ToList();
+                list.ForEach(x => x.Discount = discount);
+                list.ForEach(x => x.UpdateDate = DateTime.Now);
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

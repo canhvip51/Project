@@ -60,6 +60,7 @@ namespace Website.Areas.Admin.Controllers
         public ActionResult AddProduct(LibData.Product model, HttpPostedFileBase AvatarUrl)
         {
 
+            model.Discount = model.Discount ?? 0;
             //ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
             ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
             LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
@@ -121,6 +122,46 @@ namespace Website.Areas.Admin.Controllers
         public void UpdateCode()
         {
             new LibData.Provider.WarehouseProvider().UpdateCode();
+        }
+        [HttpGet]
+        public ActionResult PromotionProduct()
+        {
+            ViewBag.discount = 0;
+            ViewBag.brandid = new List<int>();
+            ViewBag.productid = new List<int>();
+            ViewBag.brand = new LibData.Provider.BrandProvider().GetAll();
+            ViewBag.product = new LibData.Provider.ProductProvider().GetAll();
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult PromotionProduct(List<int> productid, List<int> brandid,int? discount)
+        {
+            
+            discount = discount ?? 0;
+            if(discount>100|| discount < 0)
+            {
+                ModelState.AddModelError("discount","Khuyễn mãi không khả dụng");
+            }
+            brandid = brandid ?? new List<int>();
+            productid = productid ?? new List<int>();
+            ViewBag.brand = new LibData.Provider.BrandProvider().GetAll();
+            ViewBag.product = new LibData.Provider.ProductProvider().GetAll();
+            ViewBag.brandid = brandid;
+            ViewBag.discount = discount;
+            ViewBag.productid = productid;
+            LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
+            if (ModelState.IsValid)
+            {
+                if (productProvider.DiscountProduct(productid, brandid, discount.Value))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return View();
+                }
+                ModelState.AddModelError("error", "Lỗi");
+                return View();
+            }
+            return View();
         }
     }
 }
