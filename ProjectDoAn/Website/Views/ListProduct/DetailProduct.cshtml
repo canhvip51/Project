@@ -43,9 +43,9 @@
                 </div>}
         <div class="price">
             Giá :   @string.Format("{0:#,0}", (Math.Ceiling(Convert.ToDouble(Model.Price.Value / 1000 * (100-Model.Discount.Value) / 100)) * 1000)) VNĐ
-            @if (Model.Discount > 0)
+            @if (Model.Discount > 0 && Model.Discount.HasValue)
             {
-                <span>@Model.Price</span>}
+            <div class="text-success d-inline">(Khuyến mãi: @Model.Discount %)</div> }
         </div>
             <div>
                 Màu sắc :
