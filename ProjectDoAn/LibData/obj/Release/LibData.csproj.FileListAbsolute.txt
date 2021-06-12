@@ -5,7 +5,6 @@ G:\Project\ProjectDoAn\LibData\bin\Release\EntityFramework.dll
 G:\Project\ProjectDoAn\LibData\bin\Release\EntityFramework.SqlServer.dll
 G:\Project\ProjectDoAn\LibData\bin\Release\EntityFramework.xml
 G:\Project\ProjectDoAn\LibData\bin\Release\EntityFramework.SqlServer.xml
-G:\Project\ProjectDoAn\LibData\obj\Release\LibData.csprojAssemblyReference.cache
 G:\Project\ProjectDoAn\LibData\obj\Release\LibData.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\LibData\obj\Release\LibData.csproj.CopyComplete
 G:\Project\ProjectDoAn\LibData\obj\Release\LibData.dll

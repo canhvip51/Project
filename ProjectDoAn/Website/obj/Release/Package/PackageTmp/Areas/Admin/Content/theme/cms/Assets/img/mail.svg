@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <g id="mail" transform="translate(-426 -24)">
-    <circle id="Ellipse_690" data-name="Ellipse 690" cx="16" cy="16" r="16" transform="translate(426 24)" fill="#323643" opacity="0.2"/>
-    <g id="icons8_envelope" transform="translate(433 34)">
-      <path id="Path_7241" data-name="Path 7241" d="M7.672,14.665a1.828,1.828,0,0,0,1.181.481,1.829,1.829,0,0,0,1.181-.481l7.672-6.7V7H0V8.032C2.376,10.085,7.271,14.316,7.672,14.665Z" transform="translate(0 -7)" fill="#323643"/>
-      <path id="Path_7242" data-name="Path 7242" d="M10.5,18.674a2.546,2.546,0,0,1-1.645.655,2.543,2.543,0,0,1-1.645-.656C6.832,18.346,2.495,14.6,0,12.441V23.225H17.707V12.382C15.082,14.674,10.863,18.358,10.5,18.674Z" transform="translate(0 -10.476)" fill="#323643"/>
-    </g>
-  </g>
-</svg>
