@@ -20,7 +20,12 @@
                     <select class="form-control chosen-select" name="Warehouse.ProductImgId" id="productimgid" onchange='SelectSize()'>
                         @foreach (var item in ViewBag.ProductImg as List<LibData.ProductImg>)
                         {
-                            <option value="@item.Id" @(item.Id == Model.Warehouse.ProductImgId ? "selected" : "")>@item.Product.Name - @item.Color </option>
+                            int a = 0;
+                            if (item.Warehouses != null)
+                            {
+                                a = item.Warehouses.Sum(x => x.Amount.Value);
+                            }
+                            <option value="@item.Id" @(item.Id == Model.Warehouse.ProductImgId ? "selected" : "")>@item.Product.Name - @item.Color : @a </option>
                         }
                     </select>
                 </div>

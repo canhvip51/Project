@@ -48,7 +48,10 @@ namespace Website.Areas.Admin.Controllers
             LibData.Provider.BrandProvider brandProvider = new LibData.Provider.BrandProvider();
             if (string.IsNullOrEmpty(model.Name))
             {
-                ModelState.AddModelError("Name", "Tên hãng không được để trống");
+                ModelState.AddModelError("Name", "Tên thương hiệu không được để trống");
+            } else if (brandProvider.CheckName(model.Name))
+            {
+                ModelState.AddModelError("Name", "Tên thương hiệu đã tồn tại");
             }
             if (ModelState.IsValid)
             {

@@ -99,6 +99,20 @@ namespace LibData.Provider
             {
                 return 0;
             }
+        }
+        public bool CheckName(string name)
+        {
+            try
+            {
+                var importUnit= ApplicationDbContext.ImportUnits.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)&&x.Name.Trim()==name.Trim());
+                if (importUnit != null)
+                    return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
 
         }
     }

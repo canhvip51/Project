@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibData.Provider
 {
-   public class ProductProvider : ApplicationDbContexts
+    public class ProductProvider : ApplicationDbContexts
     {
         public bool Insert(Product model)
         {
@@ -136,12 +136,12 @@ namespace LibData.Provider
             }
 
         }
-        public List<Product> GetAllByKey(string key,int brandid,int sex ,int skip, int size)
+        public List<Product> GetAllByKey(string key, int brandid, int sex, int skip, int size)
         {
             try
             {
                 return ApplicationDbContext.Products.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Contains(key)
-                && (sex!=-1?x.Type==sex:true)
+                && (sex != -1 ? x.Type == sex : true)
                 && (brandid != -1 ? x.BrandId.Value == brandid : true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
@@ -162,15 +162,30 @@ namespace LibData.Provider
             }
 
         }
-        public bool DiscountProduct(List<int> productid, List<int> brandid,int discount)
+        public bool DiscountProduct(List<int> productid, List<int> brandid, int discount)
         {
             try
             {
-                var list = ApplicationDbContext.Products.Where(x => (productid.Count > 0 ? productid.Contains(x.Id) : true) || (brandid.Count>0?brandid.Contains(x.BrandId.Value):true)).ToList();
+                var list = ApplicationDbContext.Products.Where(x => (productid.Count > 0 ? productid.Contains(x.Id) : true) || (brandid.Count > 0 ? brandid.Contains(x.BrandId.Value) : true)).ToList();
                 list.ForEach(x => x.Discount = discount);
                 list.ForEach(x => x.UpdateDate = DateTime.Now);
                 ApplicationDbContext.SaveChanges();
                 return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool CheckNameAndType(string name, int type)
+        {
+            try
+            {
+                var product = ApplicationDbContext.Products.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)
+                && x.Name.Trim() == name.Trim() && x.Type == type);
+                if (product != null)
+                    return true;
+                return false;
             }
             catch (Exception)
             {

@@ -237,6 +237,7 @@
     <Content Include="Areas\Admin\Content\theme\cms\Assets\chosen_v1.8.7\index.proto.html" />
     <Content Include="Areas\Admin\Content\theme\cms\Assets\chosen_v1.8.7\options.html" />
     <Content Include="Areas\Admin\Content\theme\cms\Assets\css\site.css" />
+    <Content Include="Areas\Admin\Content\theme\cms\Assets\Site.js" />
     <Content Include="Areas\Admin\Content\Toast\vanillatoasts.css" />
     <Content Include="Areas\Admin\Content\Toast\vanillatoasts.js" />
     <Content Include="Areas\Admin\Content\vendor\bootstrap\js\bootstrap.bundle.js" />
@@ -2184,6 +2185,7 @@
     <Content Include="Areas\Admin\Views\Promotion\AddPromotion.cshtml" />
     <Content Include="Areas\Admin\Views\CookieCart\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Product\PromotionProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\DashboardRevenue.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <Content Include="Scripts\jquery.signalR-2.4.1.js" />
     <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />

@@ -64,9 +64,14 @@ namespace Website.Areas.Admin.Controllers
             //ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
             ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
             LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
+
             if (string.IsNullOrEmpty(model.Name))
             {
                 ModelState.AddModelError("Name", "Tên giày không được để trống");
+            }
+            else if(productProvider.CheckNameAndType(model.Name, model.Type.Value))
+            {
+                ModelState.AddModelError("Name", "Tên giày đã tồn tại");
             }
             if (model.Price<50000)
             {

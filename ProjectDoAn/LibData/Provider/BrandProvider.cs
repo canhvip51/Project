@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibData.Provider
 {
-    public class  BrandProvider : ApplicationDbContexts
+    public class BrandProvider : ApplicationDbContexts
     {
         public bool Insert(Brand model)
         {
@@ -74,7 +74,7 @@ namespace LibData.Provider
             }
 
         }
-        public List<Brand> GetAll(int skip,int size)
+        public List<Brand> GetAll(int skip, int size)
         {
             try
             {
@@ -97,6 +97,20 @@ namespace LibData.Provider
                 return 0;
             }
 
+        }
+        public bool CheckName(string name)
+        {
+            try
+            {
+                var brand = ApplicationDbContext.Brands.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Trim() == name.Trim());
+                if (brand != null)
+                    return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

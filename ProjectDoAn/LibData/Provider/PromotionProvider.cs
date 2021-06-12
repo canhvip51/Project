@@ -111,5 +111,19 @@ namespace LibData.Provider
                 return 0;
             }
         }
+        public bool CheckKeyCode(string keycode)
+        {
+            try
+            {
+                var promotion = ApplicationDbContext.Promotions.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Trim()==keycode.Trim());
+                if (promotion != null)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

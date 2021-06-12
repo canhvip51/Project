@@ -9,5 +9,6 @@ namespace Website.Areas.Admin.Models
     {
         public List<string> lable { set; get; }
         public List<string> result { set; get; }
+        public List<string> color { set; get; }
     }
 }
