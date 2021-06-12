@@ -236,10 +236,6 @@
     <Content Include="Areas\Admin\Content\theme\cms\Assets\chosen_v1.8.7\index.html" />
     <Content Include="Areas\Admin\Content\theme\cms\Assets\chosen_v1.8.7\index.proto.html" />
     <Content Include="Areas\Admin\Content\theme\cms\Assets\chosen_v1.8.7\options.html" />
-    <Content Include="Areas\Admin\Content\theme\cms\Assets\css\azia.css" />
-    <Content Include="Areas\Admin\Content\theme\cms\Assets\css\azia.min.css" />
-    <Content Include="Areas\Admin\Content\theme\cms\Assets\css\my\azia.css" />
-    <Content Include="Areas\Admin\Content\theme\cms\Assets\css\my\site.css" />
     <Content Include="Areas\Admin\Content\theme\cms\Assets\css\site.css" />
     <Content Include="Areas\Admin\Content\Toast\vanillatoasts.css" />
     <Content Include="Areas\Admin\Content\Toast\vanillatoasts.js" />

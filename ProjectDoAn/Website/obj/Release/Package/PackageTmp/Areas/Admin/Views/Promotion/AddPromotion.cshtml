@@ -1,0 +1,96 @@
+﻿@model LibData.Promotion
+@{
+    Layout = null;
+}
+<form id="form-addpromotion">
+    <div class="modal-header">
+        <h6 class="modal-title">Thông tin khuyến mãi</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="hidden" name="Id" value="@Model.Id" id="Id" />
+        </div>
+        <div class="form-group">
+            <label>Mã khuyễn mãi<span class="text-danger">*</span></label>
+            @Html.EditorFor(model => model.KeyCode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.KeyCode, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Giảm giá (%) <span class="text-danger">*</span></label>
+            @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @max = "99", @min = "1" } })
+            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Số lượng</label>
+            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+        </div>
+        @{
+            string start = Model.StartDate.HasValue ? Model.StartDate.Value.ToString("dd-MM-yyyy") : "";
+            string end = Model.ExpiredDate.HasValue ? Model.ExpiredDate.Value.ToString("dd-MM-yyyy") : "";
+            }
+        <div class="form-group">
+            <label>Thời gian bắt đầu</label>
+            <input type="text" name="StartDate" value="@start" data-toggle="datepicker" class=" form-control" />
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Thời gian kết thúc</label>
+            <input type="text" name="ExpiredDate" value="@end" data-toggle="datepicker" class=" form-control" />
+            @Html.ValidationMessageFor(model => model.ExpiredDate, "", new { @class = "text-danger" })
+        </div>
+        @Html.ValidationMessage("error", new { @class = "text-danger" })
+        <div class="modal-footer">
+            <button type="button" onclick="sumbitBrand()" class="btn btn-primary">Lưu</button>
+            <button type="button" data-dismiss="modal" class="btn btn-light">Đóng</button>
+        </div>
+    </div><!-- modal-body -->
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="datepicker"]').datepicker({
+                autoHide: true,
+                zIndex: 2048,
+                format: 'dd-MM-yyyy',
+                language: 'vi-VN',
+            });
+        });
+        function sumbitBrand() {
+            loading(true)
+        var notify = ""
+        if (@Model.Id== 0) {
+            notify = "Thêm mã thành công"
+
+        } else {
+            notify = "Sửa mã thành công"
+        }
+            var $form = $("#form-addpromotion");
+        $.ajax({
+            type: "POST",
+            url: "/Admin/Promotion/AddPromotion",
+            data: $form.serialize(),
+            success: async function (data, status, xhr) {
+                loading(false)
+                var statusCode = xhr.getResponseHeader("statusCode");
+                if (statusCode == '401') {
+                    window.location.replace("/login");
+                }
+                if (xhr.status == 201) {
+                    loadListPromotion()
+
+                    $("#modal-form-md").modal("hide");
+                    Swal.fire({
+                        icon: 'success',
+                        title: notify,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+                await $("#form-addpromotion").html($(data).filter("#form-addpromotion").html());
+            },
+        });
+    }
+    </script>
+</form>

@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+@model IEnumerable<LibData.Promotion>
+@using PagedList;
+@using PagedList.Mvc;
+<style>
+    a {
+        cursor: pointer !important;
+    }
+</style>
+<table class="table table-bordered table-responsive-sm  table-hover">
+    <thead>
+        <tr>
+            <th>Mã khuyễn mãi</th>
+            <th>Giảm giá</th>
+            <th>Số lượng</th>
+            <th>Bắt đầu</th>
+            <th>Kết thúc</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="6" class="text-center">
+                    <div class=" text-danger">
+                        Không có dữ liệu!
+                    </div>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @item.KeyCode
+        </td>
+        <td>
+            @item.Discount
+        </td>
+        @if (item.Amount.HasValue)
+        {
+            <td>
+                @item.Amount
+            </td>
+        }
+        else
+        {
+            <td>
+                Không giới hạn
+            </td>
+        }
+
+        <td>
+            @item.StartDate
+        </td>
+        @if (item.ExpiredDate.HasValue)
+        {
+            <td>
+                @item.ExpiredDate
+            </td>
+        }
+        else
+        {
+            <td>
+                Không thời hạn
+            </td>
+        }
+        <td>
+            <div class="btn-group">
+                <a data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-fw fa-wrench"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" onclick="EditPromotion(@item.Id)">Sửa</a>
+                    <a class="dropdown-item" onclick="DeletePromotion(@item.Id)">Sửa</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+        }
+
+    </tbody>
+</table>
+<div class="col-md-12">
+    <div class="row float-right">
+        @*phân trang*@
+        @Html.PagedListPager((IPagedList)Model,
+        page => Url.Action("Index", new { page = page }),
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = "list-promotion",
+        })
+        )
+    </div>
+</div>

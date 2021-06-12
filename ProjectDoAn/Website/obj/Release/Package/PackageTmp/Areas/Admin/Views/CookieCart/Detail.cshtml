@@ -1,0 +1,88 @@
+﻿@model LibData.Cookie
+@{
+    Layout = null;
+}
+<form id="form-addpromotion">
+    <div class="modal-header">
+        <h6 class="modal-title">Thông tin giỏ hàng</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="hidden" name="Id" value="@Model.Id" id="Id" />
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-12">
+                    <label>Mã giỏ hàng : </label>
+                    <span> @Model.KeyCode</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>Thời hạn : </label>
+                    <span> @Model.ExpiredDate.Value.ToString("dd-MM-yyyy hh:mm")</span>
+                </div>
+            </div>
+            <div class="row" style="max-height:450px;overflow:auto">
+                <div class="col-12">
+                    <table class="table table-bordered table-responsive-sm  table-hover">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm </th>
+                                <th>Số lượng</th>
+                                <th>Ngày sửa</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Carts.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="3" class="text-center">
+                                        <div class=" text-danger">
+                                            Không có dữ liệu!
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var item in Model.Carts)
+                            {
+                                <tr class="row-cart">
+                                    <td>
+                                        @item.Warehouse.ProductImg.Product.Name -  @item.Warehouse.ProductImg.Color
+                                        <span>VN : @item.Warehouse.Size.VN - US : @item.Warehouse.Size.US - UK : @item.Warehouse.Size.UK</span>
+                                    </td>
+                                    <td>
+                                        @item.Amount
+                                    </td>
+                                    @if (item.UpdateDate.HasValue)
+                                    {
+                                        <td>
+                                            @item.UpdateDate.Value.ToString("dd-MM-yyyy")
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                        </td>
+                                    }
+                                    <td>
+                                        <a class="dropdown-item" onclick="RemoveProductInCart(this,@item.Id)"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="Remove(@Model.Id)" class="btn btn-primary">Xóa</button>
+            <button type="button" data-dismiss="modal" class="btn btn-light">Đóng</button>
+        </div>
+    </div><!-- modal-body -->
+</form>
