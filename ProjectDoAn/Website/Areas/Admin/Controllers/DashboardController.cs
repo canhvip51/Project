@@ -24,17 +24,17 @@ namespace Website.Areas.Admin.Controllers
         {
             LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
             Models.DashboardOrderModel dashboardOrderModel = new Models.DashboardOrderModel();
-            dashboardOrderModel.CountWait = orderProvider.CountAllByStatus( (int)LibData.Configuration.OrderConfig.Status.WAIT);
-            dashboardOrderModel.CountCancel = orderProvider.CountAllByStatus((int)LibData.Configuration.OrderConfig.Status.CANCEL);
-            dashboardOrderModel.CountConfirm = orderProvider.CountAllByStatus( (int)LibData.Configuration.OrderConfig.Status.CONFIRM);
-            dashboardOrderModel.CountFinish = orderProvider.CountAllByStatus((int)LibData.Configuration.OrderConfig.Status.FINISH);
+            dashboardOrderModel.CountWait = orderProvider.CountAllByStatus( (int)OrderConfig.Status.WAIT);
+            dashboardOrderModel.CountCancel = orderProvider.CountAllByStatus((int)OrderConfig.Status.CANCEL);
+            dashboardOrderModel.CountConfirm = orderProvider.CountAllByStatus( (int)OrderConfig.Status.CONFIRM);
+            dashboardOrderModel.CountFinish = orderProvider.CountAllByStatus((int)OrderConfig.Status.FINISH);
             return View(dashboardOrderModel);
         }
         public ActionResult DashboardRevenue()
         {
             LibData.Provider.DashboardProvider dashboardProvider = new LibData.Provider.DashboardProvider();
             List<string> lable = new List<string>();
-            List<string> result = new List<string>();
+            List<dynamic> result = new List<dynamic>();
             List<string> color = new List<string>();
             DateTime dt = DateTime.Now;
             //DateTime ss = CultureInfo.CurrentCulture.GetFirstDayOfWeek
@@ -47,11 +47,34 @@ namespace Website.Areas.Admin.Controllers
             result.Add(dashboardProvider.RevenueYear(dt).ToString());
             Random r = new Random();
             int k = r.Next(1, 10);
-            foreach (var item in lable)
+            foreach (var item in result)
             {  
                 int p = r.Next(1, 10);
-                k =(k+ p)%ColorConfig.Color.Count;
-               color.Add(ColorConfig.Color[k]);
+                k =(k+ p)%ExtendConfig.Color.Count;
+               color.Add(ExtendConfig.Color[k]);
+            }
+            dashboardModel.lable = lable;
+            dashboardModel.result = result;
+            dashboardModel.color = color;
+            return View(dashboardModel);
+        }
+        public ActionResult DashboardProduct()
+        {
+            LibData.Provider.DashboardProvider dashboardProvider = new LibData.Provider.DashboardProvider();
+            List<string> lable = new List<string>();
+            List<dynamic> result = new List<dynamic>();
+            List<string> color = new List<string>();
+            DateTime dt = DateTime.Now;
+            //DateTime ss = CultureInfo.CurrentCulture.GetFirstDayOfWeek
+            Models.DashboardModel dashboardModel = new Models.DashboardModel();
+           // result.Add(dashboardProvider.DashboardProduct("TOPSALE").ToString());
+            Random r = new Random();
+            int k = r.Next(1, 10);
+            foreach (var item in result)
+            {
+                int p = r.Next(1, 10);
+                k = (k + p) % ExtendConfig.Color.Count;
+                color.Add(ExtendConfig.Color[k]);
             }
             dashboardModel.lable = lable;
             dashboardModel.result = result;

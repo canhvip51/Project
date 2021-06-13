@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibData.Configuration
 {
-    public static class ColorConfig
+    public static class ExtendConfig
     {
         public static string H7BD963 = "#7BD963";
         public static string H9980FB = "#9980FB";

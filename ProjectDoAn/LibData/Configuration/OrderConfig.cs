@@ -34,6 +34,13 @@ namespace LibData.Configuration
             {(int)Status.FINISH, "Hoàn thành" },
            {(int)Status.CANCEL, "Hủy" },
         };
+        public static List<int> StatusToDictionaryALL_INT = new List<int>()
+        {
+            (int)Status.WAIT,
+            (int)Status.CONFIRM,
+            (int)Status.FINISH,
+           (int)Status.CANCEL,
+        };
         public static Dictionary<int, string> StatusToDictionaryWAIT = new Dictionary<int, string>()
         {
             {(int)Status.WAIT, "Chờ xử lý" },

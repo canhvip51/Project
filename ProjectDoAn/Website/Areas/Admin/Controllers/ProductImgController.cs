@@ -57,6 +57,9 @@ namespace Website.Areas.Admin.Controllers
             if (string.IsNullOrEmpty(model.Color))
             {
                 ModelState.AddModelError("Color", "Nhập màu");
+            }else if (productImgProvider.CheckColor(model.Color))
+            {
+                ModelState.AddModelError("Color", "Màu đã tồn tại");
             }
             if (ModelState.IsValid)
             {

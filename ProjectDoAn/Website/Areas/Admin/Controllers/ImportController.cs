@@ -40,7 +40,7 @@ namespace Website.Areas.Admin.Controllers
         {
          
             LibData.Import import = new LibData.Import();
-            import.ImportUnitId = importunitid;
+            import.ImportUnitId = importunitid??0;
             import.ImportDetails = new List<LibData.ImportDetail>();
             import.Price = 0;
             if (id.HasValue)

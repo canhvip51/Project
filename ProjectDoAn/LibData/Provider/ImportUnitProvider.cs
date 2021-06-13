@@ -104,7 +104,7 @@ namespace LibData.Provider
         {
             try
             {
-                var importUnit= ApplicationDbContext.ImportUnits.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)&&x.Name.Trim()==name.Trim());
+                var importUnit= ApplicationDbContext.ImportUnits.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)&&x.Name.Trim().ToLower()==name.Trim().ToLower());
                 if (importUnit != null)
                     return true;
                 return false;

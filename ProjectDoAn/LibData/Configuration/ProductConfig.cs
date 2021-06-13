@@ -19,5 +19,6 @@ namespace LibData.Configuration
             STOPSELL = 2,
             ISDELETE = 1,
         }
+
     }
 }

@@ -70,6 +70,24 @@
                             <a href="/ListProduct/DetailProduct?Id=@item.Id" class="align-self-center ">
                                 <img class="pic-1" src="/Images/Products/@item.AvatarUrl">
                             </a>
+                            @{
+                                int allamount = 0;
+                                if (item.ProductImgs != null)
+                                {
+                                    foreach (var img in item.ProductImgs.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Status == 1)))
+                                    {
+                                        if (img.Warehouses != null)
+                                        {
+                                            allamount += img.Warehouses.Sum(x => x.Amount.Value);
+                                        }
+                                    }
+                                }
+                                if (allamount == 0)
+                                {
+                                    <span class="product-over-label">Hết hàng</span>
+                                }
+                            }
+
                         </div>
                         <div class="product-content">
                             <h3 class="title"><a href="/ListProduct/DetailProduct?Id=@item.Id">@item.Name</a></h3>

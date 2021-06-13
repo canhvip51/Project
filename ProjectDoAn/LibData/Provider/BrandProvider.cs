@@ -102,7 +102,7 @@ namespace LibData.Provider
         {
             try
             {
-                var brand = ApplicationDbContext.Brands.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Trim() == name.Trim());
+                var brand = ApplicationDbContext.Brands.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Trim().ToLower() == name.Trim().ToLower());
                 if (brand != null)
                     return true;
                 return false;

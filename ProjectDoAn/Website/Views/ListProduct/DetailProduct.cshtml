@@ -5,7 +5,7 @@
     }
 </style>
 <div class="container">
-    <h1 class="my-4">Chi tiết sản phẩm<br></h1>
+    <h3 class="mt-5 head-page" align="center">Chi tiết sản phẩm</h3>
     <div class="row">
         <div class="col-md-8">
             <div class="">
@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-4">
 
-            <h3 class="my-3">@Model.Name </h3>
+            <h4 class="my-3">@Model.Name </h4>
             @if (Model.BrandId.HasValue)
             {
                 <div>
@@ -53,13 +53,37 @@
 
             <div class="row">
 
-                @foreach (var item in Model.ProductImgs.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Warehouses.Count(m => (m.IsDelete == 0 || m.IsDelete == null)) > 0 && x.Warehouses.Sum(m => m.Amount) > 0))
-                {
-                    <div class="col-3">
-                        <a style="width:150px;height:150px">
-                            <img src="/Images/Products/@item.Url" onclick="SelectWarehoue(@item.Id)" class=" img-active img-thumbnail" alt="@item.Color" title="@item.Color" />
-                        </a>
-                    </div>}
+                @{
+                    int allamount = 0;
+                    if (Model.ProductImgs != null)
+                    {
+                        foreach (var img in Model.ProductImgs.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Status == 1)))
+                        {
+                            if (img.Warehouses != null)
+                            {
+                                allamount += img.Warehouses.Sum(x => x.Amount.Value);
+                            }
+                        }
+                    }
+                    if (allamount > 0)
+                    {
+                        foreach (var item in Model.ProductImgs.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Warehouses.Count(m => (m.IsDelete == 0 || m.IsDelete == null)) > 0 && x.Warehouses.Sum(m => m.Amount) > 0))
+                        {
+                            <div class="col-3">
+                                <a style="width:150px;height:150px">
+                                    <img src="/Images/Products/@item.Url" onclick="SelectWarehoue(@item.Id)" class=" img-active img-thumbnail" alt="@item.Color" title="@item.Color" />
+                                </a>
+                            </div>
+                            }
+                    }
+            else
+            {
+            <div class="col-12">
+                <sapn class="btn btn-danger disabled">Hết hàng</sapn>
+            </div>
+      
+            }
+                }
 
             </div>
             <div>
@@ -94,8 +118,8 @@
     <div class="row  mt-4" style=" border:1px solid whitesmoke">
         <div class="col-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1"><h3 class="my-3">Mô tả sản phẩm</h3></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2"><h3 class="my-3">Hướng dẫn chọn cỡ</h3></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1"><h4 class="my-3">Mô tả sản phẩm</h4></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2"><h4 class="my-3">Hướng dẫn chọn cỡ</h4></a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active row" role="tabpanel" id="tab-1">
@@ -109,25 +133,11 @@
                     </div>
                 </div>
             </div>
-            @*<h3 class="my-3">Mô tả sản phẩm</h3>
-                <div class="row" style="max-height:400px;overflow:auto;border:1px solid">
-                    <div class="col">
-                        @Html.Raw(Model.Describe)
-                    </div>
-
-                </div>*@
         </div>
     </div>
     <div class="row" id="product-relate">
         <div class="col-12" id="product-relate"></div>
     </div>
-    @*<h3 class="my-4">Related Projects<br></h3>
-        <div class="row">
-            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-            <div class="col-sm-6 col-md-3 mb-4"><a href="#"><img class="img-fluid" src="http://placehold.it/500x300"></a></div>
-        </div>*@
 </div>
 <script>
     $(".img-active").click(function () {

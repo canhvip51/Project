@@ -15,7 +15,7 @@
     <title>SHOES SHOP - @ViewBag.Title</title>
     <link href="~/Areas/Admin/Content/theme/cms/Assets/chosen_v1.8.7/chosen.css" rel="stylesheet" />
 
-  
+
     <!-- Custom fonts for this template-->
     <link href="~/Areas/Admin/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -27,7 +27,7 @@
     <link href="~/Areas/Admin/Scripts/sweetalert/sweetalert2.min.css" rel="stylesheet" />
 
     <!-- Page level plugins -->
-    @*<script src="~/Areas/Admin/Content/vendor/chart.js/Chart.min.js"></script>*@
+
 
     <link href="~/Areas/Admin/Content/theme/cms/Assets/css/site.css" rel="stylesheet" />
 
@@ -38,11 +38,12 @@
     @*toást*@
     <link href="~/Areas/Admin/Content/Toast/vanillatoasts.css" rel="stylesheet" />
     <script src="~/Areas/Admin/Content/vendor/jquery/jquery.min.js"></script>
+  
     <style>
         .chosen-container {
             width: 100% !important;
         }
-      /*  .notification {
+        /*  .notification {
             background-color: #555;
             color: white;
             text-decoration: none;
@@ -56,16 +57,16 @@
                 background: red;
             }*/
 
-            .notification .badge {
-                position: absolute;
-                top: 10px;
-                right: 15px;
-                padding: 5px 0px;
-                border-radius: 50%;
-                background-color: red;
-                color: white;
-                font-size:10px;
-            }
+        .notification .badge {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            padding: 5px 0px;
+            border-radius: 50%;
+            background-color: red;
+            color: white;
+            font-size: 10px;
+        }
     </style>
 </head>
 
@@ -89,53 +90,56 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item " id="navDashboard">
                 <a class="nav-link" href="/Admin/Dashboard/Index">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Thống kê</span>
                 </a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#navProduct" aria-expanded="true" aria-controls="collapseTwo">
+            <li class="nav-item " id="navProduct">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#navProductShow" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Sản phẩm</span>
                 </a>
-                <div id="navProduct" class="collapse" data-parent="#accordionSidebar">
+                <div  class="collapse" id="navProductShow" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/Admin/Product/Index">
+                        <a class="collapse-item" id="iProduct" href="/Admin/Product/Index">
                             Sản phẩm
                         </a>
-                        <a class="collapse-item" href="/Admin/Brand/Index">
-                            Thương hiệu
+                        <a class="collapse-item" id="iPromotion" href="/Admin/Promotion/Index">
+                            Khuyễn mãi
                         </a>
-                        <a class="collapse-item" href="/Admin/ImportUnit/Index">
+                        <a class="collapse-item" id="iImportUnit" href="/Admin/ImportUnit/Index">
                             Nhà cung cấp
                         </a>
-                        @*<a class="collapse-item" href="/TypeShoe/Index">
-                        Kiểu
-                    </a>*@
+                        <a class="collapse-item" id="iAddImport" href="/Admin/Import/AddImport">
+                            Nhập hàng
+                        </a>
+                        <a class="collapse-item" id="iBrand" href="/Admin/Brand/Index">
+                            Thương hiệu
+                        </a>
                     </div>
                 </div>
             </li>
             @*<li class="nav-item active">
-                <a class="nav-link" href="/Admin/Brand/Index">
-                    <i class="fas fa-fw fa-store"></i>
-                    <span>Kho hàng</span>
-                </a>
-            </li>*@
-            <li class="nav-item active ">
+                    <a class="nav-link" href="/Admin/Brand/Index">
+                        <i class="fas fa-fw fa-store"></i>
+                        <span>Kho hàng</span>
+                    </a>
+                </li>*@
+            <li class="nav-item " id="navOrder">
                 <a class="nav-link notification" href="/Admin/Order/Index">
                     <i class="fas fa-fw fa-file"></i>
                     <span>Đơn hàng</span>
                     <span class="badge" id="noticout" style="width:25px;height:25px"></span>
                 </a>
             </li>
-            <li class="nav-item active">
+            @*<li class="nav-item active">
                 <a class="nav-link" href="/Admin/Promotion/Index">
                     <i class="fas fa-fw fa-gift"></i>
                     <span>Khuyến mãi</span>
                 </a>
-            </li>
+            </li>*@
 
             <!--<li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#navUser" aria-expanded="true" aria-controls="collapseTwo">
@@ -144,22 +148,22 @@
                 </a>
                 <div id="navUser" class="collapse" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">-->
-                        @*<a class="collapse-item" href="/User/CustomerUser">
-                        Tài khoản khách
-                    </a>*@
-                        <!--<a class="collapse-item" href="/Admin/User/ManagerUser">
+            @*<a class="collapse-item" href="/User/CustomerUser">
+                    Tài khoản khách
+                </a>*@
+            <!--<a class="collapse-item" href="/Admin/User/ManagerUser">
                             Tài khoản quản lý
                         </a>
                     </div>
                 </div>
             </li>-->
-            <li class="nav-item active">
+            <li class="nav-item" id="navSlide">
                 <a class="nav-link" href="/Admin/Slide/Index">
                     <i class="fas fa-fw fa-images"></i>
                     <span>Slide</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item " id="navCookieCart">
                 <a class="nav-link" href="/Admin/CookieCart/Index">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                     <span>Giỏ hàng</span>
@@ -169,83 +173,83 @@
             <!--<hr class="sidebar-divider">-->
             <!-- Heading -->
             <!--<div class="sidebar-heading">
-        Interface
-    </div>-->
+                Interface
+            </div>-->
             <!-- Nav Item - Pages Collapse Menu -->
             <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
-            </div>
-        </div>
-    </li>-->
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Components</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
+            </li>-->
             <!-- Nav Item - Utilities Collapse Menu -->
             <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
-            </div>
-        </div>
-    </li>-->
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Utilities</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Utilities:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Colors</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    </div>
+                </div>
+            </li>-->
             <!-- Divider -->
             <!--<hr class="sidebar-divider">-->
             <!-- Heading -->
             <!--<div class="sidebar-heading">
-        Addons
-    </div>-->
+                Addons
+            </div>-->
             <!-- Nav Item - Pages Collapse Menu -->
             <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
-            </div>
-        </div>
-    </li>-->
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                    </div>
+                </div>
+            </li>-->
             <!-- Nav Item - Charts -->
             <!--<li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span>
-        </a>
-    </li>-->
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span>
+                </a>
+            </li>-->
             <!-- Nav Item - Tables -->
             <!--<li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span>
-        </a>
-    </li>-->
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tables</span>
+                </a>
+            </li>-->
             <!-- Divider -->
             <!--<hr class="sidebar-divider d-none d-md-block">-->
             <!-- Sidebar Toggler (Sidebar) -->
             <!--<div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>-->
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>-->
 
         </ul>
         <!-- End of Sidebar -->
@@ -398,7 +402,7 @@
     </script>
     <!-- Core plugin JavaScript-->
     <script src="~/Areas/Admin/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
-
+    <script src="~/Areas/Admin/Content/vendor/chart.js/Chart.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="~/Areas/Admin/Content/js/sb-admin-2.min.js"></script>
     <script src="~/Areas/Admin/Content/theme/cms/Assets/Site.js"></script>
@@ -412,7 +416,7 @@
 
     <script>
         $(document).ready(function () {
-           
+
                 var noti = $.connection.xmpp;
                 noti.client.sendNoti = function (provinceid) {
                     var id = parseInt("@user.ProviceId");

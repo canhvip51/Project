@@ -65,7 +65,7 @@
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="Configuration\CartConfig.cs" />
-    <Compile Include="Configuration\ColorConfig.cs" />
+    <Compile Include="Configuration\ExtendConfig.cs" />
     <Compile Include="Configuration\OrderConfig.cs" />
     <Compile Include="Configuration\ProductConfig.cs" />
     <Compile Include="Configuration\SlideConfig.cs" />

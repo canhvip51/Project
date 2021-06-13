@@ -249,13 +249,9 @@
         });
         loading(false)
     }
-    function AddImport(productimgid, warehouseid) {
-        loading(true)
-        $("#content-form-md").load("/Admin/Import/AddImport?productimgid=" + productimgid + "&warehouseid=" + warehouseid, function (response) {
-            $("#modal-form-md").modal('show');
-        });
-        loading(false)
-    }
+                $("#navProduct").addClass("active")
+                $("#navProductShow").addClass("show")
+                $("#iProduct").addClass("active")
 
             </script>
         </form>

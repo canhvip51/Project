@@ -115,7 +115,7 @@ namespace LibData.Provider
         {
             try
             {
-                var promotion = ApplicationDbContext.Promotions.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Trim()==keycode.Trim());
+                var promotion = ApplicationDbContext.Promotions.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Trim().ToLower()==keycode.Trim().ToLower());
                 if (promotion != null)
                     return true;
                 return false;

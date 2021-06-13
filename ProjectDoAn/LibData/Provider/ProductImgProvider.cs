@@ -148,5 +148,20 @@ namespace LibData.Provider
             }
 
         }
+        public bool CheckColor(string color)
+        {
+            try
+            {
+                var product = ApplicationDbContext.ProductImgs.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)
+                && x.Color.Trim().ToLower() == color.Trim().ToLower() );
+                if (product != null)
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -182,7 +182,7 @@ namespace LibData.Provider
             try
             {
                 var product = ApplicationDbContext.Products.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)
-                && x.Name.Trim() == name.Trim() && x.Type == type);
+                && x.Name.Trim().ToLower() == name.Trim().ToLower() && x.Type == type);
                 if (product != null)
                     return true;
                 return false;
