@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace LibData.Provider
 {
-    public class UserProvider:ApplicationDbContexts
+    public class UserProvider : ApplicationDbContexts
     {
         public LibData.User Login(string userName, string password)
         {
             try
             {
-                var userInfo = ApplicationDbContext.Users.Where(x => (x.Phone.Equals(userName) || x.UserName.Equals(userName)) && x.Status != (int)Configuration.UserConfig.Status.DEACTIVE && (x.IsDelete == 0 || x.IsDelete == null) && x.Role == (int)Configuration.UserConfig.Role.SUPERADMIN).FirstOrDefault();
+                var userInfo = ApplicationDbContext.Users.Where(x => (x.UserName.Equals(userName)) && x.Status != (int)Configuration.UserConfig.Status.LOCK && (x.IsDelete == 0 || x.IsDelete == null) && (x.Role == (int)Configuration.UserConfig.Role.ADMIN|| x.Role == (int)Configuration.UserConfig.Role.MANAGER)).FirstOrDefault();
                 if (userInfo != null)
                 {
                     string stringPwd = userInfo.Password.Trim();
                     string passwordHash = Utilities.SecurityHelper.sha256Hash(userInfo.Password.Trim());
-                    if (password==stringPwd)
+                    if (password == stringPwd)
                     {
                         return userInfo;
                     }
@@ -67,6 +67,19 @@ namespace LibData.Provider
                 user.Status = model.Status;
                 user.FullName = model.FullName;
                 user.Address = model.Address;
+                user.ProviceId = model.ProviceId;
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool Update()
+        {
+            try
+            {
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -90,7 +103,7 @@ namespace LibData.Provider
                 return false;
             }
         }
-        public bool Delete( int id)
+        public bool Delete(int id)
         {
             try
             {
@@ -105,6 +118,7 @@ namespace LibData.Provider
                 return false;
             }
         }
+
         public User GetById(int id)
         {
             try
@@ -161,7 +175,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Users.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Phone.Contains(key) ) && x.Role == role).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Users.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Phone.Contains(key)) && x.Role == role).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -212,7 +226,7 @@ namespace LibData.Provider
         {
             try
             {
-                var user = ApplicationDbContext.Users.First(x => x.UserName == username  && (x.IsDelete == 0 || x.IsDelete == null));
+                var user = ApplicationDbContext.Users.First(x => x.UserName == username && (x.IsDelete == 0 || x.IsDelete == null));
                 if (user != null)
                     return true;
                 else return false;

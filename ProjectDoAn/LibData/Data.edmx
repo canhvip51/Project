@@ -347,6 +347,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ProviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Warehouse_ProductImg">
           <End Role="ProductImg" Type="Self.ProductImg" Multiplicity="0..1" />
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
@@ -430,6 +442,10 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductImg" EntitySet="ProductImg" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Province" Association="Self.FK_User_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
           <AssociationSet Name="FK_Warehouse_ProductImg" Association="Self.FK_Warehouse_ProductImg">
             <End Role="ProductImg" EntitySet="ProductImg" />
             <End Role="Warehouse" EntitySet="Warehouse" />
@@ -505,6 +521,10 @@
           <AssociationSet Name="FK_Warehouse_ProductImg" Association="SHOESSHOPModel.FK_Warehouse_ProductImg">
             <End Role="ProductImg" EntitySet="ProductImgs" />
             <End Role="Warehouse" EntitySet="Warehouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Province" Association="SHOESSHOPModel.FK_User_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_Warehouse_Size" Association="SHOESSHOPModel.FK_Warehouse_Size">
             <End Role="Size" EntitySet="Sizes" />
@@ -684,6 +704,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="SHOESSHOPModel.FK_Order_Province" FromRole="Province" ToRole="Order" />
+          <NavigationProperty Name="Users" Relationship="SHOESSHOPModel.FK_User_Province" FromRole="Province" ToRole="User" />
         </EntityType>
         <EntityType Name="Size">
           <Key>
@@ -735,6 +756,7 @@
           <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ProviceId" Type="Int32" />
+          <NavigationProperty Name="Province" Relationship="SHOESSHOPModel.FK_User_Province" FromRole="User" ToRole="Province" />
         </EntityType>
         <EntityType Name="Warehouse">
           <Key>
@@ -886,6 +908,18 @@
             </Principal>
             <Dependent Role="Warehouse">
               <PropertyRef Name="ProductImgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Province">
+          <End Type="SHOESSHOPModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="SHOESSHOPModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ProviceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

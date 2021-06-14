@@ -342,6 +342,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_User_Province">
+    <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="ProviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Warehouse_ProductImg">
     <End Role="ProductImg" Type="Self.ProductImg" Multiplicity="0..1" />
     <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="*" />
@@ -424,6 +436,10 @@
     <AssociationSet Name="FK_ProductImg_Product" Association="Self.FK_ProductImg_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="ProductImg" EntitySet="ProductImg" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Province" Association="Self.FK_User_Province">
+      <End Role="Province" EntitySet="Province" />
+      <End Role="User" EntitySet="User" />
     </AssociationSet>
     <AssociationSet Name="FK_Warehouse_ProductImg" Association="Self.FK_Warehouse_ProductImg">
       <End Role="ProductImg" EntitySet="ProductImg" />

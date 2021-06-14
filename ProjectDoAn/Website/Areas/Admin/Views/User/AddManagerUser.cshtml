@@ -16,7 +16,7 @@
         <div class="form-group">
 
             <label>Tài khoản<span class="text-danger">*</span></label>
-            <input type="text" class="UserName form-control" name="UserName" id="UserName" @(Model.Id>0?"readonly":"") value="@Model.UserName" />
+            <input type="text" class="UserName form-control" name="UserName" id="UserName" @(Model.Id > 0 ? "readonly" : "") value="@Model.UserName" />
             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
@@ -30,6 +30,7 @@
             @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
         </div>
+
         @if (Model.Id < 1)
         {
             <div class="form-group">
@@ -39,11 +40,27 @@
             </div>
         }
 
+    <div class="form-group">
+        <label>Trạng thái <span class="text-danger">*</span></label>
+        @Html.DropDownList("Status", new SelectList(LibData.Configuration.UserConfig.StatusToDictionarySelect, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search", @id = "Status" })
+    </div>
         <div class="form-group">
             <label>Địa chỉ</label>
+            <select name="ProviceId" class="ProviceId form-control">
+                @foreach (var item in ViewBag.Province as List<LibData.Province>)
+                {
+                    <option value="@item.Id" @(item.Id==Model.ProviceId?"selected":"")>@item.Name</option>
+                }
+
+            </select>
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Địa chỉ chi tiết</label>
             @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
+
         @Html.ValidationMessage("error", new { @class = "text-danger" })
         <div class="modal-footer">
             <button type="button" onclick="sumbitManager()" class="btn btn-primary">Lưu</button>
@@ -66,6 +83,7 @@
             url: "/Admin/user/AddManagerUser",
             data: $form.serialize(),
             success: async function (data, status, xhr) {
+                loading(false)
                 var statusCode = xhr.getResponseHeader("statusCode");
                 if (statusCode == '401') {
                     window.location.replace("/login");
@@ -84,7 +102,6 @@
                 await $("#form-addmanager").html($(data).filter("#form-addmanager").html());
             },
         });
-            loading(true)
     }
     </script>
 </form>

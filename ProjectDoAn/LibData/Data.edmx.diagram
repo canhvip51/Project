@@ -17,11 +17,11 @@
         <EntityTypeShape EntityType="SHOESSHOPModel.Product" Width="1.5" PointX="3" PointY="4.25" />
         <EntityTypeShape EntityType="SHOESSHOPModel.ProductImg" Width="1.5" PointX="5.25" PointY="4.625" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Promotion" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.Province" Width="1.5" PointX="5.25" PointY="15.25" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.Province" Width="1.5" PointX="5.25" PointY="15.125" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Size" Width="1.5" PointX="5.25" PointY="1" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Slide" Width="1.5" PointX="9.75" PointY="10.75" />
         <EntityTypeShape EntityType="SHOESSHOPModel.sysdiagram" Width="1.5" PointX="11.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SHOESSHOPModel.User" Width="1.5" PointX="11.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SHOESSHOPModel.User" Width="1.5" PointX="7.5" PointY="19.375" />
         <EntityTypeShape EntityType="SHOESSHOPModel.Warehouse" Width="1.5" PointX="7.5" PointY="4.125" />
         <AssociationConnector Association="SHOESSHOPModel.FK_Product_Brand" />
         <AssociationConnector Association="SHOESSHOPModel.FK_Cart_Cookie" />
@@ -34,6 +34,7 @@
         <AssociationConnector Association="SHOESSHOPModel.FK_OrderDetail_Warehouse" />
         <AssociationConnector Association="SHOESSHOPModel.FK_ProductImg_Product" />
         <AssociationConnector Association="SHOESSHOPModel.FK_Warehouse_ProductImg" />
+        <AssociationConnector Association="SHOESSHOPModel.FK_User_Province" />
         <AssociationConnector Association="SHOESSHOPModel.FK_Warehouse_Size" />
       </Diagram>
     </edmx:Diagrams>

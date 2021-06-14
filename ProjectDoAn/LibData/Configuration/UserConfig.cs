@@ -10,20 +10,25 @@ namespace LibData.Configuration
     {
         public enum Role
         {
-            SUPERADMIN = 1,
+            ADMIN = 1,
             MANAGER = 2,
             CUSTOMER = 9
         }
         public enum Status
         {
             ACTIVE = 1,
-            DEACTIVE = -1,
-            ISDELETE = 1,
+            LOCK = 2,
+         
         }
-        public static Dictionary<int, string> StatusToDictionaryHTML = new Dictionary<int, string>()
+        public static Dictionary<int, string> StatusToDictionarySelect = new Dictionary<int, string>()
+        {
+            {(int)Status.ACTIVE, "Hoạt động" },
+            {(int)Status.LOCK, "Khóa" },
+        };
+        public static Dictionary<int, string> RoleToDictionaryHTML = new Dictionary<int, string>()
         {
             {-1, "Tất cả" },
-            {(int)Role.SUPERADMIN, "SuperAdmin" },
+            {(int)Role.ADMIN, "Admin" },
             {(int)Role.MANAGER, "Manager" },
             {(int)Role.CUSTOMER, "Customer" },
         };

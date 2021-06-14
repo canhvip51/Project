@@ -11,11 +11,11 @@ namespace Website.Areas.Admin.Controllers
 {
     [CustomAuthenticationFilter]
 
-    [CustomAuthorize("SuperAdmin")]
+    [CustomAuthorize("Admin", "Manager")]
     public class WarehouseController : Controller
     {
         // GET: Warehouse
-        public ActionResult Index()
+        public ActionResult Index(int page =1,int size =10)
         {
             return View();
         }

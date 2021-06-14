@@ -21,7 +21,7 @@ namespace Website.Infrastructure
 
             if (httpContext.Session["User"] != null)
             {
-                var userRole = LibData.Configuration.UserConfig.StatusToDictionaryHTML[(httpContext.Session["User"] as LibData.User).Role.Value];
+                var userRole = LibData.Configuration.UserConfig.RoleToDictionaryHTML[(httpContext.Session["User"] as LibData.User).Role.Value];
                 if (!string.IsNullOrEmpty(userRole))
                 {
                     foreach (var role in allowedroles)

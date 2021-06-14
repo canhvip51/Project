@@ -26,5 +26,7 @@ namespace LibData
         public string FullName { get; set; }
         public string Address { get; set; }
         public Nullable<int> ProviceId { get; set; }
+    
+        public virtual Province Province { get; set; }
     }
 }

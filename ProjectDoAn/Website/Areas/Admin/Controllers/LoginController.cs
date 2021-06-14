@@ -17,7 +17,7 @@ namespace Website.Areas.Admin.Controllers
             if (Session["User"] != null)
             {
                 var user = Session["User"] as LibData.User;
-                if (user.Role == (int)LibData.Configuration.UserConfig.Role.SUPERADMIN)
+                if (user.Role == (int)LibData.Configuration.UserConfig.Role.ADMIN)
                 {
                     return Redirect("/admin/dashboard");
                 }
@@ -52,7 +52,8 @@ namespace Website.Areas.Admin.Controllers
             {
                 LibData.Provider.UserProvider userProvider = new LibData.Provider.UserProvider();
                 var user = userProvider.Login(model.UserName, LibData.Utilities.SecurityHelper.sha256Hash(model.Password));
-                if (user != null && user.Status != (int)LibData.Configuration.UserConfig.Status.DEACTIVE && user.Role == (int)LibData.Configuration.UserConfig.Role.SUPERADMIN)
+                if (user != null && user.Status != (int)LibData.Configuration.UserConfig.Status.LOCK && (user.Role == (int)LibData.Configuration.UserConfig.Role.ADMIN|| user.Role == (int)LibData.Configuration.UserConfig.Role.MANAGER) 
+                    && (user.IsDelete==0 || user.IsDelete==null))
                 {
                     Session["User"] = user;
                     //string str = user.AccountOpenFire + "," + user.PasswordOpenFire + "," + user.DomainOpenFire;
@@ -84,7 +85,7 @@ namespace Website.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         [CustomAuthenticationFilter]
-        [CustomAuthorize("SuperAdmin")]
+        [CustomAuthorize("SuperAdmin", "Manager")]
         [HttpGet]
         public ActionResult ChangePass()
         {
@@ -92,7 +93,7 @@ namespace Website.Areas.Admin.Controllers
             return View( new LibData.Model.ChangePass());
         }
         [CustomAuthenticationFilter]
-        [CustomAuthorize("SuperAdmin")]
+        [CustomAuthorize("SuperAdmin", "Manager")]
             [HttpPost]
         public ActionResult ChangePass(LibData.Model.ChangePass model)
         {

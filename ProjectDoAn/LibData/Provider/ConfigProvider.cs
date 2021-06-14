@@ -12,5 +12,9 @@ namespace LibData.Provider
         {
             return ApplicationDbContext.Configs.FirstOrDefault(x => x.Name == "TIMEOUT_COOKIE_HOURS").Value;
         }
+        public string GetDefault_Pass()
+        {
+            return ApplicationDbContext.Configs.FirstOrDefault(x => x.Name == "DEFAULT_PASS").Value;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace Website.Areas.Admin.Controllers
 {
     [CustomAuthenticationFilter]
 
-    [CustomAuthorize("SuperAdmin")]
+    [CustomAuthorize("Admin")]
     public class UserController : Controller
     {
         // GET: User
@@ -29,8 +29,8 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.keysearch = keysearch;
             int skip = (page - 1) * size;
             LibData.Provider.UserProvider userProvider = new LibData.Provider.UserProvider();
-            var list = userProvider.GetAllUserByRoleAndKey(keysearch,(int)LibData.Configuration.UserConfig.Role.CUSTOMER, skip, size);
-            var count = userProvider.CountAllUserByRoleAndKey(keysearch,(int)LibData.Configuration.UserConfig.Role.CUSTOMER);
+            var list = userProvider.GetAllUserByRoleAndKey(keysearch, (int)LibData.Configuration.UserConfig.Role.CUSTOMER, skip, size);
+            var count = userProvider.CountAllUserByRoleAndKey(keysearch, (int)LibData.Configuration.UserConfig.Role.CUSTOMER);
             StaticPagedList<LibData.User> pagedList = new StaticPagedList<LibData.User>(list, page, size, count);
             return View(pagedList);
         }
@@ -56,6 +56,7 @@ namespace Website.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult AddManagerUser(int? id)
         {
+            ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
             LibData.User user = new LibData.User();
             if (id.HasValue)
             {
@@ -66,10 +67,15 @@ namespace Website.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddManagerUser(LibData.User model)
         {
+            ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
             LibData.Provider.UserProvider userProvider = new LibData.Provider.UserProvider();
             if (string.IsNullOrEmpty(model.UserName))
             {
                 ModelState.AddModelError("UserName", "Tên đăng nhập không được để trống");
+            }
+            else if (userProvider.CheckExistUserName(model.UserName) && model.Id < 1)
+            {
+                ModelState.AddModelError("UserName", "Tên đăng nhập đã tồn tại");
             }
             if (string.IsNullOrEmpty(model.Password) && model.Id < 1)
             {
@@ -80,10 +86,7 @@ namespace Website.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError("Password", "Mật khẩu phải lớn hơn 6 ký tự");
                 }
-            if(userProvider.CheckExistUserName(model.UserName) && model.Id < 1)
-            {
-                ModelState.AddModelError("UserName", "Tên đăng nhập đã tồn tại");
-            }
+
             if (ModelState.IsValid)
             {
 
@@ -108,9 +111,24 @@ namespace Website.Areas.Admin.Controllers
             }
             return View(model);
         }
+
         public bool DeleteManagerUser(int id)
         {
             return new LibData.Provider.UserProvider().Delete(id);
+        }
+        public bool Change(int id)
+        {
+            LibData.Provider.UserProvider userProvider = new LibData.Provider.UserProvider();
+            var user = userProvider.GetById(id);
+            string pass = new LibData.Provider.ConfigProvider().GetDefault_Pass();
+            if (user != null)
+            {
+                user.Password = LibData.Utilities.SecurityHelper.sha256Hash(pass).Trim();
+                user.UpdateDate = DateTime.Now;
+                if (userProvider.Update())
+                    return true; ;
+            }
+            return false;
         }
     }
 }

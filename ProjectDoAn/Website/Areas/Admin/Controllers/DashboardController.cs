@@ -12,7 +12,7 @@ namespace Website.Areas.Admin.Controllers
 {
     [CustomAuthenticationFilter]
 
-    [CustomAuthorize("SuperAdmin")]
+    [CustomAuthorize("Admin", "Manager")]
     public class DashboardController : Controller
     {
         // GET: Dashboard

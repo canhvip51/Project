@@ -98,7 +98,7 @@
             </li>
             <li class="nav-item " id="navProduct">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#navProductShow" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-user"></i>
+                    <i class="fas fa-fw fa-store"></i>
                     <span>Sản phẩm</span>
                 </a>
                 <div class="collapse" id="navProductShow" data-parent="#accordionSidebar">
@@ -115,8 +115,8 @@
             </li>
             <li class="nav-item " id="navImport">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#navImportShow" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Nhà cung cấp</span>
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Nhập kho</span>
                 </a>
                 <div class="collapse" id="navImportShow" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -149,6 +149,7 @@
                     <span>Khuyễn mãi</span>
                 </a>
             </li>
+
             @*<li class="nav-item active">
             <a class="nav-link" href="/Admin/Promotion/Index">
                 <i class="fas fa-fw fa-gift"></i>
@@ -184,6 +185,15 @@
                     <span>Giỏ hàng</span>
                 </a>
             </li>
+            @if (user.Role == (int)LibData.Configuration.UserConfig.Role.ADMIN)
+            {
+                <li class="nav-item " id="navUser">
+                    <a class="nav-link " href="/Admin/User/ManagerUser">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Tài khoản</span>
+                    </a>
+                </li>
+            }
             <!-- Divider -->
             <!--<hr class="sidebar-divider">-->
             <!-- Heading -->
