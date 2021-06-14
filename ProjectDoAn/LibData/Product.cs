@@ -22,10 +22,8 @@ namespace LibData
         public int Id { get; set; }
         public Nullable<int> BrandId { get; set; }
         public string Name { get; set; }
-        public Nullable<int> TypeShoeId { get; set; }
         public string Describe { get; set; }
         public Nullable<int> Status { get; set; }
-        public string Origin { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public Nullable<int> IsDelete { get; set; }
@@ -35,7 +33,6 @@ namespace LibData
         public string AvatarUrl { get; set; }
     
         public virtual Brand Brand { get; set; }
-        public virtual TypeSho TypeSho { get; set; }
         public virtual ICollection<ProductImg> ProductImgs { get; set; }
     }
 }

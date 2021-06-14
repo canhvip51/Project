@@ -23,7 +23,6 @@ namespace LibData
         public string Name { get; set; }
         public Nullable<int> IsDelete { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
-        public string OriginName { get; set; }
     
         public virtual ICollection<Product> Products { get; set; }
     }

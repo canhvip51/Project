@@ -99,5 +99,18 @@ namespace LibData.Provider
                 return false;
             }
         }
+        public bool Delete(Slide slide)
+        {
+            try
+            {
+                ApplicationDbContext.Slides.Remove(slide);
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

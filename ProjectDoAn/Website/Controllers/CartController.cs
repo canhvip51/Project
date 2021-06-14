@@ -18,7 +18,8 @@ namespace Website.Controllers
             LibData.Cookie cookie = new LibData.Cookie();
             if (httpCookie != null)
             {
-                cookie = new LibData.Provider.CookieProvider().GetByKey(httpCookie["keycode"]);
+                cookie = new LibData.Provider.CookieProvider().GetByKey(httpCookie["keycode"])?? new LibData.Cookie();
+                
             }
             return View(cookie);
         }

@@ -52,9 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContexts.cs" />
-    <Compile Include="BanList.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Brand.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
@@ -88,9 +85,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Data.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="District.cs">
-      <DependentUpon>Data.tt</DependentUpon>
     </Compile>
     <Compile Include="Import.cs">
       <DependentUpon>Data.tt</DependentUpon>
@@ -141,7 +135,6 @@
     <Compile Include="Provider\PromotionProvider.cs" />
     <Compile Include="Provider\SizeProvider.cs" />
     <Compile Include="Provider\SlideProvider.cs" />
-    <Compile Include="Provider\TypeShoeProvider.cs" />
     <Compile Include="Provider\UserProvider.cs" />
     <Compile Include="Provider\ViewProvider.cs" />
     <Compile Include="Provider\WarehouseProvider.cs" />
@@ -157,9 +150,6 @@
     <Compile Include="sysdiagram.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
-    <Compile Include="TypeSho.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>
@@ -172,9 +162,6 @@
     <Compile Include="Utilities\PhoneNumberHelper.cs" />
     <Compile Include="Utilities\SecurityHelper.cs" />
     <Compile Include="Utilities\StringHelper.cs" />
-    <Compile Include="Ward.cs">
-      <DependentUpon>Data.tt</DependentUpon>
-    </Compile>
     <Compile Include="Warehouse.cs">
       <DependentUpon>Data.tt</DependentUpon>
     </Compile>

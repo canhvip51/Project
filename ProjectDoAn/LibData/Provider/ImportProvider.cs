@@ -38,7 +38,6 @@ namespace LibData.Provider
             try
             {
                 Import import = GetById(id);
-                import.IsDelete = 1;
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -63,7 +62,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Imports.Where(x => x.IsDelete == 0 || x.IsDelete == null).OrderByDescending(x => x.CreateDate).ToList();
+                return ApplicationDbContext.Imports.OrderByDescending(x => x.CreateDate).ToList();
             }
             catch (Exception e)
             {
@@ -75,7 +74,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Imports.Where(x => x.IsDelete == 0 || x.IsDelete == null).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Imports.OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -87,7 +86,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Imports.Count(x => x.IsDelete == 0 || x.IsDelete == null);
+                return ApplicationDbContext.Imports.Count();
             }
             catch (Exception e)
             {
@@ -99,7 +98,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Imports.Where(x => (x.IsDelete == 0 || x.IsDelete == null)&& (importunitid>0 ? x.ImportUnitId == importunitid : true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Imports.Where(x => (importunitid>0 ? x.ImportUnitId == importunitid : true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -111,7 +110,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Imports.Count(x => (x.IsDelete == 0 || x.IsDelete == null) && (importunitid>0? x.ImportUnitId == importunitid : true));
+                return ApplicationDbContext.Imports.Count(x => (importunitid>0? x.ImportUnitId == importunitid : true));
             }
             catch (Exception e)
             {

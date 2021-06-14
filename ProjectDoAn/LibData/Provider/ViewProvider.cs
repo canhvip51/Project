@@ -396,7 +396,7 @@ namespace LibData.Provider
                
                 List<Product> products = ApplicationDbContext.Products.Where(x => x.Name.Contains(key) && (brand != -1 ? x.BrandId == brand : true)
                 && (sex != -1 ? x.Type == sex : true) && x.Status == 1 && (x.IsDelete == null || x.IsDelete == 0)
-                && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null) && m.Warehouses.Count>0) > 0).ToList();
+                && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null)) > 0).ToList();
                 if (sizeP != -1)
                 {
                     List<int> list = ApplicationDbContext.Warehouses.Where(x => (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status == 1
@@ -450,7 +450,7 @@ namespace LibData.Provider
             {
                var products = ApplicationDbContext.Products.Where(x => x.Name.Contains(key) && (brand != -1 ? x.BrandId == brand : true)
                   && (sex != -1 ? x.Type == sex : true) && x.Status == 1 && (x.IsDelete == null || x.IsDelete == 0)
-                  && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null) && m.Warehouses.Count > 0) > 0);
+                  && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null)) > 0);
                 if (sizeP != -1)
                 {
                     List<int> list = ApplicationDbContext.Warehouses.Where(x => (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status == 1

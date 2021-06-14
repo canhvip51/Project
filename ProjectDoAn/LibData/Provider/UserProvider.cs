@@ -67,7 +67,6 @@ namespace LibData.Provider
                 user.Status = model.Status;
                 user.FullName = model.FullName;
                 user.Address = model.Address;
-                user.Email = model.Email;
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -162,7 +161,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Users.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Phone.Contains(key) || x.Email.Contains(key)) && x.Role == role).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Users.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Phone.Contains(key) ) && x.Role == role).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -200,7 +199,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Users.Count(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Phone.Contains(key) || x.Email.Contains(key)) && x.Role == role);
+                return ApplicationDbContext.Users.Count(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Phone.Contains(key)) && x.Role == role);
             }
             catch (Exception e)
             {

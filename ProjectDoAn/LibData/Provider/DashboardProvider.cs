@@ -12,8 +12,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x => (x.IsDelete == 0 || x.IsDelete == null)
-               && x.Status == (int)Configuration.OrderConfig.Status.FINISH && x.UpdateDate.Value.Month == dateTime.Month).Sum(x => x.Total.Value);
+                return ApplicationDbContext.Orders.Where(x => x.Status == (int)Configuration.OrderConfig.Status.FINISH && x.UpdateDate.Value.Month == dateTime.Month).Sum(x => x.Total.Value);
             }
             catch (Exception)
             {
@@ -25,8 +24,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x => (x.IsDelete == 0 || x.IsDelete == null)
-               && x.Status == (int)Configuration.OrderConfig.Status.FINISH && x.UpdateDate.Value.Day == dateTime.Day).Sum(x => x.Total.Value);
+                return ApplicationDbContext.Orders.Where(x => x.Status == (int)Configuration.OrderConfig.Status.FINISH && x.UpdateDate.Value.Day == dateTime.Day).Sum(x => x.Total.Value);
             }
             catch (Exception)
             {
@@ -38,8 +36,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x => (x.IsDelete == 0 || x.IsDelete == null)
-               && x.Status == (int)Configuration.OrderConfig.Status.FINISH && x.UpdateDate.Value.Year == dateTime.Year).Sum(x => x.Total.Value);
+                return ApplicationDbContext.Orders.Where(x => x.Status == (int)Configuration.OrderConfig.Status.FINISH && x.UpdateDate.Value.Year == dateTime.Year).Sum(x => x.Total.Value);
             }
             catch (Exception)
             {

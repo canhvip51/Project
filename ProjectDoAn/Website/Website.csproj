@@ -2131,10 +2131,8 @@
     <Content Include="Areas\Admin\fonts\fontawesome-webfont.woff2" />
     <Content Include="Areas\Admin\fonts\FontAwesome.otf" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Extend\SelectDistrict.cshtml" />
     <Content Include="Areas\Admin\Views\Extend\SelectProvice.cshtml" />
     <Content Include="Areas\Admin\Views\Extend\SelectSize.cshtml" />
-    <Content Include="Areas\Admin\Views\Extend\SelectWard.cshtml" />
     <Content Include="Areas\Admin\Views\ImportUnit\AddImportUnit.cshtml" />
     <Content Include="Areas\Admin\Views\ImportUnit\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ImportUnit\ListImportUnit.cshtml" />
@@ -2149,9 +2147,6 @@
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\ListProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\TypeShoe\AddType.cshtml" />
-    <Content Include="Areas\Admin\Views\TypeShoe\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\TypeShoe\ListType.cshtml" />
     <Content Include="Areas\Admin\Views\User\AddManagerUser.cshtml" />
     <Content Include="Areas\Admin\Views\User\CustomerUser.cshtml" />
     <Content Include="Areas\Admin\Views\User\ListCustomerUser.cshtml" />
@@ -2211,7 +2206,6 @@
     <Compile Include="Areas\Admin\Controllers\ProductImgController.cs" />
     <Compile Include="Areas\Admin\Controllers\PromotionController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TypeShoeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Controllers\WarehouseController.cs" />
     <Compile Include="Areas\Admin\Models\DashboardModel.cs" />

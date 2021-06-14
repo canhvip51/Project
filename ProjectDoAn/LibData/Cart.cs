@@ -15,18 +15,14 @@ namespace LibData
     public partial class Cart
     {
         public int Id { get; set; }
-        public Nullable<int> UserId { get; set; }
         public Nullable<int> WarehouseId { get; set; }
         public Nullable<int> Amount { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public string KeyCode { get; set; }
-        public Nullable<System.DateTime> ExpiredDate { get; set; }
         public Nullable<int> CookieId { get; set; }
     
         public virtual Cookie Cookie { get; set; }
-        public virtual User User { get; set; }
         public virtual Warehouse Warehouse { get; set; }
     }
 }

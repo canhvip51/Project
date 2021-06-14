@@ -23,35 +23,13 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.selectedp = selectedp;
             return View(new LibData.Provider.ExtendProvider().GetAddProvice());
         }
-        public ActionResult SelectDistrict(int? id,int? selectedd)
-        {
-            ViewBag.ProvinceId = id;
-            ViewBag.selectedd = selectedd??1;
-            id = id ?? 0;
-            return View(new LibData.Provider.ExtendProvider().GetAddDistricts(id.Value));
-        }
-        public ActionResult SelectWard(int? id, int? selectedw)
-        {
-            ViewBag.DistrictId = id;
-            ViewBag.selectedw = selectedw?? 1;
-            id = id ?? 0;
-            return View(new LibData.Provider.ExtendProvider().GetAddWard(id.Value));
-        }
+       
         public List<LibData.Province> ListProvice(int? selectedp)
         {
             ViewBag.selectedp = selectedp;
             return new LibData.Provider.ExtendProvider().GetAddProvice();
         }
-        public List<LibData.District> ListDistrict(int id, int? selectedd)
-        {
-            ViewBag.selectedp = selectedd;
-            return new LibData.Provider.ExtendProvider().GetAddDistricts(id);
-        }
-        public List<LibData.Ward> ListWard(int id, int? selectedw)
-        {
-            ViewBag.selectedp = selectedw;
-            return new LibData.Provider.ExtendProvider().GetAddWard(id);
-        }
+      
         public ActionResult SelectSize(int? productimgid, int? selecteds,string list)
         {
             if (string.IsNullOrEmpty(list))

@@ -19,7 +19,6 @@ namespace Website.Areas.Admin.Controllers
         // GET: Product
         public ActionResult Index(string keysearch,int sex=-1, int brandid=-1, int status = -1, int page = 1, int size = 10)
         {
-            ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
             ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
             ViewBag.keysearch = keysearch;
             ViewBag.page = page;

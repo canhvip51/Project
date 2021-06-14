@@ -19,27 +19,6 @@ namespace LibData.Provider
                 return null;
             }
         }
-        public List<District> GetAddDistricts(int id)
-        {
-            try
-            {
-                return ApplicationDbContext.Districts.Where(m=>m.ProvinceId==id).ToList();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        public List<Ward> GetAddWard(int id)
-        {
-            try
-            {
-                return ApplicationDbContext.Wards.Where(m => m.DistrictId == id).ToList();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+    
     }
 }

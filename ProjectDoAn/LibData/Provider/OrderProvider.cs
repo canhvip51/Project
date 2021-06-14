@@ -51,7 +51,6 @@ namespace LibData.Provider
             try
             {
                 Order order = GetById(id);
-                order.IsDelete = 1;
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -76,7 +75,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x => x.IsDelete == 0 || x.IsDelete == null).OrderByDescending(x => x.CreateDate).ToList();
+                return ApplicationDbContext.Orders.OrderByDescending(x => x.CreateDate).ToList();
             }
             catch (Exception e)
             {
@@ -88,7 +87,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x => x.IsDelete == 0 || x.IsDelete == null).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Orders.OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -100,7 +99,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Count(x => x.IsDelete == 0 || x.IsDelete == null);
+                return ApplicationDbContext.Orders.Count();
             }
             catch (Exception e)
             {
@@ -112,8 +111,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x =>( x.IsDelete == 0 || x.IsDelete == null)
-                &&(paid!=-1?(paid==(int)Configuration.OrderConfig.Pay.PAID? x.CustomerPay > x.Total: x.CustomerPay < x.Total) :true) 
+                return ApplicationDbContext.Orders.Where(x =>(paid!=-1?(paid==(int)Configuration.OrderConfig.Pay.PAID? x.CustomerPay > x.Total: x.CustomerPay < x.Total) :true) 
                 && (type != -1 ? x.Type == type : true) && (x.BuyerName.Contains(key)||x.Phone.Contains(key))
                 &&(status!=-1?x.Status==status:true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
@@ -127,8 +125,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Count(x => (x.IsDelete == 0 || x.IsDelete == null)
-                && (paid != -1 ? (paid == (int)Configuration.OrderConfig.Pay.PAID ? x.CustomerPay > x.Total : x.CustomerPay < x.Total) : true)
+                return ApplicationDbContext.Orders.Count(x => (paid != -1 ? (paid == (int)Configuration.OrderConfig.Pay.PAID ? x.CustomerPay > x.Total : x.CustomerPay < x.Total) : true)
                 && (type != -1 ? x.Type == type : true) && (x.BuyerName.Contains(key) || x.Phone.Contains(key))
                 && (status != -1 ? x.Status == status : true));
             }
@@ -142,8 +139,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x => (x.IsDelete == 0 || x.IsDelete == null)
-                && (paid != -1 ? (paid == (int)Configuration.OrderConfig.Pay.PAID ? x.CustomerPay > x.Total : x.CustomerPay < x.Total) : true)
+                return ApplicationDbContext.Orders.Where(x => (paid != -1 ? (paid == (int)Configuration.OrderConfig.Pay.PAID ? x.CustomerPay > x.Total : x.CustomerPay < x.Total) : true)
                 && (type != -1 ? x.Type == type : true) && (x.BuyerName.Contains(key) || x.Phone.Contains(key))
                 && (status != -1 ? x.Status == status : true)).Sum(x=>x.Total.Value);
             }
@@ -157,7 +153,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Count(x => (x.IsDelete == 0 || x.IsDelete == null)&& (status != -1 ? x.Status == status : true));
+                return ApplicationDbContext.Orders.Count(x =>(status != -1 ? x.Status == status : true));
             }
             catch (Exception e)
             {
@@ -169,7 +165,7 @@ namespace LibData.Provider
         {
             try
             {
-                LibData.Order order= ApplicationDbContext.Orders.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Equals(key) && x.Phone.Equals(phone));
+                LibData.Order order= ApplicationDbContext.Orders.FirstOrDefault(x =>  x.KeyCode.Equals(key) && x.Phone.Equals(phone));
                 if (order != null)
                 {
                     return true;
@@ -185,7 +181,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Where(x =>x.Phone.Equals(phone) && (x.OrderDetails.Where(m=>m.IsDelete == null || m.IsDelete.Value == 0).Sum(m=>m.Amount.Value)>0) && (x.IsDelete==null|| x.IsDelete==0)).OrderByDescending(x=>x.CreateDate).Skip(skip).Take(size).ToList();
+                return ApplicationDbContext.Orders.Where(x =>x.Phone.Equals(phone) && (x.OrderDetails.Where(m=>m.IsDelete == null || m.IsDelete.Value == 0).Sum(m=>m.Amount.Value)>0)).OrderByDescending(x=>x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -196,7 +192,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Count(x => x.Phone.Equals(phone) && (x.OrderDetails.Where(m=>m.IsDelete == null || m.IsDelete == 0).Sum(m=>m.Amount.Value) > 0) && (x.IsDelete == null || x.IsDelete == 0));
+                return ApplicationDbContext.Orders.Count(x => x.Phone.Equals(phone) && (x.OrderDetails.Where(m=>m.IsDelete == null || m.IsDelete == 0).Sum(m=>m.Amount.Value) > 0));
             }
             catch (Exception e)
             {
@@ -207,7 +203,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Orders.Count(x => (x.Status.Value == status)&&(x.IsDelete==null||x.IsDelete==0));
+                return ApplicationDbContext.Orders.Count(x => (x.Status.Value == status));
             }
             catch (Exception e)
             {

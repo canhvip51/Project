@@ -16,7 +16,6 @@ namespace LibData
     {
         public Province()
         {
-            this.Districts = new HashSet<District>();
             this.Orders = new HashSet<Order>();
         }
     
@@ -24,7 +23,6 @@ namespace LibData
         public string Name { get; set; }
         public string Type { get; set; }
     
-        public virtual ICollection<District> Districts { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

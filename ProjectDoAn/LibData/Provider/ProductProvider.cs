@@ -32,7 +32,6 @@ namespace LibData.Provider
                 product.Name = model.Name;
                 product.Describe = model.Describe;
                 product.Status = model.Status;
-                product.Origin = model.Origin;
                 product.BrandId = model.BrandId;
                 product.UpdateDate = DateTime.Now;
                 product.Discount = model.Discount;
@@ -138,7 +137,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.TypeShoes.Count(x => x.IsDelete == 0 || x.IsDelete == null);
+                return ApplicationDbContext.Products.Count(x => x.IsDelete == 0 || x.IsDelete == null);
             }
             catch (Exception e)
             {

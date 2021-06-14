@@ -9,20 +9,20 @@ namespace LibData.Provider
 {
     public class CartProvider : ApplicationDbContexts
     {
-        public void RemoveProductinCart(string key)
-        {
-            try
-            {
-                ApplicationDbContext.Carts.Where(x => x.KeyCode == key && x.Status == 1).ToList().ForEach(x => x.Status = 3);
-                ApplicationDbContext.SaveChanges();
-                return;
-            }
-            catch (Exception)
-            {
-                return;
-            }
+        //public void RemoveProductinCart(string key)
+        //{
+        //    try
+        //    {
+        //        ApplicationDbContext.Carts.Where(x => x.KeyCode == key && x.Status == 1).ToList().ForEach(x => x.Status = 3);
+        //        ApplicationDbContext.SaveChanges();
+        //        return;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return;
+        //    }
 
-        }
+        //}
         public Cart GetByProductAndKey(int wareId, int cookieId)
         {
             try

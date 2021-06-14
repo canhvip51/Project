@@ -145,9 +145,7 @@ namespace Website.Areas.Admin.Controllers
             LibData.Slide slide = slideProvider.GetById(id);
             if (slide != null)
             {
-                slide.IsDelete = 1;
-                slide.UpdateDate = DateTime.Now;
-                if (slideProvider.Update())
+                if (slideProvider.Delete(slide))
                 {
                     return true;
                 }
