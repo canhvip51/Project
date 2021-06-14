@@ -58,16 +58,45 @@ namespace Website.Areas.Admin.Controllers
             dashboardModel.color = color;
             return View(dashboardModel);
         }
-        public ActionResult DashboardProduct()
+        public ActionResult DashboardProductSold()
         {
             LibData.Provider.DashboardProvider dashboardProvider = new LibData.Provider.DashboardProvider();
             List<string> lable = new List<string>();
             List<dynamic> result = new List<dynamic>();
             List<string> color = new List<string>();
             DateTime dt = DateTime.Now;
-            //DateTime ss = CultureInfo.CurrentCulture.GetFirstDayOfWeek
             Models.DashboardModel dashboardModel = new Models.DashboardModel();
-           // result.Add(dashboardProvider.DashboardProduct("TOPSALE").ToString());
+            lable.Add("Top 3 sản phẩm bán nhiều trong 3 tháng");
+            result.Add(dashboardProvider.TopBestSale());
+            lable.Add("Top 3 sản phẩm bán ít nhât trong 3 tháng");
+            result.Add(dashboardProvider.TopBadSale());
+            Random r = new Random();
+            int k = r.Next(1, 10);
+            foreach (var item in result)
+            {
+                int p = r.Next(1, 10);
+                k = (k + p) % ExtendConfig.Color.Count;
+                color.Add(ExtendConfig.Color[k]);
+            }
+            dashboardModel.lable = lable;
+            dashboardModel.result = result;
+            dashboardModel.color = color;
+            return View(dashboardModel);
+        }
+        public ActionResult DashboardInventory()
+        {
+            LibData.Provider.DashboardProvider dashboardProvider = new LibData.Provider.DashboardProvider();
+            List<string> lable = new List<string>();
+            List<dynamic> result = new List<dynamic>();
+            List<string> color = new List<string>();
+            DateTime dt = DateTime.Now;
+            Models.DashboardModel dashboardModel = new Models.DashboardModel();
+            lable.Add("Sản phẩm còn nhiều");
+            result.Add(dashboardProvider.Stocking());
+            lable.Add("Sản phẩm sắp hết");
+            result.Add(dashboardProvider.OutOfStock());
+            lable.Add("Sản phẩm chưa nhập hàng");
+            result.Add(dashboardProvider.NotImport());
             Random r = new Random();
             int k = r.Next(1, 10);
             foreach (var item in result)

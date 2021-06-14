@@ -94,5 +94,19 @@ namespace Website.Areas.Admin.Controllers
             }
             return PartialView("AddProductImg", model);
         }
+        public bool Delete(int id)
+        {
+            LibData.Provider.ProductImgProvider productImgProvider = new LibData.Provider.ProductImgProvider();
+            LibData.ProductImg productImg = productImgProvider.GetById(id);
+            if (productImg != null)
+            {
+                productImg.IsDelete = 1;
+                productImg.UpdateDate = DateTime.Now;
+                if (productImgProvider.Update())
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

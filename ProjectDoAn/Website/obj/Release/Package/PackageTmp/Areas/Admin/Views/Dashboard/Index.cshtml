@@ -7,6 +7,9 @@
             <h2>Thống kê</h2>
         </div>
     </div>
+    <div class="row" id="dashboard-revenue">
+
+    </div>
     <div class="row" id="dashboard-order">
 
     </div>
@@ -97,4 +100,6 @@
 @*Modal*@
 <script>
     $("#dashboard-order").load("/Admin/Dashboard/DashboardOrder")
+    $("#dashboard-revenue").load("/Admin/Dashboard/DashboardRevenue")
+    $("#navDashboard").addClass("active")
 </script>

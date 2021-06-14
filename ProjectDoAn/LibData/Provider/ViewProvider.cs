@@ -12,8 +12,16 @@ namespace LibData.Provider
         {
             try
             {
+                var a = ApplicationDbContext.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == (int)Configuration.OrderConfig.Status.FINISH).GroupBy(x => x.Warehouse.ProductImg.Product).Select(y => new ModelReport
+                {
+                    id = y.Key.Id,
+                    amount = y.Sum(x => x.Amount.Value),
+                }).ToList();
+                List<int> listid = a.Select(x => x.id).ToList();
                 return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.IsDelete == null || x.IsDelete == 0) && x.ProductImgs.Count > 0).OrderByDescending(x => x.Sold).ToList();
+                && listid.Contains(x.Id)
+                 && (x.IsDelete == null || x.IsDelete == 0) && x.ProductImgs.Count(m => (m.IsDelete == 0 || m.IsDelete == null)
+                 && m.Warehouses.Count(n => n.Amount > 0) > 0) > 0).OrderByDescending(x => x.ProductImgs.Where(y => (y.IsDelete == 0 || y.IsDelete == null)).Sum(y => y.Warehouses.Sum(z => z.Amount))).ToList();
             }
             catch (Exception e)
             {
@@ -24,8 +32,15 @@ namespace LibData.Provider
         {
             try
             {
+                var a = ApplicationDbContext.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == (int)Configuration.OrderConfig.Status.FINISH).GroupBy(x => x.Warehouse.ProductImg.Product).Select(y => new ModelReport
+                {
+                    id = y.Key.Id,
+                    amount = y.Sum(x => x.Amount.Value),
+                }).ToList();
                 return ApplicationDbContext.Products.Count(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                 && (x.IsDelete == null || x.IsDelete == 0) && x.ProductImgs.Count > 0);
+                && a.Select(y => y.id).Contains(x.Id)
+                 && (x.IsDelete == null || x.IsDelete == 0) && x.ProductImgs.Count(m => (m.IsDelete == 0 || m.IsDelete == null)
+                 && m.Warehouses.Count(n => n.Amount > 0) > 0) > 0);
             }
             catch (Exception e)
             {
@@ -36,8 +51,16 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE && x.ProductImgs.Count > 0
-                 && (x.IsDelete == null || x.IsDelete == 0)).OrderByDescending(x => x.Sold).Skip(skip).Take(size).ToList();
+                var a = ApplicationDbContext.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == (int)Configuration.OrderConfig.Status.FINISH).GroupBy(x => x.Warehouse.ProductImg.Product).Select(y => new ModelReport
+                {
+                    id = y.Key.Id,
+                    amount = y.Sum(x => x.Amount.Value),
+                }).ToList();
+                List<int> listid = a.Select(x => x.id).ToList();
+                return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
+                && listid.Contains(x.Id)
+                 && (x.IsDelete == null || x.IsDelete == 0) && x.ProductImgs.Count(m => (m.IsDelete == 0 || m.IsDelete == null)
+                 && m.Warehouses.Count(n => n.Amount > 0) > 0) > 0).OrderByDescending(x => x.ProductImgs.Where(y=> (y.IsDelete == 0 || y.IsDelete == null)).Sum(y=>y.Warehouses.Sum(z=>z.Sold))).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -64,7 +87,7 @@ namespace LibData.Provider
                 return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
                  && (x.IsDelete == null || x.IsDelete == 0) && x.ProductImgs.Count > 0 && x.Name.Contains(keysearch) && (brandid != -1 ? x.BrandId == brandid : true)
                  && (typeid != -1 ? x.Type == typeid : true)
-                 ).OrderByDescending(x => x.Sold).Skip(skip).Take(size).ToList();
+                 ).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
             {
@@ -369,18 +392,26 @@ namespace LibData.Provider
         {
             try
             {
+              
+               
                 List<Product> products = ApplicationDbContext.Products.Where(x => x.Name.Contains(key) && (brand != -1 ? x.BrandId == brand : true)
                 && (sex != -1 ? x.Type == sex : true) && x.Status == 1 && (x.IsDelete == null || x.IsDelete == 0)
-                && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null)) > 0).ToList();
+                && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null) && m.Warehouses.Count>0) > 0).ToList();
                 if (sizeP != -1)
                 {
-                    List<int> list = ApplicationDbContext.Warehouses.Where(x => (x.IsDelete.Value == null || x.IsDelete.Value == 0) && x.Status == 1
+                    List<int> list = ApplicationDbContext.Warehouses.Where(x => (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status == 1
                     && x.Amount > 0 && x.SizeId==sizeP).Select(x => x.ProductImg.ProductId.Value).ToList();
                     products = products.Where(x => list.Contains(x.Id)).ToList();
                 }
                 if (sort == Configuration.ViewConfig.TOPSALE)
                 {
-                    products = products.OrderByDescending(x => x.Sold).ToList();
+                    var a = ApplicationDbContext.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == (int)Configuration.OrderConfig.Status.FINISH).GroupBy(x => x.Warehouse.ProductImg.Product).Select(y => new ModelReport
+                    {
+                        id = y.Key.Id,
+                        amount = y.Sum(x => x.Amount.Value),
+                    }).ToList();
+                    List<int> listid = a.Select(x => x.id).ToList();
+                    products = products.Where(x=>listid.Contains(x.Id)).OrderByDescending(x => x.ProductImgs.Where(y =>listid.Contains(y.Id) && (y.IsDelete == 0 || y.IsDelete == null)).Sum(y => y.Warehouses.Sum(z => z.Sold))).ToList();
                 }
                 if (sort == Configuration.ViewConfig.PRODUCTNEW)
                 {
@@ -417,18 +448,24 @@ namespace LibData.Provider
         {
             try
             {
-                var products = ApplicationDbContext.Products.Where(x => x.Name.Contains(key) && (brand != -1 ? x.BrandId == brand : true)
-                && (sex != -1 ? x.Type == sex : true) && x.Status == 1 && (x.IsDelete == null || x.IsDelete == 0)
-                && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null)) > 0);
+               var products = ApplicationDbContext.Products.Where(x => x.Name.Contains(key) && (brand != -1 ? x.BrandId == brand : true)
+                  && (sex != -1 ? x.Type == sex : true) && x.Status == 1 && (x.IsDelete == null || x.IsDelete == 0)
+                  && x.ProductImgs.Count(m => m.Status == 1 && (m.IsDelete == 0 || m.IsDelete == null) && m.Warehouses.Count > 0) > 0);
                 if (sizeP != -1)
                 {
-                    List<int> list = ApplicationDbContext.Warehouses.Where(x => (x.IsDelete.Value == null || x.IsDelete.Value == 0) && x.Status == 1
+                    List<int> list = ApplicationDbContext.Warehouses.Where(x => (x.IsDelete == null || x.IsDelete.Value == 0) && x.Status == 1
                     && x.Amount > 0 && x.SizeId == sizeP).Select(x => x.ProductImg.ProductId.Value).ToList();
                     products = products.Where(x => list.Contains(x.Id));
                 }
                 if (sort == Configuration.ViewConfig.TOPSALE)
                 {
-                    products = products.OrderByDescending(x => x.Sold);
+                    var a = ApplicationDbContext.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == (int)Configuration.OrderConfig.Status.FINISH).GroupBy(x => x.Warehouse.ProductImg.Product).Select(y => new ModelReport
+                    {
+                        id = y.Key.Id,
+                        amount = y.Sum(x => x.Amount.Value),
+                    }).ToList();
+                    List<int> listid = a.Select(x => x.id).ToList();
+                    products = products.Where(x => listid.Contains(x.Id)).OrderByDescending(x => x.ProductImgs.Where(y => listid.Contains(y.Id) && (y.IsDelete == 0 || y.IsDelete == null)).Sum(y => y.Warehouses.Sum(z => z.Amount)));
                 }
                 if (sort == Configuration.ViewConfig.PRODUCTNEW)
                 {

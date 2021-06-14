@@ -124,7 +124,7 @@
                                     <h5>SHOESSHOP</h5>
                                     Thịnh Liệt - Hoàng Mai - Hà Nội<br />
                                     ĐT: 096.571.xxxx - 035.333.xxxx<br />
-                                    Website:
+                                    Website: <span id="url"></span>
                                 </td>
                             </tr>
                         </table>
@@ -272,4 +272,6 @@
     function Back() {
         window.history.back();
     }
+    $("#url").html(window.location.hostname)
+    $("#navOrder").addClass("active")
 </script>

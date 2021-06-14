@@ -133,14 +133,15 @@ namespace Website.Areas.Admin.Controllers
         }
         public bool DeletePromotion(int id)
         {
-              LibData.Promotion  promotion = new LibData.Provider.PromotionProvider().GetById(id);
-            if (promotion == null)
+            LibData.Provider.PromotionProvider promotionProvider = new LibData.Provider.PromotionProvider(); 
+              LibData.Promotion  promotion = promotionProvider.GetById(id);
+            if (promotion != null)
             {
-                return false;
+                promotion.IsDelete = 1;
+                promotion.UpdateDate = DateTime.Now;
+                if (promotionProvider.Update())
+                    return true;
             }
-            promotion.IsDelete = 1;
-            if (new LibData.Provider.PromotionProvider().Update())
-                return true;
             return false;
         }
     }

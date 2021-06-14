@@ -12,9 +12,6 @@
         <div class="col-6">
             <h2>Phiếu nhập kho</h2>
         </div>
-        @*<div class="col-2  offset-4">
-                <button class="btn btn-success btn-block" onclick="window.location.href='/Order/AddOrder?Id'">Thêm</button>
-            </div>*@
     </div>
 
     <form id="form-addimport">
@@ -34,17 +31,15 @@
                             <h6>
                                 Thông tin phiếu nhập
                             </h6>
-
-
                         </div>
 
                     </div>
                     <div class="card-body">
-                        <div class="row mt-3 text-right">
+                        @*<div class="row mt-3 text-right">
                             <div class="col-2 offset-10">
                                 <a class="btn btn-primary" href="/Admin/Product/AddProduct" target="_blank">Thêm sản phẩm</a>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="row mt-3">
                             <div class="col-12" id="infoimport">
                                 <div class="form-group pb-3">
@@ -314,7 +309,7 @@
     if ($("#msgerror").html() != "") {
         $("#error").addClass("alert alert-danger")
     }
-    $("#navProduct").addClass("active")
-    $("#navProductShow").addClass("show")
+    $("#navImport").addClass("active")
+    $("#navImportShow").addClass("show")
     $("#iAddImport").addClass("active")
 </script>

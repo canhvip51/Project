@@ -2187,6 +2187,8 @@
     <Content Include="Areas\Admin\Views\Product\PromotionProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\DashboardRevenue.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\DashboardProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\DashboardProductSold.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\DashboardInventory.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <Content Include="Scripts\jquery.signalR-2.4.1.js" />
     <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />

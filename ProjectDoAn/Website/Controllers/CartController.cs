@@ -86,7 +86,7 @@ namespace Website.Controllers
                         {
                             Amount = item.Amount,
                             WarehouseId = item.WarehouseId,
-                            Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * ((100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100))) * 1000),
+                            Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100)) * 1000),
                         };
                         listOrderDetail.Add(orderDetail);
                     }
@@ -169,7 +169,7 @@ namespace Website.Controllers
                             {
                                 Amount = item.Amount,
                                 WarehouseId = item.WarehouseId,
-                                Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * ((100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100))) * 1000),
+                                Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100)) * 1000),
                             };
                             listOrderDetail.Add(orderDetail);
                         }

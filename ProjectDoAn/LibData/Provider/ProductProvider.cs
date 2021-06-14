@@ -12,7 +12,6 @@ namespace LibData.Provider
         {
             try
             {
-                model.Sold = 0;
                 model.Status = 1;
                 model.CreateDate = DateTime.Now;
                 ApplicationDbContext.Products.Add(model);
@@ -32,12 +31,24 @@ namespace LibData.Provider
                 product.AvatarUrl = model.AvatarUrl;
                 product.Name = model.Name;
                 product.Describe = model.Describe;
-                //product.TypeShoeId = model.TypeShoeId;
+                product.Status = model.Status;
                 product.Origin = model.Origin;
                 product.BrandId = model.BrandId;
                 product.UpdateDate = DateTime.Now;
                 product.Discount = model.Discount;
                 product.Price = model.Price;
+                ApplicationDbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool Update()
+        {
+            try
+            {
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -65,7 +76,6 @@ namespace LibData.Provider
             try
             {
                 Product product = GetById(model.Id);
-                product.Sold = model.Sold;
                 ApplicationDbContext.SaveChanges();
                 return true;
             }
@@ -136,12 +146,12 @@ namespace LibData.Provider
             }
 
         }
-        public List<Product> GetAllByKey(string key, int brandid, int sex, int skip, int size)
+        public List<Product> GetAllByKey(string key, int brandid, int sex,int status, int skip, int size)
         {
             try
             {
                 return ApplicationDbContext.Products.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Contains(key)
-                && (sex != -1 ? x.Type == sex : true)
+                && (sex != -1 ? x.Type == sex : true) && (status != -1 ? x.Status == status : true)
                 && (brandid != -1 ? x.BrandId.Value == brandid : true)).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
@@ -149,12 +159,12 @@ namespace LibData.Provider
                 return null;
             }
         }
-        public int CountAllByKey(string key, int brandid, int sex)
+        public int CountAllByKey(string key, int brandid, int sex,int status)
         {
             try
             {
-                return ApplicationDbContext.Products.Count(x => (x.IsDelete == 0 || x.IsDelete == null
-                && (brandid != -1 ? x.BrandId.Value == brandid : true)) && x.Name.Contains(key) && (sex != -1 ? x.Type == sex : true));
+                return ApplicationDbContext.Products.Count(x => (x.IsDelete == 0 || x.IsDelete == null) && (status != -1 ? x.Status == status : true)
+                && (brandid != -1 ? x.BrandId.Value == brandid : true) && x.Name.Contains(key) && (sex != -1 ? x.Type == sex : true));
             }
             catch (Exception e)
             {

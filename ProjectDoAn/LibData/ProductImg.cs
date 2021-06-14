@@ -26,6 +26,7 @@ namespace LibData
         public Nullable<int> IsDelete { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual ICollection<Warehouse> Warehouses { get; set; }

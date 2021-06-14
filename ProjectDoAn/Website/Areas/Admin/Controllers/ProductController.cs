@@ -17,7 +17,7 @@ namespace Website.Areas.Admin.Controllers
     {
         public const string _ImagesPath = "~/Images/Products";
         // GET: Product
-        public ActionResult Index(string keysearch,int sex=-1, int brandid=-1, int page = 1, int size = 10)
+        public ActionResult Index(string keysearch,int sex=-1, int brandid=-1, int status = -1, int page = 1, int size = 10)
         {
             ViewBag.Type = new LibData.Provider.TypeShoeProvider().GetAll();
             ViewBag.Brand = new LibData.Provider.BrandProvider().GetAll();
@@ -25,20 +25,22 @@ namespace Website.Areas.Admin.Controllers
             ViewBag.page = page;
             ViewBag.size = size;
             ViewBag.sex = sex;
+            ViewBag.status = status;
             ViewBag.brandid = brandid;
             return View();
         }
-        public ActionResult ListProduct(string keysearch, int sex = -1, int brandid = -1, int page = 1, int size = 10)
+        public ActionResult ListProduct(string keysearch, int sex = -1, int brandid = -1, int status = -1, int page = 1, int size = 10)
         {
             ViewBag.keysearch = keysearch;
             ViewBag.page = page;
             ViewBag.size = size;
             ViewBag.brandid = brandid;
             ViewBag.sex = sex;
+            ViewBag.status = status;
             int skip = (page - 1) * size;
             LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
-            var list = productProvider.GetAllByKey(keysearch,brandid,sex, skip, size);
-            var count = productProvider.CountAllByKey(keysearch, brandid, sex);
+            var list = productProvider.GetAllByKey(keysearch,brandid,sex,status, skip, size);
+            var count = productProvider.CountAllByKey(keysearch, brandid, sex, status);
             StaticPagedList<LibData.Product> pagedList = new StaticPagedList<LibData.Product>(list, page, size, count);
             return View(pagedList);
         }
@@ -167,6 +169,20 @@ namespace Website.Areas.Admin.Controllers
                 return View();
             }
             return View();
+        }
+        public bool Delete(int id)
+        {
+            LibData.Provider.ProductProvider productProvider = new LibData.Provider.ProductProvider();
+            LibData.Product product = productProvider.GetById(id);
+            if (product != null)
+            {
+                product.IsDelete = 1;
+                product.UpdateDate = DateTime.Now;
+                if (productProvider.Update())
+                    return true;
+            }
+
+            return false;
         }
     }
 }

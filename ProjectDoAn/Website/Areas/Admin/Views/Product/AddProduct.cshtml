@@ -47,6 +47,11 @@
                                                 @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
                                             </div>
                                             <div class="form-group">
+                                                <label>Trạng thái</label>
+                                                @Html.DropDownList("Status", new SelectList(LibData.Configuration.ProductConfig.StatusToDictionarySelect, "Key", "Value", Model.Status), new { @class = "form-control select2-no-search" })
+                                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group">
                                                 <label>Giá<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" name="Price" id="Price" value="@Model.Price" />
                                                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })

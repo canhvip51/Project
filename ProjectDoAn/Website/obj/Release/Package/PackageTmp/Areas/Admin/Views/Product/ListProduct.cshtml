@@ -18,6 +18,8 @@
             <th>Hãng</th>
             <th>Giá(VNĐ)</th>
             <th>Giảm giá (%)</th>
+            <th>Đã bán</th>
+            <th>Còn lại</th>
             <th></th>
         </tr>
     </thead>
@@ -39,7 +41,7 @@
             @item.Name
         </td>
         <td>
-           @LibData.Configuration.UserConfig.StatusToDictionarySex[item.Type.Value]
+            @LibData.Configuration.UserConfig.StatusToDictionarySex[item.Type.Value]
         </td>
         @if (item.BrandId.HasValue)
         {
@@ -53,10 +55,29 @@
             </td>
         }
         <td>
-            @item.Price VNĐ
+            @string.Format("{0:#,0}", item.Price) VNĐ
         </td>
         <td>
             @item.Discount
+        </td>
+        <td>
+            @item.Sold
+        </td>
+        <td>
+            @{ 
+                int allamount=0;
+                if (item.ProductImgs != null)
+                {
+                    foreach (var img in item.ProductImgs.Where(x=>(x.IsDelete==0||x.IsDelete==null)&&(x.Status==1)))
+                    {
+                        if (img.Warehouses != null)
+                        {
+                            allamount += img.Warehouses.Sum(x => x.Amount.Value);
+                        }
+                    }
+                }
+            }
+            @allamount
         </td>
         <td>
             <div class="btn-group">

@@ -108,7 +108,7 @@ namespace Website.Areas.Admin.Controllers
                     warehouse.Amount -= item.Amount.Value;
                     if (model.Type == LibData.Configuration.ViewConfig.BUYINSTORE_INT)
                     {
-                        warehouse.ProductImg.Product.Sold += item.Amount.Value;
+                        warehouse.Sold += item.Amount.Value;
                     }
                 }
                 if (item.Amount.Value < 0)
@@ -354,8 +354,8 @@ namespace Website.Areas.Admin.Controllers
             if (order.Status == (int)LibData.Configuration.OrderConfig.Status.CONFIRM && model.Status == (int)LibData.Configuration.OrderConfig.Status.FINISH)
             {
                 //Cộng số lượng đã bán
-                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.Sold += x.Amount);
-                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.UpdateDate = DateTime.Now);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.Sold += x.Amount);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
                 order.Status = model.Status;
                 order.Refuse = model.Refuse;
                 order.UpdateDate = DateTime.Now;
@@ -370,8 +370,7 @@ namespace Website.Areas.Admin.Controllers
             if (order.Status == (int)LibData.Configuration.OrderConfig.Status.FINISH && model.Status == (int)LibData.Configuration.OrderConfig.Status.CANCEL)
             {
                 //Trừ số lượng đã bán
-                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.Sold -= x.Amount);
-                order.OrderDetails.ToList().ForEach(x => x.Warehouse.ProductImg.Product.UpdateDate = DateTime.Now);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.Sold -= x.Amount);
                 //Cộng lại vào kho
                 order.OrderDetails.ToList().ForEach(x => x.Warehouse.Amount += x.Amount);
                 order.OrderDetails.ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);

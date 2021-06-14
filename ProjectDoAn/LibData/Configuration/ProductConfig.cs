@@ -19,6 +19,19 @@ namespace LibData.Configuration
             STOPSELL = 2,
             ISDELETE = 1,
         }
-
+        public static Dictionary<int, string> StatusToDictionaryHTML = new Dictionary<int, string>()
+        {
+            {-1, "Tất cả trạng thái" },
+           // {(int)Status.WAITFORPAY, "Chờ thanh toán" },
+            {(int)Status.ACTIVE, "Hoạt động" },
+            {(int)Status.STOPSELL, "Dừng bán" },
+        };
+        public static Dictionary<int, string> StatusToDictionarySelect = new Dictionary<int, string>()
+        {
+          //  {-1, "Tất cả trạng thái đơn hàng" },
+           // {(int)Status.WAITFORPAY, "Chờ thanh toán" },
+            {(int)Status.ACTIVE, "Hoạt động" },
+            {(int)Status.STOPSELL, "Dừng bán" },
+        };
     }
 }

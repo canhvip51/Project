@@ -12,6 +12,7 @@ namespace LibData.Provider
         {
             try
             {
+                model.Sold = 0;
                 model.Discount = 0;
                 model.Amount = 0;
                 model.Status = 1;

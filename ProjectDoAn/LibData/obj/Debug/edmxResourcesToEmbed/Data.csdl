@@ -280,7 +280,6 @@
     <Property Name="Price" Type="Int32" />
     <Property Name="Type" Type="Int32" />
     <Property Name="AvatarUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Sold" Type="Int32" />
     <NavigationProperty Name="Brand" Relationship="SHOESSHOPModel.FK_Product_Brand" FromRole="Product" ToRole="Brand" />
     <NavigationProperty Name="TypeSho" Relationship="SHOESSHOPModel.FK_Product_TypeShoes" FromRole="Product" ToRole="TypeSho" />
     <NavigationProperty Name="ProductImgs" Relationship="SHOESSHOPModel.FK_ProductImg_Product" FromRole="Product" ToRole="ProductImg" />
@@ -296,6 +295,7 @@
     <Property Name="IsDelete" Type="Int32" />
     <Property Name="Status" Type="Int32" />
     <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Product" Relationship="SHOESSHOPModel.FK_ProductImg_Product" FromRole="ProductImg" ToRole="Product" />
     <NavigationProperty Name="Warehouses" Relationship="SHOESSHOPModel.FK_Warehouse_ProductImg" FromRole="ProductImg" ToRole="Warehouse" />
   </EntityType>
@@ -417,6 +417,7 @@
     <Property Name="ProductImgId" Type="Int32" />
     <Property Name="Discount" Type="Int32" />
     <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Sold" Type="Int32" />
     <NavigationProperty Name="Carts" Relationship="SHOESSHOPModel.FK_Cart_Warehouse" FromRole="Warehouse" ToRole="Cart" />
     <NavigationProperty Name="ImportDetails" Relationship="SHOESSHOPModel.FK_ImportDetail_Warehouse" FromRole="Warehouse" ToRole="ImportDetail" />
     <NavigationProperty Name="OrderDetails" Relationship="SHOESSHOPModel.FK_OrderDetail_Warehouse" FromRole="Warehouse" ToRole="OrderDetail" />

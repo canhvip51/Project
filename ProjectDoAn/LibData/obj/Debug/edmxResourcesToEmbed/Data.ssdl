@@ -160,7 +160,6 @@
     <Property Name="Price" Type="int" />
     <Property Name="Type" Type="int" />
     <Property Name="AvatarUrl" Type="nvarchar(max)" />
-    <Property Name="Sold" Type="int" />
   </EntityType>
   <EntityType Name="ProductImg">
     <Key>
@@ -173,6 +172,7 @@
     <Property Name="IsDelete" Type="int" />
     <Property Name="Status" Type="int" />
     <Property Name="CreateDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Promotion">
     <Key>
@@ -284,6 +284,7 @@
     <Property Name="ProductImgId" Type="int" />
     <Property Name="Discount" Type="int" />
     <Property Name="Code" Type="nvarchar(max)" />
+    <Property Name="Sold" Type="int" />
   </EntityType>
   <Association Name="FK_Cart_Cookie">
     <End Role="Cookie" Type="Self.Cookie" Multiplicity="0..1" />

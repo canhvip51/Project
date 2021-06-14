@@ -38,29 +38,29 @@
                         <div class="product-grid7">
                             <div class="product-image7 d-flex" style="height:317px">
                                 <a href="/ListProduct/DetailProduct?Id=@item.Id" class="align-self-center ">
-                                @*<a href="" style="margin:0px">*@
+                                    @*<a href="" style="margin:0px">*@
                                     <img class="pic-1" src="/Images/Products/@item.AvatarUrl">
                                 </a>
-                                @*<ul class="social">
-                                    <li title="Chi tiết"><a href="/Product/DetailProduct?Id=@item.Id" class="fa fa-search"></a></li>
-                                    <li title="Thêm vào giỏ hàng"><a href="" class="fa fa-shopping-cart"></a></li>
-                                </ul>*@
-                                @*@if (type == ViewConfig.PRODUCTNEW)
-                                {
-                                    <span class="product-new-label">New</span>
-                                }*@
-
+                                @{
+                                    int allamount = 0;
+                                    if (item.ProductImgs != null)
+                                    {
+                                        foreach (var img in item.ProductImgs.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && (x.Status == 1)))
+                                        {
+                                            if (img.Warehouses != null)
+                                            {
+                                                allamount += img.Warehouses.Sum(x => x.Amount.Value);
+                                            }
+                                        }
+                                    }
+                                    if (allamount == 0)
+                                    {
+                                        <span class="product-over-label">Hết hàng</span>
+                                    }
+                                }
                             </div>
                             <div class="product-content">
                                 <h3 class="title"><a href="/ListProduct/DetailProduct?Id=@item.Id">@item.Name</a></h3>
-                                @*<ul class="rating">
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-            <li class="fa fa-star"></li>
-        </ul>*@
-
                                 @if (item.Discount.HasValue && item.Discount > 0)
                                 {
                                     <div class="price">
@@ -72,7 +72,6 @@
                                 {
                                     <div class="price">
                                         @string.Format("{0:#,0}", item.Price) VNĐ
-                                        @*<span>$20.00</span>*@
                                     </div>
                                 }
                             </div>
