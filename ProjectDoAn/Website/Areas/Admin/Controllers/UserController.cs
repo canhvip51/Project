@@ -73,7 +73,7 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("UserName", "Tên đăng nhập không được để trống");
             }
-            else if (userProvider.CheckExistUserName(model.UserName) && model.Id < 1)
+            else if (userProvider.CheckExistUserName(model) && model.Id < 1)
             {
                 ModelState.AddModelError("UserName", "Tên đăng nhập đã tồn tại");
             }

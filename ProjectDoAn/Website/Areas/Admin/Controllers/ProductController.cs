@@ -70,7 +70,7 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Name", "Tên giày không được để trống");
             }
-            else if(productProvider.CheckNameAndType(model.Name, model.Type.Value))
+            else if(productProvider.CheckNameAndType(model))
             {
                 ModelState.AddModelError("Name", "Tên giày đã tồn tại");
             }

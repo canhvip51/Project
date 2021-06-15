@@ -69,7 +69,7 @@
 
     loadListSlide()
     function loadListSlide() {
-        $("#list-slide").load("/Admin/Slide/ListSlide?status=@ViewBag.status")
+        $("#list-slide").load("/Admin/Slide/ListSlide?status=@ViewBag.status&page=@ViewBag.page")
     }
     function AddSlide() {
         $("#content-form-md").load("/Admin/Slide/AddSlide?id", function (response) {

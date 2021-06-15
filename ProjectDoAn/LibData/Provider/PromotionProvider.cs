@@ -111,11 +111,12 @@ namespace LibData.Provider
                 return 0;
             }
         }
-        public bool CheckKeyCode(string keycode)
+        public bool CheckKeyCode(Promotion model)
         {
             try
             {
-                var promotion = ApplicationDbContext.Promotions.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.KeyCode.Trim().ToLower()==keycode.Trim().ToLower());
+                var promotion = ApplicationDbContext.Promotions.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Id!=model.Id
+                && x.KeyCode.Trim().ToLower()==model.KeyCode.Trim().ToLower());
                 if (promotion != null)
                     return true;
                 return false;

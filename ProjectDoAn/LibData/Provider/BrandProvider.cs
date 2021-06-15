@@ -98,11 +98,12 @@ namespace LibData.Provider
             }
 
         }
-        public bool CheckName(string name)
+        public bool CheckName(Brand model)
         {
             try
             {
-                var brand = ApplicationDbContext.Brands.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Name.Trim().ToLower() == name.Trim().ToLower());
+                var brand = ApplicationDbContext.Brands.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Id!=model.Id
+                && x.Name.Trim().ToLower() == model.Name.Trim().ToLower());
                 if (brand != null)
                     return true;
                 return false;

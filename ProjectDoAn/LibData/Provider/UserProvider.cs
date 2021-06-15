@@ -222,11 +222,11 @@ namespace LibData.Provider
 
         }
         //Check
-        public bool CheckExistUserName(string username)
+        public bool CheckExistUserName(User model)
         {
             try
             {
-                var user = ApplicationDbContext.Users.First(x => x.UserName == username && (x.IsDelete == 0 || x.IsDelete == null));
+                var user = ApplicationDbContext.Users.First(x => x.UserName == model.UserName && (x.IsDelete == 0 || x.IsDelete == null) && x.Id!=model.Id);
                 if (user != null)
                     return true;
                 else return false;

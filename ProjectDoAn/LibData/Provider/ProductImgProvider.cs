@@ -160,12 +160,12 @@ namespace LibData.Provider
             }
 
         }
-        public bool CheckColor(string color)
+        public bool CheckColor(ProductImg model)
         {
             try
             {
                 var product = ApplicationDbContext.ProductImgs.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)
-                && x.Color.Trim().ToLower() == color.Trim().ToLower() );
+                && x.Color.Trim().ToLower() == model.Color.Trim().ToLower() && x.Id!=model.Id  && x.ProductId == model.ProductId);
                 if (product != null)
                     return true;
                 return false;

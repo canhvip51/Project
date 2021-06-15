@@ -103,12 +103,11 @@
     <div class="row float-right">
         @*phân trang*@
         @Html.PagedListPager((IPagedList)Model,
-        page => Url.Action("Index", new { page = page, keysearch = ViewBag.keysearch,brandid = ViewBag.brandid, sex = ViewBag.sex,status =ViewBag.status }),
-        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
-        {
-            HttpMethod = "GET",
-            UpdateTargetId = "list-product",
-        })
-        )
+     page => Url.Action("Index", new { page = page, keysearch = ViewBag.keysearch, brandid = ViewBag.brandid, sex = ViewBag.sex, status = ViewBag.status }),
+    new PagedListRenderOptions
+     {
+         //HttpMethod = "GET",
+         //UpdateTargetId = "list-product",
+     })
     </div>
 </div>

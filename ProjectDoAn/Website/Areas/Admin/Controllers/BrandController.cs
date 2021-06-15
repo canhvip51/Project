@@ -49,7 +49,7 @@ namespace Website.Areas.Admin.Controllers
             if (string.IsNullOrEmpty(model.Name))
             {
                 ModelState.AddModelError("Name", "Tên thương hiệu không được để trống");
-            } else if (brandProvider.CheckName(model.Name))
+            } else if (brandProvider.CheckName(model))
             {
                 ModelState.AddModelError("Name", "Tên thương hiệu đã tồn tại");
             }

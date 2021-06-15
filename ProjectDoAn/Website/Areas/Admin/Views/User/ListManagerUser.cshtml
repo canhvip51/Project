@@ -93,11 +93,8 @@
         @*phân trang*@
         @Html.PagedListPager((IPagedList)Model,
         page => Url.Action("ManagerUser", new { page = page, keysearch = ViewBag.keysearch }),
-        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        new PagedListRenderOptions
         {
-            HttpMethod = "GET",
-            UpdateTargetId = "list-customer",
         })
-        )
     </div>
 </div>

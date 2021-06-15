@@ -118,7 +118,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Provider\BanListProvider.cs" />
     <Compile Include="Provider\BrandProvider.cs" />
     <Compile Include="Provider\CartProvider.cs" />
     <Compile Include="Provider\ConfigProvider.cs" />

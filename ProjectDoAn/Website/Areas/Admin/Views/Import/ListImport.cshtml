@@ -72,11 +72,8 @@
         @*phân trang*@
         @Html.PagedListPager((IPagedList)Model,
         page => Url.Action("ListImport", new { page = page,  id = ViewBag.id }),
-        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        new PagedListRenderOptions
         {
-            HttpMethod = "GET",
-            UpdateTargetId = "list-import",
         })
-        )
     </div>
 </div>

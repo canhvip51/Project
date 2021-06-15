@@ -90,7 +90,7 @@
 <script>
     loadListImport()
     function loadListImport() {
-        $("#list-import").load("/Admin/Import/ListImport?id=@ViewBag.id")
+        $("#list-import").load("/Admin/Import/ListImport?id=@ViewBag.id&page=@ViewBag.page")
     }
     $("#navImport").addClass("active")
     $("#navImportShow").addClass("show")

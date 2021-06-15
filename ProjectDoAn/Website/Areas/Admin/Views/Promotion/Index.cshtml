@@ -69,7 +69,7 @@
     loadListPromotion()
     function loadListPromotion() {
 
-        $("#list-promotion").load("/Admin/Promotion/ListPromotion")
+        $("#list-promotion").load("/Admin/Promotion/ListPromotion?page=@ViewBag.page")
     }
     function AddPromotion() {
         loading(true)

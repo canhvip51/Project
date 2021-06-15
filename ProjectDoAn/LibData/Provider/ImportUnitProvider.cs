@@ -100,11 +100,12 @@ namespace LibData.Provider
                 return 0;
             }
         }
-        public bool CheckName(string name)
+        public bool CheckName(ImportUnit model)
         {
             try
             {
-                var importUnit= ApplicationDbContext.ImportUnits.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)&&x.Name.Trim().ToLower()==name.Trim().ToLower());
+                var importUnit= ApplicationDbContext.ImportUnits.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)&&x.Id!=model.Id
+                &&x.Name.Trim().ToLower()==model.Name.Trim().ToLower());
                 if (importUnit != null)
                     return true;
                 return false;

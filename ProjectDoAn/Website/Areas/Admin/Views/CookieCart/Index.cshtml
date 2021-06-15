@@ -69,7 +69,7 @@
 <script>
     loadListCookie()
     function loadListCookie() {
-        $("#list-cookie").load("/Admin/CookieCart/ListCookie")
+        $("#list-cookie").load("/Admin/CookieCart/ListCookie?page=@ViewBag.page")
     }
     function Detail(id) {
         loading(true)

@@ -63,7 +63,7 @@
 <script>
     loadListBrand()
     function loadListBrand() {
-        $("#list-brand").load("/Admin/Brand/ListBrand")
+        $("#list-brand").load("/Admin/Brand/ListBrand?page=@ViewBag.page")
     }
     function AddBrand() {
         loading(true)

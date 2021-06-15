@@ -88,7 +88,7 @@
 <script>
     loadListProduct()
     function loadListProduct() {
-        $("#list-product").load("/Admin/Product/ListProduct?keysearch=@ViewBag.keysearch&brandid=@ViewBag.brandid&sex=@ViewBag.sex&status=@ViewBag.status")
+        $("#list-product").load("/Admin/Product/ListProduct?keysearch=@ViewBag.keysearch&brandid=@ViewBag.brandid&sex=@ViewBag.sex&status=@ViewBag.status&page=@ViewBag.page")
     }
 
     function UpdateCode() {

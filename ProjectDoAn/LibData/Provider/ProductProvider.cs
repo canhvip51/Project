@@ -175,7 +175,32 @@ namespace LibData.Provider
         {
             try
             {
-                var list = ApplicationDbContext.Products.Where(x => (productid.Count > 0 ? productid.Contains(x.Id) : true) || (brandid.Count > 0 ? brandid.Contains(x.BrandId.Value) : true)).ToList();
+                var list = new List<Product>();
+                if (productid.Count>0 && brandid.Count > 0)
+                {
+                     list = ApplicationDbContext.Products.Where(x => productid.Contains(x.Id)  ||  brandid.Contains(x.BrandId.Value)).ToList();
+                    list.ForEach(x => x.Discount = discount);
+                    list.ForEach(x => x.UpdateDate = DateTime.Now);
+                    ApplicationDbContext.SaveChanges();
+                    return true;
+                }
+                if (productid.Count > 0 && brandid.Count <1)
+                {
+                     list = ApplicationDbContext.Products.Where(x => productid.Contains(x.Id)).ToList();
+                    list.ForEach(x => x.Discount = discount);
+                    list.ForEach(x => x.UpdateDate = DateTime.Now);
+                    ApplicationDbContext.SaveChanges();
+                    return true;
+                }
+                if (productid.Count <1 && brandid.Count > 0)
+                {
+                     list = ApplicationDbContext.Products.Where(x =>  brandid.Contains(x.BrandId.Value)).ToList();
+                    list.ForEach(x => x.Discount = discount);
+                    list.ForEach(x => x.UpdateDate = DateTime.Now);
+                    ApplicationDbContext.SaveChanges();
+                    return true;
+                }
+                 list = ApplicationDbContext.Products.ToList();
                 list.ForEach(x => x.Discount = discount);
                 list.ForEach(x => x.UpdateDate = DateTime.Now);
                 ApplicationDbContext.SaveChanges();
@@ -186,12 +211,12 @@ namespace LibData.Provider
                 return false;
             }
         }
-        public bool CheckNameAndType(string name, int type)
+        public bool CheckNameAndType(Product model)
         {
             try
             {
                 var product = ApplicationDbContext.Products.FirstOrDefault(x => (x.IsDelete == 0 || x.IsDelete == null)
-                && x.Name.Trim().ToLower() == name.Trim().ToLower() && x.Type == type);
+                && x.Name.Trim().ToLower() == model.Name.Trim().ToLower() && x.Type == model.Type&& x.Id!=model.Id);
                 if (product != null)
                     return true;
                 return false;

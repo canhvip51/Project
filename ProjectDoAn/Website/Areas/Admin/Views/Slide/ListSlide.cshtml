@@ -81,11 +81,8 @@
         @*phân trang*@
         @Html.PagedListPager((IPagedList)Model,
         page => Url.Action("Index", new { page = page,status = ViewBag.Status }),
-        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+       new PagedListRenderOptions
         {
-            HttpMethod = "GET",
-            UpdateTargetId = "list-slide",
         })
-        )
     </div>
 </div>

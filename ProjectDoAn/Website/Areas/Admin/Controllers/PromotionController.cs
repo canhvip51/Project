@@ -91,7 +91,7 @@ namespace Website.Areas.Admin.Controllers
             if (string.IsNullOrEmpty(model.KeyCode))
             {
                 ModelState.AddModelError("KeyCode", "Mã khuyễn mãi không được để trống");
-            } else if (promotionProvider.CheckKeyCode(model.KeyCode))
+            } else if (promotionProvider.CheckKeyCode(model))
             {
                 ModelState.AddModelError("KeyCode", "Mã khuyễn mãi đã tồn tại");
             }

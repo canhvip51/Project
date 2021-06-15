@@ -64,7 +64,7 @@
 <script>
     loadListImportUnit()
     function loadListImportUnit() {
-        $("#list-importunit").load("/Admin/ImportUnit/ListImportUnit")
+        $("#list-importunit").load("/Admin/ImportUnit/ListImportUnit?page=@ViewBag.page")
     }
     function AddImportUnit() {
         loading(true)

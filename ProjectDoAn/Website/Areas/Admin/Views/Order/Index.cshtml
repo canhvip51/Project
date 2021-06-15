@@ -84,7 +84,7 @@
 <script>
     loadListOrder()
     function loadListOrder() {
-        $("#list-order").load("/Admin/Order/ListOrder?keysearch=@ViewBag.keysearch&status=@ViewBag.status&paid=@ViewBag.paid&type=@ViewBag.type")
+        $("#list-order").load("/Admin/Order/ListOrder?keysearch=@ViewBag.keysearch&status=@ViewBag.status&paid=@ViewBag.paid&type=@ViewBag.type&page=@ViewBag.page")
     }
     function Export() {
         loading(true);

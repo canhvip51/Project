@@ -13,7 +13,7 @@ namespace Website.Controllers
     public class ListProductController : Controller
     {
         // GET: ListProduct
-        public ActionResult Index(int page =1 , int size = 12 , string key="", int sex=-1, int brand=-1,string sort = "",int sizeP=-1)
+        public ActionResult Index(int page =1 , int size = 8 , string key="", int sex=-1, int brand=-1,string sort = "",int sizeP=-1)
         {
             LibData.Provider.ViewProvider viewProvider = new LibData.Provider.ViewProvider();
             ViewBag.page = page;

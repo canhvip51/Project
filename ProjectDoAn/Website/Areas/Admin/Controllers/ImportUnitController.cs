@@ -50,7 +50,7 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Name", "Tên nhà cung cấp không được để trống");
             }
-            else if(importUnitProvider.CheckName(model.Name))
+            else if(importUnitProvider.CheckName(model))
             {
                 ModelState.AddModelError("Name", "Tên nhà cung cấp đã tồn tại");
             }
