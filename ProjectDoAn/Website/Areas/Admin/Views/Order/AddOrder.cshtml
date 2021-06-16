@@ -305,8 +305,8 @@
                     catch (e) {
                 list = ""
                 }
-                $("#content-form-md").load("/Admin/Order/AddOrderDetail?list=" + list, function (response) {
-                $("#modal-form-md").modal('show')
+                $("#content-form-lg").load("/Admin/Order/AddOrderDetail?list=" + list, function (response) {
+                $("#modal-form-lg").modal('show')
                     loading(false)
                 });
             }
