@@ -110,10 +110,9 @@ namespace Website.Controllers
             if (string.IsNullOrEmpty(model.Phone))
             {
                 ModelState.AddModelError("Phone", "Xin mời nhập số điện thoại nhận hàng.");
-            }
-            if (model.Phone.Length!=10)
+            } else if (model.Phone.Length != 10 || model.Phone[0] != 0)
             {
-                ModelState.AddModelError("Phone", "Số điện thoại không khả dụng.");
+                ModelState.AddModelError("Phone", "Số điện thoại không phù hợp");
             }
             if (!ViewConfig.ListPay.Contains(model.Type.Value))
             {

@@ -89,9 +89,11 @@
               cancelButtonText: 'Hủy!'
         }).then((result) => {
             if (result.isConfirmed) {
+                loading(true)
                 $.ajax({
                     url: '/Admin/user/DeleteManagerUser?id=' + id,
                     success: function (rs) {
+                        loading(false)
                         if (rs) {
                             Swal.fire({
                                 icon: 'success',
@@ -128,20 +130,20 @@
             if (result.isConfirmed) {
                 loading(true)
                 $.ajax({
-                    url: '/Admin/user/ResetPass?id=' + id,
+                    url: '/Admin/user/Change?id=' + id,
                     success: function (rs) {
                         loading(false)
                         if (rs) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Xóa thành công',
+                                title: 'Làm mới mật khẩu thành công',
                                 showConfirmButton: false,
                                 timer: 1500
                             })
                         } else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Xóa thất bại',
+                                title: 'Làm mới mật khẩu thất bại',
                                 showConfirmButton: false,
                                 timer: 1500
                             })

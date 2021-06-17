@@ -85,7 +85,7 @@ namespace Website.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         [CustomAuthenticationFilter]
-        [CustomAuthorize("SuperAdmin", "Manager")]
+        [CustomAuthorize("Admin", "Manager")]
         [HttpGet]
         public ActionResult ChangePass()
         {
@@ -93,7 +93,7 @@ namespace Website.Areas.Admin.Controllers
             return View( new LibData.Model.ChangePass());
         }
         [CustomAuthenticationFilter]
-        [CustomAuthorize("SuperAdmin", "Manager")]
+        [CustomAuthorize("Admin", "Manager")]
             [HttpPost]
         public ActionResult ChangePass(LibData.Model.ChangePass model)
         {

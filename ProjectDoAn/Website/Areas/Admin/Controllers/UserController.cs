@@ -77,6 +77,18 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("UserName", "Tên đăng nhập đã tồn tại");
             }
+            if (string.IsNullOrEmpty(model.Phone))
+            {
+                ModelState.AddModelError("Phone", "Số điện thoại không được để trống");
+            }
+            else if (userProvider.CheckExistPhone(model) )
+            {
+                ModelState.AddModelError("Phone", "Số điện đã tồn tại");
+            } else 
+            if (model.Phone.Length!=10 || model.Phone[0]!=0)
+            {
+                ModelState.AddModelError("Phone", "Số điện thoại không phù hợp");
+            }
             if (string.IsNullOrEmpty(model.Password) && model.Id < 1)
             {
                 ModelState.AddModelError("Password", "Mật khẩu không được để trống");

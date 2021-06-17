@@ -238,5 +238,21 @@ namespace LibData.Provider
             }
 
         }
+        public bool CheckExistPhone(User model)
+        {
+            try
+            {
+                var user = ApplicationDbContext.Users.First(x => x.Phone == model.Phone && (x.IsDelete == 0 || x.IsDelete == null) && x.Id != model.Id);
+                if (user != null)
+                    return true;
+                else return false;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
+        }
     }
 }
