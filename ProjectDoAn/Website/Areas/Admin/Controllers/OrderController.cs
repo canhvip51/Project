@@ -89,6 +89,10 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("AddressTo", "Xin mời nhập số địa chỉ nhận hàng.");
             }
+            if (model.OrderDetails == null)
+            {
+                ModelState.AddModelError("error", "Lỗi");
+            }
             foreach (var item in model.OrderDetails)
             {
                 LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
