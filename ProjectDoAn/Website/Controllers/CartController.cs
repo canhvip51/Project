@@ -110,7 +110,7 @@ namespace Website.Controllers
             if (string.IsNullOrEmpty(model.Phone))
             {
                 ModelState.AddModelError("Phone", "Xin mời nhập số điện thoại nhận hàng.");
-            } else if (model.Phone.Length != 10 || model.Phone[0] != 0)
+            } else if (model.Phone.Length != 10 || model.Phone[0] != '0')
             {
                 ModelState.AddModelError("Phone", "Số điện thoại không phù hợp");
             }
@@ -125,6 +125,10 @@ namespace Website.Controllers
             if (model.ProvinceId == -1)
             {
                 ModelState.AddModelError("ProvinceId", "Xin mời chọn thành phố bạn đang sống.");
+            }
+            if (model.OrderDetails.Count <1)
+            {
+                ModelState.AddModelError("error", "Vui lòng thêm sản phẩm để đặt hàng.");
             }
             if (!string.IsNullOrEmpty(model.KeyCode))
             {

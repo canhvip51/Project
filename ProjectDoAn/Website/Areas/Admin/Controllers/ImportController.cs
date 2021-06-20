@@ -70,7 +70,7 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("ImportUnitId", "Vui lòng chọn nhà cung cấp.");
             }
-            if (model.ImportDetails == null)
+            if (model.ImportDetails == null || model.ImportDetails.Count<1)
             {
                 ModelState.AddModelError("error", "Vui lòng thêm sản phẩm vào phiếu nhập.");
             }
@@ -164,7 +164,7 @@ namespace Website.Areas.Admin.Controllers
                         LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
                         if (warehouse != null)
                         {
-                            if (item.Price != null && item.Price > 10000 && item.Amount != null && item.Amount > 0)
+                            if (item.Price != null && item.Price >= 10000 && item.Amount != null && item.Amount >= 1)
                             {
                                 total += item.Price.Value;
                             }

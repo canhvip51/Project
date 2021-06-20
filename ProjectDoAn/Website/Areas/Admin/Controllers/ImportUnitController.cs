@@ -62,6 +62,10 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Phone", "Số điện thoại không được để trống");
             }
+            else if (model.Phone.Length != 10 || model.Phone[0] != '0')
+            {
+                ModelState.AddModelError("Phone", "Số điện thoại không phù hợp");
+            }
             if (ModelState.IsValid)
             {
 

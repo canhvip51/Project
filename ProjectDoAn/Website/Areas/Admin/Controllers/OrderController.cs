@@ -81,7 +81,7 @@ namespace Website.Areas.Admin.Controllers
                 ModelState.AddModelError("Phone", "Xin mời nhập số điện thoại nhận hàng.");
             }
             else 
-           if (model.Phone.Length != 10 || model.Phone[0] != 0)
+           if (model.Phone.Length != 10 || model.Phone[0] != '0')
             {
                 ModelState.AddModelError("Phone", "Số điện thoại không phù hợp");
             }
@@ -89,9 +89,9 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("AddressTo", "Xin mời nhập số địa chỉ nhận hàng.");
             }
-            if (model.OrderDetails == null)
+            if (model.OrderDetails == null||model.OrderDetails.Count<1)
             {
-                ModelState.AddModelError("error", "Lỗi");
+                ModelState.AddModelError("error", "Vui lòng thêm sản phẩm");
             }
             foreach (var item in model.OrderDetails)
             {
