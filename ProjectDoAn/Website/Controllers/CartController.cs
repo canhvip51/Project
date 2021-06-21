@@ -101,6 +101,7 @@ namespace Website.Controllers
         [HttpPost]
         public ActionResult Order(LibData.Order model)
         {
+
             LibData.Provider.PromotionProvider promotionProvider = new LibData.Provider.PromotionProvider();
             LibData.Promotion promotion = null;
             if (string.IsNullOrEmpty(model.BuyerName))
@@ -125,10 +126,6 @@ namespace Website.Controllers
             if (model.ProvinceId == -1)
             {
                 ModelState.AddModelError("ProvinceId", "Xin mời chọn thành phố bạn đang sống.");
-            }
-            if (model.OrderDetails.Count <1)
-            {
-                ModelState.AddModelError("error", "Vui lòng thêm sản phẩm để đặt hàng.");
             }
             if (!string.IsNullOrEmpty(model.KeyCode))
             {

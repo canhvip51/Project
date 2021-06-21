@@ -54,15 +54,25 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("UrlFlie", "Thêm ảnh");
             }
-            if (ModelState.IsValid)
+            if (UrlFile != null)
             {
-                if (UrlFile != null)
+                try
                 {
                     string fileName = Guid.NewGuid() + Path.GetFileName(UrlFile.FileName);
                     string path = Path.Combine(Server.MapPath(_ImagesPath), fileName);
                     UrlFile.SaveAs(path);
                     model.UrlFile = fileName;
                 }
+                catch (Exception)
+                {
+
+                    ModelState.AddModelError("UrlFlie", "Ảnh bị lỗi");
+                }
+           
+            }
+            if (ModelState.IsValid)
+            {
+               
                 if (model.Id > 0)
                 {
                     var old = slideProvider.GetById(model.Id);

@@ -177,17 +177,17 @@
                                                         @item.Price
                                                     </td>
                                                     <td>
-                                                        @if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
+                                                        @*@if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
                                                         {
                                                             <a onclick="Remove(@item.Id);"> <i class="fa fa-times"></i></a>
-                                                        }
+                                                        }*@
                                                     </td>
                                                     @{i++;}
                                                 </tr>
                                             }
                                         }
                                         @{
-                                            var to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value);
+                                            var to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value*m.Amount.Value);
                                             var discount = Math.Floor(Convert.ToDouble(to / 1000 * (Model.Discount.HasValue ? Model.Discount : 0) / 100)) * 1000;
                                         }
                                         <tr>

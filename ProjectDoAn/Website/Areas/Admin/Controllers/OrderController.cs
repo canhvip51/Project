@@ -426,6 +426,7 @@ namespace Website.Areas.Admin.Controllers
                     }
                 }
                 order.Status = model.Status;
+                order.Total= model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value * m.Amount.Value);
             }
             if (ModelState.IsValid)
             {

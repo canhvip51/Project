@@ -61,15 +61,23 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("Color", "Màu đã tồn tại");
             }
-            if (ModelState.IsValid)
+            if (Url != null)
             {
-                if(Url!=null)
+                try
                 {
                     string fileName = Guid.NewGuid() + Path.GetFileName(Url.FileName);
                     string path = Path.Combine(Server.MapPath(_ImagesPath), fileName);
                     Url.SaveAs(path);
                     model.Url = fileName;
                 }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("Url", "Ảnh bị lỗi");
+                }
+            }
+            if (ModelState.IsValid)
+            {
+               
                 if (model.Id > 0)
                 {
                     if (Url == null)

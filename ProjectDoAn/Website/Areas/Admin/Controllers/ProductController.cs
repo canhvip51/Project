@@ -90,15 +90,24 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("AvatarUrl", "Thêm ảnh giày");
             }
-            if (ModelState.IsValid)
+            if (AvatarUrl != null)
             {
-                if (AvatarUrl != null)
+                try
                 {
                     string fileName = Guid.NewGuid() + Path.GetFileName(AvatarUrl.FileName);
                     string path = Path.Combine(Server.MapPath(_ImagesPath), fileName);
                     AvatarUrl.SaveAs(path);
                     model.AvatarUrl = fileName;
                 }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("AvatarUrl", "Thêm ảnh giày bị lỗi");
+                }
+
+            }
+            if (ModelState.IsValid)
+            {
+              
                 if (model.BrandId < 0)
                     model.BrandId = null;
                 if (model.Id > 0)
