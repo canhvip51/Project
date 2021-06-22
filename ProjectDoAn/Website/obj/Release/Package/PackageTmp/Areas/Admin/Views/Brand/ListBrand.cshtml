@@ -58,11 +58,8 @@
         @*phân trang*@
         @Html.PagedListPager((IPagedList)Model,
         page => Url.Action("Index", new { page = page }),
-        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        new PagedListRenderOptions
         {
-            HttpMethod = "GET",
-            UpdateTargetId = "list-brand",
         })
-        )
     </div>
 </div>

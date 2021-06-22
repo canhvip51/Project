@@ -69,7 +69,7 @@
     loadListPromotion()
     function loadListPromotion() {
 
-        $("#list-promotion").load("/Admin/Promotion/ListPromotion")
+        $("#list-promotion").load("/Admin/Promotion/ListPromotion?page=@ViewBag.page")
     }
     function AddPromotion() {
         loading(true)
@@ -86,7 +86,7 @@
         });
     }
     function DeletePromotion(id) {
-        loading(true)
+
         Swal.fire({
             title: 'Xóa',
             text: "Xóa mã khuyến mãi?",
@@ -98,6 +98,7 @@
             cancelButtonText: 'Hủy!'
         }).then((result) => {
             if (result.isConfirmed) {
+                loading(true)
                 $.ajax({
                     url: '/Admin/Promotion/DeletePromotion?id=' + id,
                     success: function (rs) {
@@ -109,6 +110,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            loadListPromotion()
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -128,7 +130,8 @@
             $("#modal-form-md").modal('show');
         });
     }
-    $("#navProduct").addClass("active")
-    $("#navProductShow").addClass("show")
-    $("#iPromotion").addClass("active")
+    $("#navPromotion").addClass("active")
+    //$("#navProduct").addClass("active")
+    //$("#navProductShow").addClass("show")
+    //$("#iPromotion").addClass("active")
 </script>

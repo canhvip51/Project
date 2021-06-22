@@ -6,15 +6,18 @@
 @using PagedList;
 @using PagedList.Mvc;
 <style>
-    a{cursor:pointer !important;}
+    a {
+        cursor: pointer !important;
+    }
 </style>
 <table class="table table-bordered table-responsive-sm  table-hover">
     <thead>
         <tr>
+            <th>Tài khoản</th>
             <th>Họ tên</th>
-            <th>Email</th>
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
+            <th>Địa chỉ chi tiết</th>
             <th>Trạng thái</th>
             <th></th>
         </tr>
@@ -23,7 +26,7 @@
         @if (Model.Count() == 0)
         {
             <tr>
-                <td colspan="6" class="text-center">
+                <td colspan="7" class="text-center">
                     <div class=" text-danger">
                         Không có dữ liệu!
                     </div>
@@ -34,20 +37,40 @@
         {
     <tr>
         <td>
-            @item.FullName
+            @item.UserName
         </td>
         <td>
-            @item.Email
+            @item.FullName
         </td>
         <td>
             @item.Phone
         </td>
+        @if (item.ProviceId.HasValue)
+        {
+            <td>
+                @item.Province.Name
+            </td>
+        }
+        else
+        {
+            <td>
+            </td>
+        }
+
         <td>
-            @item.Adress
+            @item.Address
         </td>
-        <td>
-            @item.Status
-        </td>
+        @if (item.Status.HasValue)
+        {
+            <td>
+                @LibData.Configuration.UserConfig.StatusToDictionarySelect[item.Status.Value]
+            </td>
+        }
+        else
+        {
+            <td></td>
+        }
+
         <td>
             <div class="btn-group">
                 <a data-toggle="dropdown" aria-expanded="false">
@@ -56,6 +79,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" onclick="EditManager(@item.Id)">Sửa</a>
                     <a class="dropdown-item" onclick="DeleteManager(@item.Id)">Xóa</a>
+                    <a class="dropdown-item" onclick="Change(@item.Id)">Đặt lại mật khẩu</a>
                 </div>
             </div>
         </td>
@@ -69,11 +93,8 @@
         @*phân trang*@
         @Html.PagedListPager((IPagedList)Model,
         page => Url.Action("ManagerUser", new { page = page, keysearch = ViewBag.keysearch }),
-        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+        new PagedListRenderOptions
         {
-            HttpMethod = "GET",
-            UpdateTargetId = "list-customer",
         })
-        )
     </div>
 </div>

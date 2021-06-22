@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+@model Website.Areas.Admin.Models.DashboardModel
+<!-- Earnings (Monthly) Card Example -->
+<div class="col-12 mb-4">
+    <h5>Bán hàng</h5>
+</div>
+@for (int i = 0; i < Model.lable.Count; i++)
+{
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2" style="border-left-color:@Model.color[i] !important">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="color:@Model.color[i] !important">
+                            @Model.lable[i]
+                        </div>
+                        <div class="mb-0 row text-gray-800">
+                            <div class="col-12">
+                                <ul class="list-group">
+                                    @foreach (var item in @Model.result[i] as List<LibData.Provider.ModelReport>)
+                                    {
+                                        LibData.Product product = new LibData.Provider.ProductProvider().GetById(item.id);
+                                        <li class="list-group-item">
+                                            @product.Name - Đã bán : @item.amount - Còn lại @product.ProductImgs.Where(x => (x.IsDelete == null || x.IsDelete == 0)).Sum(m => m.Warehouses.Sum(x => x.Amount))
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        @*<div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

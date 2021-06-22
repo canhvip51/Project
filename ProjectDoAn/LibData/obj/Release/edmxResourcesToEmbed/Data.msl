@@ -1,26 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SHOESSHOPModelStoreContainer" CdmEntityContainer="SHOESSHOPEntities">
-    <EntitySetMapping Name="BanLists">
-      <EntityTypeMapping TypeName="SHOESSHOPModel.BanList">
-        <MappingFragment StoreEntitySet="BanList">
-          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="Facebook" ColumnName="Facebook" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Brands">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Brand">
         <MappingFragment StoreEntitySet="Brand">
-          <ScalarProperty Name="OriginName" ColumnName="OriginName" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -32,14 +15,11 @@
       <EntityTypeMapping TypeName="SHOESSHOPModel.Cart">
         <MappingFragment StoreEntitySet="Cart">
           <ScalarProperty Name="CookieId" ColumnName="CookieId" />
-          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
-          <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Amount" ColumnName="Amount" />
           <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -62,23 +42,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Districts">
-      <EntityTypeMapping TypeName="SHOESSHOPModel.District">
-        <MappingFragment StoreEntitySet="District">
-          <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Imports">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Import">
         <MappingFragment StoreEntitySet="Import">
           <ScalarProperty Name="ImportUnitId" ColumnName="ImportUnitId" />
           <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -88,8 +56,6 @@
     <EntitySetMapping Name="ImportDetails">
       <EntityTypeMapping TypeName="SHOESSHOPModel.ImportDetail">
         <MappingFragment StoreEntitySet="ImportDetail">
-          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -117,25 +83,19 @@
       <EntityTypeMapping TypeName="SHOESSHOPModel.Order">
         <MappingFragment StoreEntitySet="Order">
           <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
           <ScalarProperty Name="Refuse" ColumnName="Refuse" />
           <ScalarProperty Name="CustomerPay" ColumnName="CustomerPay" />
-          <ScalarProperty Name="WardId" ColumnName="WardId" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
           <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
           <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
           <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
-          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="AddressTo" ColumnName="AddressTo" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="SaleId" ColumnName="SaleId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Discount" ColumnName="Discount" />
           <ScalarProperty Name="Total" ColumnName="Total" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -157,7 +117,6 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Product">
         <MappingFragment StoreEntitySet="Product">
-          <ScalarProperty Name="Sold" ColumnName="Sold" />
           <ScalarProperty Name="AvatarUrl" ColumnName="AvatarUrl" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Price" ColumnName="Price" />
@@ -165,10 +124,8 @@
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="Origin" ColumnName="Origin" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Describe" ColumnName="Describe" />
-          <ScalarProperty Name="TypeShoeId" ColumnName="TypeShoeId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="BrandId" ColumnName="BrandId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -178,6 +135,7 @@
     <EntitySetMapping Name="ProductImgs">
       <EntityTypeMapping TypeName="SHOESSHOPModel.ProductImg">
         <MappingFragment StoreEntitySet="ProductImg">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
@@ -248,23 +206,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TypeShoes">
-      <EntityTypeMapping TypeName="SHOESSHOPModel.TypeSho">
-        <MappingFragment StoreEntitySet="TypeShoes">
-          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="SHOESSHOPModel.User">
         <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="WardId" ColumnName="WardId" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
           <ScalarProperty Name="ProviceId" ColumnName="ProviceId" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -273,21 +217,9 @@
           <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Role" ColumnName="Role" />
-          <ScalarProperty Name="Facebook" ColumnName="Facebook" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Wards">
-      <EntityTypeMapping TypeName="SHOESSHOPModel.Ward">
-        <MappingFragment StoreEntitySet="Ward">
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -295,6 +227,7 @@
     <EntitySetMapping Name="Warehouses">
       <EntityTypeMapping TypeName="SHOESSHOPModel.Warehouse">
         <MappingFragment StoreEntitySet="Warehouse">
+          <ScalarProperty Name="Sold" ColumnName="Sold" />
           <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="Discount" ColumnName="Discount" />
           <ScalarProperty Name="ProductImgId" ColumnName="ProductImgId" />

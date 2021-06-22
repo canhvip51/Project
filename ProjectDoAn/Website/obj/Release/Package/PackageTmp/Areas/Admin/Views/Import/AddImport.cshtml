@@ -12,9 +12,6 @@
         <div class="col-6">
             <h2>Phiếu nhập kho</h2>
         </div>
-        @*<div class="col-2  offset-4">
-                <button class="btn btn-success btn-block" onclick="window.location.href='/Order/AddOrder?Id'">Thêm</button>
-            </div>*@
     </div>
 
     <form id="form-addimport">
@@ -34,17 +31,15 @@
                             <h6>
                                 Thông tin phiếu nhập
                             </h6>
-
-
                         </div>
 
                     </div>
                     <div class="card-body">
-                        <div class="row mt-3 text-right">
+                        @*<div class="row mt-3 text-right">
                             <div class="col-2 offset-10">
                                 <a class="btn btn-primary" href="/Admin/Product/AddProduct" target="_blank">Thêm sản phẩm</a>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="row mt-3">
                             <div class="col-12" id="infoimport">
                                 <div class="form-group pb-3">
@@ -115,7 +110,7 @@
                                                                 <td>
                                                                     @if (Model.Id < 1)
                                                                     {
-                                                                        <input type="number" class="Amount form-control" onchange="UpdateImport()" min="0" value="@item.Amount" />
+                                                                        <input type="number" class="Amount form-control" onchange="UpdateImport()" min="1" value="@item.Amount" />
                                                                     }
                                                                     else
                                                                     {
@@ -136,7 +131,7 @@
                                                                 <td>
                                                                     @if (Model.Id < 1)
                                                                     {
-                                                                        <a onclick="Remove(this);"> <i class="fa fa-times"></i></a>
+                                                                        <a onclick="RemoveImport(this);"> <i class="fa fa-times"></i></a>
                                                                     }
                                                                 </td>
                                                             </tr>
@@ -165,7 +160,7 @@
                             </div>
                         </div>
                         @*<p class="font-italic mb-4">Ghi chú cho người bán</p>
-                            <textarea name="Note" rows="5" maxlength="2048" class="form-control" value="@Model.Note" style="max-width:100%"></textarea>*@
+                        <textarea name="Note" rows="5" maxlength="2048" class="form-control" value="@Model.Note" style="max-width:100%"></textarea>*@
 
                     </div>
                     <div class="card-footer">
@@ -187,7 +182,17 @@
 
 
         </div>
-
+        <script>
+            if ($("#msgsuccess").html() != "") {
+                $("#success").addClass("alert alert-success")
+            }
+            if ($("#msgerror").html() != "") {
+                $("#error").addClass("alert alert-danger")
+            }
+            $("#navImport").addClass("active")
+            $("#navImportShow").addClass("show")
+            $("#iAddImport").addClass("active")
+        </script>
     </form>
 </div>
 <div class="modal fade bd-example-modal-xl" id="modal-form-xl" aria-hidden="true">
@@ -301,20 +306,10 @@
     function RemoveImport(item) {
         loading(true)
         $(item).closest('.row-importdetail').remove()
+        UpdateImport()
         loading(false)
     }
     function Back() {
         window.history.back();
     }
-</script>
-<script>
-    if ($("#msgsuccess").html() != "") {
-        $("#success").addClass("alert alert-success")
-    }
-    if ($("#msgerror").html() != "") {
-        $("#error").addClass("alert alert-danger")
-    }
-    $("#navProduct").addClass("active")
-    $("#navProductShow").addClass("show")
-    $("#iAddImport").addClass("active")
 </script>
