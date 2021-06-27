@@ -52,7 +52,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle nav-link text-uppercase nav-font" aria-expanded="false" data-toggle="dropdown" style="font-family:'Source Sans Pro', sans-serif;">Thương hiệu </a>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu" style="max-height:200px;min-height:200px;overflow:auto">
                                 @foreach (var item in new Website.Controllers.HomeController().ListBrand())
                                 {
                                     <a class="dropdown-item text-uppercase" style="font-family:'Source Sans Pro', sans-serif;" href="/ListProduct/Index?brand=@item.Id">@item.Name</a>}
