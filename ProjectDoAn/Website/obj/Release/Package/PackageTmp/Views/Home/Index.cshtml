@@ -3,8 +3,8 @@
         ViewBag.Title = "Trang chủ";
     }
  
-<div class="simple-slider">
-    <div class="swiper-container">
+@*<div class="simple-slider">
+    <div class="swiper-container" style=" width: 1320px; height: 500px;">
         <div class="swiper-wrapper">
             @if (Model.Count > 0)
             {
@@ -22,8 +22,41 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
     </div>
-</div>
+</div>*@
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <li data-target="#carouselExampleIndicators" style=" background-color: #777777;" data-slide-to="@i" class="@(i==0?"active":"")"></li>
+        }
 
+    </ol>
+    <div class="carousel-inner">
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="carousel-item @(item.Id==Model.First().Id?"active":"")">
+                    <img class="d-block w-100" src="/Images/Slider/@item.UrlFile" >
+                </div>
+            }
+        }
+        else
+        {
+            <div class="carousel-item">
+                <img class="d-block w-100" src="...">
+            </div>
+        }
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 <div class="row" id="discount">
 
 </div>
