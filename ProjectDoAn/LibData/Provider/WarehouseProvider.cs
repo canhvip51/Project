@@ -121,7 +121,7 @@ namespace LibData.Provider
         {
             try
             {
-                return ApplicationDbContext.Warehouses.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.ProductImgId == productImg).OrderByDescending(x => x.CreateDate).ToList();
+                return ApplicationDbContext.Warehouses.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.ProductImgId == productImg).OrderBy(x => x.SizeId).ToList();
             }
             catch (Exception e)
             {

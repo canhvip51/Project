@@ -1,5 +1,0 @@
-﻿@{
-    Layout = null;
-}
-@model List<LibData.Province>
-@Html.DropDownList("ProviceId", new SelectList(Model, "Id", "Name", ViewBag.seletedp), new { @class = "form-control select2-no-search" })

@@ -40,11 +40,11 @@ namespace Website.Areas.Admin.Controllers
             //DateTime ss = CultureInfo.CurrentCulture.GetFirstDayOfWeek
             Models.DashboardModel dashboardModel = new Models.DashboardModel();
             lable.Add("Doanh thu ngày " + dt.ToString("dd-MM-yyyy"));
-            result.Add(dashboardProvider.RevenueDay(dt).ToString());
+            result.Add(dashboardProvider.RevenueDay(dt));
             lable.Add("Doanh thu tháng " + dt.ToString("MM"));
-            result.Add(dashboardProvider.RevenueMonth(dt).ToString());
+            result.Add(dashboardProvider.RevenueMonth(dt));
             lable.Add("Doanh thu năm " + dt.ToString("yyyy"));
-            result.Add(dashboardProvider.RevenueYear(dt).ToString());
+            result.Add(dashboardProvider.RevenueYear(dt));
             Random r = new Random();
             int k = r.Next(1, 10);
             foreach (var item in result)
