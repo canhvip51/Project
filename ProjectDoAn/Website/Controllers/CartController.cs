@@ -83,11 +83,12 @@ namespace Website.Controllers
                 {
                     foreach (var item in cookies.Carts.Where(x => x.Status == 1))
                     {
+                        var price = Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value) / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100);
                         LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                         {
                             Amount = item.Amount,
                             WarehouseId = item.WarehouseId,
-                            Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100)) * 1000),
+                            Price = Convert.ToInt32(price * 1000),
                         };
                         listOrderDetail.Add(orderDetail);
                     }
@@ -166,18 +167,19 @@ namespace Website.Controllers
                     {
                         foreach (var item in cookies.Carts.Where(x => x.Status == 1))
                         {
+                            var price = Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value) / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100);
                             LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                             {
                                 Amount = item.Amount,
                                 WarehouseId = item.WarehouseId,
-                                Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100)) * 1000),
+                                Price = Convert.ToInt32(price * 1000),
                             };
                             listOrderDetail.Add(orderDetail);
                         }
                     }
                 }
                 model.OrderDetails = listOrderDetail;
-                model.Total =Convert.ToInt32(Math.Ceiling(Convert.ToDouble(model.OrderDetails.Sum(x => x.Price.Value * x.Amount.Value) / 1000 * (100 - model.Discount.Value) / 100)))*1000;
+                model.Total =Convert.ToInt32(Math.Ceiling(Convert.ToDouble(model.OrderDetails.Sum(x => x.Price.Value * x.Amount.Value) / 1000) * (100 - model.Discount.Value) / 100))*1000;
                 Random r = new Random();
                 int k = r.Next(1000, 9999);
                 model.Code = "SHOESSHOP" + DateTime.Now.ToString("yyyyMMddHHmmss") + k;
@@ -233,7 +235,7 @@ namespace Website.Controllers
             if (string.IsNullOrEmpty(model.Phone))
             {
                 ModelState.AddModelError("Phone", "Xin mời nhập số điện thoại nhận hàng.");
-            }
+            } else
             if (model.Phone.Length != 10)
             {
                 ModelState.AddModelError("Phone", "Số điện thoại không khả dụng.");
@@ -260,16 +262,18 @@ namespace Website.Controllers
                 {
                     foreach (var item in cookies.Carts.Where(x => x.Status == 1))
                     {
+                        var price = Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value) / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100);
                         LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                         {
                             Amount = item.Amount,
                             WarehouseId = item.WarehouseId,
-                            Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value/1000 * ((100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100)))*1000),
+                            Price = Convert.ToInt32(price * 1000),
                         };
                         listOrderDetail.Add(orderDetail);
                     }
                 }
             }
+            model.OrderDetails = listOrderDetail;
             if (ModelState.IsValid)
             {
                 if (!string.IsNullOrEmpty(model.KeyCode))
@@ -292,7 +296,6 @@ namespace Website.Controllers
                     }
                 }
             }
-            model.OrderDetails = listOrderDetail;
             return View("Order", model);
         }
         public ActionResult OrderList(string phone,int page=1 , int size=5)

@@ -151,12 +151,12 @@
                                                     <td colspan="2">
                                                         <strong>
                                                             @{
-                                                                var to = 0;
+                                                                int to = 0;
                                                                 if (Model.OrderDetails.Count(x => x.IsDelete == 0 || x.IsDelete == null) > 0)
                                                                 {
                                                                     to = Model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value * m.Amount.Value);
                                                                 }
-                                                                var discount = Math.Ceiling(Convert.ToDouble(to / 1000 * Model.Discount / 100)) * 1000;
+                                                                var discount = Math.Floor(Convert.ToDouble(to / 1000 * Model.Discount / 100)) * 1000;
                                                             }
                                                             @string.Format("{0:#,0}", to) VNĐ
                                                         </strong>

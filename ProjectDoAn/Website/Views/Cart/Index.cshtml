@@ -3,7 +3,8 @@
 @{ LibData.Provider.CartProvider cartProvinder = new LibData.Provider.CartProvider();
     int i = 0;
     string timeout = new LibData.Provider.ConfigProvider().GetTimeOut_Hours_Cookie();
-        ViewBag.Title = "Giỏ hàng";
+    ViewBag.Title = "Giỏ hàng";
+    LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
 
 }
 <div class="shopping-cart">
@@ -67,12 +68,12 @@
                                                             </div>
                                                         </div>
                                                     </th>
-
                                                     <td class="border-0 align-middle">
-                                                        <strong>@(Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value/1000 * (100-item.Warehouse.ProductImg.Product.Discount.Value) / 100)) * 1000) VNĐ</strong>
+                                                        <strong>@string.Format("{0:#,0}", (Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value) / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100) * 1000)) VNĐ</strong>
                                                     </td>
                                                     @{
-                                                        int maxamount = item.Warehouse.Amount.Value - cartProvinder.GetAmount(item.WarehouseId.Value) + item.Amount.Value;
+                                                        LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
+                                                        int maxamount = warehouse.Amount.Value + item.Amount.Value - (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == ((int)LibData.Configuration.OrderConfig.Status.WAIT)).Sum(x => x.Amount.Value) : 0);
                                                         <td class="border-0 align-middle"><input type="number" name="Carts[@i].Amount" id="Amount" max="@maxamount" min="1" class="Price form-control" value="@item.Amount" /></td>
                                                     }
 
