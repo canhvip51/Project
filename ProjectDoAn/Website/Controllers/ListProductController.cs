@@ -52,14 +52,14 @@ namespace Website.Controllers
             List<LibData.Size> list = new LibData.Provider.SizeProvider().GetAllBySex(sex);
             return View(list);
         }
-        public ActionResult ListAllProductSimilar(int brandid, int type)
+        public ActionResult ListAllProductSimilar(int id,int brandid, int type)
         {
             ViewBag.brandid = brandid;
             ViewBag.type = type;
             List<LibData.Product> list = new List<LibData.Product>();
             LibData.Provider.ViewProvider viewProvider = new LibData.Provider.ViewProvider();
 
-            list = viewProvider.GetAllProductSimilar(brandid, type, 0, 4);
+            list = viewProvider.GetAllProductSimilar(id,brandid, type, 0, 4);
 
             return View(list);
         }

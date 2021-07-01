@@ -180,7 +180,7 @@
 
 
     }
-    $("#product-relate").load("/ListProduct/ListAllProductSimilar?brandid=@Model.BrandId&type=@Model.Type")
+    $("#product-relate").load("/ListProduct/ListAllProductSimilar?id=@Model.Id&brandid=@Model.BrandId&type=@Model.Type")
     function BuyProduct() {
         loading(true)
         var warehouse = $("#WarehouseId").val();

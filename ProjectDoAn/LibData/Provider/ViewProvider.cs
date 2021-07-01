@@ -370,15 +370,11 @@ namespace LibData.Provider
                 return new List<Product>();
             }
         }
-        public List<Product> GetAllProductSimilar(int brandid, int type, int skip, int size)
+        public List<Product> GetAllProductSimilar(int id,int brandid, int type, int skip, int size)
         {
             try
             {
-                //return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
-                //&& (x.IsDelete == null || x.IsDelete == 0) && (x.Type == type || x.BrandId == brandid) && x.ProductImgs.Count > 0
-                //&& (x.ProductImgs.Count > 0 ? x.ProductImgs.Count(m => m.Warehouses.Count > 0) > 0 :)
-                //).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
-                return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE
+                return ApplicationDbContext.Products.Where(x => x.Status == (int)Configuration.ProductConfig.Status.ACTIVE && x.Id!=id
                  && (x.IsDelete == null || x.IsDelete == 0) && (x.Type == type || x.BrandId == brandid) && x.ProductImgs.Count > 0).OrderByDescending(x => x.CreateDate).Skip(skip).Take(size).ToList();
             }
             catch (Exception e)
