@@ -10845,7 +10845,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/10/2021 12:44:46</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Product/AddProduct.cshtml">
-      <publishTime>07/01/2021 17:32:49</publishTime>
+      <publishTime>07/01/2021 18:26:14</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Product/Index.cshtml">
       <publishTime>06/15/2021 20:11:09</publishTime>
@@ -11178,10 +11178,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/Website.dll">
-      <publishTime>07/01/2021 18:19:20</publishTime>
+      <publishTime>07/01/2021 18:30:16</publishTime>
     </File>
     <File Include="bin/Website.pdb">
-      <publishTime>07/01/2021 18:19:20</publishTime>
+      <publishTime>07/01/2021 18:30:16</publishTime>
     </File>
     <File Include="Content/PagedList.css">
       <publishTime>05/11/2021 14:15:57</publishTime>
