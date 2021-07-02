@@ -317,6 +317,9 @@ namespace Website.Areas.Admin.Controllers
             // Chờ => Hủy 
             if (order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && model.Status == (int)LibData.Configuration.OrderConfig.Status.CANCEL)
             {
+                //Cộng số lại lượng trong kho
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount + x.Amount);
+                order.OrderDetails.ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
                 order.Status = model.Status;
                 order.Refuse = model.Refuse;
                 order.UpdateDate = DateTime.Now;
@@ -330,9 +333,6 @@ namespace Website.Areas.Admin.Controllers
             // Chờ => Xác nhận 
             if (order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && model.Status == (int)LibData.Configuration.OrderConfig.Status.CONFIRM)
             {
-                //Trừ số lượng trong kho
-                order.OrderDetails.ToList().ForEach(x => x.Warehouse.Amount = x.Warehouse.Amount - x.Amount);
-                order.OrderDetails.ToList().ForEach(x => x.Warehouse.UpdateDate = DateTime.Now);
                 order.Status = model.Status;
                 order.Refuse = model.Refuse;
                 order.UpdateDate = DateTime.Now;

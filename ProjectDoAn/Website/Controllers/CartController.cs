@@ -149,17 +149,14 @@ namespace Website.Controllers
                 model.Discount = 0;
             }
             ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
-            LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
-            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
-            HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
-            LibData.Cookie cookies = new LibData.Cookie();
-            List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
-
-           
-           
             if (ModelState.IsValid)
             {
-
+                LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
+                LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
+                HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+                LibData.Cookie cookies = new LibData.Cookie();
+                List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
+                LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
                 if (httpCookie != null)
                 {
                     cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
@@ -167,6 +164,8 @@ namespace Website.Controllers
                     {
                         foreach (var item in cookies.Carts.Where(x => x.Status == 1))
                         {
+                            LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
+                            warehouse.Amount -= item.Amount; 
                             var price = Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value) / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100);
                             LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                             {
@@ -184,13 +183,13 @@ namespace Website.Controllers
                 int k = r.Next(1000, 9999);
                 model.Code = "SHOESSHOP" + DateTime.Now.ToString("yyyyMMddHHmmss") + k;
                 model.CreateDate = DateTime.Now;
-                model.Status = 1;
+                model.Status = (int)OrderConfig.Status.WAIT;
                 model.Discount=model.Discount??0;
                 model.CustomerPay=0;
-                cookies.Carts.Where(x => x.Status == 1).ToList().ForEach(x => x.Status = CartConfig.ORDERED);
-                cookies.Carts.Where(x => x.Status == 1).ToList().ForEach(x => x.UpdateDate = DateTime.Now);
+
                 if (orderProvider.Insert(model))
                 {
+                    warehouseProvider.Update();
                     promotionProvider.Update();
                     cookieProvider.Remove(cookies);
                     Response.StatusCode = (int)HttpStatusCode.Created;

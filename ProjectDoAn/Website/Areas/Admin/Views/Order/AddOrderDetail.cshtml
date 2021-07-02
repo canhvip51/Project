@@ -22,7 +22,7 @@
             <select class="form-control chosen-select" name="WarehouseId" id="@Model.WarehouseId" onchange="ChangeSelect()" >
                 @foreach (var item in ViewBag.Warehouse as List<LibData.Warehouse>)
                 {
-                    int maxamount = item.Amount.Value - (item.Carts!=null?item.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value):0)-(item.OrderDetails!=null?item.OrderDetails.Where(x=>(x.IsDelete==0||x.IsDelete==null)&&x.Order.Status==((int)LibData.Configuration.OrderConfig.Status.WAIT)).Sum(x=>x.Amount.Value):0);
+                    int maxamount = item.Amount.Value - (item.Carts!=null?item.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value):0);
                     <option value="@item.Id" @(listwarehouseid.Contains(@item.Id.ToString()) ? "disabled" : "" ) @(item.Id==Model.WarehouseId?"selected":"") id="@item.Id" val="@maxamount" >
                        @item.Code - @item.ProductImg.Product.Name - @item.ProductImg.Color -  ( VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK ) - SL : @maxamount
                     </option>

@@ -37,7 +37,6 @@ namespace Website.Controllers
       
         public ActionResult DetailProduct(int id)
         {
-
             LibData.Product product = new LibData.Provider.ProductProvider().GetById(id);
             return View(product);
         }

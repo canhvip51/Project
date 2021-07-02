@@ -140,7 +140,7 @@
                                                     <td>
                                                         @{
                                                             LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
-                                                            int maxamount = warehouse.Amount.Value - (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == ((int)LibData.Configuration.OrderConfig.Status.WAIT)).Sum(x => x.Amount.Value) : 0);
+                                                            int maxamount = warehouse.Amount.Value - (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value) : 0);
 
                                                             <div class="form-group">
                                                                 <input type="hidden" id="WarehouseId" class="WarehouseId" value="@item.WarehouseId" />

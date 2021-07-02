@@ -8,8 +8,18 @@
 {
     foreach (var item in Model)
     {
-        int amount = item.Amount.Value - (item.Carts == null ? 0 : item.Carts.Where(x => x.Cookie.ExpiredDate < DateTime.Now && x.Status.Value == (int)LibData.Configuration.CartConfig.INCART).Sum(m => m.Amount.Value)) - (item.OrderDetails == null ? 0 : item.OrderDetails.Where(x => x.Order.Status.Value == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete==0||x.IsDelete==null)).Sum(m => m.Amount.Value));
-        <option value="@item.Id" @(amount < 1 ? "disabled" : "")>VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK</option>
+        int amount = item.Amount.Value - (item.Carts == null ? 0 : item.Carts.Where(x => x.Cookie.ExpiredDate < DateTime.Now).Sum(m => m.Amount.Value)) - (item.OrderDetails == null ? 0 : item.OrderDetails.Where(x => x.Order.Status.Value == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == 0 || x.IsDelete == null)).Sum(m => m.Amount.Value));
+        if (amount > 0)
+        {
+            <option value="@item.Id">
+                VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK
+            </option> }
+        else
+        {
+            <option value="@item.Id" @(amount < 1 ? "disabled" : "")>
+                VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK (Hết hàng)
+            </option>
+        }
     }
 }
 else

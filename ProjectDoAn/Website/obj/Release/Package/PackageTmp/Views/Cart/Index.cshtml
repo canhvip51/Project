@@ -60,10 +60,10 @@
                                                 <tr>
                                                     <th scope="row" class="border-0">
                                                         <div class="p-2">
-                                                            <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                                            @*<img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">*@
                                                             <div class="ml-3 d-inline-block align-middle">
                                                                 <input type="hidden" name="Carts[@i].WarehouseId" id="WarehouseId" value="@item.WarehouseId" />
-                                                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">@item.Warehouse.ProductImg.Product.Name - @item.Warehouse.ProductImg.Color</a></h5>
+                                                                <h5 class="mb-0"> <span class="text-dark d-inline-block align-middle">@item.Warehouse.ProductImg.Product.Name - @item.Warehouse.ProductImg.Color</span></h5>
                                                                 <span class="text-muted font-weight-normal font-italic d-block">VN : @item.Warehouse.Size.VN - US : @item.Warehouse.Size.US - UK : @item.Warehouse.Size.UK</span>
                                                             </div>
                                                         </div>
@@ -73,11 +73,11 @@
                                                     </td>
                                                     @{
                                                         LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
-                                                        int maxamount = warehouse.Amount.Value + item.Amount.Value - (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => (x.IsDelete == 0 || x.IsDelete == null) && x.Order.Status == ((int)LibData.Configuration.OrderConfig.Status.WAIT)).Sum(x => x.Amount.Value) : 0);
+                                                        int maxamount = warehouse.Amount.Value + item.Amount.Value - (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(x => x.Amount.Value) : 0);
                                                         <td class="border-0 align-middle"><input type="number" name="Carts[@i].Amount" id="Amount" max="@maxamount" min="1" class="Price form-control" value="@item.Amount" /></td>
                                                     }
 
-                                                    <td class="border-0 align-middle"><a href="#" class="text-dark" onclick="Remove(@item.WarehouseId)"><i class="fa fa-times"></i></a></td>
+                                                    <td class="border-0 align-middle"><a  class="text-dark" onclick="Remove(@item.WarehouseId)"><i class="fa fa-times"></i></a></td>
                                                 </tr>
                                                 i++;
                                             }
@@ -112,42 +112,6 @@
                             <button class="btn btn-outline-success px-4 rounded-pill btn-block" type="button" onclick="window.location.href = '/ListProduct/Index'"><i class="fa fa-chevron-left"></i> Quay lại đặt hàng</button>
                         </div>
                     </div>}
-
-                @*<div class="row py-5 p-4 bg-white rounded shadow-sm">
-                        <div class="col-lg-6">
-                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
-                            <div class="p-4">
-                                <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
-                                <div class="input-group mb-4 border rounded-pill p-2">
-                                    <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
-                                    <div class="input-group-append border-0">
-                                        <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
-                            <div class="p-4">
-                                <p class="font-italic mb-4">If you have some information for the seller you can leave them in the box below</p>
-                                <textarea name="" cols="30" rows="2" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
-                            <div class="p-4">
-                                <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
-                                <ul class="list-unstyled mb-4">
-                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order Subtotal </strong><strong>$390.00</strong></li>
-                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and handling</strong><strong>$10.00</strong></li>
-                                    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tax</strong><strong>$0.00</strong></li>
-                                    <li class="d-flex justify-content-between py-3 border-bottom">
-                                        <strong class="text-muted">Total</strong>
-                                        <h5 class="font-weight-bold">$400.00</h5>
-                                    </li>
-                                </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
-                            </div>
-                        </div>
-                    </div>*@
-
             </div>
         </div>
     </div>
