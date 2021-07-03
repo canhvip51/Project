@@ -148,35 +148,43 @@ namespace Website.Controllers
             {
                 model.Discount = 0;
             }
-            ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice();
-            if (ModelState.IsValid)
+            ViewBag.Province = new LibData.Provider.ExtendProvider().GetAddProvice(); LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
+            LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
+            HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
+            LibData.Cookie cookies = new LibData.Cookie();
+            List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
+            LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
+            if (httpCookie != null)
             {
-                LibData.Provider.OrderProvider orderProvider = new LibData.Provider.OrderProvider();
-                LibData.Provider.CookieProvider cookieProvider = new LibData.Provider.CookieProvider();
-                HttpCookie httpCookie = HttpContext.Request.Cookies["key"];
-                LibData.Cookie cookies = new LibData.Cookie();
-                List<LibData.OrderDetail> listOrderDetail = new List<LibData.OrderDetail>();
-                LibData.Provider.WarehouseProvider warehouseProvider = new LibData.Provider.WarehouseProvider();
-                if (httpCookie != null)
+                cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
+                if (cookies != null)
                 {
-                    cookies = cookieProvider.GetByKey(httpCookie["keycode"]);
-                    if (cookies != null)
+                    foreach (var item in cookies.Carts.Where(x => x.Status == 1))
                     {
-                        foreach (var item in cookies.Carts.Where(x => x.Status == 1))
+                        LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
+                        warehouse.Amount -= item.Amount;
+                        var price = Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value) / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100);
+                        LibData.OrderDetail orderDetail = new LibData.OrderDetail()
                         {
-                            LibData.Warehouse warehouse = warehouseProvider.GetById(item.WarehouseId.Value);
-                            warehouse.Amount -= item.Amount; 
-                            var price = Math.Ceiling(Convert.ToDouble(item.Warehouse.ProductImg.Product.Price.Value) / 1000 * (100 - item.Warehouse.ProductImg.Product.Discount.Value) / 100);
-                            LibData.OrderDetail orderDetail = new LibData.OrderDetail()
-                            {
-                                Amount = item.Amount,
-                                WarehouseId = item.WarehouseId,
-                                Price = Convert.ToInt32(price * 1000),
-                            };
-                            listOrderDetail.Add(orderDetail);
-                        }
+                            Amount = item.Amount,
+                            WarehouseId = item.WarehouseId,
+                            Price = Convert.ToInt32(price * 1000),
+                        };
+                        listOrderDetail.Add(orderDetail);
                     }
                 }
+            }
+            else
+            {
+                ModelState.AddModelError("error", "Lỗi.");
+            }
+            if (listOrderDetail.Count < 1)
+            {
+                ModelState.AddModelError("error", "Lỗi.");
+            }
+            if (ModelState.IsValid)
+            {
+             
                 model.OrderDetails = listOrderDetail;
                 model.Total =Convert.ToInt32(Math.Ceiling(Convert.ToDouble(model.OrderDetails.Sum(x => x.Price.Value * x.Amount.Value) / 1000) * (100 - model.Discount.Value) / 100))*1000;
                 Random r = new Random();

@@ -288,7 +288,7 @@
                     window.location.replace("/login");
                 }
                 if (xhr.status == 201) {
-                    $("#btn_order").click();
+                   await $("#btn_order").click();
                     window.location.href = '/Cart/OrderList?phone=' + $("#form-order #Phone").val()
                 }
                 await $("#form-order").html($(data).find("#form-order").html());

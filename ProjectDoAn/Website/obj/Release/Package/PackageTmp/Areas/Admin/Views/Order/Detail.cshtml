@@ -13,12 +13,15 @@
         <div class="col-2 @(Model.Status == (int)LibData.Configuration.OrderConfig.Status.CANCEL?"offset-4":"")">
             <button type="button" class="btn btn-block btn-outline-secondary " onclick="window.location.href = '/Admin/Order/Index'">Trở lại</button>
         </div>
-        <div class="col-2 ">
-            <button type="button" class="btn btn-block btn-success btn-hide" onclick="SubmitUpdate()">Cập nhật</button>
-        </div>
-        <div class="col-2 ">
-            <button type="button" class="btn btn-block btn-primary btn-hide" onclick="window.location.href = '/Admin/Extend/PrintOrder?orderid=@Model.Id'">In hóa đơn</button>
-        </div>
+        @if (Model.Status != (int)LibData.Configuration.OrderConfig.Status.CANCEL)
+        {
+            <div class="col-2 ">
+                <button type="button" class="btn btn-block btn-success btn-hide" onclick="SubmitUpdate()">Cập nhật</button>
+            </div>
+            <div class="col-2 ">
+                <button type="button" class="btn btn-block btn-primary btn-hide" onclick="window.location.href = '/Admin/Extend/PrintOrder?orderid=@Model.Id'">In hóa đơn</button>
+            </div>
+        }
     </div>
 
     <form id="form-updateorder">
@@ -163,8 +166,12 @@
                                                         }
                                                     </td>
                                                     <td>
+                                                        @item.Amount
+                                                    </td>
+                                                    @*<td>
                                                         @if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
                                                         {
+                                                            @item.Amount
                                                             int amount = item.Warehouse.Amount.Value - new LibData.Provider.CartProvider().GetAmount(item.WarehouseId.Value) - new LibData.Provider.OrderDetailProvider().GetAmountWait(item.WarehouseId.Value) + item.Amount.Value;
                                                             <input type="number" class="form-control" name="OrderDetails[@i].Amount" max="amount" min="1" value="@item.Amount" />
                                                         }
@@ -172,7 +179,7 @@
                                                         {
                                                             @item.Amount
                                                         }
-                                                    </td>
+                                                    </td>*@
                                                     <td>
                                                         @item.Price
                                                     </td>
@@ -273,7 +280,7 @@
             </div>
         </div>
         <script>
-            if (Model.Status == (int)@LibData.Configuration.OrderConfig.Status.CANCEL) {
+            if (Model.Status == 3) {
                 $(".btn-hide").addClass("d-none")
             }
         </script>
