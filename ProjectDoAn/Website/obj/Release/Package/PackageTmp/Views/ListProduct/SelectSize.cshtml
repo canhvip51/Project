@@ -8,11 +8,11 @@
 {
     foreach (var item in Model)
     {
-        int amount = item.Amount.Value - (item.Carts == null ? 0 : item.Carts.Where(x => x.Cookie.ExpiredDate < DateTime.Now).Sum(m => m.Amount.Value)) - (item.OrderDetails == null ? 0 : item.OrderDetails.Where(x => x.Order.Status.Value == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == 0 || x.IsDelete == null)).Sum(m => m.Amount.Value));
+        int amount = item.Amount.Value - (item.Carts == null ? 0 : item.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now).Sum(m => m.Amount.Value));
         if (amount > 0)
         {
             <option value="@item.Id">
-                VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK
+                VN : @item.Size.VN - US : @item.Size.US - UK : @item.Size.UK (Còn @amount)
             </option> }
         else
         {

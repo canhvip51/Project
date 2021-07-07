@@ -180,9 +180,9 @@
                                                             @item.Amount
                                                         }
                                                     </td>*@
-                                                    <td>
-                                                        @item.Price
-                                                    </td>
+                                                <td>
+                                                    @string.Format("{0:#,0}", item.Price) VNĐ
+                                                </td>
                                                     <td>
                                                         @*@if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
                                                         {

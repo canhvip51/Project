@@ -10,8 +10,11 @@
         cursor: pointer !important;
     }
 </style>
-<label>Tổng kết quả tìm kiếm : @ViewBag.count</label><br />
-<label>Tổng tiền theo tìm kiếm : @ViewBag.revenue</label>
+<label>Tổng kết quả tìm kiếm : @ViewBag.count</label>
+<br />
+<label>
+    Tổng tiền theo tìm kiếm :  @string.Format("{0:#,0}", ViewBag.revenue) VNĐ
+</label>
 <table class="table table-bordered table-responsive-sm  table-hover">
     <thead>
         <tr>
@@ -81,7 +84,7 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" onclick="window.location.href = '/Admin/Order/Detail?id=@item.Id'">Chi tiết đơn hàng</a>
-                            @if (item.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && item.Type==LibData.Configuration.ViewConfig.PREPAY_INT)
+                            @if (item.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && item.Type == LibData.Configuration.ViewConfig.PREPAY_INT)
                             {
                                 <a class="dropdown-item" onclick="Paid(@item.Id,@item.Code)">Thanh toán</a>
                             }
