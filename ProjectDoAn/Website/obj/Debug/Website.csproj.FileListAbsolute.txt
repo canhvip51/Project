@@ -226,8 +226,8 @@ G:\Project\ProjectDoAn\Website\bin\System.Web.Webpages.Deployment.xml
 G:\Project\ProjectDoAn\Website\bin\System.Web.Webpages.Razor.xml
 G:\Project\ProjectDoAn\Website\bin\System.Web.Helpers.xml
 G:\Project\ProjectDoAn\Website\bin\System.Web.Mvc.xml
-G:\Project\ProjectDoAn\Website\obj\Debug\Website.csprojAssemblyReference.cache
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.CopyComplete
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.dll
 G:\Project\ProjectDoAn\Website\obj\Debug\Website.pdb
+G:\Project\ProjectDoAn\Website\obj\Debug\Website.csproj.AssemblyReference.cache

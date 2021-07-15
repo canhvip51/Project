@@ -50,7 +50,7 @@
             @item.ImportDetails.Sum(x => x.Amount.Value)
         </td>
         <td>
-            @item.Price
+            @(string.Format("{0:#,0}", item.Price)+ " VNĐ")
         </td>
         <td>
             <div class="btn-group">

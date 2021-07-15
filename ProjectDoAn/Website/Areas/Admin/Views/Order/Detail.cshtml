@@ -167,13 +167,14 @@
                                                     </td>
                                                     <td>
                                                         @item.Amount
+                                                        <input type="hidden" class="form-control" name="OrderDetails[@i].Amount" max="amount" min="1" value="@item.Amount" />
                                                     </td>
                                                     @*<td>
                                                         @if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
                                                         {
                                                             @item.Amount
                                                             int amount = item.Warehouse.Amount.Value - new LibData.Provider.CartProvider().GetAmount(item.WarehouseId.Value) - new LibData.Provider.OrderDetailProvider().GetAmountWait(item.WarehouseId.Value) + item.Amount.Value;
-                                                            <input type="number" class="form-control" name="OrderDetails[@i].Amount" max="amount" min="1" value="@item.Amount" />
+                                                     
                                                         }
                                                         else
                                                         {
@@ -182,6 +183,7 @@
                                                     </td>*@
                                                 <td>
                                                     @string.Format("{0:#,0}", item.Price) VNĐ
+                                                    <input type="hidden" class="form-control" name="OrderDetails[@i].Price"  value="@item.Price" />
                                                 </td>
                                                     <td>
                                                         @*@if (Model.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)

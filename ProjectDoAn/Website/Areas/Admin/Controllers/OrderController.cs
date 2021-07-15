@@ -394,37 +394,9 @@ namespace Website.Areas.Admin.Controllers
                 }
                 return View(order);
             }
-            //Chỉnh sửa khi đơn hàng đang chờ
+            //đơn hàng đang chờ
             if (order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT)
             {
-                foreach (var item in model.OrderDetails)
-                {
-                    if (item.Amount < 1)
-                    {
-                        ModelState.AddModelError("error", "Lỗi");
-                        break;
-                    }
-                    int amount = 0;
-                    {
-                        LibData.Warehouse warehouse = new LibData.Provider.WarehouseProvider().GetById(item.WarehouseId.Value);
-                        if (warehouse == null)
-                        {
-                            ModelState.AddModelError("error", "Lỗi");
-                            break;
-                        }
-                        else
-                        {
-                            item.Price = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(warehouse.ProductImg.Product.Price / 1000 * (100 - warehouse.ProductImg.Product.Discount) / 100)) * 1000);
-                        }
-                        amount = (warehouse.Carts != null ? warehouse.Carts.Where(x => x.Cookie.ExpiredDate > DateTime.Now && x.Status.Value == 1).ToList().Sum(x => x.Amount.Value) : 0) - (warehouse.OrderDetails != null ? warehouse.OrderDetails.Where(x => x.Order.Status == (int)LibData.Configuration.OrderConfig.Status.WAIT && (x.IsDelete == null || x.IsDelete.Value == 0) && x.WarehouseId != item.WarehouseId).ToList().Sum(x => x.Amount.Value) : 0);
-                        if (item.Amount.Value > warehouse.Amount.Value - amount)
-                        {
-                            ModelState.AddModelError("error", "Sản phẩm" + item.Warehouse.ProductImg.Product.Name.ToString() + " - " + item.Warehouse.ProductImg.Color.ToString() + " VN : " + item.Warehouse.Size.VN.ToString() + " - US : " + item.Warehouse.Size.US.ToString() + " - UK : " + item.Warehouse.Size.UK.ToString() + " chỉ còn " + (item.Warehouse.Amount.Value - amount).ToString());
-                            break;
-                        }
-                        order.OrderDetails.First(x => x.WarehouseId == item.WarehouseId).Amount = item.Amount.Value;
-                    }
-                }
                 order.Status = model.Status;
                 order.Total= model.OrderDetails.Where(x => x.IsDelete == 0 || x.IsDelete == null).Sum(m => m.Price.Value * m.Amount.Value);
             }

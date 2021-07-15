@@ -182,6 +182,7 @@ namespace Website.Controllers
             {
                 ModelState.AddModelError("error", "Lỗi.");
             }
+            model.OrderDetails = listOrderDetail;
             if (ModelState.IsValid)
             {
              
