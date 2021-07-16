@@ -2441,6 +2441,7 @@
     <Content Include="Editor\froala_editor_4.0.2\composer.json" />
     <Content Include="Editor\froala_editor_4.0.2\package.json" />
     <Content Include="Editor\froala_editor_4.0.2\README.md" />
+    <Content Include="Areas\Admin\Views\Dashboard\DashboardProductSize.cshtml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <Content Include="Images\Products\0c3ed1ec-ba14-47c4-b5e8-130fe8a7a473zoomx-invincible-run-flyknit-running-shoe-Xw4M7j.png" />
     <Content Include="Images\Products\0cead4d5-a596-4e37-a37c-aec463ea2c2fwaffle-one-shoe-1SFQwJblack.jpg" />

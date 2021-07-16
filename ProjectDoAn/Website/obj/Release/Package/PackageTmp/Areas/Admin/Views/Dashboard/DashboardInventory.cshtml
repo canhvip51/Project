@@ -24,7 +24,7 @@
                                         if (i != 2)
                                         {
                                             <li class="list-group-item">
-                                                @item.Name - Đã bán : @item.ProductImgs.Where(x => (x.IsDelete == null || x.IsDelete == 0)).Sum(m => m.Warehouses.Sum(x => x.Sold)) - Còn lại @item.ProductImgs.Where(x => (x.IsDelete == null || x.IsDelete == 0)).Sum(m => m.Warehouses.Sum(x => x.Amount))
+                                                @item.Name - Còn lại @item.ProductImgs.Where(x => (x.IsDelete == null || x.IsDelete == 0)).Sum(m => m.Warehouses.Sum(x => x.Amount))
                                             </li>
                                         }
                                         else

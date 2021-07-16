@@ -19,6 +19,17 @@ namespace LibData.Provider
                 return null;
             }
         }
+        public Size GetById(int id)
+        {
+            try
+            {
+                return ApplicationDbContext.Sizes.FirstOrDefault(x => x.Id==id);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public List<Size> GetAllBySex(int sex)
         {
             try

@@ -122,7 +122,7 @@ namespace Website.Areas.Admin.Controllers
             }
             if (!string.IsNullOrEmpty(model.newPass))
             {
-                if (model.newPass.Length>=6)
+                if (model.newPass.Length<6)
                 {
                     ModelState.AddModelError("newPass", "Mật khẩu mới phải ít nhất 6 ký tự");
                 }

@@ -66,10 +66,35 @@ namespace Website.Areas.Admin.Controllers
             List<string> color = new List<string>();
             DateTime dt = DateTime.Now;
             Models.DashboardModel dashboardModel = new Models.DashboardModel();
-            lable.Add("Top 3 sản phẩm bán nhiều trong 3 tháng");
+            lable.Add("Top 3 sản phẩm dự đoán bán chạy");
             result.Add(dashboardProvider.TopBestSale());
-            lable.Add("Top 3 sản phẩm bán ít nhât trong 3 tháng");
+            lable.Add("Top 3 sản phẩm dự đoán bán chậm");
             result.Add(dashboardProvider.TopBadSale());
+            Random r = new Random();
+            int k = r.Next(1, 10);
+            foreach (var item in result)
+            {
+                int p = r.Next(1, 10);
+                k = (k + p) % ExtendConfig.Color.Count;
+                color.Add(ExtendConfig.Color[k]);
+            }
+            dashboardModel.lable = lable;
+            dashboardModel.result = result;
+            dashboardModel.color = color;
+            return View(dashboardModel);
+        }
+        public ActionResult DashboardProductSize()
+        {
+            LibData.Provider.DashboardProvider dashboardProvider = new LibData.Provider.DashboardProvider();
+            List<string> lable = new List<string>();
+            List<dynamic> result = new List<dynamic>();
+            List<string> color = new List<string>();
+            DateTime dt = DateTime.Now;
+            Models.DashboardModel dashboardModel = new Models.DashboardModel();
+            lable.Add("Top 3 size dự đoán bán chạy");
+            result.Add(dashboardProvider.TopBestSize());
+            lable.Add("Top 3 size dự đoán bán chậm");
+            result.Add(dashboardProvider.TopBadSize());
             Random r = new Random();
             int k = r.Next(1, 10);
             foreach (var item in result)

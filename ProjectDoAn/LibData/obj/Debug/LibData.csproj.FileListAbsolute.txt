@@ -41,8 +41,8 @@ G:\Project\ProjectDoAn\LibData\bin\Debug\EntityFramework.dll
 G:\Project\ProjectDoAn\LibData\bin\Debug\EntityFramework.SqlServer.dll
 G:\Project\ProjectDoAn\LibData\bin\Debug\EntityFramework.xml
 G:\Project\ProjectDoAn\LibData\bin\Debug\EntityFramework.SqlServer.xml
-G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.csprojAssemblyReference.cache
 G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.csproj.CoreCompileInputs.cache
 G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.csproj.CopyComplete
 G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.dll
 G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.pdb
+G:\Project\ProjectDoAn\LibData\obj\Debug\LibData.csproj.AssemblyReference.cache

@@ -72,7 +72,14 @@ namespace Website.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("BuyerName", "Xin mời nhập họ tên.");
             }
-            if (!LibData.Configuration.ViewConfig.ListPay.Contains(model.Type.Value))
+            if (model.Type.HasValue)
+            {
+                if (!LibData.Configuration.ViewConfig.ListPay.Contains(model.Type.Value))
+                {
+                    ModelState.AddModelError("Type", "Vui lòng chọn hình thức thanh toán.");
+                }
+            }
+            else
             {
                 ModelState.AddModelError("Type", "Vui lòng chọn hình thức thanh toán.");
             }

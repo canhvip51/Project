@@ -4,7 +4,7 @@
 @model Website.Areas.Admin.Models.DashboardModel
 <!-- Earnings (Monthly) Card Example -->
 <div class="col-12 mb-4">
-    <h5>Bán hàng</h5>
+    <h5>Dự đoán tồn kho</h5>
 </div>
 @for (int i = 0; i < Model.lable.Count; i++)
 {
@@ -23,7 +23,7 @@
                                     {
                                         LibData.Product product = new LibData.Provider.ProductProvider().GetById(item.id);
                                         <li class="list-group-item">
-                                            @product.Name - Đã bán : @item.amount - Còn lại @product.ProductImgs.Where(x => (x.IsDelete == null || x.IsDelete == 0)).Sum(m => m.Warehouses.Sum(x => x.Amount))
+                                            @product.Name - Còn lại @product.ProductImgs.Where(x => (x.IsDelete == null || x.IsDelete == 0)).Sum(m => m.Warehouses.Sum(x => x.Amount))
                                         </li>
                                     }
                                 </ul>

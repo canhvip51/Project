@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  
+    @*<meta name="referrer" content="origin" referrerpolicy="origin">*@
+
     <title>SHOESSHOP - @ViewBag.Title</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400|Roboto:300,400,700">
@@ -88,7 +91,7 @@
         function reS() {
             $("#space-nav").css("height", $("#nav-header").css("height"))
         }
-  
+
     </script>
     <div class="container-fluid" style="min-height:600px">
         <style>
@@ -225,6 +228,7 @@
         var chatbox = document.getElementById('fb-customer-chat');
         chatbox.setAttribute("page_id", "103536411908498");
         chatbox.setAttribute("attribution", "biz_inbox");
+
         window.fbAsyncInit = function () {
             FB.init({
                 xfbml: true,

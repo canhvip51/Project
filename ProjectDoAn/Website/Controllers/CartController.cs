@@ -116,7 +116,14 @@ namespace Website.Controllers
             {
                 ModelState.AddModelError("Phone", "Số điện thoại không phù hợp");
             }
-            if (!ViewConfig.ListPay.Contains(model.Type.Value))
+            if (model.Type.HasValue)
+            {
+                if (!ViewConfig.ListPay.Contains(model.Type.Value))
+                {
+                    ModelState.AddModelError("Type", "Vui lòng chọn hình thức thanh toán.");
+                }
+            }
+            else
             {
                 ModelState.AddModelError("Type", "Vui lòng chọn hình thức thanh toán.");
             }

@@ -3,12 +3,9 @@
 }
 @model Website.Areas.Admin.Models.DashboardModel
 <!-- Earnings (Monthly) Card Example -->
-<div class="col-12 mb-4">
-    <h5>Kho hàng</h5>
-</div>
 @for (int i = 0; i < Model.lable.Count; i++)
 {
-    <div class="col-xl-4 col-md-4 mb-4">
+    <div class="col-xl-6 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100 py-2" style="border-left-color:@Model.color[i] !important">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -19,22 +16,13 @@
                         <div class="mb-0 row text-gray-800">
                             <div class="col-12">
                                 <ul class="list-group">
-                                    @foreach (var item in @Model.result[i] as List<LibData.Product>)
+                                    @foreach (var item in @Model.result[i] as List<LibData.Provider.ModelReport>)
                                     {
-                                        if (i != 2)
-                                        {
-                                            <li class="list-group-item">
-                                                @item.Name - Còn lại @item.ProductImgs.Where(x => (x.IsDelete == null || x.IsDelete == 0)).Sum(m => m.Warehouses.Sum(x => x.Amount))
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li class="list-group-item">
-                                                @item.Name
-                                            </li>
-                                        }
-
-
+                                        LibData.Size size = new LibData.Provider.SizeProvider().GetById(item.id);
+                                        string name = (size.Type.Value == 1 ? "Nam" : "Nữ");
+                                        <li class="list-group-item">
+                                            VN: @size.VN - US: @size.US - UK: @size.UK (@name)
+                                        </li>
                                     }
                                 </ul>
                             </div>

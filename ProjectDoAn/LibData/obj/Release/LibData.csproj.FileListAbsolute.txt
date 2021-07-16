@@ -9,4 +9,4 @@ G:\Project\ProjectDoAn\LibData\obj\Release\LibData.csproj.CoreCompileInputs.cach
 G:\Project\ProjectDoAn\LibData\obj\Release\LibData.csproj.CopyComplete
 G:\Project\ProjectDoAn\LibData\obj\Release\LibData.dll
 G:\Project\ProjectDoAn\LibData\obj\Release\LibData.pdb
-G:\Project\ProjectDoAn\LibData\obj\Release\LibData.csprojAssemblyReference.cache
+G:\Project\ProjectDoAn\LibData\obj\Release\LibData.csproj.AssemblyReference.cache
